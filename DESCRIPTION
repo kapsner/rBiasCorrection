@@ -17,3 +17,5 @@ Imports:
     polynom,
     ggpubr
 RoxygenNote: 6.1.1
+Suggests: 
+    testthat

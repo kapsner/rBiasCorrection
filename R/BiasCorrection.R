@@ -83,7 +83,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type=1, c
     rv$vec_cal <- cal_type_1[["vec_cal"]]
 
   } else if (type == 2){
-    print("The correction of PCR measurement Biases of this type of data is not implemented yet.")
+    return("The correction of PCR measurement Biases of this type of data is not implemented yet.")
   } else {
     return("ERROR. Please specify a valid type of data to correct (1 or 2).")
   }
