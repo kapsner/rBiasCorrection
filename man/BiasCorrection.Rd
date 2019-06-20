@@ -2,7 +2,7 @@
 % Please edit documentation in R/BiasCorrection.R
 \name{BiasCorrection}
 \alias{BiasCorrection}
-\title{Correct PCR Bias in Quantitative DNA Methylation Analyses.}
+\title{Correct PCR-Bias in Quantitative DNA Methylation Analyses.}
 \usage{
 BiasCorrection(experimental, calibration, samplelocusname, type = 1,
   csvdir = "./csvdir", plotdir = "./plotdir",
