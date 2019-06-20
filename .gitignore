@@ -1,0 +1,8 @@
+data-raw/
+data-raw/devstuffs.R
+csvdir
+plotdir
+log.txt
+*.Rproj
+.Rhistory
+.Rproj.user
