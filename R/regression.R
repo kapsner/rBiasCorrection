@@ -73,20 +73,20 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL){
     }
 
 
-    p <- ggplot(data=df_agg, aes(x = as.numeric(as.character(true_methylation)), y = as.numeric(as.character(CpG)))) +
-      geom_point() +
-      ylab(custom_ylab) +
-      xlab("% actual methylation") +
-      ggtitle(paste("CpG-site:", vec_cal[i])) +
-      geom_text(data = data.frame(),
-                aes(x=-Inf, y=Inf, hjust=0, vjust = 1),
-                label = paste0(" Cubic:\n",
-                               "  SSE: ", round(result_list[[vec_cal[i]]]$SSE_cubic, 2),
-                               "\n  R²: ", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2),
-                               "\n\n Hyperbolic:\n",
-                               "  SSE: ", round(result_list[[vec_cal[i]]]$SSE_hyper, 2),
-                               "\n  R²: ", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)),
-                size = 3.5)
+    p <- ggplot2::ggplot(data=df_agg, ggplot2::aes(x = as.numeric(as.character(true_methylation)), y = as.numeric(as.character(CpG)))) +
+      ggplot2::geom_point() +
+      ggplot2::ylab(custom_ylab) +
+      ggplot2::xlab("% actual methylation") +
+      ggplot2::ggtitle(paste("CpG-site:", vec_cal[i])) +
+      ggplot2:: geom_text(data = data.frame(),
+                          ggplot2::aes(x=-Inf, y=Inf, hjust=0, vjust = 1),
+                          label = paste0(" Cubic:\n",
+                                         "  SSE: ", round(result_list[[vec_cal[i]]]$SSE_cubic, 2),
+                                         "\n  R²: ", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2),
+                                         "\n\n Hyperbolic:\n",
+                                         "  SSE: ", round(result_list[[vec_cal[i]]]$SSE_hyper, 2),
+                                         "\n  R²: ", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)),
+                          size = 3.5)
     plot.listR[[i]] <- p
   }
   return(list("plot_list" = plot.listR, "result_list" = result_list))

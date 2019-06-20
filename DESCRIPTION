@@ -3,7 +3,7 @@ Title: PCR Bias Correction
 Version: 0.0.900
 Authors@R: person('Lorenz', 'Kapsner', email =
  'lorenz.kapsner@web.de', role = c('cre', 'aut'))
-Description: Correct PCR Bias in Quantitative DNA Methylation Analyses.
+Description: Correct PCR-Bias in Quantitative DNA Methylation Analyses.
 License: GPL-3
 LazyData: true
 URL: https://github.com/kapsner/PCRBiasCorrection
@@ -17,5 +17,3 @@ Imports:
     polynom,
     ggpubr
 RoxygenNote: 6.1.1
-Suggests: 
-    testthat

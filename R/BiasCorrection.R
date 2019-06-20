@@ -40,8 +40,6 @@
 #' @return TRUE, if the correction of PCR measurment biases succeeds. If the correction fails, an error message
 #'   is returned.
 #'
-#' @import data.table ggplot2 polynom ggpubr magrittr shiny
-#'
 #' @example
 #' \dontrun{
 #' BiasCorrection("type1_experimentaldata.csv", "type1_calibrationdata.csv", samplelocusname = "BRAF")

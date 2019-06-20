@@ -86,15 +86,15 @@ createPlots <- function(plotlist, f, rv, filename){
     writeLog(paste0(message, "  \n", msg2))
 
     return(print(plotlist +
-                   stat_function(fun = hyperbolic_equation, args = list(b=b, y0=y0, y1=y1, m0=m0, m1=m1), geom = "line", aes(color = "Hyperbolic Regression"), size=1.06) +
-                   stat_function(fun = cubic_equation, args = list(c=c), geom = "line", aes(color = "Cubic Regression"), size=1.06) +
-                   geom_line(aes(x=plotlist$data$true_methylation, y=plotlist$data$true_methylation, color = "unbiased"), linetype="dashed", size=1.04) +
-                   labs(color = element_blank()) +
-                   scale_color_manual(values = c("#E64B35FF", "#4DBBD5FF", "#00A087FF"),
-                                      labels = c("Cubic Regression", "Hyperbolic Regression", "unbiased")) +
+                   ggplot2::stat_function(fun = hyperbolic_equation, args = list(b=b, y0=y0, y1=y1, m0=m0, m1=m1), geom = "line", ggplot2::aes(color = "Hyperbolic Regression"), size=1.06) +
+                   ggplot2::stat_function(fun = cubic_equation, args = list(c=c), geom = "line", ggplot2::aes(color = "Cubic Regression"), size=1.06) +
+                   ggplot2::geom_line(ggplot2::aes(x=plotlist$data$true_methylation, y=plotlist$data$true_methylation, color = "unbiased"), linetype="dashed", size=1.04) +
+                   ggplot2::labs(color = ggplot2::element_blank()) +
+                   ggplot2::scale_color_manual(values = c("#E64B35FF", "#4DBBD5FF", "#00A087FF"),
+                                               labels = c("Cubic Regression", "Hyperbolic Regression", "unbiased")) +
                    #scale_colour_manual("Regression:", values = c(Cubic = "indianred1", Hyperbolic = "mediumspringgreen", unbiased = "lightblue")) +
                    ggpubr::theme_pubr() +
-                   theme(plot.title = element_text(hjust = 0.5))
+                   ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
     ))
   },
   filename = filename,
@@ -159,17 +159,17 @@ createBarErrorPlots <- function(statstable_pre, statstable_post, rv, type, b=NUL
       }
 
       shiny::plotPNG({
-        p <- ggplot(dt, aes(x = regressiontype, y=as.numeric(as.character(value)), fill=regressiontype)) +
+        p <- ggplot2::ggplot(dt, ggplot2::aes(x = regressiontype, y=as.numeric(as.character(value)), fill=regressiontype)) +
           #scale_fill_manual(values = c("Cubic Regression" = "indianred1", "Hyperbolic Regression" = "mediumspringgreen")) +
-          geom_col()+
-          geom_text(aes(label = as.character(value), y=as.numeric(as.character(value))),  vjust = 3) +
-          ylab("% average relative error") +
-          labs(title = paste0("Quantification Error ", vec_cal[i]), fill = element_blank()) +
-          scale_fill_manual(values = values) +
+          ggplot2::geom_col()+
+          ggplot2::geom_text(ggplot2::aes(label = as.character(value), y=as.numeric(as.character(value))),  vjust = 3) +
+          ggplot2::ylab("% average relative error") +
+          ggplot2::labs(title = paste0("Quantification Error ", vec_cal[i]), fill = ggplot2::element_blank()) +
+          ggplot2::scale_fill_manual(values = values) +
           ggpubr::theme_pubr() +
-          theme(axis.title.x = element_blank(),
-                legend.position = "none",
-                plot.title = element_text(hjust = 0.5)) #,
+          ggplot2::theme(axis.title.x = ggplot2::element_blank(),
+                         legend.position = "none",
+                         plot.title = ggplot2::element_text(hjust = 0.5)) #,
         #axis.ticks.x = element_blank(),
         #axis.text.x = element_blank())
         # print whole plot in return, otherwise it will fail
