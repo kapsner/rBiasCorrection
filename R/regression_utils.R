@@ -1,4 +1,4 @@
-# Correct PCR-Bias in Quantitative DNA Methylation Analyses.
+# PCRBiasCorrection: Correct PCR-Bias in Quantitative DNA Methylation Analyses.
 # Copyright (C) 2019 Lorenz Kapsner
 #
 # This program is free software: you can redistribute it and/or modify
@@ -45,11 +45,17 @@ hyperbolic_equation_solved <- function(y, b, y0, y1, m0, m1){
   return(((m0 * b * (y - y1)) + (m1 * (y0 - y))) / ((b * (y - y1)) - y + y0))
 }
 
+#' @title solvingEquations helper function
+#'
+#' @description Solving hyperbolic and cubic regression.
+#'
+#' @export
+#'
 # perform fitting of regressions to experimental data
-solving_equations <- function(datatable, regmethod, type, rv, mode=NULL){
-  writeLog("Entered 'solving_equations'-Function")
+solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
+  writeLog_("Entered 'solving_equations'-Function")
 
-  substitutions <- substitutions_create()
+  substitutions <- substitutionsCreate_()
 
   first_colname <- colnames(datatable)[1]
 
@@ -72,7 +78,7 @@ solving_equations <- function(datatable, regmethod, type, rv, mode=NULL){
     # if user selects cubic regression for calculation manually in GUI
     if (regmethod[Name==i,better_model] == 1){
       message <- paste("Solving cubic regression for", i)
-      writeLog(message)
+      writeLog_(message)
 
       # get parameters
       ax3 <- rv$result_list[[i]][["Coef_cubic"]][["ax3"]]
@@ -120,7 +126,7 @@ solving_equations <- function(datatable, regmethod, type, rv, mode=NULL){
 
               # break here, when first fitting value is found
               checkpoint <- TRUE
-              writeLog(paste0(msg1, "  \nRoot: ", round(find_x[[k]], 3), "  \n--> ", msg2))
+              writeLog_(paste0(msg1, "  \nRoot: ", round(find_x[[k]], 3), "  \n--> ", msg2))
               break
 
             } else {
@@ -192,7 +198,7 @@ solving_equations <- function(datatable, regmethod, type, rv, mode=NULL){
                                                              replacement = replacement))
           }
 
-          writeLog(paste0(msg1, "  \n  \n", msg2, "  \n", msg3))
+          writeLog_(paste0(msg1, "  \n  \n", msg2, "  \n", msg3))
         }
       }
 
@@ -200,7 +206,7 @@ solving_equations <- function(datatable, regmethod, type, rv, mode=NULL){
 
     } else if (regmethod[Name==i,better_model] == 0){
       message <- paste("Solving hyperbolic regression for", i)
-      writeLog(message)
+      writeLog_(message)
 
       b <- rv$result_list[[i]][["Coef_hyper"]][["b"]]
       y0 <- rv$result_list[[i]][["Coef_hyper"]][["y0"]]
@@ -218,7 +224,7 @@ solving_equations <- function(datatable, regmethod, type, rv, mode=NULL){
         if (h_solv >= 0 & h_solv <= 100){
           msg2 <- "Root in between the borders! Added to results."
           vector <- c(vector, h_solv)
-          writeLog(paste0(msg1, "  \nRoot: ", round(h_solv, 3), "  \n--> ", msg2))
+          writeLog_(paste0(msg1, "  \nRoot: ", round(h_solv, 3), "  \n--> ", msg2))
 
         } else {
           msg2 <- "## WARNING ##\nNo fitting root within the borders found."
@@ -271,7 +277,7 @@ solving_equations <- function(datatable, regmethod, type, rv, mode=NULL){
                                                              replacement = replacement))
           }
 
-          writeLog(paste0(msg1, "  \n  \n", msg2, "  \n", msg3))
+          writeLog_(paste0(msg1, "  \n  \n", msg2, "  \n", msg3))
         }
       }
 

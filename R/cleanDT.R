@@ -1,4 +1,4 @@
-# Correct PCR-Bias in Quantitative DNA Methylation Analyses.
+# PCRBiasCorrection: Correct PCR-Bias in Quantitative DNA Methylation Analyses.
 # Copyright (C) 2019 Lorenz Kapsner
 #
 # This program is free software: you can redistribute it and/or modify
@@ -14,8 +14,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-cleanDT <- function(datatable, description, type) {
-  writeLog("Entered 'cleanDT'-Function")
+
+#' @title cleanDT helper function
+#'
+#' @description Function, that checks the formatting of imported files and prepares them to
+#'   be applicable for the following pcr-bias correction steps.
+#'
+#' @export
+cleanDT_ <- function(datatable, description, type) {
+  writeLog_("Entered 'cleanDT'-Function")
 
   # workaround for vec_cal
   vec_cal <- NULL
@@ -28,17 +35,17 @@ cleanDT <- function(datatable, description, type) {
   # load type 1 data
   if (type == "1") {
     message <- "Importing data of type 1: One locus in many samples (e.g., pyrosequencing data)"
-    writeLog(message)
+    writeLog_(message)
 
     # rename cols, save colnames in vector
     if (description == "calibration"){
       message <- "got calibration data"
-      writeLog(message)
+      writeLog_(message)
       names(datatable)[1] <- "true_methylation"
 
     } else if (description == "experimental") {
       message <- "got experimental data"
-      writeLog(message)
+      writeLog_(message)
       names(datatable)[1] <- "sample_id"
 
     } else {
@@ -49,17 +56,17 @@ cleanDT <- function(datatable, description, type) {
     # load type 2 data
   } else if (type == "2") {
     message <- "Importing data of type 2: Many loci in one sample (e.g., next-gen seq or microarray data)"
-    writeLog(message)
+    writeLog_(message)
 
     # rename cols, save colnames in vector
     if (description == "calibration"){
       message <- "got calibration data"
-      writeLog(message)
+      writeLog_(message)
       names(datatable)[1] <- "locus_id"
 
     } else if (description == "experimental") {
       message <- "got experimental data"
-      writeLog(message)
+      writeLog_(message)
       names(datatable)[1] <- "locus_id"
 
     } else {
@@ -125,7 +132,7 @@ cleanDT <- function(datatable, description, type) {
     # requirements-check: does every repeated measurement of each locus id have
     # the same number of CpG-sites specified?
     if (sum(duplicated(unique(datatable[,CpG_count,by=locus_id])$locus_id)) > 0){
-      writeLog("### ERROR ###\nThe data provided contains locus ids with heterogeneous counts of CpG-sites.")
+      writeLog_("### ERROR ###\nThe data provided contains locus ids with heterogeneous counts of CpG-sites.")
       return(NULL)
     }
 
@@ -143,13 +150,13 @@ cleanDT <- function(datatable, description, type) {
     #   after <- nrow(datatable)
     #   rv$omitnas <- before - after
     #   message <- paste0("Deleted ", rv$omitnas, " row(s) containing missing values from '", description, " data'.")
-    #   writeLog(message)
+    #   writeLog_(message)
     # }
 
     if (description == "calibration"){
       # type 1 data must have at least 4 calibration steps
       if (datatable[,nlevels(factor(true_methylation))] < 4){
-        writeLog("### ERROR ###\nThe data provided contains less than four calibration steps.\nAt least four distinct calibration steps are required to perform bias correction.")
+        writeLog_("### ERROR ###\nThe data provided contains less than four calibration steps.\nAt least four distinct calibration steps are required to perform bias correction.")
         return(NULL)
       }
     }

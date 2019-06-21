@@ -14,11 +14,11 @@ library(data.table)
 test_that("algorithm test, type 1",{
   # experimental data
   exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
-  rv$fileimportExp <- cleanDT(exp_type_1, "experimental", 1)[["dat"]]
+  rv$fileimportExp <- cleanDT_(exp_type_1, "experimental", 1)[["dat"]]
 
   # calibration data
   cal_type_1 <- fread(paste0(prefix, "testdata/cal_type_1.csv"))
-  cal_type_1 <- cleanDT(cal_type_1, "calibration", 1)
+  cal_type_1 <- cleanDT_(cal_type_1, "calibration", 1)
   rv$fileimportCal <- cal_type_1[["dat"]]
   rv$vec_cal <- cal_type_1[["vec_cal"]]
 
@@ -28,14 +28,14 @@ test_that("algorithm test, type 1",{
 
 
   # reconstruct parts from app_plottingUtility.R
-  regression_results <- regressionUtility(rv$fileimportCal, "Testlocus", locus_id = NULL, rv = rv, mode = NULL, headless = TRUE)
+  regression_results <- regressionUtility_(rv$fileimportCal, "Testlocus", locus_id = NULL, rv = rv, mode = NULL, headless = TRUE)
   plotlistR <- regression_results[["plot_list"]]
   rv$result_list <- regression_results[["result_list"]]
 
   regression_results2 <- regression_type1(rv$fileimportCal, rv$vec_cal, mode=NULL)
 
   # save regression statistics to reactive value
-  rv$regStats <- statisticsList(rv$result_list)
+  rv$regStats <- statisticsList_(rv$result_list)
 
   # some tests
   expect_type(regression_results, "list")
@@ -53,12 +53,12 @@ test_that("algorithm test, type 1",{
 
   # calculate final results
   # default rv$choices_list == rv$regStats[,.(Name, better_model)]
-  solved_eq <- solving_equations(rv$fileimportExp, rv$regStats[,c("Name", "better_model"),with=F], type = 1, rv = rv)
+  solved_eq <- solvingEquations_(rv$fileimportExp, rv$regStats[,c("Name", "better_model"),with=F], type = 1, rv = rv)
   rv$finalResults <- solved_eq[["results"]]
   rv$substitutions <- solved_eq[["substitutions"]]
 
   # Calibration Data (to show corrected calibration curves)
-  solved_eq2 <- solving_equations(rv$fileimportCal, rv$regStats[,c("Name", "better_model"),with=F], type = 1, rv = rv, mode = "corrected")
+  solved_eq2 <- solvingEquations_(rv$fileimportCal, rv$regStats[,c("Name", "better_model"),with=F], type = 1, rv = rv, mode = "corrected")
   rv$fileimportCal_corrected <- solved_eq2[["results"]]
   colnames(rv$fileimportCal_corrected) <- colnames(rv$fileimportCal)
 

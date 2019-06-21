@@ -1,4 +1,4 @@
-# Correct PCR-Bias in Quantitative DNA Methylation Analyses.
+# PCRBiasCorrection: Correct PCR-Bias in Quantitative DNA Methylation Analyses.
 # Copyright (C) 2019 Lorenz Kapsner
 #
 # This program is free software: you can redistribute it and/or modify
@@ -15,12 +15,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-regressionUtility <- function(data, samplelocusname, locus_id = NULL, rv, mode = NULL, headless = FALSE){
+#' @title regressionUtility helper function
+#'
+#' @description Function to carry out the regression calculations.
+#'
+#' @export
+#'
+regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode = NULL, headless = FALSE){
 
   if (!is.null(locus_id)){
-    writeLog(paste0("### Starting with regression calculations ###\n\nLocus ID: ", locus_id))
+    writeLog_(paste0("### Starting with regression calculations ###\n\nLocus ID: ", locus_id))
   } else {
-    writeLog(paste0("### Starting with regression calculations ###"))
+    writeLog_(paste0("### Starting with regression calculations ###"))
   }
 
 
@@ -46,7 +52,7 @@ regressionUtility <- function(data, samplelocusname, locus_id = NULL, rv, mode =
 }
 
 regression_type1 <- function(datatable, vec_cal, mode=NULL){
-  writeLog("Entered 'regression_type1'-Function")
+  writeLog_("Entered 'regression_type1'-Function")
 
   # result_list
   result_list <- list()
@@ -55,12 +61,12 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL){
 
   for (i in 1:length(vec_cal)){
     message <- paste0("# CpG-site: ", vec_cal[i])
-    writeLog(message)
+    writeLog_(message)
     df_agg <- na.omit(create_agg_df(datatable, vec_cal[i]))
 
     print(df_agg)
-    writeLog(paste("Logging df_agg:", vec_cal[i]))
-    writeLog(df_agg)
+    writeLog_(paste("Logging df_agg:", vec_cal[i]))
+    writeLog_(df_agg)
 
     result_list[[vec_cal[i]]] <- hyperbolic_regression(df_agg, vec_cal[i])
     # append result_list

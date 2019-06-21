@@ -1,4 +1,4 @@
-# Correct PCR-Bias in Quantitative DNA Methylation Analyses.
+# PCRBiasCorrection: Correct PCR-Bias in Quantitative DNA Methylation Analyses.
 # Copyright (C) 2019 Lorenz Kapsner
 #
 # This program is free software: you can redistribute it and/or modify
@@ -25,7 +25,7 @@ hyperbolic_equation <- function(x, b, y0, y1, m0, m1){
 
 # find best parameters for hyperbolic regression
 hyperbolic_regression <- function(df_agg, vec){
-  writeLog("Entered 'hyperbolic_regression'-Function")
+  writeLog_("Entered 'hyperbolic_regression'-Function")
 
   # y0 <- df_agg[true_methylation==0, CpG]
   # y1 <- df_agg[true_methylation==100, CpG]

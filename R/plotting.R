@@ -1,4 +1,4 @@
-# Correct PCR-Bias in Quantitative DNA Methylation Analyses.
+# PCRBiasCorrection: Correct PCR-Bias in Quantitative DNA Methylation Analyses.
 # Copyright (C) 2019 Lorenz Kapsner
 #
 # This program is free software: you can redistribute it and/or modify
@@ -14,14 +14,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
+#' @title plottingUtility helper function
+#'
+#' @description Function to carry out the plotting of the calibrations curves.
+#'
+#' @export
+#'
 # plotting utility
-plottingUtility <- function(data, plotlistR, type, samplelocusname, locus_id = NULL, rv, mode=NULL, headless=FALSE, plotdir){
+plottingUtility_ <- function(data, plotlistR, type, samplelocusname, locus_id = NULL, rv, mode=NULL, headless=FALSE, plotdir){
 
   if (!is.null(locus_id)){
-    writeLog(paste0("### Starting with plotting ###\n\nLocus ID: ", locus_id))
+    writeLog_(paste0("### Starting with plotting ###\n\nLocus ID: ", locus_id))
   } else {
-    writeLog(paste0("### Starting with plotting ###"))
+    writeLog_(paste0("### Starting with plotting ###"))
   }
 
   # get number of CpG-sites
@@ -44,7 +49,7 @@ plottingUtility <- function(data, plotlistR, type, samplelocusname, locus_id = N
       plotmessage <- paste0("Locus ID: ", locus_id, " --> Creating ", msg_suffix, "plot No. ", f)
     }
 
-    writeLog(paste(plotmessage, "- filename:", filename))
+    writeLog_(paste(plotmessage, "- filename:", filename))
 
     # workaround to hide shiny-stuff, when going headless
     if (isFALSE(headless)){
@@ -76,14 +81,14 @@ createPlots <- function(plotlist, f, rv, filename){
 
     message <- paste0("# CpG-site: ", rv$vec_cal[f])
     msg2 <- paste("Using bias_weight =", b, ", y0 =", y0, ", y1 =", y1)
-    writeLog(paste0(message, "  \n", msg2))
+    writeLog_(paste0(message, "  \n", msg2))
 
     # cubic parameters
     c <- sapply(rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]], unlist)[c(4:1)]
     #c <- sapply(rv$result_list[[rv$vec_cal[i]]][["Coef_cubic"]], `[`)[c(4:1)]
     message <- paste0("# CpG-site: ", rv$vec_cal[f])
     msg2 <- paste("Using c =", paste(c, collapse = ", "))
-    writeLog(paste0(message, "  \n", msg2))
+    writeLog_(paste0(message, "  \n", msg2))
 
     return(print(plotlist +
                    ggplot2::stat_function(fun = hyperbolic_equation, args = list(b=b, y0=y0, y1=y1, m0=m0, m1=m1), geom = "line", ggplot2::aes(color = "Hyperbolic Regression"), size=1.06) +
@@ -102,7 +107,14 @@ createPlots <- function(plotlist, f, rv, filename){
   width = 450)
 }
 
-createBarErrorPlots <- function(statstable_pre, statstable_post, rv, type, b=NULL, headless = FALSE, plotdir){
+
+#' @title createBarErrorPlots helper function
+#'
+#' @description Function to create relative-error bar plots.
+#'
+#' @export
+#'
+createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NULL, headless = FALSE, plotdir){
 
   stats_pre <- statstable_pre[,.(Name, relative_error, better_model)]
   stats_post <- statstable_post[,.(Name, relative_error, better_model)]
@@ -127,7 +139,7 @@ createBarErrorPlots <- function(statstable_pre, statstable_post, rv, type, b=NUL
 
 
       plotmessage <- paste("Creating barplot No.", i)
-      writeLog(paste(plotmessage, "- filename:", filename))
+      writeLog_(paste(plotmessage, "- filename:", filename))
 
       dt <- data.table(timepoint = character(0), value = numeric(0), regressiontype = character(0))
 
@@ -180,6 +192,6 @@ createBarErrorPlots <- function(statstable_pre, statstable_post, rv, type, b=NUL
       width = 450)
     }, 1:length_vector)
   } else {
-    writeLog("Error during creating bar plot; Names are not identical.")
+    writeLog_("Error during creating bar plot; Names are not identical.")
   }
 }

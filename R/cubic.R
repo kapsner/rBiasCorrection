@@ -1,4 +1,4 @@
-# Correct PCR-Bias in Quantitative DNA Methylation Analyses.
+# PCRBiasCorrection: Correct PCR-Bias in Quantitative DNA Methylation Analyses.
 # Copyright (C) 2019 Lorenz Kapsner
 #
 # This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@ cubic_equation <- function(x, c){
 
 # find best parameters for cubic regression
 cubic_regression <- function(df_agg, vec) {
-  writeLog("Entered 'cubic_regression'-Function")
+  writeLog_("Entered 'cubic_regression'-Function")
 
   #pol_reg <- lm(true_methylation ~ poly(CpG, degree = 3, raw = T), data = df_agg)
   pol_reg <- lm(CpG ~ true_methylation + I(true_methylation^2) + I(true_methylation^3), data = df_agg)
