@@ -5,7 +5,7 @@
 \title{Correct PCR-Bias in Quantitative DNA Methylation Analyses.}
 \usage{
 BiasCorrection(experimental, calibration, samplelocusname, type = 1,
-  csvdir = "./csvdir", plotdir = "./plotdir",
+  method = "best", csvdir = "./csvdir", plotdir = "./plotdir",
   logfilename = "./log.txt")
 }
 \arguments{
@@ -17,7 +17,7 @@ Path to the file containing the raw methylation values of the calibration sample
 In type 2 data (many loci in one sample, e.g. next-generation sequencing data or microarray data):
 Path to the folder that contains at least 4 calibration files (one file per calibration step).
 Please refere to the FAQ for more detailed information on the specific file requirements
-(\url{https://raw.githubusercontent.com/kapsner/BiasCorrector/master/FAQ.md}).}
+(\url{https://raw.githubusercontent.com/kapsner/PCRBiasCorrection/master/FAQ.md}).}
 
 \item{samplelocusname}{A character string. In type 1 data: locus name - name of the gene locus under investigation.
 In type 2 data: sample name - name of the sample under investigation.}
@@ -25,9 +25,20 @@ In type 2 data: sample name - name of the sample under investigation.}
 \item{type}{A single integer. Type of data to be corrected: either "1" (one locus in many samples, e.g. pyrosequencing data)
 or "2" (many loci in one sample, e.g. next-generation sequencing data or microarray data).}
 
-\item{csvdir}{A character string. Path to a folder to store the resulting tables. Default = "./csvdir".}
+\item{method}{A character string. Method used to correct the PCR bias of the samples under investigation.
+One of "best" (default), "hyperbolic" or "cubic". If the method is set to "best" (short: "b"), the algorithm will
+automatically determine the best fitting type of regression for each CpG site based on the sum of squared
+errors (SSE, \url{https://en.wikipedia.org/wiki/Residual_sum_of_squares}). If the method is set to
+"hyperbolic" (short: "h") or "cubic" (short: "c"), the PCR-bias correction of all samples under investigation will be performed
+with the hyperbolic or the cubic regression respectively.}
 
-\item{plotdir}{A character string. Path to a folder to store the resulting plots. Default = "./plotdir".}
+\item{csvdir}{A character string. Directory to store the resulting tables. Default = "./csvdir".
+CAUTION: This directory will be newly created on every call of the function. Any preexisting files
+will be deleted without a warning.}
+
+\item{plotdir}{A character string. Directory to store the resulting plots. Default = "./plotdir".
+CAUTION: This directory will be newly created on every call of the function. Any preexisting files
+will be deleted without a warning.}
 
 \item{logfilename}{A character string. Path to a file to save the log messages. Default = "./log.txt"}
 }

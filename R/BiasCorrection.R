@@ -28,13 +28,23 @@
 #'   In type 2 data (many loci in one sample, e.g. next-generation sequencing data or microarray data):
 #'   Path to the folder that contains at least 4 calibration files (one file per calibration step).
 #'   Please refere to the FAQ for more detailed information on the specific file requirements
-#'   (\url{https://raw.githubusercontent.com/kapsner/BiasCorrector/master/FAQ.md}).
+#'   (\url{https://raw.githubusercontent.com/kapsner/PCRBiasCorrection/master/FAQ.md}).
 #' @param samplelocusname A character string. In type 1 data: locus name - name of the gene locus under investigation.
 #'   In type 2 data: sample name - name of the sample under investigation.
 #' @param type A single integer. Type of data to be corrected: either "1" (one locus in many samples, e.g. pyrosequencing data)
 #'   or "2" (many loci in one sample, e.g. next-generation sequencing data or microarray data).
-#' @param csvdir A character string. Path to a folder to store the resulting tables. Default = "./csvdir".
-#' @param plotdir A character string. Path to a folder to store the resulting plots. Default = "./plotdir".
+#' @param method A character string. Method used to correct the PCR bias of the samples under investigation.
+#'   One of "best" (default), "hyperbolic" or "cubic". If the method is set to "best" (short: "b"), the algorithm will
+#'   automatically determine the best fitting type of regression for each CpG site based on the sum of squared
+#'   errors (SSE, \url{https://en.wikipedia.org/wiki/Residual_sum_of_squares}). If the method is set to
+#'   "hyperbolic" (short: "h") or "cubic" (short: "c"), the PCR-bias correction of all samples under investigation will be performed
+#'   with the hyperbolic or the cubic regression respectively.
+#' @param csvdir A character string. Directory to store the resulting tables. Default = "./csvdir".
+#'   CAUTION: This directory will be newly created on every call of the function. Any preexisting files
+#'   will be deleted without a warning.
+#' @param plotdir A character string. Directory to store the resulting plots. Default = "./plotdir".
+#'   CAUTION: This directory will be newly created on every call of the function. Any preexisting files
+#'   will be deleted without a warning.
 #' @param logfilename A character string. Path to a file to save the log messages. Default = "./log.txt"
 #'
 #' @return TRUE, if the correction of PCR measurment biases succeeds. If the correction fails, an error message
@@ -47,7 +57,51 @@
 #'
 #' @export
 
-BiasCorrection <- function(experimental, calibration, samplelocusname, type=1, csvdir="./csvdir", plotdir="./plotdir", logfilename="./log.txt"){
+BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1, method = "best", csvdir = "./csvdir", plotdir = "./plotdir", logfilename = "./log.txt"){
+
+  # check arguments here
+  if (is.character(experimental)){
+    # TODO check for csv file here
+  } else {
+    return("Please provide an appropriate character string for the argument 'experimental'.")
+  }
+  if (is.character(calibration)){
+    # TODO check for csv file here
+  } else {
+    return("Please provide an appropriate character string for the argument 'calibration'.")
+  }
+  if (!is.character(samplelocusname)){
+    return("Please provide an appropriate character string for the argument 'samplelocusname'.")
+  }
+  if (!is.numeric(type) || type < 1 || type > 2){
+    return("Please provide an appropriate type of data to be corrected (either '1' or '2').")
+  }
+  if (is.character(method)){
+    if (method %in% c("best", "hyperbolic", "cubic", "b", "h", "c")){
+      # do stuff here
+    } else {
+      return("Please provide an appropriate character string for the argument 'method': one of 'best' ('b'), 'hyperbolic' ('h') or 'cubic' ('c').")
+    }
+  } else {
+    return("Please provide an appropriate character string for the argument 'method'.")
+  }
+  if (is.character(csvdir)){
+    # TODO check for spaces and points here
+  } else {
+    return("Please provide an appropriate character string for the argument 'csvdir'.")
+  }
+  if (is.character(plotdir)){
+    # TODO check for spaces and points here
+  } else {
+    return("Please provide an appropriate character string for the argument 'plotdir'.")
+  }
+  if (is.character(logfilename)){
+    # TODO check for txt file here
+  } else {
+    return("Please provide an appropriate character string for the argument 'logfilename'.")
+  }
+
+
   # fix directories to work with all functions
   # therefore we need a "/" at the end of the dir-string
   plotdir <- gsub("([[:alnum:]])$", "\\1/", plotdir)
@@ -62,17 +116,17 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type=1, c
   rv <- list()
 
   # save locusname
-  rv$sampleLocusName <- samplelocusname
+  rv$sampleLocusName <- handleTextInput(samplelocusname)
 
   # load data
   if (type == 1){
     # experimental data
-    rv$fileimportExp <- cleanDT(fread(experimental, header = T), "experimental", 1)[["dat"]]
+    rv$fileimportExp <- cleanDT(data.table::fread(experimental, header = T), "experimental", 1)[["dat"]]
     # write raw data to file
     writeCSV(rv$fileimportExp, paste0(csvdir, "raw_experimental_data.csv"))
 
     # calibration data
-    cal_type_1 <- cleanDT(fread(calibration, header = T), "calibration", 1)
+    cal_type_1 <- cleanDT(data.table::fread(calibration, header = T), "calibration", 1)
     rv$fileimportCal <- cal_type_1[["dat"]]
     # write raw data to file
     writeCSV(rv$fileimportCal, paste0(csvdir, "raw_calibration_data.csv"))
@@ -104,8 +158,15 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type=1, c
                     gsub("\\:", "", substr(Sys.time(), 12, 16)), ".csv"))
 
     # BiasCorrect experimental data with derived calibration curves
-    # default selection of the model with the lower sse:
-    rv$choices_list <- rv$regStats[,c("Name", "better_model"),with=F]
+    if (method %in% c("best", "b")){
+      # default selection of the model with the lower sse:
+      rv$choices_list <- rv$regStats[,c("Name", "better_model"),with=F]
+    } else if (method %in% c("hyperbolic", "h")){
+      rv$choices_list <- rv$regStats[,c("Name"), with=F][,better_model:=0]
+    } else if (method %in% c("cubic", "c")){
+      rv$choices_list <- rv$regStats[,c("Name"), with=F][,better_model:=1]
+    }
+
     solved_eq <- solving_equations(rv$fileimportExp, rv$choices_list, type = 1, rv = rv)
     rv$finalResults <- solved_eq[["results"]]
     # write final results to csv

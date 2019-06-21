@@ -131,3 +131,15 @@ substitutions_create <- function(){
                               replacement = character())
   return(substitutions)
 }
+
+# handle user text inputs
+handleTextInput <- function(textinput){
+  textinput <- gsub("[^[:alnum:]]", "", textinput)
+
+  # max 15 chars:
+  if (nchar(textinput) > 15){
+    textinput <- substr(textinput, 1, 15)
+  }
+
+  return(textinput)
+}
