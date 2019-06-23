@@ -25,30 +25,30 @@ cubic_regression <- function(df_agg, vec) {
   writeLog_("Entered 'cubic_regression'-Function")
 
   #pol_reg <- lm(true_methylation ~ poly(CpG, degree = 3, raw = T), data = df_agg)
-  pol_reg <- lm(CpG ~ true_methylation + I(true_methylation^2) + I(true_methylation^3), data = df_agg)
-  cof <- coefficients(pol_reg)
+  pol_reg <- stats::lm(CpG ~ true_methylation + I(true_methylation^2) + I(true_methylation^3), data = df_agg)
+  cof <- stats::coefficients(pol_reg)
 
   # true y-values
-  true_levels <- df_agg[,true_methylation]
+  true_levels <- df_agg[,get("true_methylation")]
 
   # correct values
   fitted_values <- cubic_equation(true_levels, c = cof)
 
   # fitted values
-  df_agg[, fitted := fitted_values]
+  df_agg[, ("fitted") := fitted_values]
 
   # sum of squares between fitted and measuerd values
-  df_agg[,CpG_fitted_diff := CpG-fitted]
-  df_agg[,squared_error := I((CpG_fitted_diff)^2)]
+  df_agg[,("CpG_fitted_diff") := get("CpG")-get("fitted")]
+  df_agg[,("squared_error") := I((get("CpG_fitted_diff"))^2)]
 
   # sum of squared errors = residual sum of squares
-  SSE <- as.numeric(df_agg[,sum(squared_error, na.rm = T)])
+  SSE <- as.numeric(df_agg[,sum(get("squared_error"), na.rm = T)])
 
   # squared dist to mean
-  df_agg[,squared_dist_mean := sdm(fitted)]
+  df_agg[,("squared_dist_mean") := sdm(get("fitted"))]
 
   # total sum of squares
-  TSS <- as.numeric(df_agg[,sum(squared_dist_mean, na.rm = T)])
+  TSS <- as.numeric(df_agg[,sum(get("squared_dist_mean"), na.rm = T)])
 
 
   # sum of squared errors

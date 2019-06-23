@@ -78,6 +78,8 @@ cleanDT_ <- function(datatable, description, type) {
     return(NULL)
   }
 
+  #print(is.data.table(datatable))
+
   # all other columns are numeric
   vec <- names(datatable)
   datatable[, (vec) := lapply(.SD, function(x){gsub(",", ".", x)}), .SDcols = vec]
@@ -138,7 +140,7 @@ cleanDT_ <- function(datatable, description, type) {
 
     if (description == "experimental"){
       # order experimental data by CpG-Count in decreasing order
-      datatable <- datatable[order(CpG_count, decreasing = T)]
+      datatable <- datatable[order(get("CpG_count"), decreasing = T)]
     }
   }
 

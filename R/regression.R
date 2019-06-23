@@ -34,12 +34,12 @@ regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode 
   if (isFALSE(headless)){
     # for plotting: basic idea and some code snippets from:
     # https://gist.github.com/wch/5436415/
-    regression <- reactive({
+    regression <- shiny::reactive({
       regression_type1(data, rv$vec_cal, mode)
     })
 
-    withProgress(message = "Calculating calibration curves", value = 0, {
-      incProgress(1/1, detail = "... working on calculations ...")
+    shiny::withProgress(message = "Calculating calibration curves", value = 0, {
+      shiny::incProgress(1/1, detail = "... working on calculations ...")
       # calculate results (if this is run here, j must be resetted)
       regression_results <- regression()
     })
@@ -62,7 +62,7 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL){
   for (i in 1:length(vec_cal)){
     message <- paste0("# CpG-site: ", vec_cal[i])
     writeLog_(message)
-    df_agg <- na.omit(create_agg_df(datatable, vec_cal[i]))
+    df_agg <- stats::na.omit(create_agg_df(datatable, vec_cal[i]))
 
     print(df_agg)
     writeLog_(paste("Logging df_agg:", vec_cal[i]))
@@ -78,21 +78,46 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL){
       custom_ylab <- "% methylation after BiasCorrection"
     }
 
+    # lb1 <- paste("~Cubic:~",
+    #          paste0("~~SSE:~", round(result_list[[vec_cal[i]]]$SSE_cubic, 2)),
+    #          paste0("~~R^2:~", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)),
+    #          paste0("~"),
+    #          paste0("~Hyperbolic:~"),
+    #          paste0("~~SSE:~", round(result_list[[vec_cal[i]]]$SSE_hyper, 2)),
+    #          paste0("~~R^2:~", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)))
 
-    p <- ggplot2::ggplot(data=df_agg, ggplot2::aes(x = as.numeric(as.character(true_methylation)), y = as.numeric(as.character(CpG)))) +
+    lb1 <- paste(" Cubic: ",
+                 paste0("  SSE: ", round(result_list[[vec_cal[i]]]$SSE_cubic, 2)),
+                 paste0("  R^2: ", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)),
+                 paste0(" "),
+                 paste0(" Hyperbolic: "),
+                 paste0("  SSE: ", round(result_list[[vec_cal[i]]]$SSE_hyper, 2)),
+                 paste0("  R^2: ", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)), sep="\n")
+
+    gdat <- df_agg[
+      ,("true_methylation"):=as.numeric(as.character(get("true_methylation")))
+      ][
+        ,("CpG"):=as.numeric(as.character(get("CpG")))
+      ]
+
+    p <- ggplot2::ggplot(data=gdat, ggplot2::aes_string(x = "true_methylation", y = "CpG")) +
       ggplot2::geom_point() +
       ggplot2::ylab(custom_ylab) +
       ggplot2::xlab("% actual methylation") +
       ggplot2::ggtitle(paste("CpG-site:", vec_cal[i])) +
       ggplot2:: geom_text(data = data.frame(),
                           ggplot2::aes(x=-Inf, y=Inf, hjust=0, vjust = 1),
-                          label = paste0(" Cubic:\n",
-                                         "  SSE: ", round(result_list[[vec_cal[i]]]$SSE_cubic, 2),
-                                         "\n  R\xfd: ", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2),
-                                         "\n\n Hyperbolic:\n",
-                                         "  SSE: ", round(result_list[[vec_cal[i]]]$SSE_hyper, 2),
-                                         "\n  R\xfd: ", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)),
-                          size = 3.5)
+                          label = lb1,
+                          size = 3.5,
+                          parse = F)
+      # ggplot2::annotate("text",
+      #                   x=min(gdat$true_methylation),
+      #                   y=max(gdat$CpG),
+      #                   hjust=0,
+      #                   vjust = 1,
+      #                   label = lb1,
+      #                   parse = F,
+      #                   size=3.5)
     plot.listR[[i]] <- p
   }
   return(list("plot_list" = plot.listR, "result_list" = result_list))

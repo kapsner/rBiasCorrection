@@ -15,13 +15,15 @@ LazyData: true
 URL: https://github.com/kapsner/PCRBiasCorrection
 BugReports: https://github.com/kapsner/PCRBiasCorrection/issues
 Encoding: UTF-8
-Date/Publication: 2019-06-22 11:47:52 UTC
+Date/Publication: 2019-06-23 19:54:49 UTC
 Imports: 
     data.table,
     shiny,
     ggplot2,
     magrittr,
     polynom,
-    ggpubr
+    ggpubr,
+    stats
 Suggests: 
     testthat
+RoxygenNote: 6.1.1

@@ -50,7 +50,7 @@
 #' @return TRUE, if the correction of PCR measurment biases succeeds. If the correction fails, an error message
 #'   is returned.
 #'
-#' @importFrom stats coefficients lm na.omit optim
+#' @import data.table
 #'
 #' @example
 #' \dontrun{

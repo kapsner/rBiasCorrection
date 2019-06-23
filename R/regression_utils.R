@@ -19,8 +19,8 @@
 create_agg_df <- function(datatable, index){
   df <- datatable[,c("true_methylation", index), with = F]
   colnames(df)[2] <- "CpG"
-  df[,true_methylation := as.numeric(as.character(true_methylation))]
-  return(df[, mean(CpG, na.rm = T), by = true_methylation][,CpG := V1][,V1 := NULL])
+  df[,("true_methylation") := as.numeric(as.character(get("true_methylation")))]
+  return(df[, mean(get("CpG"), na.rm = T), by = "true_methylation"][,("CpG") := get("V1")][,("V1") := NULL])
 }
 
 # create aggregated datatable for experimental data
@@ -28,11 +28,11 @@ create_agg_df_exp <- function(datatable, index, type){
   if (type==1){
     df <- datatable[,c("sample_id", index), with = F]
     colnames(df)[2] <- "CpG"
-    df <- df[, mean(CpG, na.rm = T), by = sample_id][,CpG := V1][,V1 := NULL]
+    df <- df[, mean(get("CpG"), na.rm = T), by = "sample_id"][,("CpG") := get("V1")][,("V1") := NULL]
   } else if (type==2){
     df <- datatable[,c("locus_id", index), with = F]
     colnames(df)[2] <- "CpG"
-    df <- df[, mean(CpG, na.rm = T), by = locus_id][,CpG := V1][,V1 := NULL]
+    df <- df[, mean(get("CpG"), na.rm = T), by = "locus_id"][,("CpG") := get("V1")][,("V1") := NULL]
   }
   return(df)
 }
@@ -60,7 +60,7 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
   first_colname <- colnames(datatable)[1]
 
   # create results dataframe
-  results <- data.table(id = datatable[,unique(get(first_colname))])
+  results <- data.table::data.table("id" = datatable[,unique(get(first_colname))])
 
   # loop through colnames aka. CpG-sites
   for (i in colnames(datatable)[-1]){
@@ -76,7 +76,7 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
 
     # if cubic regression has better sse-score (default), or
     # if user selects cubic regression for calculation manually in GUI
-    if (regmethod[Name==i,better_model] == 1){
+    if (regmethod[get("Name")==i,get("better_model")] == 1){
       message <- paste("Solving cubic regression for", i)
       writeLog_(message)
 
@@ -91,7 +91,7 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
         msg1 <- paste("Samplename:", j)
 
         # this is the required form of the coefficients for polynomial-function
-        coe <- c(d-df_agg_ex[get(first_colname)==j,CpG], cx, bx2, ax3)
+        coe <- c(d-df_agg_ex[get(first_colname)==j,get("CpG")], cx, bx2, ax3)
         print(coe)
 
         x_vec <- solve(polynom::polynomial(coe))               # polynom
@@ -192,19 +192,19 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
           }
 
           if (is.null(mode)){
-            substitutions <- rbind(substitutions, data.table(id = j,
-                                                             CpG_site = i,
-                                                             corrected = original,
-                                                             replacement = replacement))
+            substitutions <- rbind(substitutions, data.table::data.table("id" = j,
+                                                                         "CpG_site" = i,
+                                                                         "corrected" = original,
+                                                                         "replacement" = replacement))
           }
 
           writeLog_(paste0(msg1, "  \n  \n", msg2, "  \n", msg3))
         }
       }
 
-      results <- results[, (paste0(i, "_c")) := as.numeric(as.character(vector))]
+      results <- results[, (paste0(i, "_c")) := as.numeric(as.character(get("vector")))]
 
-    } else if (regmethod[Name==i,better_model] == 0){
+    } else if (regmethod[get("Name")==i,get("better_model")] == 0){
       message <- paste("Solving hyperbolic regression for", i)
       writeLog_(message)
 
@@ -218,7 +218,7 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
       for (j in as.vector(df_agg_ex[,get(first_colname)])){
         msg1 <- paste("Samplename:", j)
 
-        h_solv <- as.numeric(as.character(hyperbolic_equation_solved(df_agg_ex[get(first_colname)==j,CpG], b, y0, y1, m0, m1)))
+        h_solv <- as.numeric(as.character(hyperbolic_equation_solved(df_agg_ex[get(first_colname)==j,get("CpG")], b, y0, y1, m0, m1)))
         print(h_solv)
 
         if (h_solv >= 0 & h_solv <= 100){
@@ -271,10 +271,10 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
           }
 
           if (is.null(mode)){
-            substitutions <- rbind(substitutions, data.table(id = j,
-                                                             CpG_site = i,
-                                                             corrected = original,
-                                                             replacement = replacement))
+            substitutions <- rbind(substitutions, data.table::data.table("id" = j,
+                                                                         "CpG_site" = i,
+                                                                         "corrected" = original,
+                                                                         "replacement" = replacement))
           }
 
           writeLog_(paste0(msg1, "  \n  \n", msg2, "  \n", msg3))
@@ -286,7 +286,7 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
       #vector <- ifelse(vector < 0, ifelse(vector > -10, 0, NA), ifelse(vector <= 100, vector, ifelse(vector < 110, 100, NA)))
 
       # append output-vector to results
-      results <- results[, (paste0(i, "_h")) := vector]
+      results <- results[, (paste0(i, "_h")) := get("vector")]
     }
   }
   results[,(colnames(results)[-1]):=lapply(.SD, function(x){as.numeric(as.character(x))}), .SDcols=colnames(results)[-1]]

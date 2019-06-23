@@ -74,11 +74,11 @@ writeLog_ <- function(message){
 # write csv files
 writeCSV_ <- function(table, filename){
   return(data.table::fwrite(x = table,
-                file = filename,
-                row.names = F,
-                sep = ",",
-                dec = ".",
-                eol = "\n"))
+                            file = filename,
+                            row.names = F,
+                            sep = ",",
+                            dec = ".",
+                            eol = "\n"))
 }
 
 #' @title getTimestamp helper function
@@ -99,7 +99,7 @@ getTimestamp_ <- function(){
 #'
 # R-squared function
 rsq <- function(true, fitted){
-  return(cor(true, fitted) ^ 2)
+  return(stats::cor(true, fitted) ^ 2)
 }
 
 
@@ -119,54 +119,54 @@ sdm <- function(vector){
 #' @export
 #'
 statisticsList_ <- function(resultlist){
-  dt_list <- data.table("Name" = names(resultlist),
-                        "relative_error" = NA,
-                        "SSE_hyperbolic" = NA,
-                        "R2_hyperbolic" = NA,
-                        "b" = NA,
-                        "y0" = NA,
-                        "y1" = NA,
-                        "###" = NA,
-                        "SSE_cubic" = NA,
-                        "R2_cubic" = NA,
-                        "ax3" = NA,
-                        "bx2" = NA,
-                        "cx" = NA,
-                        "d" = NA)
+  dt_list <- data.table::data.table("Name" = names(resultlist),
+                                    "relative_error" = NA,
+                                    "SSE_hyperbolic" = NA,
+                                    "R2_hyperbolic" = NA,
+                                    "b" = NA,
+                                    "y0" = NA,
+                                    "y1" = NA,
+                                    "###" = NA,
+                                    "SSE_cubic" = NA,
+                                    "R2_cubic" = NA,
+                                    "ax3" = NA,
+                                    "bx2" = NA,
+                                    "cx" = NA,
+                                    "d" = NA)
 
-  dt_list[, Name := names(resultlist)]
+  dt_list[, ("Name") := names(resultlist)]
 
   vec <- names(dt_list)[-1]
   dt_list[,(vec) := lapply(.SD, function(x){as.numeric(as.character(x))}), .SDcols = vec]
 
   for (i in names(resultlist)){
-    dt_list[Name == i, relative_error := resultlist[[i]][["relative_error"]]
+    dt_list[get("Name") == i, ("relative_error") := resultlist[[i]][["relative_error"]]
             ][
-              Name == i, SSE_hyperbolic := resultlist[[i]][["SSE_hyper"]]
+              get("Name") == i, ("SSE_hyperbolic") := resultlist[[i]][["SSE_hyper"]]
               ][
-                Name == i, R2_hyperbolic := resultlist[[i]][["Coef_hyper"]][["R2"]]
+                get("Name") == i, ("R2_hyperbolic") := resultlist[[i]][["Coef_hyper"]][["R2"]]
                 ][
-                  Name == i, b := resultlist[[i]][["Coef_hyper"]][["b"]]
+                  get("Name") == i, ("b") := resultlist[[i]][["Coef_hyper"]][["b"]]
                   ][
-                    Name == i, y0 := resultlist[[i]][["Coef_hyper"]][["y0"]]
+                    get("Name") == i, ("y0") := resultlist[[i]][["Coef_hyper"]][["y0"]]
                     ][
-                      Name == i, y1 := resultlist[[i]][["Coef_hyper"]][["y1"]]
+                      get("Name") == i, ("y1") := resultlist[[i]][["Coef_hyper"]][["y1"]]
                       ][
-                        Name == i, SSE_cubic := resultlist[[i]][["SSE_cubic"]]
+                        get("Name") == i, ("SSE_cubic") := resultlist[[i]][["SSE_cubic"]]
                         ][
-                          Name == i, R2_cubic := resultlist[[i]][["Coef_cubic"]][["R2"]]
+                          get("Name") == i, ("R2_cubic") := resultlist[[i]][["Coef_cubic"]][["R2"]]
                           ][
-                            Name == i, ax3 := resultlist[[i]][["Coef_cubic"]][["ax3"]]
+                            get("Name") == i, ("ax3") := resultlist[[i]][["Coef_cubic"]][["ax3"]]
                             ][
-                              Name == i, bx2 := resultlist[[i]][["Coef_cubic"]][["bx2"]]
+                              get("Name") == i, ("bx2") := resultlist[[i]][["Coef_cubic"]][["bx2"]]
                               ][
-                                Name == i, cx := resultlist[[i]][["Coef_cubic"]][["cx"]]
+                                get("Name") == i, ("cx") := resultlist[[i]][["Coef_cubic"]][["cx"]]
                                 ][
-                                  Name == i, d := resultlist[[i]][["Coef_cubic"]][["d"]]
+                                  get("Name") == i, ("d") := resultlist[[i]][["Coef_cubic"]][["d"]]
                                   ]
   }
   # mark the better model: 1 = cubic, 0 = hyperbolic
-  dt_list[,better_model := ifelse(SSE_cubic <= SSE_hyperbolic, 1, 0)]
+  dt_list[,("better_model") := ifelse(get("SSE_cubic") <= get("SSE_hyperbolic"), 1, 0)]
 
   return(dt_list)
 }
@@ -180,10 +180,10 @@ statisticsList_ <- function(resultlist){
 #'
 # create substitutions dataframe
 substitutionsCreate_ <- function(){
-  substitutions <- data.table(id = character(),
-                              CpG_site = character(),
-                              corrected = character(),
-                              replacement = character())
+  substitutions <- data.table::data.table("id" = character(),
+                                          "CpG_site" = character(),
+                                          "corrected" = character(),
+                                          "replacement" = character())
   return(substitutions)
 }
 

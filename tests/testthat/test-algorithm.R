@@ -1,6 +1,7 @@
 context("test functioning of algorithm, type 1")
 
 prefix <- "./"
+#prefix <- "tests/testthat/"
 
 # the writeLog-function needs the logfilename
 logfilename <<- paste0(prefix, "log.txt")
@@ -46,7 +47,7 @@ test_that("algorithm test, type 1",{
   expect_known_hash(rv$result_list, "8c7d29964f")
   expect_type(rv$regStats, "list")
   expect_s3_class(rv$regStats, "data.table")
-  expect_known_hash(rv$regStats, "a27d84167e")
+  expect_known_hash(rv$regStats, "f20afd797f") #a27d84167e
   expect_equal(regression_results, regression_results2)
   expect_equal(regression_results[["plot_list"]], regression_results2[["plot_list"]])
   expect_equal(regression_results[["result_list"]], regression_results2[["result_list"]])

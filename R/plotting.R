@@ -116,15 +116,15 @@ createPlots <- function(plotlist, f, rv, filename){
 #'
 createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NULL, headless = FALSE, plotdir){
 
-  stats_pre <- statstable_pre[,.(Name, relative_error, better_model)]
-  stats_post <- statstable_post[,.(Name, relative_error, better_model)]
+  stats_pre <- statstable_pre[,c("Name", "relative_error", "better_model"),with=F]
+  stats_post <- statstable_post[,c("Name", "relative_error", "better_model"),with=F]
 
   error_data <- merge(stats_post, stats_pre, by="Name", sort=F, suffixes=c("", "_pre"))
 
   # Test if names are eqal
-  if (identical(stats_pre[,Name], stats_post[,Name])){
+  if (identical(stats_pre[,get("Name")], stats_post[,get("Name")])){
 
-    vec_cal <- stats_pre[,Name]
+    vec_cal <- stats_pre[,get("Name")]
     length_vector <- length(vec_cal)
 
     base::Map(function(i) {
@@ -141,7 +141,7 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NU
       plotmessage <- paste("Creating barplot No.", i)
       writeLog_(paste(plotmessage, "- filename:", filename))
 
-      dt <- data.table(timepoint = character(0), value = numeric(0), regressiontype = character(0))
+      dt <- data.table::data.table("timepoint" = character(0), "value" = numeric(0), "regressiontype" = character(0))
 
       if (isFALSE(headless)){
         # Create a Progress object
@@ -156,25 +156,29 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NU
 
       # add relative error of corrected hyperbolic curve
 
-      dt <- rbind(dt, cbind(timepoint="biased", value = round(error_data[Name==vec_cal[i],relative_error_pre], 3),
-                            regressiontype = "Uncorrected"))
-      dt <- rbind(dt, cbind(timepoint="corrected", value = round(error_data[Name==vec_cal[i],relative_error], 3),
-                            regressiontype = ifelse(error_data[Name==vec_cal[i],better_model] == 1, "Corrected [Cubic Regression]", "Corrected [Hyperbolic Regression]")))
+      dt <- rbind(dt, cbind("timepoint"="biased", "value" = round(error_data[get("Name")==vec_cal[i],get("relative_error_pre")], 3),
+                            "regressiontype" = "Uncorrected"))
+      dt <- rbind(dt, cbind("timepoint"="corrected", "value" = round(error_data[get("Name")==vec_cal[i],get("relative_error")], 3),
+                            "regressiontype" = ifelse(error_data[get("Name")==vec_cal[i],get("better_model")] == 1, "Corrected [Cubic Regression]", "Corrected [Hyperbolic Regression]")))
 
       # set "Raw" as first level, to show corresponding bar on the left of the plot
-      dt[,regressiontype := factor(regressiontype, levels = c("Uncorrected", "Corrected [Cubic Regression]", "Corrected [Hyperbolic Regression]"))]
+      dt[
+        ,("regressiontype") := factor(get("regressiontype"), levels = c("Uncorrected", "Corrected [Cubic Regression]", "Corrected [Hyperbolic Regression]"))
+        ][
+          ,("value"):=as.numeric(as.character(get("value")))
+        ]
 
-      if ("Corrected [Cubic Regression]" %in% dt[,regressiontype]){
+      if ("Corrected [Cubic Regression]" %in% dt[,get("regressiontype")]){
         values <- c("#8491B4FF", "#E64B35FF")
       } else {
         values <- c("#8491B4FF", "#4DBBD5FF")
       }
 
       shiny::plotPNG({
-        p <- ggplot2::ggplot(dt, ggplot2::aes(x = regressiontype, y=as.numeric(as.character(value)), fill=regressiontype)) +
+        p <- ggplot2::ggplot(dt, ggplot2::aes_string(x = "regressiontype", y="value", fill="regressiontype")) +
           #scale_fill_manual(values = c("Cubic Regression" = "indianred1", "Hyperbolic Regression" = "mediumspringgreen")) +
           ggplot2::geom_col()+
-          ggplot2::geom_text(ggplot2::aes(label = as.character(value), y=as.numeric(as.character(value))),  vjust = 3) +
+          ggplot2::geom_text(ggplot2::aes_string(label = "value", y="value"),  vjust = 3) +
           ggplot2::ylab("% average relative error") +
           ggplot2::labs(title = paste0("Quantification Error ", vec_cal[i]), fill = ggplot2::element_blank()) +
           ggplot2::scale_fill_manual(values = values) +
