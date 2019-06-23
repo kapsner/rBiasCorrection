@@ -118,7 +118,7 @@ cleanDT_ <- function(datatable, description, type) {
   #datatable[,(vec_cal) := lapply(.SD, function(x){ifelse(x < 0, NA, ifelse(x > 100, NA, as.numeric(x)))}), .SDcols=vec_cal]
 
   # rowmeans are already in type 2 calibration data table (from fileMerger-application!)
-  datatable[, row_means := rowMeans(datatable[,vec_cal, with=F], na.rm = T)]
+  datatable[, ("row_means") := rowMeans(datatable[,vec_cal, with=F], na.rm = T)]
 
   # make vec_cal global for type 1 data (many operations of the app rely on vec_cal)
   if (type == "1"){
@@ -127,11 +127,11 @@ cleanDT_ <- function(datatable, description, type) {
 
   # count number of CpGs in type 2 data
   if (type == "2"){
-    datatable[,CpG_count := rowSums(!is.na(datatable[, vec[-1], with=F]))]
+    datatable[,("CpG_count") := rowSums(!is.na(datatable[, vec[-1], with=F]))]
 
     # requirements-check: does every repeated measurement of each locus id have
     # the same number of CpG-sites specified?
-    if (sum(duplicated(unique(datatable[,CpG_count,by=locus_id])$locus_id)) > 0){
+    if (sum(duplicated(unique(datatable[,get("CpG_count"),by="locus_id"])$locus_id)) > 0){
       writeLog_("### ERROR ###\nThe data provided contains locus ids with heterogeneous counts of CpG-sites.")
       return(NULL)
     }
@@ -155,7 +155,7 @@ cleanDT_ <- function(datatable, description, type) {
 
     if (description == "calibration"){
       # type 1 data must have at least 4 calibration steps
-      if (datatable[,nlevels(factor(true_methylation))] < 4){
+      if (datatable[,nlevels(factor(get("true_methylation")))] < 4){
         writeLog_("### ERROR ###\nThe data provided contains less than four calibration steps.\nAt least four distinct calibration steps are required to perform bias correction.")
         return(NULL)
       }

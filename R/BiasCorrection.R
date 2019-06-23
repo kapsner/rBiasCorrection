@@ -50,6 +50,8 @@
 #' @return TRUE, if the correction of PCR measurment biases succeeds. If the correction fails, an error message
 #'   is returned.
 #'
+#' @importFrom stats coefficients lm na.omit optim
+#'
 #' @example
 #' \dontrun{
 #' BiasCorrection("type1_experimentaldata.csv", "type1_calibrationdata.csv", samplelocusname = "BRAF")
@@ -162,9 +164,9 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
       # default selection of the model with the lower sse:
       rv$choices_list <- rv$regStats[,c("Name", "better_model"),with=F]
     } else if (method %in% c("hyperbolic", "h")){
-      rv$choices_list <- rv$regStats[,c("Name"), with=F][,better_model:=0]
+      rv$choices_list <- rv$regStats[,c("Name"), with=F][,("better_model"):=0]
     } else if (method %in% c("cubic", "c")){
-      rv$choices_list <- rv$regStats[,c("Name"), with=F][,better_model:=1]
+      rv$choices_list <- rv$regStats[,c("Name"), with=F][,("better_model"):=1]
     }
 
     solved_eq <- solvingEquations_(rv$fileimportExp, rv$choices_list, type = 1, rv = rv)
@@ -203,8 +205,8 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
                     gsub("\\:", "", substr(Sys.time(), 12, 16)), ".csv"))
 
 
-    for (i in rv$choices_list[,Name]){
-      rv$regStats_corrected[Name==i,better_model:=rv$choices_list[Name==i,as.integer(as.character(better_model))]]
+    for (i in rv$choices_list[,get("Name")]){
+      rv$regStats_corrected[get("Name")==i,("better_model"):=rv$choices_list[get("Name")==i,as.integer(as.character(get("better_model")))]]
     }
 
     createBarErrorPlots_(rv$regStats, rv$regStats_corrected, rv, type=1, headless = TRUE, plotdir = plotdir)

@@ -88,10 +88,10 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL){
                           ggplot2::aes(x=-Inf, y=Inf, hjust=0, vjust = 1),
                           label = paste0(" Cubic:\n",
                                          "  SSE: ", round(result_list[[vec_cal[i]]]$SSE_cubic, 2),
-                                         "\n  R²: ", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2),
+                                         "\n  R\xfd: ", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2),
                                          "\n\n Hyperbolic:\n",
                                          "  SSE: ", round(result_list[[vec_cal[i]]]$SSE_hyper, 2),
-                                         "\n  R²: ", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)),
+                                         "\n  R\xfd: ", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)),
                           size = 3.5)
     plot.listR[[i]] <- p
   }
