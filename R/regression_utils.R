@@ -37,14 +37,6 @@ create_agg_df_exp <- function(datatable, index, type){
   return(df)
 }
 
-# solved hyperbolic equation
-hyperbolic_equation_solved <- function(y, b, y0, y1, m0, m1){
-  # old solved equation
-  #return(((100 * y0) - (100 * y)) / ((y * b) - (y1 * b) + y0 - y))
-  # new solved equation
-  return(((m0 * b * (y - y1)) + (m1 * (y0 - y))) / ((b * (y - y1)) - y + y0))
-}
-
 #' @title solvingEquations helper function
 #'
 #' @description Solving hyperbolic and cubic regression.

@@ -78,21 +78,18 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL){
       custom_ylab <- "% methylation after BiasCorrection"
     }
 
-    # lb1 <- paste("~Cubic:~",
-    #          paste0("~~SSE:~", round(result_list[[vec_cal[i]]]$SSE_cubic, 2)),
-    #          paste0("~~R^2:~", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)),
-    #          paste0("~"),
-    #          paste0("~Hyperbolic:~"),
-    #          paste0("~~SSE:~", round(result_list[[vec_cal[i]]]$SSE_hyper, 2)),
-    #          paste0("~~R^2:~", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)))
+    # lb1 <- paste(" Cubic: ",
+    #          paste0("  SSE: ", round(result_list[[vec_cal[i]]]$SSE_cubic, 2)),
+    #          paste0("  R^2: ", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)),
+    #          paste0(" "),
+    #          paste0(" Hyperbolic: "),
+    #          paste0("  SSE: ", round(result_list[[vec_cal[i]]]$SSE_hyper, 2)),
+    #          paste0("  R^2: ", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)), sep="\n")
 
-    lb1 <- paste(" Cubic: ",
-                 paste0("  SSE: ", round(result_list[[vec_cal[i]]]$SSE_cubic, 2)),
-                 paste0("  R^2: ", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)),
-                 paste0(" "),
-                 paste0(" Hyperbolic: "),
-                 paste0("  SSE: ", round(result_list[[vec_cal[i]]]$SSE_hyper, 2)),
-                 paste0("  R^2: ", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)), sep="\n")
+    lb1 <- c(paste0("~Hyperbolic:~R^2 ==", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)),
+             paste0("~Cubic:~R^2 ==", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2))
+    )
+
 
     gdat <- df_agg[
       ,("true_methylation"):=as.numeric(as.character(get("true_methylation")))
@@ -106,10 +103,11 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL){
       ggplot2::xlab("% actual methylation") +
       ggplot2::ggtitle(paste("CpG-site:", vec_cal[i])) +
       ggplot2:: geom_text(data = data.frame(),
-                          ggplot2::aes(x=-Inf, y=Inf, hjust=0, vjust = 1),
+                          ggplot2::aes(x=-Inf, y=c(max(gdat$CpG), 0.95*max(gdat$CpG)), hjust=0, vjust = 1),
+                          #ggplot2::aes(x=-Inf, y=Inf, hjust=0, vjust = 1),
                           label = lb1,
                           size = 3.5,
-                          parse = F)
+                          parse = T)
       # ggplot2::annotate("text",
       #                   x=min(gdat$true_methylation),
       #                   y=max(gdat$CpG),

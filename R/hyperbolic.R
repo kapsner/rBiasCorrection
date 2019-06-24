@@ -17,10 +17,22 @@
 
 # implementation of hyperbolic equation
 hyperbolic_equation <- function(x, b, y0, y1, m0, m1){
-  # old equation (16.01.2019)
+  # old equation (16.01.2019) with min = 0, max = 100
   #return((((y1 * b) - y0) * x + 100 * y0) / ((b * x) - x + 100))
-  # new equation (17.01.2019)
+  # new equation (17.01.2019) with data-dependent min and max
   return((((b * y1) - y0) * (x - m0) + (m1 - m0) * y0) / ((b - 1) * (x - m0) + (m1 - m0)))
+  # new equation (24.07.2019) without min and max
+  #return(((a * x) + b) / (x + d))
+}
+
+# solved hyperbolic equation
+hyperbolic_equation_solved <- function(y, b, y0, y1, m0, m1){
+  # old solved equation
+  #return(((100 * y0) - (100 * y)) / ((y * b) - (y1 * b) + y0 - y))
+  # new solved equation
+  return(((m0 * b * (y - y1)) + (m1 * (y0 - y))) / ((b * (y - y1)) - y + y0))
+  # new solved equation (24.07.2019) without min and max
+  #return((b - (y * d)) / (y - a))
 }
 
 # find best parameters for hyperbolic regression

@@ -46,7 +46,7 @@ type2FileReq_ <- function(filelist, rv){
 
       # check here if all files have same column- and row-naming
       coln <- lapply(filelist, colnames)
-      rown <- lapply(filelist, function(x){as.character(x[,locus_id])})
+      rown <- lapply(filelist, function(x){as.character(x[,get("locus_id")])})
 
       if (length(unique(coln)) != 1 | length(unique(rown)) != 1){
         # error handling fileimport
@@ -59,7 +59,7 @@ type2FileReq_ <- function(filelist, rv){
         #numberby <- 100/(length(rv$fileimportCal)-1)
         #choicesseq <- seq(from = 0, to = 100.00, by = numberby)
         pattern <- "(\\_CS\\d+(\\_\\d+)?(\\.csv|\\.CSV))$"
-        calibr_steps <- data.table(name = character(), step = numeric())
+        calibr_steps <- data.table::data.table("name" = character(), "step" = numeric())
         for (i in names(filelist)){
           message <- paste("Filename:", i)
           writeLog_(message)
@@ -68,23 +68,23 @@ type2FileReq_ <- function(filelist, rv){
             writeLog_("### ERROR ###\nFilenaming of the calibration files must be done properly.\nEnd of filename must begin with '_CS' followd by a number, indicating the degree of true methylation.\nAs decimal seperator, '_' is required.")
             return("filename")
           } else {
-            calibr_steps <- rbind(calibr_steps, data.table(name = i, step = as.numeric(gsub("\\_", ".", regmatches(match, regexpr("\\d+(\\_\\d+)?", match))))))
+            calibr_steps <- rbind(calibr_steps, data.table::data.table("name" = i, step = as.numeric(gsub("\\_", ".", regmatches(match, regexpr("\\d+(\\_\\d+)?", match))))))
           }
         }
-        calibr_steps <- calibr_steps[order(step, decreasing = F)]
+        calibr_steps <- calibr_steps[order(get("step"), decreasing = F)]
 
-        if (calibr_steps[,min(step)] < 0 | calibr_steps[,max(step)] > 100){
+        if (calibr_steps[,min(get("step"))] < 0 | calibr_steps[,max(get("step"))] > 100){
           writeLog_("### ERROR ###\nCalibration steps must be in range '0 <= calibration step <= 100'.")
           return("calibrange2")
         } else {
 
           # get unique gene names of first table (all tables must be equal, has been checked anywhere else??!)
-          gene_names <- unique(filelist[[calibr_steps[1,name]]][,.(locus_id, CpG_count)])
+          gene_names <- unique(filelist[[calibr_steps[1,get("name")]]][,c("locus_id", "CpG_count"),with=F])
           # get list of colnames
-          col_names <- colnames(filelist[[calibr_steps[1,name]]])
+          col_names <- colnames(filelist[[calibr_steps[1,get("name")]]])
 
           # check for duplicate locus_ids here
-          if (sum(gene_names[,duplicated(locus_id)]) > 0){
+          if (sum(gene_names[,duplicated(get("locus_id"))]) > 0){
             writeLog_("### ERROR ###\nPlease specify an equal number of CpG-sites for each gene locus.")
             return("inconsistency")
           } else {

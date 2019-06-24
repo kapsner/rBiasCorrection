@@ -1,6 +1,6 @@
 Package: PCRBiasCorrection
 Title: A Package to Correct PCR Bias in DNA Methylation Analyses
-Version: 0.0.1.9001
+Version: 0.0.1.9002
 Authors@R: 
     c(person(given = "Lorenz A.",
              family = "Kapsner",
@@ -15,7 +15,7 @@ LazyData: true
 URL: https://github.com/kapsner/PCRBiasCorrection
 BugReports: https://github.com/kapsner/PCRBiasCorrection/issues
 Encoding: UTF-8
-Date/Publication: 2019-06-23 19:54:49 UTC
+Date/Publication: 2019-06-24 07:01:40 UTC
 Imports: 
     data.table,
     shiny,
