@@ -4,7 +4,7 @@
 \alias{writeLog_}
 \title{writeLog helper function}
 \usage{
-writeLog_(message)
+writeLog_(message, logfilename)
 }
 \description{
 Writes log-messages to the file specified in logfilename

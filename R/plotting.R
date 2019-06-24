@@ -21,12 +21,12 @@
 #' @export
 #'
 # plotting utility
-plottingUtility_ <- function(data, plotlistR, type, samplelocusname, locus_id = NULL, rv, mode=NULL, headless=FALSE, plotdir){
+plottingUtility_ <- function(data, plotlistR, type, samplelocusname, locus_id = NULL, rv, mode=NULL, headless=FALSE, plotdir, logfilename){
 
   if (!is.null(locus_id)){
-    writeLog_(paste0("### Starting with plotting ###\n\nLocus ID: ", locus_id))
+    writeLog_(paste0("### Starting with plotting ###\n\nLocus ID: ", locus_id), logfilename)
   } else {
-    writeLog_(paste0("### Starting with plotting ###"))
+    writeLog_(paste0("### Starting with plotting ###"), logfilename)
   }
 
   # get number of CpG-sites
@@ -49,7 +49,7 @@ plottingUtility_ <- function(data, plotlistR, type, samplelocusname, locus_id = 
       plotmessage <- paste0("Locus ID: ", locus_id, " --> Creating ", msg_suffix, "plot No. ", f)
     }
 
-    writeLog_(paste(plotmessage, "- filename:", filename))
+    writeLog_(paste(plotmessage, "- filename:", filename), logfilename)
 
     # workaround to hide shiny-stuff, when going headless
     if (isFALSE(headless)){
@@ -64,12 +64,12 @@ plottingUtility_ <- function(data, plotlistR, type, samplelocusname, locus_id = 
     }
 
     # store plots to local temporary file
-    createPlots(plotlistR[[f]], f, rv, filename)
+    createPlots(plotlistR[[f]], f, rv, filename, logfilename)
 
   }, 1:length_vector)
 }
 
-createPlots <- function(plotlist, f, rv, filename){
+createPlots <- function(plotlist, f, rv, filename, logfilename){
   shiny::plotPNG({
 
     # hyperbolic parameters
@@ -81,14 +81,14 @@ createPlots <- function(plotlist, f, rv, filename){
 
     message <- paste0("# CpG-site: ", rv$vec_cal[f])
     msg2 <- paste("Using bias_weight =", b, ", y0 =", y0, ", y1 =", y1)
-    writeLog_(paste0(message, "  \n", msg2))
+    writeLog_(paste(message, msg2, sep="\n"), logfilename)
 
     # cubic parameters
     c <- sapply(rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]], unlist)[c(4:1)]
     #c <- sapply(rv$result_list[[rv$vec_cal[i]]][["Coef_cubic"]], `[`)[c(4:1)]
     message <- paste0("# CpG-site: ", rv$vec_cal[f])
     msg2 <- paste("Using c =", paste(c, collapse = ", "))
-    writeLog_(paste0(message, "  \n", msg2))
+    writeLog_(paste0(message, msg2, sep="\n"), logfilename)
 
     return(print(plotlist +
                    ggplot2::stat_function(fun = hyperbolic_equation, args = list(b=b, y0=y0, y1=y1, m0=m0, m1=m1), geom = "line", ggplot2::aes(color = "Hyperbolic Regression"), size=1.06) +
@@ -114,7 +114,7 @@ createPlots <- function(plotlist, f, rv, filename){
 #'
 #' @export
 #'
-createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NULL, headless = FALSE, plotdir){
+createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NULL, headless = FALSE, plotdir, logfilename){
 
   stats_pre <- statstable_pre[,c("Name", "relative_error", "better_model"),with=F]
   stats_post <- statstable_post[,c("Name", "relative_error", "better_model"),with=F]
@@ -139,7 +139,7 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NU
 
 
       plotmessage <- paste("Creating barplot No.", i)
-      writeLog_(paste(plotmessage, "- filename:", filename))
+      writeLog_(paste(plotmessage, "- filename:", filename), logfilename)
 
       dt <- data.table::data.table("timepoint" = character(0), "value" = numeric(0), "regressiontype" = character(0))
 
@@ -196,6 +196,6 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NU
       width = 450)
     }, 1:length_vector)
   } else {
-    writeLog_("Error during creating bar plot; Names are not identical.")
+    writeLog_("Error during creating bar plot; Names are not identical.", logfilename)
   }
 }

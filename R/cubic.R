@@ -21,8 +21,8 @@ cubic_equation <- function(x, c){
 }
 
 # find best parameters for cubic regression
-cubic_regression <- function(df_agg, vec) {
-  writeLog_("Entered 'cubic_regression'-Function")
+cubic_regression <- function(df_agg, vec, logfilename) {
+  writeLog_("Entered 'cubic_regression'-Function", logfilename)
 
   #pol_reg <- lm(true_methylation ~ poly(CpG, degree = 3, raw = T), data = df_agg)
   pol_reg <- stats::lm(CpG ~ true_methylation + I(true_methylation^2) + I(true_methylation^3), data = df_agg)

@@ -5,7 +5,7 @@
 \title{regressionUtility helper function}
 \usage{
 regressionUtility_(data, samplelocusname, locus_id = NULL, rv,
-  mode = NULL, headless = FALSE)
+  mode = NULL, headless = FALSE, logfilename)
 }
 \description{
 Function to carry out the regression calculations.

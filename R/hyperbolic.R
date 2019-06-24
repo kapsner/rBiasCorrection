@@ -36,8 +36,8 @@ hyperbolic_equation_solved <- function(y, b, y0, y1, m0, m1){
 }
 
 # find best parameters for hyperbolic regression
-hyperbolic_regression <- function(df_agg, vec){
-  writeLog_("Entered 'hyperbolic_regression'-Function")
+hyperbolic_regression <- function(df_agg, vec, logfilename){
+  writeLog_("Entered 'hyperbolic_regression'-Function", logfilename)
 
   # y0 <- df_agg[true_methylation==0, CpG]
   # y1 <- df_agg[true_methylation==100, CpG]

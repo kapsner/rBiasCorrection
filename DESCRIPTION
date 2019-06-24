@@ -15,7 +15,7 @@ LazyData: true
 URL: https://github.com/kapsner/PCRBiasCorrection
 BugReports: https://github.com/kapsner/PCRBiasCorrection/issues
 Encoding: UTF-8
-Date/Publication: 2019-06-24 18:32:44 UTC
+Date/Publication: 2019-06-24 19:22:56 UTC
 Imports: 
     data.table,
     shiny,

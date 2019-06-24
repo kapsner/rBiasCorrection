@@ -4,7 +4,8 @@
 \alias{solvingEquations_}
 \title{solvingEquations helper function}
 \usage{
-solvingEquations_(datatable, regmethod, type, rv, mode = NULL)
+solvingEquations_(datatable, regmethod, type, rv, mode = NULL,
+  logfilename)
 }
 \description{
 Solving hyperbolic and cubic regression.

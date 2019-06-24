@@ -4,7 +4,7 @@
 \alias{type2FileReq_}
 \title{type2FileReq helper function}
 \usage{
-type2FileReq_(filelist, rv)
+type2FileReq_(filelist, rv, logfilename)
 }
 \description{
 Function to check type 2 data file requirements.

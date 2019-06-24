@@ -4,7 +4,7 @@
 \alias{cleanDT_}
 \title{cleanDT helper function}
 \usage{
-cleanDT_(datatable, description, type)
+cleanDT_(datatable, description, type, logfilename)
 }
 \description{
 Function, that checks the formatting of imported files and prepares them to

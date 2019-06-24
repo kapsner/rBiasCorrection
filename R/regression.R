@@ -21,12 +21,12 @@
 #'
 #' @export
 #'
-regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode = NULL, headless = FALSE){
+regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode = NULL, headless = FALSE, logfilename){
 
   if (!is.null(locus_id)){
-    writeLog_(paste0("### Starting with regression calculations ###\n\nLocus ID: ", locus_id))
+    writeLog_(paste0("### Starting with regression calculations ###\n\nLocus ID: ", locus_id), logfilename)
   } else {
-    writeLog_(paste0("### Starting with regression calculations ###"))
+    writeLog_(paste0("### Starting with regression calculations ###"), logfilename)
   }
 
 
@@ -35,7 +35,7 @@ regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode 
     # for plotting: basic idea and some code snippets from:
     # https://gist.github.com/wch/5436415/
     regression <- shiny::reactive({
-      regression_type1(data, rv$vec_cal, mode)
+      regression_type1(data, rv$vec_cal, mode, logfilename)
     })
 
     shiny::withProgress(message = "Calculating calibration curves", value = 0, {
@@ -44,15 +44,15 @@ regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode 
       regression_results <- regression()
     })
   } else {
-    regression_results <- regression_type1(data, rv$vec_cal, mode)
+    regression_results <- regression_type1(data, rv$vec_cal, mode, logfilename)
   }
 
   return(list("plot_list" = regression_results[["plot_list"]],
               "result_list" = regression_results[["result_list"]]))
 }
 
-regression_type1 <- function(datatable, vec_cal, mode=NULL){
-  writeLog_("Entered 'regression_type1'-Function")
+regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename){
+  writeLog_("Entered 'regression_type1'-Function", logfilename)
 
   # result_list
   result_list <- list()
@@ -61,16 +61,16 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL){
 
   for (i in 1:length(vec_cal)){
     message <- paste0("# CpG-site: ", vec_cal[i])
-    writeLog_(message)
+    writeLog_(message, logfilename)
     df_agg <- stats::na.omit(create_agg_df(datatable, vec_cal[i]))
 
     print(df_agg)
-    writeLog_(paste("Logging df_agg:", vec_cal[i]))
-    writeLog_(df_agg)
+    writeLog_(paste("Logging df_agg:", vec_cal[i]), logfilename)
+    writeLog_(df_agg, logfilename)
 
-    result_list[[vec_cal[i]]] <- hyperbolic_regression(df_agg, vec_cal[i])
+    result_list[[vec_cal[i]]] <- hyperbolic_regression(df_agg, vec_cal[i], logfilename)
     # append result_list
-    result_list[[vec_cal[i]]] <- c(result_list[[vec_cal[i]]], cubic_regression(df_agg, vec_cal[i]))
+    result_list[[vec_cal[i]]] <- c(result_list[[vec_cal[i]]], cubic_regression(df_agg, vec_cal[i], logfilename))
 
     if (is.null(mode)){
       custom_ylab <- "% apparent methylation after PCR"

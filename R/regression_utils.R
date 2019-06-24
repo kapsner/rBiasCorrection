@@ -44,8 +44,8 @@ create_agg_df_exp <- function(datatable, index, type){
 #' @export
 #'
 # perform fitting of regressions to experimental data
-solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
-  writeLog_("Entered 'solving_equations'-Function")
+solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL, logfilename){
+  writeLog_("Entered 'solving_equations'-Function", logfilename)
 
   substitutions <- substitutionsCreate_()
 
@@ -70,7 +70,7 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
     # if user selects cubic regression for calculation manually in GUI
     if (regmethod[get("Name")==i,get("better_model")] == 1){
       message <- paste("Solving cubic regression for", i)
-      writeLog_(message)
+      writeLog_(message, logfilename)
 
       # get parameters
       ax3 <- rv$result_list[[i]][["Coef_cubic"]][["ax3"]]
@@ -118,7 +118,7 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
 
               # break here, when first fitting value is found
               checkpoint <- TRUE
-              writeLog_(paste0(msg1, "  \nRoot: ", round(find_x[[k]], 3), "  \n--> ", msg2))
+              writeLog_(paste0(msg1, "  \nRoot: ", round(find_x[[k]], 3), "  \n--> ", msg2), logfilename)
               break
 
             } else {
@@ -190,7 +190,7 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
                                                                          "replacement" = replacement))
           }
 
-          writeLog_(paste0(msg1, "  \n  \n", msg2, "  \n", msg3))
+          writeLog_(paste0(msg1, "  \n  \n", msg2, "  \n", msg3), logfilename)
         }
       }
 
@@ -198,7 +198,7 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
 
     } else if (regmethod[get("Name")==i,get("better_model")] == 0){
       message <- paste("Solving hyperbolic regression for", i)
-      writeLog_(message)
+      writeLog_(message, logfilename)
 
       b <- rv$result_list[[i]][["Coef_hyper"]][["b"]]
       y0 <- rv$result_list[[i]][["Coef_hyper"]][["y0"]]
@@ -216,7 +216,7 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
         if (h_solv >= 0 & h_solv <= 100){
           msg2 <- "Root in between the borders! Added to results."
           vector <- c(vector, h_solv)
-          writeLog_(paste0(msg1, "  \nRoot: ", round(h_solv, 3), "  \n--> ", msg2))
+          writeLog_(paste0(msg1, "  \nRoot: ", round(h_solv, 3), "  \n--> ", msg2), logfilename)
 
         } else {
           msg2 <- "## WARNING ##\nNo fitting root within the borders found."
@@ -269,7 +269,7 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL){
                                                                          "replacement" = replacement))
           }
 
-          writeLog_(paste0(msg1, "  \n  \n", msg2, "  \n", msg3))
+          writeLog_(paste0(msg1, "  \n  \n", msg2, "  \n", msg3), logfilename)
         }
       }
 

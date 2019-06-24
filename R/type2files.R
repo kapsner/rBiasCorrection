@@ -22,12 +22,12 @@
 #' @export
 #'
 # check type 2 file requirements
-type2FileReq_ <- function(filelist, rv){
-  writeLog_("Entered 'type2FileReq'-Function")
+type2FileReq_ <- function(filelist, rv, logfilename){
+  writeLog_("Entered 'type2FileReq'-Function", logfilename)
 
   if (length(filelist) < 4){
     # error handling fileimport
-    writeLog_("### ERROR ###\nLess than four calibration datasets were provided.\nAt least four distinct calibration steps are required to perform bias correction.")
+    writeLog_("### ERROR ###\nLess than four calibration datasets were provided.\nAt least four distinct calibration steps are required to perform bias correction.", logfilename)
     return("four")
 
     # go on, if there have been uploaded at least 4 files.
@@ -38,7 +38,7 @@ type2FileReq_ <- function(filelist, rv){
     # test if all files have the same dimension:
     if (length(unique(dims)) != 1){
       # error handling fileimport
-      writeLog_("### ERROR ###\nThe dimensions of the provided calibration datasets are not equal.\nAll files have to have the same number of columns and rows.")
+      writeLog_("### ERROR ###\nThe dimensions of the provided calibration datasets are not equal.\nAll files have to have the same number of columns and rows.", logfilename)
       return("dim")
 
       # if all files have the same dimension
@@ -50,7 +50,7 @@ type2FileReq_ <- function(filelist, rv){
 
       if (length(unique(coln)) != 1 | length(unique(rown)) != 1){
         # error handling fileimport
-        writeLog_("### ERROR ###\nAll files need to have the same rownames (locus ids) and columnnames (CpG sites).")
+        writeLog_("### ERROR ###\nAll files need to have the same rownames (locus ids) and columnnames (CpG sites).", logfilename)
         return("naming")
 
       } else {
@@ -62,10 +62,10 @@ type2FileReq_ <- function(filelist, rv){
         calibr_steps <- data.table::data.table("name" = character(), "step" = numeric())
         for (i in names(filelist)){
           message <- paste("Filename:", i)
-          writeLog_(message)
+          writeLog_(message, logfilename)
           match <- regmatches(i, regexpr(pattern, i))
           if (length(match) < 1){
-            writeLog_("### ERROR ###\nFilenaming of the calibration files must be done properly.\nEnd of filename must begin with '_CS' followd by a number, indicating the degree of true methylation.\nAs decimal seperator, '_' is required.")
+            writeLog_("### ERROR ###\nFilenaming of the calibration files must be done properly.\nEnd of filename must begin with '_CS' followd by a number, indicating the degree of true methylation.\nAs decimal seperator, '_' is required.", logfilename)
             return("filename")
           } else {
             calibr_steps <- rbind(calibr_steps, data.table::data.table("name" = i, step = as.numeric(gsub("\\_", ".", regmatches(match, regexpr("\\d+(\\_\\d+)?", match))))))
@@ -74,7 +74,7 @@ type2FileReq_ <- function(filelist, rv){
         calibr_steps <- calibr_steps[order(get("step"), decreasing = F)]
 
         if (calibr_steps[,min(get("step"))] < 0 | calibr_steps[,max(get("step"))] > 100){
-          writeLog_("### ERROR ###\nCalibration steps must be in range '0 <= calibration step <= 100'.")
+          writeLog_("### ERROR ###\nCalibration steps must be in range '0 <= calibration step <= 100'.", logfilename)
           return("calibrange2")
         } else {
 
@@ -85,7 +85,7 @@ type2FileReq_ <- function(filelist, rv){
 
           # check for duplicate locus_ids here
           if (sum(gene_names[,duplicated(get("locus_id"))]) > 0){
-            writeLog_("### ERROR ###\nPlease specify an equal number of CpG-sites for each gene locus.")
+            writeLog_("### ERROR ###\nPlease specify an equal number of CpG-sites for each gene locus.", logfilename)
             return("inconsistency")
           } else {
             rv$calibr_steps <- calibr_steps

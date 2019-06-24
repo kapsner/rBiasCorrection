@@ -5,3 +5,4 @@
 ^csvdir$
 ^plotdir$
 ^log\.txt$
+^revdep$

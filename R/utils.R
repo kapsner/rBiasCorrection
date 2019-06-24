@@ -56,7 +56,7 @@ cleanUp_ <- function(plotdir, csvdir){
 #' @export
 #'
 # write log messages
-writeLog_ <- function(message){
+writeLog_ <- function(message, logfilename){
   print(paste0("[", getTimestamp_(), "]: ", message))
   message_out <- paste0("===========================================  \n",
                         "[Timestamp: ", getTimestamp_(), "]  \n  \n",
