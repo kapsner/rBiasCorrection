@@ -51,6 +51,7 @@
 #'   is returned.
 #'
 #' @import data.table
+#' @importFrom magrittr "%>%"
 #'
 #' @example
 #' \dontrun{
