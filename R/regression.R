@@ -86,8 +86,8 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename){
     #          paste0("  SSE: ", round(result_list[[vec_cal[i]]]$SSE_hyper, 2)),
     #          paste0("  R^2: ", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)), sep="\n")
 
-    lb1 <- c(paste0("~Hyperbolic:~R^2 ==", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)),
-             paste0("~Cubic:~R^2 ==", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2))
+    lb1 <- c(paste0("~Hyperbolic:~R\u00B2 ==", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)),
+             paste0("~Cubic:~R\u00B2 ==", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2))
     )
 
 
@@ -107,7 +107,7 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename){
                           #ggplot2::aes(x=-Inf, y=Inf, hjust=0, vjust = 1),
                           label = lb1,
                           size = 3.5,
-                          parse = T)
+                          parse = F)
       # ggplot2::annotate("text",
       #                   x=min(gdat$true_methylation),
       #                   y=max(gdat$CpG),
