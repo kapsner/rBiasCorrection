@@ -5,7 +5,7 @@
 \title{createBarErrorPlots helper function}
 \usage{
 createBarErrorPlots_(statstable_pre, statstable_post, rv, type, b = NULL,
-  headless = FALSE, plotdir, logfilename)
+  headless = FALSE, plotdir, logfilename, mode = NULL)
 }
 \description{
 Function to create relative-error bar plots.

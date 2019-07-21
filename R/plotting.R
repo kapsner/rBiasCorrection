@@ -36,9 +36,9 @@ plottingUtility_ <- function(data, plotlistR, type, samplelocusname, locus_id = 
     plotname <- paste0(gsub("[[:punct:]]", "", rv$vec_cal[f]))
 
     # filename-suffix
-    fn_suffix <- ifelse(is.null(mode), "", "_corrected")
-    # message suffix
-    msg_suffix <- ifelse(is.null(mode), "", "BiasCorrected ")
+    fn_suffix <- ifelse(is.null(mode), "", paste0("_", mode))
+    # message-suffix
+    msg_suffix <- ifelse(is.null(mode), "", ifelse(mode == "corrected_h", "BiasCorrected (hyperbolic)", "BiasCorrected (cubic)"))
 
     # filname of temporary plot
     if (type == 1){
@@ -64,28 +64,56 @@ plottingUtility_ <- function(data, plotlistR, type, samplelocusname, locus_id = 
     }
 
     # store plots to local temporary file
-    createPlots(plotlistR[[f]], f, rv, filename, logfilename)
+    createPlots(plotlistR[[f]], f, rv, filename, logfilename, mode)
 
   }, 1:length_vector)
 }
 
-createPlots <- function(plotlist, f, rv, filename, logfilename){
+createPlots <- function(plotlist, f, rv, filename, logfilename, mode = NULL){
   shiny::plotPNG({
 
-    # hyperbolic parameters
-    b <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]$b
-    y0 <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]$y0
-    y1 <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]$y1
-    m0 <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]$m0
-    m1 <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]$m1
+    if (is.null(mode)){
+      # hyperbolic parameters
+      b <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]$b
+      y0 <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]$y0
+      y1 <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]$y1
+      m0 <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]$m0
+      m1 <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]$m1
 
+      # cubic parameters
+      c <- sapply(rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]], unlist)[c(4:1)]
+      #c <- sapply(rv$result_list[[rv$vec_cal[i]]][["Coef_cubic"]], `[`)[c(4:1)]
+    } else if (mode == "corrected_h"){
+      # hyperbolic parameters
+      b <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_hyper"]]$b
+      y0 <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_hyper"]]$y0
+      y1 <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_hyper"]]$y1
+      m0 <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_hyper"]]$m0
+      m1 <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_hyper"]]$m1
+
+      # cubic parameters
+      c <- sapply(rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_cubic"]], unlist)[c(4:1)]
+      #c <- sapply(rv$result_list[[rv$vec_cal[i]]][["Coef_cubic"]], `[`)[c(4:1)]
+    } else if (mode == "corrected_c"){
+      # hyperbolic parameters
+      b <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_hyper"]]$b
+      y0 <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_hyper"]]$y0
+      y1 <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_hyper"]]$y1
+      m0 <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_hyper"]]$m0
+      m1 <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_hyper"]]$m1
+
+      # cubic parameters
+      c <- sapply(rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_cubic"]], unlist)[c(4:1)]
+      #c <- sapply(rv$result_list[[rv$vec_cal[i]]][["Coef_cubic"]], `[`)[c(4:1)]
+    }
+
+
+
+    # create messages
     message <- paste0("# CpG-site: ", rv$vec_cal[f])
     msg2 <- paste("Using bias_weight =", b, ", y0 =", y0, ", y1 =", y1)
     writeLog_(paste(message, msg2, sep="\n"), logfilename)
 
-    # cubic parameters
-    c <- sapply(rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]], unlist)[c(4:1)]
-    #c <- sapply(rv$result_list[[rv$vec_cal[i]]][["Coef_cubic"]], `[`)[c(4:1)]
     message <- paste0("# CpG-site: ", rv$vec_cal[f])
     msg2 <- paste("Using c =", paste(c, collapse = ", "))
     writeLog_(paste0(message, msg2, sep="\n"), logfilename)
@@ -114,7 +142,7 @@ createPlots <- function(plotlist, f, rv, filename, logfilename){
 #'
 #' @export
 #'
-createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NULL, headless = FALSE, plotdir, logfilename){
+createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NULL, headless = FALSE, plotdir, logfilename, mode = NULL){
 
   stats_pre <- statstable_pre[,c("Name", "relative_error", "better_model"),with=F]
   stats_post <- statstable_post[,c("Name", "relative_error", "better_model"),with=F]
@@ -132,11 +160,10 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NU
       plotname <- paste0(gsub("[[:punct:]]", "", vec_cal[i]))
 
       if (type == 1){
-        filename <- paste0(plotdir, rv$sampleLocusName, "_", plotname, "_errorplot.png")
+        filename <- paste0(plotdir, "Errorplot_", rv$sampleLocusName, "_", plotname, "_", mode, ".png")
       } else if (type == 2){
-        filename <- paste0(plotdir,  paste0(gsub("[[:punct:]]", "", b)), "-", rv$sampleLocusName, "_", plotname, "_errorplot.png")
+        filename <- paste0(plotdir, "Errorplot_", paste0(gsub("[[:punct:]]", "", b)), "-", rv$sampleLocusName, "_", plotname, "_", mode, ".png")
       }
-
 
       plotmessage <- paste("Creating barplot No.", i)
       writeLog_(paste(plotmessage, "- filename:", filename), logfilename)
