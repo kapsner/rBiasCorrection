@@ -142,7 +142,7 @@ createPlots <- function(plotlist, f, rv, filename, logfilename, mode = NULL){
 #'
 #' @export
 #'
-createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NULL, headless = FALSE, plotdir, logfilename, mode = NULL, regressiontype){
+createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NULL, headless = FALSE, plotdir, logfilename, mode = NULL){
 
   stats_pre <- statstable_pre[,c("Name", "relative_error", "better_model"),with=F]
   stats_post <- statstable_post[,c("Name", "relative_error", "better_model"),with=F]
@@ -186,8 +186,8 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NU
       dt <- rbind(dt, cbind("timepoint"="biased", "value" = round(error_data[get("Name")==vec_cal[i],get("relative_error_pre")], 3),
                             "regressiontype" = "Uncorrected"))
       dt <- rbind(dt, cbind("timepoint"="corrected", "value" = round(error_data[get("Name")==vec_cal[i],get("relative_error")], 3),
-                            "regressiontype" = ifelse(regressiontype == "cubic", "Corrected [Cubic Regression]",
-                                                      ifelse(regressiontype == "hyperbolic", "Corrected [Hyperbolic Regression]", "NA"))))
+                            "regressiontype" = ifelse(mode == "corrected_c", "Corrected [Cubic Regression]",
+                                                      ifelse(mode == "corrected_h", "Corrected [Hyperbolic Regression]", "NA"))))
 
       # set "Raw" as first level, to show corresponding bar on the left of the plot
       dt[

@@ -190,7 +190,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
     for (i in rv$choices_list[,get("Name")]){
       rv$regStats_corrected_h[get("Name")==i,("better_model"):=rv$choices_list[get("Name")==i,as.integer(as.character(get("better_model")))]]
     }
-    createBarErrorPlots_(rv$regStats, rv$regStats_corrected_h, rv, type=1, headless = TRUE, plotdir = plotdir, logfilename = logfilename, mode = "corrected_h", regressiontype = "hyperbolic")
+    createBarErrorPlots_(rv$regStats, rv$regStats_corrected_h, rv, type=1, headless = TRUE, plotdir = plotdir, logfilename = logfilename, mode = "corrected_h")
 
 
     # cubic correction
@@ -222,7 +222,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
     for (i in rv$choices_list[,get("Name")]){
       rv$regStats_corrected_c[get("Name")==i,("better_model"):=rv$choices_list[get("Name")==i,as.integer(as.character(get("better_model")))]]
     }
-    createBarErrorPlots_(rv$regStats, rv$regStats_corrected_c, rv, type=1, headless = TRUE, plotdir = plotdir, logfilename = logfilename, mode = "corrected_c", regressiontype = "cubic")
+    createBarErrorPlots_(rv$regStats, rv$regStats_corrected_c, rv, type=1, headless = TRUE, plotdir = plotdir, logfilename = logfilename, mode = "corrected_c")
 
 
     # now correct the real experimental data with the method chosen:
