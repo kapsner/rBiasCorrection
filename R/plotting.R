@@ -43,10 +43,10 @@ plottingUtility_ <- function(data, plotlistR, type, samplelocusname, locus_id = 
     # filname of temporary plot
     if (type == 1){
       filename <- paste0(plotdir, samplelocusname, "_", plotname, fn_suffix, ".png")
-      plotmessage <- paste0("Creating ", msg_suffix, "plot No. ", f)
+      plotmessage <- paste0("Creating ", msg_suffix, " plot No. ", f)
     } else if (type == 2){
       filename <- paste0(plotdir, locus_id, "-", samplelocusname, "_", plotname, fn_suffix, ".png")
-      plotmessage <- paste0("Locus ID: ", locus_id, " --> Creating ", msg_suffix, "plot No. ", f)
+      plotmessage <- paste0("Locus ID: ", locus_id, " --> Creating ", msg_suffix, " plot No. ", f)
     }
 
     writeLog_(paste(plotmessage, "- filename:", filename), logfilename)
@@ -197,7 +197,7 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NU
 
       if ("Corrected [Cubic Regression]" %in% dt[,get("regressiontype")]){
         values <- c("#8491B4FF", "#E64B35FF")
-      } else {
+      } else if ("Corrected [Hyperbolic Regression]" %in% dt[,get("regressiontype")]){
         values <- c("#8491B4FF", "#4DBBD5FF")
       }
 
