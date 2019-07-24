@@ -208,7 +208,7 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NU
           ggplot2::geom_col()+
           ggplot2::geom_text(ggplot2::aes_string(label = "value", y="value"),  vjust = 3) +
           ggplot2::ylab("% average relative error") +
-          ggplot2::labs(title = paste0("Quantification Error ", vec_cal[i]), fill = ggplot2::element_blank()) +
+          ggplot2::labs(title = paste0("Quantification Error: ", vec_cal[i]), fill = ggplot2::element_blank()) +
           ggplot2::scale_fill_manual(values = values) +
           ggpubr::theme_pubr() +
           ggplot2::theme(axis.title.x = ggplot2::element_blank(),
