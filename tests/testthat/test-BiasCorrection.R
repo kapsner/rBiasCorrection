@@ -26,3 +26,25 @@ test_that("correct functioning of BiasCorrection, data type 1",{
                          csvdir = csvdir))
   expect_true(file.remove(paste0(prefix, "log.txt")))
 })
+
+
+
+
+# debug all
+# prefix <- "tests/testthat/"
+# plotdir <- paste0(prefix, "plotdir")
+# csvdir <- paste0(prefix, "csvdir")
+# experimental = paste0(prefix, "testdata/exp_type_1.csv")
+# calibration = paste0(prefix, "testdata/cal_type_1.csv")
+# samplelocusname = "Testlocus"
+# type = 1
+# logfilename = paste0(prefix, "log.txt")
+
+# debug solvingEquations_
+# datatable = rv$fileimportCal
+# regmethod = rv$choices_list
+# type = 1
+# rv = rv
+# mode = "corrected"
+# logfilename = logfilename
+# minmax = rv$minmax

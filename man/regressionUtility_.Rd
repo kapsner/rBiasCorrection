@@ -5,7 +5,7 @@
 \title{regressionUtility}
 \usage{
 regressionUtility_(data, samplelocusname, locus_id = NULL, rv,
-  mode = NULL, headless = FALSE, logfilename, minmax = FALSE)
+  mode = NULL, headless = FALSE, logfilename, minmax)
 }
 \description{
 Internal function to carry out the regression calculations.

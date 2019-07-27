@@ -21,7 +21,7 @@
 #'
 #' @export
 #'
-regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode = NULL, headless = FALSE, logfilename, minmax = FALSE){
+regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode = NULL, headless = FALSE, logfilename, minmax){
 
   if (!is.null(locus_id)){
     writeLog_(paste0("### Starting with regression calculations ###\n\nLocus ID: ", locus_id), logfilename)

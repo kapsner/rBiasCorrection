@@ -44,14 +44,15 @@ create_agg_df_exp <- function(datatable, index, type){
 #' @export
 #'
 # perform fitting of regressions to experimental data
-solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL, logfilename){
+solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL, logfilename, minmax){
   writeLog_("Entered 'solving_equations'-Function", logfilename)
 
+  # create data table to save results of substitutions
   substitutions <- substitutionsCreate_()
 
+  # get first colname
   first_colname <- colnames(datatable)[1]
-
-  # create results dataframe
+  # create results dataframe and populate ids
   results <- data.table::data.table("id" = datatable[,unique(get(first_colname))])
 
   # loop through colnames aka. CpG-sites
@@ -200,17 +201,28 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL, logfile
       message <- paste("Solving hyperbolic regression for", i)
       writeLog_(message, logfilename)
 
-      b <- rv$result_list[[i]][["Coef_hyper"]][["b"]]
-      y0 <- rv$result_list[[i]][["Coef_hyper"]][["y0"]]
-      y1 <- rv$result_list[[i]][["Coef_hyper"]][["y1"]]
-      m0 <- rv$result_list[[i]][["Coef_hyper"]][["m0"]]
-      m1 <- rv$result_list[[i]][["Coef_hyper"]][["m1"]]
+      if (isFALSE(minmax)){
+        a <- rv$result_list[[i]][["Coef_hyper"]][["a"]]
+        b <- rv$result_list[[i]][["Coef_hyper"]][["b"]]
+        d <- rv$result_list[[i]][["Coef_hyper"]][["d"]]
+
+      } else if (isTRUE(minmax)){
+        b <- rv$result_list[[i]][["Coef_hyper"]][["b"]]
+        y0 <- rv$result_list[[i]][["Coef_hyper"]][["y0"]]
+        y1 <- rv$result_list[[i]][["Coef_hyper"]][["y1"]]
+        m0 <- rv$result_list[[i]][["Coef_hyper"]][["m0"]]
+        m1 <- rv$result_list[[i]][["Coef_hyper"]][["m1"]]
+      }
 
 
       for (j in as.vector(df_agg_ex[,get(first_colname)])){
         msg1 <- paste("Samplename:", j)
 
-        h_solv <- as.numeric(as.character(hyperbolic_equation_solved(df_agg_ex[get(first_colname)==j,get("CpG")], b, y0, y1, m0, m1)))
+        if (isFALSE(minmax)){
+          h_solv <- as.numeric(as.character(hyperbolic_equation_solved(df_agg_ex[get(first_colname)==j,get("CpG")], a, b, d)))
+        } else if (isTRUE(minmax)){
+          h_solv <- as.numeric(as.character(hyperbolic_equation_solvedMinMax(df_agg_ex[get(first_colname)==j,get("CpG")], b, y0, y1, m0, m1)))
+        }
         print(h_solv)
 
         if (h_solv >= 0 & h_solv <= 100){

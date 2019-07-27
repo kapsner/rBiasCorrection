@@ -42,7 +42,7 @@ hyperbolic_equation_solved <- function(y, a, b, d){
 }
 
 # find best parameters for hyperbolic regression
-hyperbolic_regression <- function(df_agg, vec, logfilename, minmax = FALSE){
+hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
   writeLog_("Entered 'hyperbolic_regression'-Function", logfilename)
 
   dat <- df_agg
@@ -64,15 +64,15 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax = FALSE){
     #                  b = seq(-5000, 5000, length.out = 2),
     #                  d = seq(-5000, 5000, length.out = 2))
     # # let's do a grid search to find the best parameters to start with a maximum of 10000 iterations
-    # mod <- nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, algorithm = "brute-force", control = nls.control(maxiter = 10000))
-    # c <- nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = mod)
+    # mod <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, algorithm = "brute-force", control = nls.control(maxiter = 10000))
+    # c <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = mod)
 
 
     # starting values
     st <- data.frame(a = c(-1000, 1000),
                      b = c(-1000, 1000),
                      d = c(-1000, 1000))
-    c <- nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st)
+    c <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st)
 
     # get coefficients
     coe <- coef(c)

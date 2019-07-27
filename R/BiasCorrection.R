@@ -117,6 +117,9 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
   # initialize our list for reactive values
   rv <- list()
 
+  # min-max hard coded to minmax = FALSE (minmax = TRUE is experimental and under development)
+  rv$minmax <- FALSE
+
   # save locusname
   rv$sampleLocusName <- handleTextInput_(samplelocusname)
 
@@ -145,15 +148,15 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
   if (type == 1){
     # calculate calibration curves
     # reconstruct parts from app_plottingUtility.R
-    regression_results <- regressionUtility_(rv$fileimportCal, rv$sampleLocusName, locus_id = NULL, rv = rv, mode = NULL, headless = TRUE, logfilename = logfilename, minmax = FALSE)
+    regression_results <- regressionUtility_(rv$fileimportCal, rv$sampleLocusName, locus_id = NULL, rv = rv, mode = NULL, headless = TRUE, logfilename = logfilename, minmax = rv$minmax)
     plotlistR <- regression_results[["plot_list"]]
     rv$result_list <- regression_results[["result_list"]]
 
     # create calibration plots
-    plottingUtility_(rv$fileimportCal, plotlistR, 1, rv$sampleLocusName, locus_id = NULL, rv = rv, mode = NULL, headless = TRUE, plotdir = plotdir, logfilename = logfilename, minmax = FALSE)
+    plottingUtility_(rv$fileimportCal, plotlistR, 1, rv$sampleLocusName, locus_id = NULL, rv = rv, mode = NULL, headless = TRUE, plotdir = plotdir, logfilename = logfilename, minmax = rv$minmax)
 
     # save regression statistics to reactive value
-    rv$regStats <- statisticsList_(rv$result_list, minmax = FALSE)
+    rv$regStats <- statisticsList_(rv$result_list, minmax = rv$minmax)
     # write regression statistics to file
     writeCSV_(rv$regStats[,-(which(colnames(rv$regStats)=="better_model")), with=F],
              paste0(csvdir, "BC_regression_stats_", gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
@@ -165,22 +168,23 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
     rv$choices_list <- rv$regStats[,c("Name"), with=F][,("better_model"):=0]
 
     # correct calibration data (to show corrected calibration curves)
-    solved_eq_h <- solvingEquations_(rv$fileimportCal, rv$choices_list, type = 1, rv = rv, mode = "corrected", logfilename = logfilename)
+    solved_eq_h <- solvingEquations_(rv$fileimportCal, rv$choices_list, type = 1, rv = rv, mode = "corrected", logfilename = logfilename, minmax = rv$minmax)
     rv$fileimportCal_corrected_h <- solved_eq_h[["results"]]
     colnames(rv$fileimportCal_corrected_h) <- colnames(rv$fileimportCal)
     # write corrected calibration data to file
     writeCSV_(rv$fileimportCal_corrected_h,
               paste0(csvdir, "BC_corrected_calibrations_h_", rv$sampleLocusName, "_", getTimestamp_(), ".csv"))
 
+
     # calculate new calibration curves from corrected calibration data
-    regression_results <- regressionUtility_(rv$fileimportCal_corrected_h, samplelocusname=rv$sampleLocusName, rv=rv, mode="corrected", headless = TRUE, logfilename = logfilename)
+    regression_results <- regressionUtility_(rv$fileimportCal_corrected_h, samplelocusname=rv$sampleLocusName, rv=rv, mode="corrected", headless = TRUE, logfilename = logfilename, minmax = rv$minmax)
     plotlistR <- regression_results[["plot_list"]]
     rv$result_list_hyperbolic <- regression_results[["result_list"]]
 
-    plottingUtility_(rv$fileimportCal_corrected_h, plotlistR, type=1, samplelocusname=rv$sampleLocusName, locus_id = NULL, rv=rv, mode="corrected_h", headless = TRUE, plotdir = plotdir, logfilename = logfilename)
+    plottingUtility_(rv$fileimportCal_corrected_h, plotlistR, type=1, samplelocusname=rv$sampleLocusName, locus_id = NULL, rv=rv, mode="corrected_h", headless = TRUE, plotdir = plotdir, logfilename = logfilename, minmax = rv$minmax)
 
     # save regression statistics to reactive value
-    rv$regStats_corrected_h <- statisticsList_(rv$result_list_hyperbolic)
+    rv$regStats_corrected_h <- statisticsList_(rv$result_list_hyperbolic, minmax = rv$minmax)
     # write regression statistics to file
     writeCSV_(rv$regStats_corrected_h[,-(which(colnames(rv$regStats_corrected_h)=="better_model")), with=F],
               paste0(csvdir, "BC_corrected_regression_stats_h_", gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
@@ -197,7 +201,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
     rv$choices_list <- rv$regStats[,c("Name"), with=F][,("better_model"):=1]
 
     # correct calibration data (to show corrected calibration curves)
-    solved_eq_c <- solvingEquations_(rv$fileimportCal, rv$choices_list, type = 1, rv = rv, mode = "corrected", logfilename = logfilename)
+    solved_eq_c <- solvingEquations_(rv$fileimportCal, rv$choices_list, type = 1, rv = rv, mode = "corrected", logfilename = logfilename, minmax = rv$minmax)
     rv$fileimportCal_corrected_c <- solved_eq_c[["results"]]
     colnames(rv$fileimportCal_corrected_c) <- colnames(rv$fileimportCal)
     # write corrected calibration data to file
@@ -205,14 +209,14 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
               paste0(csvdir, "BC_corrected_calibrations_c_", rv$sampleLocusName, "_", getTimestamp_(), ".csv"))
 
     # calculate new calibration curves from corrected calibration data
-    regression_results <- regressionUtility_(rv$fileimportCal_corrected_c, samplelocusname=rv$sampleLocusName, rv=rv, mode="corrected", headless = TRUE, logfilename = logfilename)
+    regression_results <- regressionUtility_(rv$fileimportCal_corrected_c, samplelocusname=rv$sampleLocusName, rv=rv, mode="corrected", headless = TRUE, logfilename = logfilename, minmax = rv$minmax)
     plotlistR <- regression_results[["plot_list"]]
     rv$result_list_cubic <- regression_results[["result_list"]]
 
-    plottingUtility_(rv$fileimportCal_corrected_c, plotlistR, type=1, samplelocusname=rv$sampleLocusName, locus_id = NULL, rv=rv, mode="corrected_c", headless = TRUE, plotdir = plotdir, logfilename = logfilename)
+    plottingUtility_(rv$fileimportCal_corrected_c, plotlistR, type=1, samplelocusname=rv$sampleLocusName, locus_id = NULL, rv=rv, mode="corrected_c", headless = TRUE, plotdir = plotdir, logfilename = logfilename, minmax = rv$minmax)
 
     # save regression statistics to reactive value
-    rv$regStats_corrected_c <- statisticsList_(rv$result_list_cubic)
+    rv$regStats_corrected_c <- statisticsList_(rv$result_list_cubic, minmax = rv$minmax)
     # write regression statistics to file
     writeCSV_(rv$regStats_corrected_c[,-(which(colnames(rv$regStats_corrected_c)=="better_model")), with=F],
               paste0(csvdir, "BC_corrected_regression_stats_c_", gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
@@ -236,7 +240,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
       rv$choices_list <- rv$regStats[,c("Name"), with=F][,("better_model"):=1]
     }
 
-    solved_eq <- solvingEquations_(rv$fileimportExp, rv$choices_list, type = 1, rv = rv, logfilename = logfilename)
+    solved_eq <- solvingEquations_(rv$fileimportExp, rv$choices_list, type = 1, rv = rv, logfilename = logfilename, minmax = rv$minmax)
     rv$finalResults <- solved_eq[["results"]]
     # write final results to csv
     writeCSV_(rv$finalResults,

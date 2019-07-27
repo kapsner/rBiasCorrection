@@ -4,7 +4,7 @@
 \alias{statisticsList_}
 \title{statisticsList helper function}
 \usage{
-statisticsList_(resultlist)
+statisticsList_(resultlist, minmax = FALSE)
 }
 \description{
 Formats the results_list into a data.table

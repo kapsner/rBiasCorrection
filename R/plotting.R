@@ -21,7 +21,7 @@
 #' @export
 #'
 # plotting utility
-plottingUtility_ <- function(data, plotlistR, type, samplelocusname, locus_id = NULL, rv, mode=NULL, headless=FALSE, plotdir, logfilename, minmax = FALSE){
+plottingUtility_ <- function(data, plotlistR, type, samplelocusname, locus_id = NULL, rv, mode=NULL, headless=FALSE, plotdir, logfilename, minmax){
 
   if (!is.null(locus_id)){
     writeLog_(paste0("### Starting with plotting ###\n\nLocus ID: ", locus_id), logfilename)

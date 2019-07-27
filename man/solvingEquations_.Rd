@@ -5,7 +5,7 @@
 \title{solvingEquations helper function}
 \usage{
 solvingEquations_(datatable, regmethod, type, rv, mode = NULL,
-  logfilename)
+  logfilename, minmax)
 }
 \description{
 Solving hyperbolic and cubic regression.
