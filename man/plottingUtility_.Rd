@@ -5,7 +5,8 @@
 \title{plottingUtility helper function}
 \usage{
 plottingUtility_(data, plotlistR, type, samplelocusname, locus_id = NULL,
-  rv, mode = NULL, headless = FALSE, plotdir, logfilename)
+  rv, mode = NULL, headless = FALSE, plotdir, logfilename,
+  minmax = FALSE)
 }
 \description{
 Function to carry out the plotting of the calibrations curves.

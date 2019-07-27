@@ -145,15 +145,15 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
   if (type == 1){
     # calculate calibration curves
     # reconstruct parts from app_plottingUtility.R
-    regression_results <- regressionUtility_(rv$fileimportCal, rv$sampleLocusName, locus_id = NULL, rv = rv, mode = NULL, headless = TRUE, logfilename = logfilename)
+    regression_results <- regressionUtility_(rv$fileimportCal, rv$sampleLocusName, locus_id = NULL, rv = rv, mode = NULL, headless = TRUE, logfilename = logfilename, minmax = FALSE)
     plotlistR <- regression_results[["plot_list"]]
     rv$result_list <- regression_results[["result_list"]]
 
     # create calibration plots
-    plottingUtility_(rv$fileimportCal, plotlistR, 1, rv$sampleLocusName, locus_id = NULL, rv = rv, mode = NULL, headless = TRUE, plotdir = plotdir, logfilename = logfilename)
+    plottingUtility_(rv$fileimportCal, plotlistR, 1, rv$sampleLocusName, locus_id = NULL, rv = rv, mode = NULL, headless = TRUE, plotdir = plotdir, logfilename = logfilename, minmax = FALSE)
 
     # save regression statistics to reactive value
-    rv$regStats <- statisticsList_(rv$result_list)
+    rv$regStats <- statisticsList_(rv$result_list, minmax = FALSE)
     # write regression statistics to file
     writeCSV_(rv$regStats[,-(which(colnames(rv$regStats)=="better_model")), with=F],
              paste0(csvdir, "BC_regression_stats_", gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",

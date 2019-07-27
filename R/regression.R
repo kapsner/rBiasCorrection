@@ -15,13 +15,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#' @title regressionUtility helper function
+#' @title regressionUtility
 #'
-#' @description Function to carry out the regression calculations.
+#' @description Internal function to carry out the regression calculations.
 #'
 #' @export
 #'
-regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode = NULL, headless = FALSE, logfilename){
+regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode = NULL, headless = FALSE, logfilename, minmax = FALSE){
 
   if (!is.null(locus_id)){
     writeLog_(paste0("### Starting with regression calculations ###\n\nLocus ID: ", locus_id), logfilename)
@@ -44,14 +44,14 @@ regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode 
       regression_results <- regression()
     })
   } else {
-    regression_results <- regression_type1(data, rv$vec_cal, mode, logfilename)
+    regression_results <- regression_type1(data, rv$vec_cal, mode, logfilename, minmax = minmax)
   }
 
   return(list("plot_list" = regression_results[["plot_list"]],
               "result_list" = regression_results[["result_list"]]))
 }
 
-regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename){
+regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename, minmax){
   writeLog_("Entered 'regression_type1'-Function", logfilename)
 
   # result_list
@@ -68,7 +68,7 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename){
     writeLog_(paste("Logging df_agg:", vec_cal[i]), logfilename)
     writeLog_(df_agg, logfilename)
 
-    result_list[[vec_cal[i]]] <- hyperbolic_regression(df_agg, vec_cal[i], logfilename)
+    result_list[[vec_cal[i]]] <- hyperbolic_regression(df_agg, vec_cal[i], logfilename, minmax = minmax)
     # append result_list
     result_list[[vec_cal[i]]] <- c(result_list[[vec_cal[i]]], cubic_regression(df_agg, vec_cal[i], logfilename))
 
@@ -77,14 +77,6 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename){
     } else if (mode == "corrected"){
       custom_ylab <- "% methylation after BiasCorrection"
     }
-
-    # lb1 <- paste(" Cubic: ",
-    #          paste0("  SSE: ", round(result_list[[vec_cal[i]]]$SSE_cubic, 2)),
-    #          paste0("  R^2: ", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)),
-    #          paste0(" "),
-    #          paste0(" Hyperbolic: "),
-    #          paste0("  SSE: ", round(result_list[[vec_cal[i]]]$SSE_hyper, 2)),
-    #          paste0("  R^2: ", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)), sep="\n")
 
     lb1 <- c(paste0(" Hyperbolic: R\u00B2=", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)),
              paste0(" Cubic: R\u00B2=", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2))
@@ -104,18 +96,9 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename){
       ggplot2::ggtitle(paste("CpG-site:", vec_cal[i])) +
       ggplot2:: geom_text(data = data.frame(),
                           ggplot2::aes(x=-Inf, y=c(max(gdat$CpG), 0.95*max(gdat$CpG)), hjust=0, vjust = 1),
-                          #ggplot2::aes(x=-Inf, y=Inf, hjust=0, vjust = 1),
                           label = lb1,
                           size = 3.5,
                           parse = F)
-      # ggplot2::annotate("text",
-      #                   x=min(gdat$true_methylation),
-      #                   y=max(gdat$CpG),
-      #                   hjust=0,
-      #                   vjust = 1,
-      #                   label = lb1,
-      #                   parse = F,
-      #                   size=3.5)
     plot.listR[[i]] <- p
   }
   return(list("plot_list" = plot.listR, "result_list" = result_list))

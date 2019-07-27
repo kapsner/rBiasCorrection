@@ -2,11 +2,11 @@
 % Please edit documentation in R/regression.R
 \name{regressionUtility_}
 \alias{regressionUtility_}
-\title{regressionUtility helper function}
+\title{regressionUtility}
 \usage{
 regressionUtility_(data, samplelocusname, locus_id = NULL, rv,
-  mode = NULL, headless = FALSE, logfilename)
+  mode = NULL, headless = FALSE, logfilename, minmax = FALSE)
 }
 \description{
-Function to carry out the regression calculations.
+Internal function to carry out the regression calculations.
 }
