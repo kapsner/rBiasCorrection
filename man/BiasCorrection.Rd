@@ -51,3 +51,9 @@ This function implements the algorithms described by Moskalev et. al in their
  article 'Correction of PCR-bias in quantitative DNA methylation studies by means of cubic polynomial regression',
  published 2011 in Nucleic acids research, Oxford University Press (\url{https://doi.org/10.1093/nar/gkr213}).
 }
+\examples{
+\dontrun{
+BiasCorrection("type1_experimentaldata.csv", "type1_calibrationdata.csv", samplelocusname = "BRAF")
+}
+
+}

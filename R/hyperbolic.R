@@ -72,10 +72,11 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
     st <- data.frame(a = c(-1000, 1000),
                      b = c(-1000, 1000),
                      d = c(-1000, 1000))
+    set.seed(1234)
     c <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st)
 
     # get coefficients
-    coe <- coef(c)
+    coe <- stats::coef(c)
     a <- coe[["a"]]
     b <- coe[["b"]]
     d <- coe[["d"]]

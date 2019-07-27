@@ -53,7 +53,7 @@
 #' @import data.table
 #' @importFrom magrittr "%>%"
 #'
-#' @example
+#' @examples
 #' \dontrun{
 #' BiasCorrection("type1_experimentaldata.csv", "type1_calibrationdata.csv", samplelocusname = "BRAF")
 #' }
