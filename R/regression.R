@@ -35,7 +35,7 @@ regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode 
     # for plotting: basic idea and some code snippets from:
     # https://gist.github.com/wch/5436415/
     regression <- shiny::reactive({
-      regression_type1(data, rv$vec_cal, mode, logfilename)
+      regression_type1(datatable = data, vec_cal = rv$vec_cal, mode = mode, logfilename = logfilename, minmax = minmax)
     })
 
     shiny::withProgress(message = "Calculating calibration curves", value = 0, {
@@ -44,7 +44,7 @@ regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode 
       regression_results <- regression()
     })
   } else {
-    regression_results <- regression_type1(data, rv$vec_cal, mode, logfilename, minmax = minmax)
+    regression_results <- regression_type1(datatable = data, vec_cal = rv$vec_cal, mode = mode, logfilename = logfilename, minmax = minmax)
   }
 
   return(list("plot_list" = regression_results[["plot_list"]],
