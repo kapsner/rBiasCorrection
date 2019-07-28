@@ -2,11 +2,38 @@
 % Please edit documentation in R/plotting.R
 \name{plottingUtility_}
 \alias{plottingUtility_}
-\title{plottingUtility helper function}
+\title{plottingUtility_ helper function}
 \usage{
 plottingUtility_(data, plotlistR, type, samplelocusname, locus_id = NULL,
   rv, mode = NULL, headless = FALSE, plotdir, logfilename, minmax)
 }
+\arguments{
+\item{data}{A data.table object that contains the calibration data.}
+
+\item{plotlistR}{A list object contating regression plots without regression curves (output of \code{regressionUtility_()}).}
+
+\item{type}{A single integer. Type of data to be corrected: either "1" (one locus in many samples, e.g. pyrosequencing data)
+or "2" (many loci in one sample, e.g. next-generation sequencing data or microarray data).}
+
+\item{samplelocusname}{A character string. In type 1 data: locus name - name of the gene locus under investigation.
+In type 2 data: sample name - name of the sample under investigation.}
+
+\item{locus_id}{A character string. Default: NULL. ID of the respective locus (only used in type 2 correction).}
+
+\item{rv}{A list object. A list that contains additional objects needed for the algorithms.}
+
+\item{mode}{A character string. Default: NULL. Used to indicate "corrected" calibration data.}
+
+\item{headless}{A logical (default: FALSE). Indicates, if the function is called from within a shiny app (default)
+or just from the console without a graphical user interface.}
+
+\item{plotdir}{A character string. Path to the folder, where plots are saved.}
+
+\item{logfilename}{A character string. Path to a file to save the log messages. Default = "./log.txt"}
+
+\item{minmax}{A logical, indicating which equations are used for BiasCorrection (default: FALSE). If TRUE, equations are used
+that include the respective minima and maxima of the provided data.}
+}
 \description{
-Function to carry out the plotting of the calibrations curves.
+Internal function to carry out the plotting of the calibrations curves.
 }

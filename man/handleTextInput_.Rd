@@ -2,10 +2,13 @@
 % Please edit documentation in R/utils.R
 \name{handleTextInput_}
 \alias{handleTextInput_}
-\title{handleTextInput helper function}
+\title{handleTextInput_ helper function}
 \usage{
 handleTextInput_(textinput)
 }
+\arguments{
+\item{textinput}{A character string with the textinput to perform these predefined regular expressions on.}
+}
 \description{
-Function to remove punctuation and unneeded stuff from user inputs.
+Internal function to remove punctuation and unneeded stuff from user inputs with regular expressions.
 }

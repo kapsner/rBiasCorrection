@@ -2,10 +2,17 @@
 % Please edit documentation in R/utils.R
 \name{onStart_}
 \alias{onStart_}
-\title{onStart helper function}
+\title{onStart_ helper function}
 \usage{
 onStart_(plotdir, csvdir, logfilename)
 }
+\arguments{
+\item{plotdir}{A character string. Path to the folder, where plots are saved.}
+
+\item{csvdir}{A character string. Path to the folder, where resulting tables are saved.}
+
+\item{logfilename}{A character string. Path to the logfile to save the log messages.}
+}
 \description{
-Initialization of plotdir, csvdir and logfilename
+Internal function, that initializes plotdir, csvdir and logfilename.
 }

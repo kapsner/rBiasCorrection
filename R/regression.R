@@ -15,9 +15,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#' @title regressionUtility
+#' @title regressionUtility_ helper function
 #'
 #' @description Internal function to carry out the regression calculations.
+#'
+#' @param data A data.table object that contains the calibration data.
+#' @inheritParams BiasCorrection
+#' @param locus_id A character string. Default: NULL. ID of the respective locus (only used in type 2 correction).
+#' @param rv A list object. A list that contains additional objects needed for the algorithms.
+#' @param headless A logical (default: FALSE). Indicates, if the function is called from within a shiny app (default)
+#'   or just from the console without a graphical user interface.
+#' @param mode A character string. Default: NULL. Used to indicate "corrected" calibration data.
 #'
 #' @export
 #'
@@ -47,8 +55,7 @@ regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode 
     regression_results <- regression_type1(datatable = data, vec_cal = rv$vec_cal, mode = mode, logfilename = logfilename, minmax = minmax)
   }
 
-  return(list("plot_list" = regression_results[["plot_list"]],
-              "result_list" = regression_results[["result_list"]]))
+  return(regression_results)
 }
 
 regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename, minmax){

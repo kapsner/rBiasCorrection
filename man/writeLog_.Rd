@@ -2,10 +2,15 @@
 % Please edit documentation in R/utils.R
 \name{writeLog_}
 \alias{writeLog_}
-\title{writeLog helper function}
+\title{writeLog_ helper function}
 \usage{
 writeLog_(message, logfilename)
 }
+\arguments{
+\item{message}{A character string containing the log message.}
+
+\item{logfilename}{A character string. Path to the logfile to save the log messages.}
+}
 \description{
-Writes log-messages to the file specified in logfilename
+Internal function to write log-messages to the file specified in logfilename.
 }

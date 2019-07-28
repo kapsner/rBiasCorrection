@@ -14,9 +14,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' @title plottingUtility helper function
+#' @title plottingUtility_ helper function
 #'
-#' @description Function to carry out the plotting of the calibrations curves.
+#' @description Internal function to carry out the plotting of the calibrations curves.
+#'
+#' @param plotlistR A list object contating regression plots without regression curves (output of \code{regressionUtility_()}).
+#' @inheritParams regressionUtility_
+#' @inheritParams createBarErrorPlots_
 #'
 #' @export
 #'
@@ -142,13 +146,21 @@ createPlots <- function(plotlist, f, rv, filename, logfilename, mode = NULL, min
 }
 
 
-#' @title createBarErrorPlots helper function
+#' @title createBarErrorPlots_ helper function
 #'
-#' @description Function to create relative-error bar plots.
+#' @description Internal function to create relative-error bar plots.
+#'
+#' @param statstable_pre A data.table object, containing the output of \code{statisticsList_()} of the
+#'   calculated regression parameters (form the provided calibration data).
+#' @param statstable_post A data.table object, containing the output of \code{statisticsList_()} of the
+#'   calculated regression parameters form the corrected calibration data.
+#' @inheritParams regressionUtility_
+#' @inheritParams cleanDT_
+#' @inheritParams onStart_
 #'
 #' @export
 #'
-createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NULL, headless = FALSE, plotdir, logfilename, mode = NULL){
+createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, locus_id=NULL, headless = FALSE, plotdir, logfilename, mode = NULL){
 
   stats_pre <- statstable_pre[,c("Name", "relative_error", "better_model"),with=F]
   stats_post <- statstable_post[,c("Name", "relative_error", "better_model"),with=F]
@@ -168,7 +180,7 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, b=NU
       if (type == 1){
         filename <- paste0(plotdir, "Errorplot_", rv$sampleLocusName, "_", plotname, "_", mode, ".png")
       } else if (type == 2){
-        filename <- paste0(plotdir, "Errorplot_", paste0(gsub("[[:punct:]]", "", b)), "-", rv$sampleLocusName, "_", plotname, "_", mode, ".png")
+        filename <- paste0(plotdir, "Errorplot_", paste0(gsub("[[:punct:]]", "", locus_id)), "-", rv$sampleLocusName, "_", plotname, "_", mode, ".png")
       }
 
       plotmessage <- paste("Creating barplot No.", i)

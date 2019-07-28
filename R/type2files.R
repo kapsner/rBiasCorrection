@@ -15,9 +15,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#' @title type2FileReq helper function
+#' @title type2FileReq_ helper function
 #'
-#' @description Function to check type 2 data file requirements.
+#' @description Internal function to check type 2 data file requirements.
+#'
+#' @param filelist A list object, containing all type 2 data calibrations files.
+#' @inheritParams regressionUtility_
 #'
 #' @export
 #'

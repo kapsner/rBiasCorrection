@@ -37,9 +37,16 @@ create_agg_df_exp <- function(datatable, index, type){
   return(df)
 }
 
-#' @title solvingEquations helper function
+#' @title solvingEquations_ helper function
 #'
-#' @description Solving hyperbolic and cubic regression.
+#' @description Internal function to solve the hyperbolic and cubic regression.
+#'
+#' @param regmethod A data.table object, with 2 columns, containing the names of the samples to correct
+#'   (columns 1) and a binary variable \emph{better_model} that indicates, if the data should be corrected
+#'   with the hyperbolic regression parameters (better_model = 0) or with the cubic regression parameters
+#'   (better_model = 1).
+#' @inheritParams cleanDT_
+#' @inheritParams regressionUtility_
 #'
 #' @export
 #'

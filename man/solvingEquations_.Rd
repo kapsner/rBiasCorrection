@@ -2,11 +2,31 @@
 % Please edit documentation in R/regression_utils.R
 \name{solvingEquations_}
 \alias{solvingEquations_}
-\title{solvingEquations helper function}
+\title{solvingEquations_ helper function}
 \usage{
 solvingEquations_(datatable, regmethod, type, rv, mode = NULL,
   logfilename, minmax)
 }
+\arguments{
+\item{datatable}{A data.table object that contains either the experimental data or the calibration data.}
+
+\item{regmethod}{A data.table object, with 2 columns, containing the names of the samples to correct
+(columns 1) and a binary variable \emph{better_model} that indicates, if the data should be corrected
+with the hyperbolic regression parameters (better_model = 0) or with the cubic regression parameters
+(better_model = 1).}
+
+\item{type}{A single integer. Type of data to be corrected: either "1" (one locus in many samples, e.g. pyrosequencing data)
+or "2" (many loci in one sample, e.g. next-generation sequencing data or microarray data).}
+
+\item{rv}{A list object. A list that contains additional objects needed for the algorithms.}
+
+\item{mode}{A character string. Default: NULL. Used to indicate "corrected" calibration data.}
+
+\item{logfilename}{A character string. Path to the logfile to save the log messages.}
+
+\item{minmax}{A logical, indicating which equations are used for BiasCorrection (default: FALSE). If TRUE, equations are used
+that include the respective minima and maxima of the provided data.}
+}
 \description{
-Solving hyperbolic and cubic regression.
+Internal function to solve the hyperbolic and cubic regression.
 }

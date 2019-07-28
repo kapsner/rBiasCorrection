@@ -2,10 +2,10 @@
 % Please edit documentation in R/utils.R
 \name{getTimestamp_}
 \alias{getTimestamp_}
-\title{getTimestamp helper function}
+\title{getTimestamp_ helper function}
 \usage{
 getTimestamp_()
 }
 \description{
-Gets the current timestamp to write it to filenames
+Internal function to get the current timestamp to write it to filenames.
 }

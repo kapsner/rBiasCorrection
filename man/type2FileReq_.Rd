@@ -2,10 +2,17 @@
 % Please edit documentation in R/type2files.R
 \name{type2FileReq_}
 \alias{type2FileReq_}
-\title{type2FileReq helper function}
+\title{type2FileReq_ helper function}
 \usage{
 type2FileReq_(filelist, rv, logfilename)
 }
+\arguments{
+\item{filelist}{A list object, containing all type 2 data calibrations files.}
+
+\item{rv}{A list object. A list that contains additional objects needed for the algorithms.}
+
+\item{logfilename}{A character string. Path to a file to save the log messages. Default = "./log.txt"}
+}
 \description{
-Function to check type 2 data file requirements.
+Internal function to check type 2 data file requirements.
 }

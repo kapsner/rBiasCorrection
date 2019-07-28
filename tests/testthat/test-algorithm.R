@@ -50,7 +50,7 @@ test_that("algorithm test, type 1, minmax = TRUE",{
   expect_known_hash(rv$result_list, "8c7d29964f")
   expect_type(rv$regStats, "list")
   expect_s3_class(rv$regStats, "data.table")
-  expect_known_hash(rv$regStats, "f20afd797f") #a27d84167e
+  expect_known_hash(rv$regStats, "8d9e9c577f") #f20afd797f
   expect_equal(regression_results, regression_results2)
   expect_equal(regression_results[["plot_list"]], regression_results2[["plot_list"]])
   expect_equal(regression_results[["result_list"]], regression_results2[["result_list"]])
@@ -112,7 +112,7 @@ test_that("algorithm test, type 1, minmax = TRUE",{
   expect_known_hash(rv$result_list_hyperbolic, "52ce26f8c5")
   expect_type(rv$regStats_corrected_h, "list")
   expect_s3_class(rv$regStats_corrected_h, "data.table")
-  expect_known_hash(rv$regStats_corrected_h, "e128ff333d") #a27d84167e
+  expect_known_hash(rv$regStats_corrected_h, "aa7217b008") #e128ff333d
 
 
 
@@ -145,7 +145,7 @@ test_that("algorithm test, type 1, minmax = TRUE",{
   expect_known_hash(rv$result_list_cubic, "7c9569a4a4")
   expect_type(rv$regStats_corrected_c, "list")
   expect_s3_class(rv$regStats_corrected_c, "data.table")
-  expect_known_hash(rv$regStats_corrected_c, "b41b6cc539") #a27d84167e
+  expect_known_hash(rv$regStats_corrected_c, "fe5ea3da9c") #b41b6cc539
 })
 
 

@@ -14,9 +14,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' @title onStart helper function
+#' @title onStart_ helper function
 #'
-#' @description Initialization of plotdir, csvdir and logfilename
+#' @description Internal function, that initializes plotdir, csvdir and logfilename.
+#'
+#' @param plotdir A character string. Path to the folder, where plots are saved.
+#' @param csvdir A character string. Path to the folder, where resulting tables are saved.
+#' @inheritParams cleanDT_
 #'
 #' @export
 #'
@@ -34,9 +38,10 @@ onStart_ <- function(plotdir, csvdir, logfilename){
   suppressMessages(suppressWarnings(file.create(logfilename)))
 }
 
-#' @title cleanUp helper function
+#' @title cleanUp_ helper function
 #'
-#' @description Cleans up directories
+#' @description Internal function to clean up directories.
+#' @inheritParams onStart_
 #'
 #' @export
 #'
@@ -49,9 +54,12 @@ cleanUp_ <- function(plotdir, csvdir){
 }
 
 
-#' @title writeLog helper function
+#' @title writeLog_ helper function
 #'
-#' @description Writes log-messages to the file specified in logfilename
+#' @description Internal function to write log-messages to the file specified in logfilename.
+#'
+#' @param message A character string containing the log message.
+#' @inheritParams cleanDT_
 #'
 #' @export
 #'
@@ -65,9 +73,12 @@ writeLog_ <- function(message, logfilename){
 }
 
 
-#' @title writeCSV helper function
+#' @title writeCSV_ helper function
 #'
-#' @description Writes created tables to csv files
+#' @description Internal function to store the created tables in csv files.
+#'
+#' @param table A data.table object to store on the local file system
+#' @param filename The file name (including the path) to store \code{table}.
 #'
 #' @export
 #'
@@ -81,9 +92,9 @@ writeCSV_ <- function(table, filename){
                             eol = "\n"))
 }
 
-#' @title getTimestamp helper function
+#' @title getTimestamp_ helper function
 #'
-#' @description Gets the current timestamp to write it to filenames
+#' @description Internal function to get the current timestamp to write it to filenames.
 #'
 #' @export
 #'
@@ -92,139 +103,21 @@ getTimestamp_ <- function(){
   return(paste(gsub("\\-", "", substr(Sys.time(), 1, 10)), gsub("\\:", "", substr(Sys.time(), 12, 20)), sep="_"))
 }
 
-#' @title R-squared helper function
-#'
-#' @description Caclulates the Coefficient of determinition (R-squared,
-#'   \url{https://en.wikipedia.org/wiki/Coefficient_of_determination}).
-#'
 # R-squared function
 rsq <- function(true, fitted){
+  # https://en.wikipedia.org/wiki/Coefficient_of_determination
   return(stats::cor(true, fitted) ^ 2)
 }
 
 
-#' @title Squared distance to mean
-#'
-#' @description Calculates the squared distance to the mean in preparation for the calculation of R-squared
-#'
 sdm <- function(vector){
   I((vector-mean(vector))^2)
 }
 
 
-#' @title statisticsList helper function
+#' @title substitutionsCreate_ helper function
 #'
-#' @description Formats the results_list into a data.table
-#'
-#' @export
-#'
-statisticsList_ <- function(resultlist, minmax = FALSE){
-  if (isFALSE(minmax)){
-    dt_list <- data.table::data.table("Name" = names(resultlist),
-                                      "relative_error" = NA,
-                                      "SSE_hyperbolic" = NA,
-                                      "R2_hyperbolic" = NA,
-                                      "a" = NA,
-                                      "b" = NA,
-                                      "d_h" = NA,
-                                      "###" = NA,
-                                      "SSE_cubic" = NA,
-                                      "R2_cubic" = NA,
-                                      "ax3" = NA,
-                                      "bx2" = NA,
-                                      "cx" = NA,
-                                      "d" = NA)
-
-    dt_list[, ("Name") := names(resultlist)]
-
-    vec <- names(dt_list)[-1]
-    dt_list[,(vec) := lapply(.SD, function(x){as.numeric(as.character(x))}), .SDcols = vec]
-
-    for (i in names(resultlist)){
-      dt_list[get("Name") == i, ("relative_error") := resultlist[[i]][["relative_error"]]
-              ][
-                get("Name") == i, ("SSE_hyperbolic") := resultlist[[i]][["SSE_hyper"]]
-                ][
-                  get("Name") == i, ("R2_hyperbolic") := resultlist[[i]][["Coef_hyper"]][["R2"]]
-                  ][
-                    get("Name") == i, ("a") := resultlist[[i]][["Coef_hyper"]][["a"]]
-                    ][
-                      get("Name") == i, ("b") := resultlist[[i]][["Coef_hyper"]][["b"]]
-                      ][
-                        get("Name") == i, ("d_h") := resultlist[[i]][["Coef_hyper"]][["d"]]
-                        ][
-                          get("Name") == i, ("SSE_cubic") := resultlist[[i]][["SSE_cubic"]]
-                          ][
-                            get("Name") == i, ("R2_cubic") := resultlist[[i]][["Coef_cubic"]][["R2"]]
-                            ][
-                              get("Name") == i, ("ax3") := resultlist[[i]][["Coef_cubic"]][["ax3"]]
-                              ][
-                                get("Name") == i, ("bx2") := resultlist[[i]][["Coef_cubic"]][["bx2"]]
-                                ][
-                                  get("Name") == i, ("cx") := resultlist[[i]][["Coef_cubic"]][["cx"]]
-                                  ][
-                                    get("Name") == i, ("d") := resultlist[[i]][["Coef_cubic"]][["d"]]
-                                    ]
-    }
-  } else if (isTRUE(minmax)){
-    dt_list <- data.table::data.table("Name" = names(resultlist),
-                                      "relative_error" = NA,
-                                      "SSE_hyperbolic" = NA,
-                                      "R2_hyperbolic" = NA,
-                                      "b" = NA,
-                                      "y0" = NA,
-                                      "y1" = NA,
-                                      "###" = NA,
-                                      "SSE_cubic" = NA,
-                                      "R2_cubic" = NA,
-                                      "ax3" = NA,
-                                      "bx2" = NA,
-                                      "cx" = NA,
-                                      "d" = NA)
-
-    dt_list[, ("Name") := names(resultlist)]
-
-    vec <- names(dt_list)[-1]
-    dt_list[,(vec) := lapply(.SD, function(x){as.numeric(as.character(x))}), .SDcols = vec]
-
-    for (i in names(resultlist)){
-      dt_list[get("Name") == i, ("relative_error") := resultlist[[i]][["relative_error"]]
-              ][
-                get("Name") == i, ("SSE_hyperbolic") := resultlist[[i]][["SSE_hyper"]]
-                ][
-                  get("Name") == i, ("R2_hyperbolic") := resultlist[[i]][["Coef_hyper"]][["R2"]]
-                  ][
-                    get("Name") == i, ("b") := resultlist[[i]][["Coef_hyper"]][["b"]]
-                    ][
-                      get("Name") == i, ("y0") := resultlist[[i]][["Coef_hyper"]][["y0"]]
-                      ][
-                        get("Name") == i, ("y1") := resultlist[[i]][["Coef_hyper"]][["y1"]]
-                        ][
-                          get("Name") == i, ("SSE_cubic") := resultlist[[i]][["SSE_cubic"]]
-                          ][
-                            get("Name") == i, ("R2_cubic") := resultlist[[i]][["Coef_cubic"]][["R2"]]
-                            ][
-                              get("Name") == i, ("ax3") := resultlist[[i]][["Coef_cubic"]][["ax3"]]
-                              ][
-                                get("Name") == i, ("bx2") := resultlist[[i]][["Coef_cubic"]][["bx2"]]
-                                ][
-                                  get("Name") == i, ("cx") := resultlist[[i]][["Coef_cubic"]][["cx"]]
-                                  ][
-                                    get("Name") == i, ("d") := resultlist[[i]][["Coef_cubic"]][["d"]]
-                                    ]
-    }
-  }
-
-  # mark the better model: 1 = cubic, 0 = hyperbolic
-  dt_list[,("better_model") := ifelse(get("SSE_cubic") <= get("SSE_hyperbolic"), 1, 0)]
-
-  return(dt_list)
-}
-
-
-#' @title substitutionsCreate helper function
-#'
-#' @description Function to initialize a data.table object to store the substitutions.
+#' @description Internal function to initialize a data.table object to store the substitutions.
 #'
 #' @export
 #'
@@ -237,9 +130,11 @@ substitutionsCreate_ <- function(){
   return(substitutions)
 }
 
-#' @title handleTextInput helper function
+#' @title handleTextInput_ helper function
 #'
-#' @description Function to remove punctuation and unneeded stuff from user inputs.
+#' @description Internal function to remove punctuation and unneeded stuff from user inputs with regular expressions.
+#'
+#' @param textinput A character string with the textinput to perform these predefined regular expressions on.
 #'
 #' @export
 #'

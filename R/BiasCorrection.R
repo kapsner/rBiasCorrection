@@ -31,9 +31,11 @@
 #'   (\url{https://raw.githubusercontent.com/kapsner/PCRBiasCorrection/master/FAQ.md}).
 #' @param samplelocusname A character string. In type 1 data: locus name - name of the gene locus under investigation.
 #'   In type 2 data: sample name - name of the sample under investigation.
+#' @param minmax A logical, indicating which equations are used for BiasCorrection (default: FALSE). If TRUE, equations are used
+#'   that include the respective minima and maxima of the provided data.
 #' @param type A single integer. Type of data to be corrected: either "1" (one locus in many samples, e.g. pyrosequencing data)
 #'   or "2" (many loci in one sample, e.g. next-generation sequencing data or microarray data).
-#' @param method A character string. Method used to correct the PCR bias of the samples under investigation.
+#' @param correct_method A character string. Method used to correct the PCR bias of the samples under investigation.
 #'   One of "best" (default), "hyperbolic" or "cubic". If the method is set to "best" (short: "b"), the algorithm will
 #'   automatically determine the best fitting type of regression for each CpG site based on the sum of squared
 #'   errors (SSE, \url{https://en.wikipedia.org/wiki/Residual_sum_of_squares}). If the method is set to
@@ -60,50 +62,19 @@
 #'
 #' @export
 
-BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1, method = "best", csvdir = "./csvdir", plotdir = "./plotdir", logfilename = "./log.txt"){
+BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = FALSE, type = 1, correct_method = "best", csvdir = "./csvdir", plotdir = "./plotdir", logfilename = "./log.txt"){
 
-  # check arguments here
-  if (is.character(experimental)){
-    # TODO check for csv file here
-  } else {
-    return("Please provide an appropriate character string for the argument 'experimental'.")
-  }
-  if (is.character(calibration)){
-    # TODO check for csv file here
-  } else {
-    return("Please provide an appropriate character string for the argument 'calibration'.")
-  }
-  if (!is.character(samplelocusname)){
-    return("Please provide an appropriate character string for the argument 'samplelocusname'.")
-  }
-  if (!is.numeric(type) || type < 1 || type > 2){
-    return("Please provide an appropriate type of data to be corrected (either '1' or '2').")
-  }
-  if (is.character(method)){
-    if (method %in% c("best", "hyperbolic", "cubic", "b", "h", "c")){
-      # do stuff here
-    } else {
-      return("Please provide an appropriate character string for the argument 'method': one of 'best' ('b'), 'hyperbolic' ('h') or 'cubic' ('c').")
-    }
-  } else {
-    return("Please provide an appropriate character string for the argument 'method'.")
-  }
-  if (is.character(csvdir)){
-    # TODO check for spaces and points here
-  } else {
-    return("Please provide an appropriate character string for the argument 'csvdir'.")
-  }
-  if (is.character(plotdir)){
-    # TODO check for spaces and points here
-  } else {
-    return("Please provide an appropriate character string for the argument 'plotdir'.")
-  }
-  if (is.character(logfilename)){
-    # TODO check for txt file here
-  } else {
-    return("Please provide an appropriate character string for the argument 'logfilename'.")
-  }
-
+  stopifnot(is.character(experimental),
+            is.character(calibration),
+            is.character(samplelocusname),
+            is.logical(minmax),
+            is.numeric(type),
+            type == 1 || type == 2,
+            is.character(correct_method),
+            correct_method %in% c("best", "hyperbolic", "cubic", "b", "h", "c"),
+            is.character(csvdir),
+            is.character(plotdir),
+            is.character(logfilename))
 
   # fix directories to work with all functions
   # therefore we need a "/" at the end of the dir-string
@@ -118,7 +89,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
   rv <- list()
 
   # min-max hard coded to minmax = FALSE (minmax = TRUE is experimental and under development)
-  rv$minmax <- FALSE
+  rv$minmax <- minmax
 
   # save locusname
   rv$sampleLocusName <- handleTextInput_(samplelocusname)
@@ -231,12 +202,12 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, type = 1,
 
     # now correct the real experimental data with the method chosen:
     # BiasCorrect experimental data with derived calibration curves
-    if (method %in% c("best", "b")){
+    if (correct_method %in% c("best", "b")){
       # default selection of the model with the lower sse:
       rv$choices_list <- rv$regStats[,c("Name", "better_model"),with=F]
-    } else if (method %in% c("hyperbolic", "h")){
+    } else if (correct_method %in% c("hyperbolic", "h")){
       rv$choices_list <- rv$regStats[,c("Name"), with=F][,("better_model"):=0]
-    } else if (method %in% c("cubic", "c")){
+    } else if (correct_method %in% c("cubic", "c")){
       rv$choices_list <- rv$regStats[,c("Name"), with=F][,("better_model"):=1]
     }
 

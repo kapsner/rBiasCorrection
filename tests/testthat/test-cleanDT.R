@@ -54,17 +54,17 @@ test_that("test normal function of file import of type 2",{
 test_that("wrong description",{
   # type 1 data
   cal_type_1 <- fread(paste0(prefix, "testdata/cal_type_1.csv"))
-  expect_null(cleanDT_(cal_type_1, "calibraRAtion", 1, logfilename))
+  expect_error(cleanDT_(cal_type_1, "calibraRAtion", 1, logfilename))
 
   exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
-  expect_null(cleanDT_(exp_type_1, "experiRINKLmental", 1, logfilename))
+  expect_error(cleanDT_(exp_type_1, "experiRINKLmental", 1, logfilename))
 
   # type 2 data
   cal_type_2 <- fread(paste0(prefix, "testdata/cal_type_2.csv"))
-  expect_null(cleanDT_(cal_type_2, "calibraRAtion", 2, logfilename))
+  expect_error(cleanDT_(cal_type_2, "calibraRAtion", 2, logfilename))
 
   exp_type_2 <- fread(paste0(prefix, "testdata/exp_type_2.csv"))
-  expect_null(cleanDT_(exp_type_2, "experiRINKLmental", 2, logfilename))
+  expect_error(cleanDT_(exp_type_2, "experiRINKLmental", 2, logfilename))
 })
 
 # wrong type
@@ -108,4 +108,6 @@ test_that("heterogenous cpg-sites per locus in type 2 data", {
 
   exp_type_2 <- fread(paste0(prefix, "testdata/exp_type_2_heterogenous.csv"))
   expect_null(cleanDT_(exp_type_2, "experimental", 2, logfilename))
+
+  expect_true(file.remove(paste0(prefix, "log.txt")))
 })

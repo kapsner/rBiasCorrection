@@ -2,10 +2,15 @@
 % Please edit documentation in R/utils.R
 \name{cleanUp_}
 \alias{cleanUp_}
-\title{cleanUp helper function}
+\title{cleanUp_ helper function}
 \usage{
 cleanUp_(plotdir, csvdir)
 }
+\arguments{
+\item{plotdir}{A character string. Path to the folder, where plots are saved.}
+
+\item{csvdir}{A character string. Path to the folder, where resulting tables are saved.}
+}
 \description{
-Cleans up directories
+Internal function to clean up directories.
 }

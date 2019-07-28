@@ -2,10 +2,15 @@
 % Please edit documentation in R/utils.R
 \name{writeCSV_}
 \alias{writeCSV_}
-\title{writeCSV helper function}
+\title{writeCSV_ helper function}
 \usage{
 writeCSV_(table, filename)
 }
+\arguments{
+\item{table}{A data.table object to store on the local file system}
+
+\item{filename}{The file name (including the path) to store \code{table}.}
+}
 \description{
-Writes created tables to csv files
+Internal function to store the created tables in csv files.
 }

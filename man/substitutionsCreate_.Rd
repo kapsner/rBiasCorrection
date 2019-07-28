@@ -2,10 +2,10 @@
 % Please edit documentation in R/utils.R
 \name{substitutionsCreate_}
 \alias{substitutionsCreate_}
-\title{substitutionsCreate helper function}
+\title{substitutionsCreate_ helper function}
 \usage{
 substitutionsCreate_()
 }
 \description{
-Function to initialize a data.table object to store the substitutions.
+Internal function to initialize a data.table object to store the substitutions.
 }

@@ -4,8 +4,9 @@
 \alias{BiasCorrection}
 \title{Correct PCR-Bias in Quantitative DNA Methylation Analyses.}
 \usage{
-BiasCorrection(experimental, calibration, samplelocusname, type = 1,
-  method = "best", csvdir = "./csvdir", plotdir = "./plotdir",
+BiasCorrection(experimental, calibration, samplelocusname,
+  minmax = FALSE, type = 1, correct_method = "best",
+  csvdir = "./csvdir", plotdir = "./plotdir",
   logfilename = "./log.txt")
 }
 \arguments{
@@ -22,10 +23,13 @@ Please refere to the FAQ for more detailed information on the specific file requ
 \item{samplelocusname}{A character string. In type 1 data: locus name - name of the gene locus under investigation.
 In type 2 data: sample name - name of the sample under investigation.}
 
+\item{minmax}{A logical, indicating which equations are used for BiasCorrection (default: FALSE). If TRUE, equations are used
+that include the respective minima and maxima of the provided data.}
+
 \item{type}{A single integer. Type of data to be corrected: either "1" (one locus in many samples, e.g. pyrosequencing data)
 or "2" (many loci in one sample, e.g. next-generation sequencing data or microarray data).}
 
-\item{method}{A character string. Method used to correct the PCR bias of the samples under investigation.
+\item{correct_method}{A character string. Method used to correct the PCR bias of the samples under investigation.
 One of "best" (default), "hyperbolic" or "cubic". If the method is set to "best" (short: "b"), the algorithm will
 automatically determine the best fitting type of regression for each CpG site based on the sum of squared
 errors (SSE, \url{https://en.wikipedia.org/wiki/Residual_sum_of_squares}). If the method is set to

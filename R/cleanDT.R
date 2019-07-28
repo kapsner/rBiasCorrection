@@ -15,14 +15,26 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#' @title cleanDT helper function
+#' @title cleanDT_ helper function
 #'
-#' @description Function, that checks the formatting of imported files and prepares them to
+#' @description Internal function, that checks the formatting of imported files and prepares them to
 #'   be applicable for the following pcr-bias correction steps.
+#'
+#' @param datatable A data.table object that contains either the experimental data or the calibration data.
+#' @param description A character string, indicating if \code{datatable} contains either \emph{"calibration"} data or \emph{"experimental"} data.
+#' @param type A single integer. Type of data to be corrected: either "1" (one locus in many samples, e.g. pyrosequencing data)
+#'   or "2" (many loci in one sample, e.g. next-generation sequencing data or microarray data).
+#' @param logfilename A character string. Path to the logfile to save the log messages.
 #'
 #' @export
 cleanDT_ <- function(datatable, description, type, logfilename) {
   writeLog_("Entered 'cleanDT'-Function", logfilename)
+
+  stopifnot(
+    data.table::is.data.table(datatable),
+    is.character(description),
+    description %in% c("calibration", "experimental")
+  )
 
   # workaround for vec_cal
   vec_cal <- NULL

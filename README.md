@@ -38,3 +38,9 @@ This is a basic example which shows you how to correct PCR-bias in quantitative 
 library(PCRBiasCorrection)
 BiasCorrection("type1_experimentaldata.csv", "type1_calibrationdata.csv", samplelocusname = "BRAF")
 ```
+
+## FAQ 
+
+For further information, please refere to our [frequently asked questions](https://github.com/kapsner/BiasCorrector/blob/master/FAQ.md).
+
+
