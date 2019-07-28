@@ -6,3 +6,5 @@
 ^plotdir$
 ^log\.txt$
 ^revdep$
+^FAQ\.md$
+^FAQ\.html$
