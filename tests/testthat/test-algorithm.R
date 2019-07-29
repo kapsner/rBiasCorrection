@@ -50,19 +50,20 @@ test_that("algorithm test, type 1, minmax = TRUE",{
   expect_known_hash(rv$result_list, "8c7d29964f")
   expect_type(rv$regStats, "list")
   expect_s3_class(rv$regStats, "data.table")
-  expect_known_hash(rv$regStats, "8d9e9c577f") #f20afd797f
+  expect_known_hash(rv$regStats, "3b8a2c9335") #f20afd797f, 8d9e9c577f
   expect_equal(regression_results, regression_results2)
   expect_equal(regression_results[["plot_list"]], regression_results2[["plot_list"]])
   expect_equal(regression_results[["result_list"]], regression_results2[["result_list"]])
 
   # calculate final results
-  # default rv$choices_list == rv$regStats[,.(Name, better_model)]
-  solved_eq <- solvingEquations_(rv$fileimportExp, rv$regStats[,c("Name", "better_model"),with=F], type = 1, rv = rv, logfilename = logfilename, minmax = rv$minmax)
+  rv$choices_list <- betterModel(statstable_pre = rv$regStats,
+                                 selection_method = "SSE")
+  solved_eq <- solvingEquations_(rv$fileimportExp, rv$choices_list, type = 1, rv = rv, logfilename = logfilename, minmax = rv$minmax)
   rv$finalResults <- solved_eq[["results"]]
   rv$substitutions <- solved_eq[["substitutions"]]
 
   # Calibration Data (to show corrected calibration curves)
-  solved_eq2 <- solvingEquations_(rv$fileimportCal, rv$regStats[,c("Name", "better_model"),with=F], type = 1, rv = rv, mode = "corrected", logfilename = logfilename, minmax = rv$minmax)
+  solved_eq2 <- solvingEquations_(rv$fileimportCal, rv$choices_list, type = 1, rv = rv, mode = "corrected", logfilename = logfilename, minmax = rv$minmax)
   rv$fileimportCal_corrected <- solved_eq2[["results"]]
   colnames(rv$fileimportCal_corrected) <- colnames(rv$fileimportCal)
 
@@ -112,7 +113,7 @@ test_that("algorithm test, type 1, minmax = TRUE",{
   expect_known_hash(rv$result_list_hyperbolic, "52ce26f8c5")
   expect_type(rv$regStats_corrected_h, "list")
   expect_s3_class(rv$regStats_corrected_h, "data.table")
-  expect_known_hash(rv$regStats_corrected_h, "aa7217b008") #e128ff333d
+  expect_known_hash(rv$regStats_corrected_h, "22990dacfc") #e128ff333d, aa7217b008
 
 
 
@@ -145,7 +146,7 @@ test_that("algorithm test, type 1, minmax = TRUE",{
   expect_known_hash(rv$result_list_cubic, "7c9569a4a4")
   expect_type(rv$regStats_corrected_c, "list")
   expect_s3_class(rv$regStats_corrected_c, "data.table")
-  expect_known_hash(rv$regStats_corrected_c, "fe5ea3da9c") #b41b6cc539
+  expect_known_hash(rv$regStats_corrected_c, "050face677") #b41b6cc539, fe5ea3da9c
 })
 
 
@@ -186,19 +187,20 @@ test_that("algorithm test, type 1, minmax = FALSE",{
   expect_known_hash(rv$result_list, "d7f426a1a8")
   expect_type(rv$regStats, "list")
   expect_s3_class(rv$regStats, "data.table")
-  expect_known_hash(rv$regStats, "b88f6a9fcf") #a27d84167e
+  expect_known_hash(rv$regStats, "838eb7f7eb") #a27d84167e, b88f6a9fcf
   expect_equal(regression_results, regression_results2)
   expect_equal(regression_results[["plot_list"]], regression_results2[["plot_list"]])
   expect_equal(regression_results[["result_list"]], regression_results2[["result_list"]])
 
   # calculate final results
-  # default rv$choices_list == rv$regStats[,.(Name, better_model)]
-  solved_eq <- solvingEquations_(rv$fileimportExp, rv$regStats[,c("Name", "better_model"),with=F], type = 1, rv = rv, logfilename = logfilename, minmax = rv$minmax)
+  rv$choices_list <- betterModel(statstable_pre = rv$regStats,
+                                 selection_method = "SSE")
+  solved_eq <- solvingEquations_(rv$fileimportExp, rv$choices_list, type = 1, rv = rv, logfilename = logfilename, minmax = rv$minmax)
   rv$finalResults <- solved_eq[["results"]]
   rv$substitutions <- solved_eq[["substitutions"]]
 
   # Calibration Data (to show corrected calibration curves)
-  solved_eq2 <- solvingEquations_(rv$fileimportCal, rv$regStats[,c("Name", "better_model"),with=F], type = 1, rv = rv, mode = "corrected", logfilename = logfilename, minmax = rv$minmax)
+  solved_eq2 <- solvingEquations_(rv$fileimportCal, rv$choices_list, type = 1, rv = rv, mode = "corrected", logfilename = logfilename, minmax = rv$minmax)
   rv$fileimportCal_corrected <- solved_eq2[["results"]]
   colnames(rv$fileimportCal_corrected) <- colnames(rv$fileimportCal)
 
@@ -248,7 +250,7 @@ test_that("algorithm test, type 1, minmax = FALSE",{
   expect_known_hash(rv$result_list_hyperbolic, "3d50611917")
   expect_type(rv$regStats_corrected_h, "list")
   expect_s3_class(rv$regStats_corrected_h, "data.table")
-  expect_known_hash(rv$regStats_corrected_h, "5205aae446") #a27d84167e
+  expect_known_hash(rv$regStats_corrected_h, "5d938da148") #a27d84167e, 5205aae446
 
 
 
@@ -281,5 +283,5 @@ test_that("algorithm test, type 1, minmax = FALSE",{
   expect_known_hash(rv$result_list_cubic, "7214d93552")
   expect_type(rv$regStats_corrected_c, "list")
   expect_s3_class(rv$regStats_corrected_c, "data.table")
-  expect_known_hash(rv$regStats_corrected_c, "1d48c373f6") #a27d84167e
+  expect_known_hash(rv$regStats_corrected_c, "2502d83b4c") #a27d84167e, 1d48c373f6
 })

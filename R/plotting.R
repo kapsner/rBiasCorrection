@@ -162,8 +162,8 @@ createPlots <- function(plotlist, f, rv, filename, logfilename, mode = NULL, min
 #'
 createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, locus_id=NULL, headless = FALSE, plotdir, logfilename, mode = NULL){
 
-  stats_pre <- statstable_pre[,c("Name", "relative_error", "better_model"),with=F]
-  stats_post <- statstable_post[,c("Name", "relative_error", "better_model"),with=F]
+  stats_pre <- statstable_pre[,c("Name", "relative_error"),with=F]
+  stats_post <- statstable_post[,c("Name", "relative_error"),with=F]
 
   error_data <- merge(stats_post, stats_pre, by="Name", sort=F, suffixes=c("", "_pre"))
 

@@ -90,6 +90,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
 
   # min-max hard coded to minmax = FALSE (minmax = TRUE is experimental and under development)
   rv$minmax <- minmax
+  rv$selection_method <- "SSE"
 
   # save locusname
   rv$sampleLocusName <- handleTextInput_(samplelocusname)
@@ -129,7 +130,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
     # save regression statistics to reactive value
     rv$regStats <- statisticsList_(rv$result_list, minmax = rv$minmax)
     # write regression statistics to file
-    writeCSV_(rv$regStats[,-(which(colnames(rv$regStats)=="better_model")), with=F],
+    writeCSV_(rv$regStats, #[,-(which(colnames(rv$regStats)=="better_model")), with=F],
              paste0(csvdir, "BC_regression_stats_", gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
                     gsub("\\:", "", substr(Sys.time(), 12, 16)), ".csv"))
 
@@ -157,14 +158,14 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
     # save regression statistics to reactive value
     rv$regStats_corrected_h <- statisticsList_(rv$result_list_hyperbolic, minmax = rv$minmax)
     # write regression statistics to file
-    writeCSV_(rv$regStats_corrected_h[,-(which(colnames(rv$regStats_corrected_h)=="better_model")), with=F],
+    writeCSV_(rv$regStats_corrected_h, #[,-(which(colnames(rv$regStats_corrected_h)=="better_model")), with=F],
               paste0(csvdir, "BC_corrected_regression_stats_h_", gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
                      gsub("\\:", "", substr(Sys.time(), 12, 16)), ".csv"))
 
 
-    for (i in rv$choices_list[,get("Name")]){
-      rv$regStats_corrected_h[get("Name")==i,("better_model"):=rv$choices_list[get("Name")==i,as.integer(as.character(get("better_model")))]]
-    }
+    # for (i in rv$choices_list[,get("Name")]){
+    #   rv$regStats_corrected_h[get("Name")==i,("better_model"):=rv$choices_list[get("Name")==i,as.integer(as.character(get("better_model")))]]
+    # }
     createBarErrorPlots_(rv$regStats, rv$regStats_corrected_h, rv, type=1, headless = TRUE, plotdir = plotdir, logfilename = logfilename, mode = "corrected_h")
 
 
@@ -189,14 +190,14 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
     # save regression statistics to reactive value
     rv$regStats_corrected_c <- statisticsList_(rv$result_list_cubic, minmax = rv$minmax)
     # write regression statistics to file
-    writeCSV_(rv$regStats_corrected_c[,-(which(colnames(rv$regStats_corrected_c)=="better_model")), with=F],
+    writeCSV_(rv$regStats_corrected_c, #[,-(which(colnames(rv$regStats_corrected_c)=="better_model")), with=F],
               paste0(csvdir, "BC_corrected_regression_stats_c_", gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
                      gsub("\\:", "", substr(Sys.time(), 12, 16)), ".csv"))
 
 
-    for (i in rv$choices_list[,get("Name")]){
-      rv$regStats_corrected_c[get("Name")==i,("better_model"):=rv$choices_list[get("Name")==i,as.integer(as.character(get("better_model")))]]
-    }
+    # for (i in rv$choices_list[,get("Name")]){
+    #   rv$regStats_corrected_c[get("Name")==i,("better_model"):=rv$choices_list[get("Name")==i,as.integer(as.character(get("better_model")))]]
+    # }
     createBarErrorPlots_(rv$regStats, rv$regStats_corrected_c, rv, type=1, headless = TRUE, plotdir = plotdir, logfilename = logfilename, mode = "corrected_c")
 
 
@@ -204,7 +205,10 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
     # BiasCorrect experimental data with derived calibration curves
     if (correct_method %in% c("best", "b")){
       # default selection of the model with the lower sse:
-      rv$choices_list <- rv$regStats[,c("Name", "better_model"),with=F]
+      rv$choices_list <- betterModel(statstable_pre = rv$regStats,
+                                     statstable_post_hyperbolic = rv$regStats_corrected_h,
+                                     statstable_post_cubic = rv$regStats_corrected_c,
+                                     selection_method = rv$selection_method)
     } else if (correct_method %in% c("hyperbolic", "h")){
       rv$choices_list <- rv$regStats[,c("Name"), with=F][,("better_model"):=0]
     } else if (correct_method %in% c("cubic", "c")){
