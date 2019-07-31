@@ -1,3 +1,17 @@
+#' @title betterModel_ helper function
+#'
+#' @description Internal function to select the better model between hyperbolic regression and
+#'   cubic regression.
+#'
+#' @inheritParams createBarErrorPlots_
+#' @param statstable_post_hyperbolic A data.table object, containing the output of \code{statisticsList_()}
+#'   of the calculated regression parameters form the calibration data corrected with hyperbolic regression.
+#' @param statstable_post_cubic A data.table object, containing the output of \code{statisticsList_()}
+#'   of the calculated regression parameters form the calibration data corrected with cubic regression.
+#' @inheritParams BiasCorrection
+#'
+#' @export
+#'
 betterModel <- function(statstable_pre, statstable_post_hyperbolic = NULL, statstable_post_cubic = NULL, selection_method = "SSE"){
 
   stopifnot(
