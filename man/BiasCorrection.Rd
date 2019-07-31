@@ -5,8 +5,8 @@
 \title{Correct PCR-Bias in Quantitative DNA Methylation Analyses.}
 \usage{
 BiasCorrection(experimental, calibration, samplelocusname,
-  minmax = FALSE, type = 1, correct_method = "best",
-  csvdir = "./csvdir", plotdir = "./plotdir",
+  minmax = FALSE, correct_method = "best", selection_method = "SSE",
+  type = 1, csvdir = "./csvdir", plotdir = "./plotdir",
   logfilename = "./log.txt")
 }
 \arguments{
@@ -26,15 +26,21 @@ In type 2 data: sample name - name of the sample under investigation.}
 \item{minmax}{A logical, indicating which equations are used for BiasCorrection (default: FALSE). If TRUE, equations are used
 that include the respective minima and maxima of the provided data.}
 
-\item{type}{A single integer. Type of data to be corrected: either "1" (one locus in many samples, e.g. pyrosequencing data)
-or "2" (many loci in one sample, e.g. next-generation sequencing data or microarray data).}
-
 \item{correct_method}{A character string. Method used to correct the PCR bias of the samples under investigation.
 One of "best" (default), "hyperbolic" or "cubic". If the method is set to "best" (short: "b"), the algorithm will
-automatically determine the best fitting type of regression for each CpG site based on the sum of squared
-errors (SSE, \url{https://en.wikipedia.org/wiki/Residual_sum_of_squares}). If the method is set to
+automatically determine the best fitting type of regression for each CpG site based on \emph{selection_method}
+(by default: sum of squared errors, SSE, \url{https://en.wikipedia.org/wiki/Residual_sum_of_squares}). If the method is set to
 "hyperbolic" (short: "h") or "cubic" (short: "c"), the PCR-bias correction of all samples under investigation will be performed
 with the hyperbolic or the cubic regression respectively.}
+
+\item{selection_method}{A character string. The method used to select the regression algorithm to correct the
+respective CpG site. This is by default the sum of squared errors ("SSE"). The second option is "RelError",
+which selects the regression method based on the theoretical relative error after correction. This metric is
+calculated by correcting the calibration data with both the hyperbolic regression and the cubic regression and
+using them again as input data to calculate the 'goodness of fit'-metrics.}
+
+\item{type}{A single integer. Type of data to be corrected: either "1" (one locus in many samples, e.g. pyrosequencing data)
+or "2" (many loci in one sample, e.g. next-generation sequencing data or microarray data).}
 
 \item{csvdir}{A character string. Directory to store the resulting tables. Default = "./csvdir".
 CAUTION: This directory will be newly created on every call of the function. Any preexisting files

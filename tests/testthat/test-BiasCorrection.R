@@ -14,6 +14,8 @@ test_that("correct functioning of BiasCorrection, data type 1",{
                              calibration = paste0(prefix, "testdata/cal_type_1.csv"),
                              samplelocusname = "Testlocus",
                              minmax = FALSE,
+                             correct_method = "best",
+                             selection_method = "SSE",
                              type = 1,
                              plotdir = plotdir,
                              csvdir = csvdir,

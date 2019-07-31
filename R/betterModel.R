@@ -13,13 +13,15 @@ betterModel <- function(statstable_pre, statstable_post_hyperbolic = NULL, stats
     # mark the better model: 1 = cubic, 0 = hyperbolic
     outdat[,("better_model") := ifelse(get("SSE_cubic") <= get("SSE_hyperbolic"), 1, 0)]
   } else if (selection_method == "RelError"){
-    outdat <- statstable_post_hyperbolic[,c("Name", "relative_error"),with=F]
-    colnames(outdat) <- c("Name", "relative_error_h")
-    outdat <- merge(x = outdat,
-                    y = statstable_post_cubic[,c("Name", "relative_error"), with=F],
+    x_dat <- statstable_post_hyperbolic[,c("Name", "relative_error"),with=F]
+    colnames(x_dat) <- c("Name", "relative_error_h")
+    y_dat <- statstable_post_cubic[,c("Name", "relative_error"), with=F]
+    outdat <- merge(x = x_dat,
+                    y = y_dat,
                     by = "Name",
                     all = T,
                     suffixes = c("", "_c"))
+    colnames(outdat) <- c("Name", "relative_error_h", "relative_error_c")
     outdat[,("better_model") := ifelse(get("relative_error_c") <= get("relative_error_h"), 1, 0)]
   }
   return(outdat)
