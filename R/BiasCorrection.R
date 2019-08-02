@@ -238,3 +238,24 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
 
   return(TRUE)
 }
+
+
+
+# document datasets
+#' @title example.data_experimental
+#'
+#' @description A list containing the experimental data ($dat) and the colnames ($vec_cal) needed by the algorithms to perform the bias correction.
+#'
+#' @name example.data_experimental
+#' @docType data
+#' @keywords data
+NULL
+
+#' @title example.data_calibration
+#'
+#' @description A list containing the calibration data ($dat) and the colnames ($vec_cal) needed by the algorithms to perform the bias correction.
+#'
+#' @name example.data_calibration
+#' @docType data
+#' @keywords data
+NULL

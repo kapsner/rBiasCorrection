@@ -1,0 +1,32 @@
+Package: PCRBiasCorrection
+Title: A Package to Correct PCR Bias in DNA Methylation Analyses
+Version: 0.1.1.9001
+Authors@R: 
+    c(person(given = "Lorenz A.",
+             family = "Kapsner",
+             role = c("cre", "aut"),
+             email = "lorenz.kapsner@web.de"),
+      person(given = "Evgeny A.",
+             family = "Moskalev",
+             role = "aut"))
+Description: Correct PCR-Bias in Quantitative DNA Methylation Analyses.
+License: GPL-3
+LazyData: true
+URL: https://github.com/kapsner/PCRBiasCorrection
+BugReports: https://github.com/kapsner/PCRBiasCorrection/issues
+Encoding: UTF-8
+Date/Publication: 2019-08-02 06:23:27 UTC
+Depends: 
+    R (>= 2.10)
+Imports: 
+    data.table,
+    shiny,
+    ggplot2,
+    magrittr,
+    polynom,
+    nls2,
+    ggpubr,
+    stats
+Suggests: 
+    testthat
+RoxygenNote: 6.1.1
