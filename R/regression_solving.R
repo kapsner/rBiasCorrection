@@ -191,12 +191,14 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL, logfile
 
           }
 
-          if (is.null(mode)){
+          # substitutions only when correcting experimental --> No
+          #if (is.null(mode)){
             substitutions <- rbind(substitutions, data.table::data.table("id" = j,
                                                                          "CpG_site" = i,
                                                                          "corrected" = original,
-                                                                         "replacement" = replacement))
-          }
+                                                                         "replacement" = replacement,
+                                                                         "regression" = "cubic"))
+          #}
 
           writeLog_(paste0(msg1, "  \n  \n", msg2, "  \n", msg3), logfilename)
         }
@@ -281,12 +283,14 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL, logfile
 
           }
 
-          if (is.null(mode)){
+          # substitutions only when correcting experimental --> No
+          #if (is.null(mode)){
             substitutions <- rbind(substitutions, data.table::data.table("id" = j,
                                                                          "CpG_site" = i,
                                                                          "corrected" = original,
-                                                                         "replacement" = replacement))
-          }
+                                                                         "replacement" = replacement,
+                                                                         "regression" = "hyperbolic"))
+          #}
 
           writeLog_(paste0(msg1, "  \n  \n", msg2, "  \n", msg3), logfilename)
         }

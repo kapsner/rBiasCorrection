@@ -126,7 +126,8 @@ substitutionsCreate_ <- function(){
   substitutions <- data.table::data.table("id" = character(),
                                           "CpG_site" = character(),
                                           "corrected" = character(),
-                                          "replacement" = character())
+                                          "replacement" = character(),
+                                          "regression" = character())
   return(substitutions)
 }
 

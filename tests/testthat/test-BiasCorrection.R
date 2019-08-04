@@ -21,7 +21,7 @@ test_that("correct functioning of BiasCorrection, data type 1",{
                              csvdir = csvdir,
                              logfilename = paste0(prefix, "log.txt")))
   expect_length(list.files(plotdir), 50)
-  expect_length(list.files(csvdir), 9)
+  expect_length(list.files(csvdir), 11)
 
 
   # cleanup
