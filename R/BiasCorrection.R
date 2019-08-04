@@ -155,10 +155,10 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
               paste0(csvdir, "BC_corrected_calibrations_h_", rv$sampleLocusName, "_", getTimestamp_(), ".csv"))
 
     # substitutions
-    rv$substitutions_h <- solved_eq_h[["substitutions"]]
+    rv$substitutions_corrected_h <- solved_eq_h[["substitutions"]]
     # write substitutions to csv (if existing)
-    if (nrow(rv$substitutions_h)>0){
-      writeCSV_(rv$substitutions_h,
+    if (nrow(rv$substitutions_corrected_h)>0){
+      writeCSV_(rv$substitutions_corrected_h,
                 paste0(csvdir, "BC_substituted_values_corrected_h_", rv$sampleLocusName, "_", getTimestamp_(), ".csv"))
     }
 
@@ -195,10 +195,10 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
               paste0(csvdir, "BC_corrected_calibrations_c_", rv$sampleLocusName, "_", getTimestamp_(), ".csv"))
 
     # substitutions
-    rv$substitutions_c <- solved_eq_c[["substitutions"]]
+    rv$substitutions_corrected_c <- solved_eq_c[["substitutions"]]
     # write substitutions to csv (if existing)
-    if (nrow(rv$substitutions_c)>0){
-      writeCSV_(rv$substitutions_c,
+    if (nrow(rv$substitutions_corrected_c)>0){
+      writeCSV_(rv$substitutions_corrected_c,
                 paste0(csvdir, "BC_substituted_values_corrected_c_", rv$sampleLocusName, "_", getTimestamp_(), ".csv"))
     }
 
