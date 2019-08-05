@@ -15,7 +15,7 @@ LazyData: true
 URL: https://github.com/kapsner/PCRBiasCorrection
 BugReports: https://github.com/kapsner/PCRBiasCorrection/issues
 Encoding: UTF-8
-Date/Publication: 2019-08-02 06:23:27 UTC
+Date/Publication: 2019-08-05 17:59:16 UTC
 Depends: 
     R (>= 2.10)
 Imports: 
