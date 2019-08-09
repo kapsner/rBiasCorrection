@@ -40,7 +40,7 @@ test_that("correct functioning of BiasCorrection, data type 1",{
 # experimental = paste0(prefix, "testdata/exp_type_1.csv")
 # calibration = paste0(prefix, "testdata/cal_type_1.csv")
 # samplelocusname = "Testlocus"
-# minmax = FALSE
+# minmax = TRUE
 # type = 1
 # logfilename = paste0(prefix, "log.txt")
 

@@ -71,10 +71,12 @@ statisticsList_ <- function(resultlist, minmax = FALSE){
                                       "###" = NA,
                                       "SSE_cubic" = NA,
                                       "R2_cubic" = NA,
-                                      "ax3" = NA,
-                                      "bx2" = NA,
-                                      "cx" = NA,
-                                      "d" = NA)
+                                      "a_c" = NA,
+                                      "b_c" = NA,
+                                     "y0_c" = NA,
+                                     "y1_c" = NA,
+                                     "m0_c" = NA,
+                                     "m1_c" = NA)
 
     outdat[, ("Name") := names(resultlist)]
 
@@ -92,10 +94,12 @@ statisticsList_ <- function(resultlist, minmax = FALSE){
                      "m1",
                      "SSE_cubic",
                      "R2_cubic",
-                     "ax3",
-                     "bx2",
-                     "cx",
-                     "d")
+                     "a_c",
+                     "b_c",
+                     "y0_c",
+                     "y1_c",
+                     "m0_c",
+                     "m1_c")
       out_list <- list(resultlist[[i]][["relative_error"]],
                        resultlist[[i]][["SSE_hyper"]],
                        resultlist[[i]][["Coef_hyper"]][["R2"]],
@@ -106,10 +110,12 @@ statisticsList_ <- function(resultlist, minmax = FALSE){
                        resultlist[[i]][["Coef_hyper"]][["m1"]],
                        resultlist[[i]][["SSE_cubic"]],
                        resultlist[[i]][["Coef_cubic"]][["R2"]],
-                       resultlist[[i]][["Coef_cubic"]][["ax3"]],
-                       resultlist[[i]][["Coef_cubic"]][["bx2"]],
-                       resultlist[[i]][["Coef_cubic"]][["cx"]],
-                       resultlist[[i]][["Coef_cubic"]][["d"]])
+                       resultlist[[i]][["Coef_cubic"]][["a"]],
+                       resultlist[[i]][["Coef_cubic"]][["b"]],
+                       resultlist[[i]][["Coef_cubic"]][["y0"]],
+                       resultlist[[i]][["Coef_cubic"]][["y1"]],
+                       resultlist[[i]][["Coef_cubic"]][["m0"]],
+                       resultlist[[i]][["Coef_cubic"]][["m1"]])
       outdat[get("Name") == i, (out_names) := out_list]
     }
   }

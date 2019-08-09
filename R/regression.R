@@ -77,7 +77,7 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename, minmax)
 
     result_list[[vec_cal[i]]] <- hyperbolic_regression(df_agg, vec_cal[i], logfilename, minmax = minmax)
     # append result_list
-    result_list[[vec_cal[i]]] <- c(result_list[[vec_cal[i]]], cubic_regression(df_agg, vec_cal[i], logfilename))
+    result_list[[vec_cal[i]]] <- c(result_list[[vec_cal[i]]], cubic_regression(df_agg, vec_cal[i], logfilename, minmax = minmax))
 
     if (is.null(mode)){
       custom_ylab <- "% apparent methylation after PCR"

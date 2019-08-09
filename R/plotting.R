@@ -81,21 +81,24 @@ createPlots <- function(plotlist, f, rv, filename, logfilename, mode = NULL, min
       # hyperbolic parameters
       coe <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]
       # cubic parameters
-      c <- sapply(rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]], unlist)[c(4:1)]
+      c <- rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]]
       #c <- sapply(rv$result_list[[rv$vec_cal[i]]][["Coef_cubic"]], `[`)[c(4:1)]
     } else if (mode == "corrected_h"){
       # hyperbolic parameters
       coe <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_hyper"]]
       # cubic parameters
-      c <- sapply(rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_cubic"]], unlist)[c(4:1)]
+      c <- rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]]
     } else if (mode == "corrected_c"){
       # hyperbolic parameters
       coe <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_hyper"]]
       # cubic parameters
-      c <- sapply(rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_cubic"]], unlist)[c(4:1)]
+      c <- rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]]
     }
 
     if (isFALSE(minmax)){
+      # unlist c
+      c <- sapply(c, unlist)[c(4:1)]
+
       # create messages
       message <- paste0("# CpG-site: ", rv$vec_cal[f])
       msg2 <- paste("Hyperbolic: Using bias_weight =", coe$b, ", a =", coe$a, ", b =", coe$b, ", d =", coe$d)
@@ -103,11 +106,11 @@ createPlots <- function(plotlist, f, rv, filename, logfilename, mode = NULL, min
 
       message <- paste0("# CpG-site: ", rv$vec_cal[f])
       msg2 <- paste("Cubic: Using c =", paste(c, collapse = ", "))
-      writeLog_(paste0(message, msg2, sep="\n"), logfilename)
+      writeLog_(paste(message, msg2, sep="\n"), logfilename)
 
       return(print(plotlist +
                      ggplot2::stat_function(fun = hyperbolic_equation, args = list(a = coe$a, b = coe$b, d = coe$d), geom = "line", ggplot2::aes(color = "Hyperbolic Regression"), size=1.06) +
-                     ggplot2::stat_function(fun = cubic_equation, args = list(c=c), geom = "line", ggplot2::aes(color = "Cubic Regression"), size=1.06) +
+                     ggplot2::stat_function(fun = cubic_equation, args = list(a = c[4], b = c[3], c = c[2], d = c[1]), geom = "line", ggplot2::aes(color = "Cubic Regression"), size=1.06) +
                      ggplot2::geom_line(ggplot2::aes(x=plotlist$data$true_methylation, y=plotlist$data$true_methylation, color = "unbiased"), linetype="dashed", size=1.04) +
                      ggplot2::labs(color = ggplot2::element_blank()) +
                      ggplot2::scale_color_manual(values = c("#E64B35FF", "#4DBBD5FF", "#00A087FF"),
@@ -124,12 +127,12 @@ createPlots <- function(plotlist, f, rv, filename, logfilename, mode = NULL, min
       writeLog_(paste(message, msg2, sep="\n"), logfilename)
 
       message <- paste0("# CpG-site: ", rv$vec_cal[f])
-      msg2 <- paste("Cubic: Using c =", paste(c, collapse = ", "))
-      writeLog_(paste0(message, msg2, sep="\n"), logfilename)
+      msg2 <- paste("Cubic: Using a =", c$a, ", b =", c$b, ", y0 =", c$y0, ", y1 =", c$y1, "m0 =", c$m0, ", m1 = ", c$m1)
+      writeLog_(paste(message, msg2, sep="\n"), logfilename)
 
       return(print(plotlist +
                      ggplot2::stat_function(fun = hyperbolic_equationMinMax, args = list(b = coe$b, y0 = coe$y0, y1 = coe$y1, m0 = coe$m0, m1 = coe$m1), geom = "line", ggplot2::aes(color = "Hyperbolic Regression"), size=1.06) +
-                     ggplot2::stat_function(fun = cubic_equation, args = list(c=c), geom = "line", ggplot2::aes(color = "Cubic Regression"), size=1.06) +
+                     ggplot2::stat_function(fun = cubic_equationMinMax, args = list(a = c$a, b = c$b, y0 = c$y0, y1 = c$y1, m0 = c$m0, m1 = c$m1), geom = "line", ggplot2::aes(color = "Cubic Regression"), size=1.06) +
                      ggplot2::geom_line(ggplot2::aes(x=plotlist$data$true_methylation, y=plotlist$data$true_methylation, color = "unbiased"), linetype="dashed", size=1.04) +
                      ggplot2::labs(color = ggplot2::element_blank()) +
                      ggplot2::scale_color_manual(values = c("#E64B35FF", "#4DBBD5FF", "#00A087FF"),
