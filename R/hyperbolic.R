@@ -60,18 +60,15 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
 
     # https://cran.r-project.org/web/packages/nls2/nls2.pdf
     # calculate optimal starting values: (longer runtime; same results?)
-    # st <- data.frame(a = seq(-5000, 5000, length.out = 2),
-    #                  b = seq(-5000, 5000, length.out = 2),
-    #                  d = seq(-5000, 5000, length.out = 2))
-    # # let's do a grid search to find the best parameters to start with a maximum of 10000 iterations
-    # mod <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, algorithm = "brute-force", control = nls.control(maxiter = 10000))
-    # c <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = mod)
-
 
     # starting values
     st <- data.frame(a = c(-1000, 1000),
                      b = c(-1000, 1000),
                      d = c(-1000, 1000))
+    # set.seed(1234)
+    # mod <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, algorithm = "brute-force", control = nls.control(maxiter = 10000))
+    # set.seed(1234)
+    # c <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = mod)
     set.seed(1234)
     c <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st)
 
@@ -92,17 +89,30 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
     m0 <- dat[,min(get("true_methylation"))]
     m1 <- dat[,max(get("true_methylation"))]
 
-    # implementation of optimization function
-    fn <- function(bias){
-      fitted_vals <- hyperbolic_equationMinMax(true_levels, b = bias, y0 = y0, y1 = y1, m0 = m0, m1 = m1)
-      # optimize biasfactor with minimizing sum of squares error
-      return(sum(I(dat[,get("CpG")] - fitted_vals)^2))
-    }
+    # # implementation of optimization function
+    # fn <- function(bias){
+    #   fitted_vals <- hyperbolic_equationMinMax(true_levels, b = bias, y0 = y0, y1 = y1, m0 = m0, m1 = m1)
+    #   # optimize biasfactor with minimizing sum of squares error
+    #   return(sum(I(dat[,get("CpG")] - fitted_vals)^2))
+    # }
+    #
+    # # optimization function of built in R -> based on Nelder-Mead
+    # # by default, optim performs minimization
+    # # bias_factor <- optim(1, fn, method = "Nelder-Mead")$par
+    # b <- stats::optim(1, fn, method = "Brent", lower = 0, upper = 50)$par # due to error with Nelder-Mead
 
-    # optimization function of built in R -> based on Nelder-Mead
-    # by default, optim performs minimization
-    # bias_factor <- optim(1, fn, method = "Nelder-Mead")$par
-    b <- stats::optim(1, fn, method = "Brent", lower = 0, upper = 50)$par # due to error with Nelder-Mead
+    # starting values
+    st <- data.frame(b = c(-1000, 1000))
+    # set.seed(1234)
+    # mod <- nls2::nls2(CpG ~ hyperbolic_equationMinMax(true_levels, b = b, y0 = y0, y1 = y1, m0 = m0, m1 = m1), data=dat, start = st, algorithm = "brute-force", control = nls.control(maxiter = 10000))
+    # set.seed(1234)
+    # c <- nls2::nls2(CpG ~ hyperbolic_equationMinMax(true_levels, b = b, y0 = y0, y1 = y1, m0 = m0, m1 = m1), data=dat, start = mod)
+    set.seed(1234)
+    c <- nls2::nls2(CpG ~ hyperbolic_equationMinMax(true_levels, b = b, y0 = y0, y1 = y1, m0 = m0, m1 = m1), data=dat, start = st)
+
+    # get coefficients
+    coe <- stats::coef(c)
+    b <- coe[["b"]]
 
     # correct values, based on optimized b
     fitted_values <- hyperbolic_equationMinMax(true_levels, b, y0, y1, m0, m1)

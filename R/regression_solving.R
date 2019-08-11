@@ -80,24 +80,38 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL, logfile
       message <- paste("Solving cubic regression for", i)
       writeLog_(message, logfilename)
 
-      # get parameters
-      ax3 <- rv$result_list[[i]][["Coef_cubic"]][["ax3"]]
-      bx2 <- rv$result_list[[i]][["Coef_cubic"]][["bx2"]]
-      cx <- rv$result_list[[i]][["Coef_cubic"]][["cx"]]
-      d <- rv$result_list[[i]][["Coef_cubic"]][["d"]]
-
       # loop through rows by samplenames
       for (j in as.vector(df_agg_ex[,get(first_colname)])){
         msg1 <- paste("Samplename:", j)
 
-        # this is the required form of the coefficients for polynomial-function
-        coe <- c(d-df_agg_ex[get(first_colname)==j,get("CpG")], cx, bx2, ax3)
+        if (isFALSE(minmax)){
+          # get parameters
+          ax3 <- rv$result_list[[i]][["Coef_cubic"]][["ax3"]]
+          bx2 <- rv$result_list[[i]][["Coef_cubic"]][["bx2"]]
+          cx <- rv$result_list[[i]][["Coef_cubic"]][["cx"]]
+          d <- rv$result_list[[i]][["Coef_cubic"]][["d"]]
+
+          # this is the required form of the coefficients for polynomial-function
+          coe <- c(d-df_agg_ex[get(first_colname)==j,get("CpG")], cx, bx2, ax3)
+
+          #print(paste(x_vec, class(x_vec)))
+        } else if (isTRUE(minmax)){
+          a <- rv$result_list[[i]][["Coef_cubic"]][["a"]]
+          b <- rv$result_list[[i]][["Coef_cubic"]][["b"]]
+          y0 <- rv$result_list[[i]][["Coef_cubic"]][["y0"]]
+          y1 <- rv$result_list[[i]][["Coef_cubic"]][["y1"]]
+          m0 <- rv$result_list[[i]][["Coef_cubic"]][["m0"]]
+          m1 <- rv$result_list[[i]][["Coef_cubic"]][["m1"]]
+
+          # this is the required form of the coefficients for polynomial-function
+          c <- (((y1 - y0) / (m1 - m0)) - a * (m1 - m0)^2 - b * (m1 - m0))
+          coe <- c(y0-df_agg_ex[get(first_colname)==j,get("CpG")], c, b, a)
+        }
+
         print(coe)
 
         x_vec <- solve(polynom::polynomial(coe))               # polynom
         #x_vec <- cubic(rev(coe))                    # RConics
-
-        #print(paste(x_vec, class(x_vec)))
 
         find_x <- list()
 
@@ -210,26 +224,22 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL, logfile
       message <- paste("Solving hyperbolic regression for", i)
       writeLog_(message, logfilename)
 
-      if (isFALSE(minmax)){
-        a <- rv$result_list[[i]][["Coef_hyper"]][["a"]]
-        b <- rv$result_list[[i]][["Coef_hyper"]][["b"]]
-        d <- rv$result_list[[i]][["Coef_hyper"]][["d"]]
-
-      } else if (isTRUE(minmax)){
-        b <- rv$result_list[[i]][["Coef_hyper"]][["b"]]
-        y0 <- rv$result_list[[i]][["Coef_hyper"]][["y0"]]
-        y1 <- rv$result_list[[i]][["Coef_hyper"]][["y1"]]
-        m0 <- rv$result_list[[i]][["Coef_hyper"]][["m0"]]
-        m1 <- rv$result_list[[i]][["Coef_hyper"]][["m1"]]
-      }
-
-
       for (j in as.vector(df_agg_ex[,get(first_colname)])){
         msg1 <- paste("Samplename:", j)
 
         if (isFALSE(minmax)){
+          a <- rv$result_list[[i]][["Coef_hyper"]][["a"]]
+          b <- rv$result_list[[i]][["Coef_hyper"]][["b"]]
+          d <- rv$result_list[[i]][["Coef_hyper"]][["d"]]
+
           h_solv <- as.numeric(as.character(hyperbolic_equation_solved(df_agg_ex[get(first_colname)==j,get("CpG")], a, b, d)))
         } else if (isTRUE(minmax)){
+          b <- rv$result_list[[i]][["Coef_hyper"]][["b"]]
+          y0 <- rv$result_list[[i]][["Coef_hyper"]][["y0"]]
+          y1 <- rv$result_list[[i]][["Coef_hyper"]][["y1"]]
+          m0 <- rv$result_list[[i]][["Coef_hyper"]][["m0"]]
+          m1 <- rv$result_list[[i]][["Coef_hyper"]][["m1"]]
+
           h_solv <- as.numeric(as.character(hyperbolic_equation_solvedMinMax(df_agg_ex[get(first_colname)==j,get("CpG")], b, y0, y1, m0, m1)))
         }
         print(h_solv)

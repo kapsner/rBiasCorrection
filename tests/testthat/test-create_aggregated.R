@@ -1,6 +1,7 @@
 context("create df_agg")
 
 prefix <- "./"
+#prefix <- "tests/testthat/"
 
 # the writeLog-function needs the logfilename
 logfilename <- paste0(prefix, "log.txt")

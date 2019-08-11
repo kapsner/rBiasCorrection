@@ -15,16 +15,16 @@ statisticsList_ <- function(resultlist, minmax = FALSE){
                                       "relative_error" = NA,
                                       "SSE_hyperbolic" = NA,
                                       "R2_hyperbolic" = NA,
-                                      "a" = NA,
-                                      "b" = NA,
-                                      "d_h" = NA,
+                                      "a_hyperbolic" = NA,
+                                      "b_hyperbolic" = NA,
+                                      "d_hyperbolic" = NA,
                                       "###" = NA,
                                       "SSE_cubic" = NA,
                                       "R2_cubic" = NA,
-                                      "ax3" = NA,
-                                      "bx2" = NA,
-                                      "cx" = NA,
-                                      "d" = NA)
+                                      "a_cubic" = NA,
+                                      "b_cubic" = NA,
+                                      "c_cubic" = NA,
+                                      "d_cubic" = NA)
 
     outdat[, ("Name") := names(resultlist)]
 
@@ -35,15 +35,15 @@ statisticsList_ <- function(resultlist, minmax = FALSE){
       out_names <- c("relative_error",
                      "SSE_hyperbolic",
                      "R2_hyperbolic",
-                     "a",
-                     "b",
-                     "d_h",
+                     "a_hyperbolic",
+                     "b_hyperbolic",
+                     "d_hyperbolic",
                      "SSE_cubic",
                      "R2_cubic",
-                     "ax3",
-                     "bx2",
-                     "cx",
-                     "d")
+                     "a_cubic",
+                     "b_cubic",
+                     "c_cubic",
+                     "d_cubic")
       out_list <- list(resultlist[[i]][["relative_error"]],
                        resultlist[[i]][["SSE_hyper"]],
                        resultlist[[i]][["Coef_hyper"]][["R2"]],
@@ -61,22 +61,18 @@ statisticsList_ <- function(resultlist, minmax = FALSE){
   } else if (isTRUE(minmax)){
     outdat <- data.table::data.table("Name" = names(resultlist),
                                       "relative_error" = NA,
+                                     "y0" = NA,
+                                     "y1" = NA,
+                                     "m0" = NA,
+                                     "m1" = NA,
                                       "SSE_hyperbolic" = NA,
                                       "R2_hyperbolic" = NA,
-                                      "b" = NA,
-                                      "y0" = NA,
-                                      "y1" = NA,
-                                      "m0" = NA,
-                                      "m1" = NA,
+                                      "b_hyperbolic" = NA,
                                       "###" = NA,
                                       "SSE_cubic" = NA,
                                       "R2_cubic" = NA,
-                                      "a_c" = NA,
-                                      "b_c" = NA,
-                                     "y0_c" = NA,
-                                     "y1_c" = NA,
-                                     "m0_c" = NA,
-                                     "m1_c" = NA)
+                                      "a_cubic" = NA,
+                                      "b_cubic" = NA)
 
     outdat[, ("Name") := names(resultlist)]
 
@@ -85,37 +81,29 @@ statisticsList_ <- function(resultlist, minmax = FALSE){
 
     for (i in names(resultlist)){
       out_names <- c("relative_error",
-                     "SSE_hyperbolic",
-                     "R2_hyperbolic",
-                     "b",
                      "y0",
                      "y1",
                      "m0",
                      "m1",
+                     "SSE_hyperbolic",
+                     "R2_hyperbolic",
+                     "b_hyperbolic",
                      "SSE_cubic",
                      "R2_cubic",
-                     "a_c",
-                     "b_c",
-                     "y0_c",
-                     "y1_c",
-                     "m0_c",
-                     "m1_c")
+                     "a_cubic",
+                     "b_cubic")
       out_list <- list(resultlist[[i]][["relative_error"]],
-                       resultlist[[i]][["SSE_hyper"]],
-                       resultlist[[i]][["Coef_hyper"]][["R2"]],
-                       resultlist[[i]][["Coef_hyper"]][["b"]],
                        resultlist[[i]][["Coef_hyper"]][["y0"]],
                        resultlist[[i]][["Coef_hyper"]][["y1"]],
                        resultlist[[i]][["Coef_hyper"]][["m0"]],
                        resultlist[[i]][["Coef_hyper"]][["m1"]],
+                       resultlist[[i]][["SSE_hyper"]],
+                       resultlist[[i]][["Coef_hyper"]][["R2"]],
+                       resultlist[[i]][["Coef_hyper"]][["b"]],
                        resultlist[[i]][["SSE_cubic"]],
                        resultlist[[i]][["Coef_cubic"]][["R2"]],
                        resultlist[[i]][["Coef_cubic"]][["a"]],
-                       resultlist[[i]][["Coef_cubic"]][["b"]],
-                       resultlist[[i]][["Coef_cubic"]][["y0"]],
-                       resultlist[[i]][["Coef_cubic"]][["y1"]],
-                       resultlist[[i]][["Coef_cubic"]][["m0"]],
-                       resultlist[[i]][["Coef_cubic"]][["m1"]])
+                       resultlist[[i]][["Coef_cubic"]][["b"]])
       outdat[get("Name") == i, (out_names) := out_list]
     }
   }
