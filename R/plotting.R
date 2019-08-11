@@ -87,12 +87,12 @@ createPlots <- function(plotlist, f, rv, filename, logfilename, mode = NULL, min
       # hyperbolic parameters
       coe <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_hyper"]]
       # cubic parameters
-      c <- rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]]
+      c <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_cubic"]]
     } else if (mode == "corrected_c"){
       # hyperbolic parameters
       coe <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_hyper"]]
       # cubic parameters
-      c <- rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]]
+      c <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_cubic"]]
     }
 
     if (isFALSE(minmax)){
