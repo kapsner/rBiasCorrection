@@ -126,6 +126,11 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL, logfile
           }
         }
 
+        if (isTRUE(minmax)){
+          # if minmax = TRUE and cubic = TRUE add m0, since we solved (x - m0) ^ j
+          find_x <- lapply(find_x, function(x){x + m0})
+        }
+
         # generate checkpoint, to look, if fitting value has been found
         checkpoint <- FALSE
         # non-fitting numeric values
