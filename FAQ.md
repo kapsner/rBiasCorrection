@@ -42,7 +42,7 @@ PCRBiasCorrection/BiasCorrector is the user friendly implementation of the algor
 - Type 1: one locus in many samples (e.g. pyrosequencing data)  
 - Type 2: many loci in one sample (e.g. next-generation sequencing data or microarray data)
 -->
-Currently, PCRBiasCorrection/BiasCorrector can only correct measurement biases in methylation data of the type "one locus in many samples (e.g. pyrosequencing data)". A future implementation to correct data of the type "many loci in one sample (e.g. next-generation sequencing data or microarray data)" is planned. However with some effort, data of the second type can be transformed to data of the first type and thus also be corrected with BiasCorrector. 
+Currently, both R packages, PCRBiasCorrection and BiasCorrector, can only correct measurement biases in DNA methylation data of the type "one locus in many samples (e.g. pyrosequencing data)". A future implementation to correct data of the type "many loci in one sample (e.g. next-generation sequencing data or microarray data)" is planned. However with some effort, data of the second type can be transformed to data of the first type and thus also be corrected with BiasCorrector. 
 
 ## Do my input files need to be in a special format?  
 
