@@ -72,7 +72,6 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
     }, error = function(e){
       # if convergence fails
       print(e)
-      st <- st * 100
       set.seed(1234)
       mod <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, algorithm = "brute-force", control = nls.control(maxiter = 1e5))
       set.seed(1234)
