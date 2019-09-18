@@ -87,6 +87,10 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
     b <- coe[["b"]]
     d <- coe[["d"]]
 
+    # TODO add newly by svetlana created parameters here
+    # b1 (parameter 1)
+    # parameter 3
+
     fitted_values <- hyperbolic_equation(true_levels, a, b, d)
 
   } else if (isTRUE(minmax)){
