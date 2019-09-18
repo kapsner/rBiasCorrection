@@ -40,9 +40,15 @@ test_that("correct functioning of BiasCorrection, data type 1",{
 # experimental = paste0(prefix, "testdata/exp_type_1.csv")
 # calibration = paste0(prefix, "testdata/cal_type_1.csv")
 # samplelocusname = "Testlocus"
-# minmax = TRUE
+# minmax = FALSE
 # type = 1
 # logfilename = paste0(prefix, "log.txt")
+# correct_method = "best"
+# selection_method = "SSE"
+
+# Debug Zap70
+# experimental = paste0("../../19_PCR-bias/data/ZAP70.csv")
+# calibration = paste0("../../19_PCR-bias/data/ZAP70.csv")
 
 # debug solvingEquations_
 # datatable = rv$fileimportCal

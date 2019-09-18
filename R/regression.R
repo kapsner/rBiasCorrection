@@ -69,13 +69,13 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename, minmax)
   for (i in 1:length(vec_cal)){
     message <- paste0("# CpG-site: ", vec_cal[i])
     writeLog_(message, logfilename)
-    df_agg <- stats::na.omit(create_agg_df(datatable, vec_cal[i]))
+    df_agg <- stats::na.omit(create_agg_df(datatable = datatable, index = vec_cal[i]))
 
     print(df_agg)
     writeLog_(paste("Logging df_agg:", vec_cal[i]), logfilename)
     writeLog_(df_agg, logfilename)
 
-    result_list[[vec_cal[i]]] <- hyperbolic_regression(df_agg, vec_cal[i], logfilename, minmax = minmax)
+    result_list[[vec_cal[i]]] <- hyperbolic_regression(df_agg = df_agg, vec = vec_cal[i], logfilename = logfilename, minmax = minmax)
     # append result_list
     result_list[[vec_cal[i]]] <- c(result_list[[vec_cal[i]]], cubic_regression(df_agg, vec_cal[i], logfilename, minmax = minmax))
 

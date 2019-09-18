@@ -65,12 +65,22 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
     st <- data.frame(a = c(-1000, 1000),
                      b = c(-1000, 1000),
                      d = c(-1000, 1000))
-    # set.seed(1234)
-    # mod <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, algorithm = "brute-force", control = nls.control(maxiter = 10000))
-    # set.seed(1234)
-    # c <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = mod)
-    set.seed(1234)
-    c <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st)
+
+    c <- tryCatch({
+      set.seed(1234)
+      out <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st)
+    }, error = function(e){
+      # if convergence fails
+      print(e)
+      st <- st * 100
+      set.seed(1234)
+      mod <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, algorithm = "brute-force", control = nls.control(maxiter = 1e5))
+      set.seed(1234)
+      out <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = mod, algorithm = "brute-force", control = nls.control(maxiter = 1e3))
+    }, finally = function(f){
+      return(out)
+    })
+
 
     # get coefficients
     coe <- stats::coef(c)

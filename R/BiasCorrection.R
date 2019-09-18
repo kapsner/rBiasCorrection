@@ -203,7 +203,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
     }
 
     # calculate new calibration curves from corrected calibration data
-    regression_results <- regressionUtility_(rv$fileimportCal_corrected_c, samplelocusname=rv$sampleLocusName, rv=rv, mode="corrected", headless = TRUE, logfilename = logfilename, minmax = rv$minmax)
+    regression_results <- regressionUtility_(data=rv$fileimportCal_corrected_c, samplelocusname=rv$sampleLocusName, rv=rv, mode="corrected", headless = TRUE, logfilename = logfilename, minmax = rv$minmax)
     plotlistR <- regression_results[["plot_list"]]
     rv$result_list_cubic <- regression_results[["result_list"]]
 
