@@ -127,7 +127,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
   if (type == 1){
     # calculate calibration curves
     # reconstruct parts from app_plottingUtility.R
-    regression_results <- regressionUtility_(rv$fileimportCal, rv$sampleLocusName, locus_id = NULL, rv = rv, mode = NULL, headless = TRUE, logfilename = logfilename, minmax = rv$minmax)
+    regression_results <- regressionUtility_(data = rv$fileimportCal, samplelocusname = rv$sampleLocusName, locus_id = NULL, rv = rv, mode = NULL, headless = TRUE, logfilename = logfilename, minmax = rv$minmax)
     plotlistR <- regression_results[["plot_list"]]
     rv$result_list <- regression_results[["result_list"]]
 

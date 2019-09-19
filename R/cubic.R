@@ -55,8 +55,20 @@ cubic_regression <- function(df_agg, vec, logfilename, minmax = minmax) {
     # starting values
     st <- data.frame(a = c(-1000, 1000),
                      b = c(-1000, 1000))
-    set.seed(1234)
-    c <- nls2::nls2(CpG ~ cubic_equationMinMax(true_methylation, a, b, y0, y1, m0, m1), data=dat, start = st)
+
+    c <- tryCatch({
+      set.seed(1234)
+      out <- nls2::nls2(CpG ~ cubic_equationMinMax(true_methylation, a, b, y0, y1, m0, m1), data=dat, start = st)
+    }, error = function(e){
+      # if convergence fails
+      print(e)
+      set.seed(1234)
+      mod <- nls2::nls2(CpG ~ cubic_equationMinMax(true_methylation, a, b, y0, y1, m0, m1), data=dat, start = st, algorithm = "brute-force", control = stats::nls.control(maxiter = 1e5))
+      set.seed(1234)
+      out <- nls2::nls2(CpG ~ cubic_equationMinMax(true_methylation, a, b, y0, y1, m0, m1), data=dat, start = mod, algorithm = "brute-force", control = stats::nls.control(maxiter = 1e3))
+    }, finally = function(f){
+      return(out)
+    })
 
     # get coefficients
     coe <- stats::coef(c)
