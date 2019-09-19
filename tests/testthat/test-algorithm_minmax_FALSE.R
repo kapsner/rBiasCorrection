@@ -48,10 +48,10 @@ test_that("algorithm test, type 1, minmax = FALSE",{
   expect_type(plotlistR, "list")
   #expect_known_hash(plotlistR, "20fa85b532") # oder c2e96f84fc, 0c3c5db52b
   expect_type(rv$result_list, "list")
-  expect_known_hash(rv$result_list, "d7f426a1a8")
+  expect_known_hash(rv$result_list, "2eb93a74d3") # d7f426a1a8
   expect_type(rv$regStats, "list")
   expect_s3_class(rv$regStats, "data.table")
-  expect_known_hash(rv$regStats, "057c7d0a13") #a27d84167e, b88f6a9fcf
+  expect_known_hash(rv$regStats, "33e1d855be") #a27d84167e, b88f6a9fcf, 057c7d0a13
   expect_equal(regression_results, regression_results2)
   expect_equal(regression_results[["plot_list"]], regression_results2[["plot_list"]])
   expect_equal(regression_results[["result_list"]], regression_results2[["result_list"]])
@@ -115,10 +115,10 @@ test_that("algorithm test, type 1, minmax = FALSE",{
   expect_type(plotlistR, "list")
   #expect_known_hash(plotlistR, "20fa85b532") # oder c2e96f84fc, 0c3c5db52b
   expect_type(rv$result_list_hyperbolic, "list")
-  expect_known_hash(rv$result_list_hyperbolic, "3d50611917")
+  expect_known_hash(rv$result_list_hyperbolic, "ccbe9ff93a") # 3d50611917
   expect_type(rv$regStats_corrected_h, "list")
   expect_s3_class(rv$regStats_corrected_h, "data.table")
-  expect_known_hash(rv$regStats_corrected_h, "81e6bcb79b") #a27d84167e, 5205aae446
+  expect_known_hash(rv$regStats_corrected_h, "5c8f64e551") #a27d84167e, 5205aae446, 81e6bcb79b
 
 
 
@@ -152,10 +152,10 @@ test_that("algorithm test, type 1, minmax = FALSE",{
   expect_type(plotlistR, "list")
   #expect_known_hash(plotlistR, "20fa85b532") # oder c2e96f84fc, 0c3c5db52b
   expect_type(rv$result_list_cubic, "list")
-  expect_known_hash(rv$result_list_cubic, "7214d93552")
+  expect_known_hash(rv$result_list_cubic, "9bc037ad08") # 7214d93552
   expect_type(rv$regStats_corrected_c, "list")
   expect_s3_class(rv$regStats_corrected_c, "data.table")
-  expect_known_hash(rv$regStats_corrected_c, "90a3a2cb09") #a27d84167e, 1d48c373f6
+  expect_known_hash(rv$regStats_corrected_c, "e79434dab7") #a27d84167e, 1d48c373f6, 90a3a2cb09
 })
 
 

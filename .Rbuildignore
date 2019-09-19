@@ -8,3 +8,5 @@
 ^revdep$
 ^FAQ\.md$
 ^FAQ\.html$
+^tests/testthat/csvdir$
+^tests/testthat/plotdir$

@@ -86,9 +86,9 @@ solvingEquations_ <- function(datatable, regmethod, type, rv, mode=NULL, logfile
 
         if (isFALSE(minmax)){
           # get parameters
-          ax3 <- rv$result_list[[i]][["Coef_cubic"]][["ax3"]]
-          bx2 <- rv$result_list[[i]][["Coef_cubic"]][["bx2"]]
-          cx <- rv$result_list[[i]][["Coef_cubic"]][["cx"]]
+          ax3 <- rv$result_list[[i]][["Coef_cubic"]][["a"]]
+          bx2 <- rv$result_list[[i]][["Coef_cubic"]][["b"]]
+          cx <- rv$result_list[[i]][["Coef_cubic"]][["c"]]
           d <- rv$result_list[[i]][["Coef_cubic"]][["d"]]
 
           # this is the required form of the coefficients for polynomial-function

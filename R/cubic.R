@@ -88,9 +88,9 @@ cubic_regression <- function(df_agg, vec, logfilename, minmax = minmax) {
   outlist <- list("SSE_cubic" = SSE)
 
   if (isFALSE(minmax)){
-    outlist[["Coef_cubic"]] = list("ax3" = unname(cof[4]),
-                                   "bx2" = unname(cof[3]),
-                                   "cx" = unname(cof[2]),
+    outlist[["Coef_cubic"]] = list("a" = unname(cof[4]),
+                                   "b" = unname(cof[3]),
+                                   "c" = unname(cof[2]),
                                    "d" = unname(cof[1]),
                                    "R2" = 1 - (SSE / TSS))
   } else if (isTRUE(minmax)){

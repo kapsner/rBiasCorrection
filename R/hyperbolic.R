@@ -73,9 +73,9 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
       # if convergence fails
       print(e)
       set.seed(1234)
-      mod <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, algorithm = "brute-force", control = nls.control(maxiter = 1e5))
+      mod <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, algorithm = "brute-force", control = stats::nls.control(maxiter = 1e5))
       set.seed(1234)
-      out <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = mod, algorithm = "brute-force", control = nls.control(maxiter = 1e3))
+      out <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = mod, algorithm = "brute-force", control = stats::nls.control(maxiter = 1e3))
     }, finally = function(f){
       return(out)
     })
@@ -87,9 +87,12 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
     b <- coe[["b"]]
     d <- coe[["d"]]
 
-    # TODO add newly by svetlana created parameters here
+    # newly by svetlana created parameters
     # b1 (parameter 1)
+    b1 <- 1 + (100 / d)
+
     # parameter 3
+    p3 <- (1 / abs(d)) * sqrt(I(a-d)^2 + I(b)^2 + 1)
 
     fitted_values <- hyperbolic_equation(true_levels, a, b, d)
 
@@ -158,7 +161,9 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
     outlist[["Coef_hyper"]] = list("a" = a,
                                    "b" = b,
                                    "d" = d,
-                                   "R2" = 1 - (SSE / TSS))
+                                   "R2" = 1 - (SSE / TSS),
+                                   "b1" = b1,
+                                   "p3" = p3)
   } else if (isTRUE(minmax)){
 
     outlist[["Coef_hyper"]] = list("y0" = y0,
