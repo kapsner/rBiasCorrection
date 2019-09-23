@@ -58,7 +58,7 @@ cubic_regression <- function(df_agg, vec, logfilename, minmax = minmax) {
 
     c <- tryCatch({
       set.seed(1234)
-      out <- nls2::nls2(CpG ~ cubic_equationMinMax(true_methylation, a, b, y0, y1, m0, m1), data=dat, start = st)
+      out <- nls2::nls2(CpG ~ cubic_equationMinMax(true_methylation, a, b, y0, y1, m0, m1), data=dat, start = st, control = stats::nls.control(maxiter = 1e5))
     }, error = function(e){
       # if convergence fails
       print(e)

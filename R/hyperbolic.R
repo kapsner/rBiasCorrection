@@ -68,7 +68,7 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
 
     c <- tryCatch({
       set.seed(1234)
-      out <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st)
+      out <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, control = stats::nls.control(maxiter = 1e5))
     }, error = function(e){
       # if convergence fails
       print(e)
@@ -119,12 +119,21 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
 
     # starting values
     st <- data.frame(b = c(-1000, 1000))
-    # set.seed(1234)
-    # mod <- nls2::nls2(CpG ~ hyperbolic_equationMinMax(true_levels, b = b, y0 = y0, y1 = y1, m0 = m0, m1 = m1), data=dat, start = st, algorithm = "brute-force", control = nls.control(maxiter = 10000))
-    # set.seed(1234)
-    # c <- nls2::nls2(CpG ~ hyperbolic_equationMinMax(true_levels, b = b, y0 = y0, y1 = y1, m0 = m0, m1 = m1), data=dat, start = mod)
-    set.seed(1234)
-    c <- nls2::nls2(CpG ~ hyperbolic_equationMinMax(true_levels, b = b, y0 = y0, y1 = y1, m0 = m0, m1 = m1), data=dat, start = st)
+    
+    c <- tryCatch({
+      set.seed(1234)
+      out <- nls2::nls2(CpG ~ hyperbolic_equationMinMax(true_levels, b, y0, y1, m0, m1), data=dat, start = st, control = stats::nls.control(maxiter = 1e5))
+    }, error = function(e){
+      # if convergence fails
+      print(e)
+      st <- data.frame(b = c(-1000, 1000))
+      set.seed(1234)
+      mod <- nls2::nls2(CpG ~ hyperbolic_equationMinMax(true_levels, b, y0, y1, m0, m1), data=dat, start = st, algorithm = "brute-force", control = stats::nls.control(maxiter = 1e5))
+      set.seed(1234)
+      out <- nls2::nls2(CpG ~ hyperbolic_equationMinMax(true_levels, b, y0, y1, m0, m1), data=dat, start = mod, algorithm = "brute-force", control = stats::nls.control(maxiter = 1e3))
+    }, finally = function(f){
+      return(out)
+    })
 
     # get coefficients
     coe <- stats::coef(c)

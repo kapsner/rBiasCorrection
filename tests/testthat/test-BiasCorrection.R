@@ -49,6 +49,9 @@ test_that("correct functioning of BiasCorrection, data type 1",{
 # Debug Zap70
 # experimental = paste0("../../19_PCR-bias/data/ZAP70.csv")
 # calibration = paste0("../../19_PCR-bias/data/ZAP70.csv")
+# Debug DAPK1
+# experimental = paste0("../../../DAPK1.csv")
+# calibration = paste0("../../../DAPK1.csv")
 # minmax = TRUE
 
 # debug solvingEquations_
