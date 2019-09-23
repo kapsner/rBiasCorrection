@@ -138,7 +138,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
     rv$regStats <- statisticsList_(rv$result_list, minmax = rv$minmax)
     # write regression statistics to file
     writeCSV_(rv$regStats, #[,-(which(colnames(rv$regStats)=="better_model")), with=F],
-             paste0(csvdir, paste0(rv$sampleLocusName, "_regression_stats_"), gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
+             paste0(csvdir, rv$sampleLocusName, "_regression_stats_", gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
                     gsub("\\:", "", substr(Sys.time(), 12, 16)), ".csv"))
 
     # correct here calibration-data with hyperbolic and cubic regression
@@ -152,14 +152,14 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
     colnames(rv$fileimportCal_corrected_h) <- colnames(rv$fileimportCal)
     # write corrected calibration data to file
     writeCSV_(rv$fileimportCal_corrected_h,
-              paste0(csvdir, paste0(rv$sampleLocusName, "_corrected_calibrations_h_"), getTimestamp_(), ".csv"))
+              paste0(csvdir, rv$sampleLocusName, "_corrected_calibrations_h_", getTimestamp_(), ".csv"))
 
     # substitutions
     rv$substitutions_corrected_h <- solved_eq_h[["substitutions"]]
     # write substitutions to csv (if existing)
     if (nrow(rv$substitutions_corrected_h)>0){
       writeCSV_(rv$substitutions_corrected_h,
-                paste0(csvdir, paste0(rv$sampleLocusName, "_substituted_corrected_h_"), getTimestamp_(), ".csv"))
+                paste0(csvdir, rv$sampleLocusName, "_substituted_corrected_h_", getTimestamp_(), ".csv"))
     }
 
     # calculate new calibration curves from corrected calibration data
@@ -173,7 +173,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
     rv$regStats_corrected_h <- statisticsList_(rv$result_list_hyperbolic, minmax = rv$minmax)
     # write regression statistics to file
     writeCSV_(rv$regStats_corrected_h, #[,-(which(colnames(rv$regStats_corrected_h)=="better_model")), with=F],
-              paste0(csvdir, paste0(rv$sampleLocusName, "_corrected_regression_stats_h_"), gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
+              paste0(csvdir, rv$sampleLocusName, "_corrected_regression_stats_h_", gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
                      gsub("\\:", "", substr(Sys.time(), 12, 16)), ".csv"))
 
 
@@ -192,14 +192,14 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
     colnames(rv$fileimportCal_corrected_c) <- colnames(rv$fileimportCal)
     # write corrected calibration data to file
     writeCSV_(rv$fileimportCal_corrected_c,
-              paste0(csvdir, paste0(rv$sampleLocusName, "_corrected_calibrations_c_"), getTimestamp_(), ".csv"))
+              paste0(csvdir, rv$sampleLocusName, "_corrected_calibrations_c_", getTimestamp_(), ".csv"))
 
     # substitutions
     rv$substitutions_corrected_c <- solved_eq_c[["substitutions"]]
     # write substitutions to csv (if existing)
     if (nrow(rv$substitutions_corrected_c)>0){
       writeCSV_(rv$substitutions_corrected_c,
-                paste0(csvdir, paste0(rv$sampleLocusName, "_substituted_corrected_c_"), getTimestamp_(), ".csv"))
+                paste0(csvdir, rv$sampleLocusName, "_substituted_corrected_c_", getTimestamp_(), ".csv"))
     }
 
     # calculate new calibration curves from corrected calibration data
@@ -213,7 +213,7 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
     rv$regStats_corrected_c <- statisticsList_(rv$result_list_cubic, minmax = rv$minmax)
     # write regression statistics to file
     writeCSV_(rv$regStats_corrected_c, #[,-(which(colnames(rv$regStats_corrected_c)=="better_model")), with=F],
-              paste0(csvdir, paste0(rv$sampleLocusName, "_corrected_regression_stats_c_"), gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
+              paste0(csvdir, rv$sampleLocusName, "_corrected_regression_stats_c_", gsub("\\-", "", substr(Sys.time(), 1, 10)), "_",
                      gsub("\\:", "", substr(Sys.time(), 12, 16)), ".csv"))
 
 
@@ -241,12 +241,12 @@ BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = 
     rv$finalResults <- solved_eq[["results"]]
     # write final results to csv
     writeCSV_(rv$finalResults,
-             paste0(csvdir, paste0(rv$sampleLocusName, "_corrected_values"), "_", getTimestamp_(), ".csv"))
+             paste0(csvdir, rv$sampleLocusName, "_corrected_values_", getTimestamp_(), ".csv"))
     rv$substitutions <- solved_eq[["substitutions"]]
     # write substitutions to csv (if existing)
     if (nrow(rv$substitutions)>0){
       writeCSV_(rv$substitutions,
-               paste0(csvdir, paste0(rv$sampleLocusName, "_substituted_values"), "_", getTimestamp_(), ".csv"))
+               paste0(csvdir, rv$sampleLocusName, "_substituted_values_", getTimestamp_(), ".csv"))
     }
 
   }
