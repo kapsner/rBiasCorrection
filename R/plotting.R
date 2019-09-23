@@ -117,7 +117,9 @@ createPlots <- function(plotlist, f, rv, filename, logfilename, mode = NULL, min
                                                  labels = c("Cubic Regression", "Hyperbolic Regression", "unbiased")) +
                      #scale_colour_manual("Regression:", values = c(Cubic = "indianred1", Hyperbolic = "mediumspringgreen", unbiased = "lightblue")) +
                      ggpubr::theme_pubr() +
-                     ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+                     ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5),
+                                    plot.subtitle = ggplot2::element_text(hjust = 0.5),
+                                    text = ggplot2::element_text(size = 32))
       ))
 
     } else if (isTRUE(minmax)){
@@ -139,13 +141,15 @@ createPlots <- function(plotlist, f, rv, filename, logfilename, mode = NULL, min
                                                  labels = c("Cubic Regression", "Hyperbolic Regression", "unbiased")) +
                      #scale_colour_manual("Regression:", values = c(Cubic = "indianred1", Hyperbolic = "mediumspringgreen", unbiased = "lightblue")) +
                      ggpubr::theme_pubr() +
-                     ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+                     ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5),
+                                    plot.subtitle = ggplot2::element_text(hjust = 0.5),
+                                    text = ggplot2::element_text(size = 32))
       ))
     }
   },
   filename = filename,
-  height = 400,
-  width = 450)
+  height = 768,
+  width = 1024)
 }
 
 
@@ -169,6 +173,12 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, locu
   stats_post <- statstable_post[,c("Name", "relative_error"),with=F]
 
   error_data <- merge(stats_post, stats_pre, by="Name", sort=F, suffixes=c("", "_pre"))
+  
+  if (is.null(locus_id)){
+    locus <- rv$sampleLocusName
+  } else {
+    locus <- paste("Locus:", locus_id, "-", "Sample:", rv$sampleLocusName)
+  }
 
   # Test if names are eqal
   if (identical(stats_pre[,get("Name")], stats_post[,get("Name")])){
@@ -181,9 +191,9 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, locu
       plotname <- paste0(gsub("[[:punct:]]", "", vec_cal[i]))
 
       if (type == 1){
-        filename <- paste0(plotdir, "Errorplot_", rv$sampleLocusName, "_", plotname, "_", mode, ".png")
+        filename <- paste0(plotdir, rv$sampleLocusName, "_", "error_", plotname, "_", mode, ".png")
       } else if (type == 2){
-        filename <- paste0(plotdir, "Errorplot_", paste0(gsub("[[:punct:]]", "", locus_id)), "-", rv$sampleLocusName, "_", plotname, "_", mode, ".png")
+        filename <- paste0(plotdir, paste0(gsub("[[:punct:]]", "", locus_id)), "-", rv$sampleLocusName, "_", "error_", plotname, "_", mode, ".png")
       }
 
       plotmessage <- paste("Creating barplot No.", i)
@@ -205,21 +215,21 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, locu
       # add relative error of corrected hyperbolic curve
 
       dt <- rbind(dt, cbind("timepoint"="biased", "value" = round(error_data[get("Name")==vec_cal[i],get("relative_error_pre")], 3),
-                            "regressiontype" = "Uncorrected"))
+                            "regressiontype" = "Raw"))
       dt <- rbind(dt, cbind("timepoint"="corrected", "value" = round(error_data[get("Name")==vec_cal[i],get("relative_error")], 3),
-                            "regressiontype" = ifelse(mode == "corrected_c", "Corrected [Cubic Regression]",
-                                                      ifelse(mode == "corrected_h", "Corrected [Hyperbolic Regression]", "NA"))))
+                            "regressiontype" = ifelse(mode == "corrected_c", "Corrected [Cubic]",
+                                                      ifelse(mode == "corrected_h", "Corrected [Hyperbolic]", "NA"))))
 
       # set "Raw" as first level, to show corresponding bar on the left of the plot
       dt[
-        ,("regressiontype") := factor(get("regressiontype"), levels = c("Uncorrected", "Corrected [Cubic Regression]", "Corrected [Hyperbolic Regression]"))
+        ,("regressiontype") := factor(get("regressiontype"), levels = c("Raw", "Corrected [Cubic]", "Corrected [Hyperbolic]"))
         ][
           ,("value"):=as.numeric(as.character(get("value")))
         ]
 
-      if ("Corrected [Cubic Regression]" %in% dt[,get("regressiontype")]){
+      if ("Corrected [Cubic]" %in% dt[,get("regressiontype")]){
         values <- c("#8491B4FF", "#E64B35FF")
-      } else if ("Corrected [Hyperbolic Regression]" %in% dt[,get("regressiontype")]){
+      } else if ("Corrected [Hyperbolic]" %in% dt[,get("regressiontype")]){
         values <- c("#8491B4FF", "#4DBBD5FF")
       }
 
@@ -227,22 +237,25 @@ createBarErrorPlots_ <- function(statstable_pre, statstable_post, rv, type, locu
         p <- ggplot2::ggplot(dt, ggplot2::aes_string(x = "regressiontype", y="value", fill="regressiontype")) +
           #scale_fill_manual(values = c("Cubic Regression" = "indianred1", "Hyperbolic Regression" = "mediumspringgreen")) +
           ggplot2::geom_col()+
-          ggplot2::geom_text(ggplot2::aes_string(label = "value", y="value"),  vjust = 3) +
+          ggplot2::geom_text(ggplot2::aes_string(label = "value", y="value"),  vjust = -1, size = 10) +
           ggplot2::ylab("% average relative error") +
-          ggplot2::labs(title = paste0("Quantification Error: ", vec_cal[i]), fill = ggplot2::element_blank()) +
+          ggplot2::labs(title = paste0("Quantification Error: ", locus), subtitle = paste("CpG:", vec_cal[i]), fill = ggplot2::element_blank()) +
+          ggplot2::ylim(0, 100) + 
           ggplot2::scale_fill_manual(values = values) +
           ggpubr::theme_pubr() +
           ggplot2::theme(axis.title.x = ggplot2::element_blank(),
                          legend.position = "none",
-                         plot.title = ggplot2::element_text(hjust = 0.5)) #,
+                         plot.title = ggplot2::element_text(hjust = 0.5),
+                         plot.subtitle = ggplot2::element_text(hjust = 0.5),
+                         text = ggplot2::element_text(size = 32)) #,
         #axis.ticks.x = element_blank(),
         #axis.text.x = element_blank())
         # print whole plot in return, otherwise it will fail
         return(print(p))
       },
       filename = filename,
-      height = 400,
-      width = 450)
+      height = 768,
+      width = 1024)
     }, 1:length_vector)
   } else {
     writeLog_("Error during creating bar plot; Names are not identical.", logfilename)

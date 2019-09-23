@@ -43,7 +43,7 @@ regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode 
     # for plotting: basic idea and some code snippets from:
     # https://gist.github.com/wch/5436415/
     regression <- shiny::reactive({
-      regression_type1(datatable = data, vec_cal = rv$vec_cal, mode = mode, logfilename = logfilename, minmax = minmax)
+      regression_type1(datatable = data, vec_cal = rv$vec_cal, mode = mode, logfilename = logfilename, minmax = minmax, locus_id, locusname = rv$sampleLocusName)
     })
 
     shiny::withProgress(message = "Calculating calibration curves", value = 0, {
@@ -52,14 +52,20 @@ regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode 
       regression_results <- regression()
     })
   } else {
-    regression_results <- regression_type1(datatable = data, vec_cal = rv$vec_cal, mode = mode, logfilename = logfilename, minmax = minmax)
+    regression_results <- regression_type1(datatable = data, vec_cal = rv$vec_cal, mode = mode, logfilename = logfilename, minmax = minmax, locus_id, locusname = rv$sampleLocusName)
   }
 
   return(regression_results)
 }
 
-regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename, minmax){
+regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename, minmax, locus_id = NULL, locusname){
   writeLog_("Entered 'regression_type1'-Function", logfilename)
+  
+  if (is.null(locus_id)){
+    locus <- locusname
+  } else {
+    locus <- paste("Locus:", locus_id, "-", "Sample:", locusname)
+  }
 
   # result_list
   result_list <- list()
@@ -80,14 +86,15 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename, minmax)
     result_list[[vec_cal[i]]] <- c(result_list[[vec_cal[i]]], cubic_regression(df_agg, vec_cal[i], logfilename, minmax = minmax))
 
     if (is.null(mode)){
-      custom_ylab <- "% apparent methylation after PCR"
+      custom_ylab <- "% methylation, apparent after PCR"
     } else if (mode == "corrected"){
-      custom_ylab <- "% methylation after BiasCorrection"
+      custom_ylab <- "% methylation, after BiasCorrection"
     }
 
-    lb1 <- c(paste0(" Hyperbolic: R\u00B2=", round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2)),
-             paste0(" Cubic: R\u00B2=", round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2))
-    )
+    lb1 <- c(paste0("  R\u00B2: \n  Hyperbolic = ",
+                  round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2),
+                  "\n  Cubic = ",
+                  round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)), "")
 
 
     gdat <- df_agg[
@@ -100,11 +107,11 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename, minmax)
       ggplot2::geom_point() +
       ggplot2::ylab(custom_ylab) +
       ggplot2::xlab("% actual methylation") +
-      ggplot2::ggtitle(paste("CpG-site:", vec_cal[i])) +
+      ggplot2::labs(title = locus, subtitle = paste("CpG:", vec_cal[i])) +
       ggplot2:: geom_text(data = data.frame(),
                           ggplot2::aes(x=-Inf, y=c(max(gdat$CpG), 0.95*max(gdat$CpG)), hjust=0, vjust = 1),
                           label = lb1,
-                          size = 3.5,
+                          size = 10,
                           parse = F)
     plot.listR[[i]] <- p
   }

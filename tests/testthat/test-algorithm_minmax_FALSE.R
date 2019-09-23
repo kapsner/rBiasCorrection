@@ -16,6 +16,7 @@ library(data.table)
 test_that("algorithm test, type 1, minmax = FALSE",{
 
   rv$minmax <- FALSE
+  rv$sampleLocusName <- "Test"
 
   # experimental data
   exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
@@ -37,7 +38,7 @@ test_that("algorithm test, type 1, minmax = FALSE",{
   plotlistR <- regression_results[["plot_list"]]
   rv$result_list <- regression_results[["result_list"]]
 
-  regression_results2 <- regression_type1(rv$fileimportCal, rv$vec_cal, mode=NULL, logfilename, minmax = rv$minmax)
+  regression_results2 <- regression_type1(rv$fileimportCal, rv$vec_cal, mode=NULL, logfilename, minmax = rv$minmax, locus_id = NULL, locusname = rv$sampleLocusName)
 
   # save regression statistics to reactive value
   rv$regStats <- statisticsList_(rv$result_list, minmax = rv$minmax)
@@ -48,10 +49,10 @@ test_that("algorithm test, type 1, minmax = FALSE",{
   expect_type(plotlistR, "list")
   #expect_known_hash(plotlistR, "20fa85b532") # oder c2e96f84fc, 0c3c5db52b
   expect_type(rv$result_list, "list")
-  expect_known_hash(rv$result_list, "2eb93a74d3") # d7f426a1a8
+  expect_known_hash(rv$result_list, "66dbae3141") # d7f426a1a8, 2eb93a74d3
   expect_type(rv$regStats, "list")
   expect_s3_class(rv$regStats, "data.table")
-  expect_known_hash(rv$regStats, "33e1d855be") #a27d84167e, b88f6a9fcf, 057c7d0a13
+  expect_known_hash(rv$regStats, "3603e3abcb") #a27d84167e, b88f6a9fcf, 057c7d0a13, 33e1d855be
   expect_equal(regression_results, regression_results2)
   expect_equal(regression_results[["plot_list"]], regression_results2[["plot_list"]])
   expect_equal(regression_results[["result_list"]], regression_results2[["result_list"]])
@@ -115,10 +116,10 @@ test_that("algorithm test, type 1, minmax = FALSE",{
   expect_type(plotlistR, "list")
   #expect_known_hash(plotlistR, "20fa85b532") # oder c2e96f84fc, 0c3c5db52b
   expect_type(rv$result_list_hyperbolic, "list")
-  expect_known_hash(rv$result_list_hyperbolic, "ccbe9ff93a") # 3d50611917
+  expect_known_hash(rv$result_list_hyperbolic, "b39e4cbca1") # 3d50611917, ccbe9ff93a
   expect_type(rv$regStats_corrected_h, "list")
   expect_s3_class(rv$regStats_corrected_h, "data.table")
-  expect_known_hash(rv$regStats_corrected_h, "5c8f64e551") #a27d84167e, 5205aae446, 81e6bcb79b
+  expect_known_hash(rv$regStats_corrected_h, "f8ac0ddffd") #a27d84167e, 5205aae446, 81e6bcb79b, 5c8f64e551
 
 
 
@@ -152,16 +153,17 @@ test_that("algorithm test, type 1, minmax = FALSE",{
   expect_type(plotlistR, "list")
   #expect_known_hash(plotlistR, "20fa85b532") # oder c2e96f84fc, 0c3c5db52b
   expect_type(rv$result_list_cubic, "list")
-  expect_known_hash(rv$result_list_cubic, "9bc037ad08") # 7214d93552
+  expect_known_hash(rv$result_list_cubic, "77dda04aba") # 7214d93552, 9bc037ad08
   expect_type(rv$regStats_corrected_c, "list")
   expect_s3_class(rv$regStats_corrected_c, "data.table")
-  expect_known_hash(rv$regStats_corrected_c, "e79434dab7") #a27d84167e, 1d48c373f6, 90a3a2cb09
+  expect_known_hash(rv$regStats_corrected_c, "446af74c7a") #a27d84167e, 1d48c373f6, 90a3a2cb09, e79434dab7
 })
 
 
 test_that("algorithm test, type 1, minmax = FALSE selection_method = RelError",{
   rv$minmax <- FALSE
   rv$selection_method <- "RelError"
+  rv$sampleLocusName <- "Test"
 
   # experimental data
   exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
@@ -178,7 +180,7 @@ test_that("algorithm test, type 1, minmax = FALSE selection_method = RelError",{
   plotlistR <- regression_results[["plot_list"]]
   rv$result_list <- regression_results[["result_list"]]
 
-  regression_results2 <- regression_type1(rv$fileimportCal, rv$vec_cal, mode=NULL, logfilename, minmax = rv$minmax)
+  regression_results2 <- regression_type1(rv$fileimportCal, rv$vec_cal, mode=NULL, logfilename, minmax = rv$minmax, locus_id = NULL, locusname = rv$sampleLocusName)
 
   # save regression statistics to reactive value
   rv$regStats <- statisticsList_(rv$result_list, minmax = rv$minmax)

@@ -10,3 +10,4 @@ data-raw/begin_eq
 FAQ.html
 tests/testthat/csvdir
 tests/testthat/plotdir
+.RData

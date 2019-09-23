@@ -15,6 +15,7 @@ library(data.table)
 
 test_that("algorithm test, type 1, minmax = TRUE",{
   rv$minmax <- TRUE
+  rv$sampleLocusName <- "Test"
 
   # experimental data
   exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
@@ -36,7 +37,7 @@ test_that("algorithm test, type 1, minmax = TRUE",{
   plotlistR <- regression_results[["plot_list"]]
   rv$result_list <- regression_results[["result_list"]]
 
-  regression_results2 <- regression_type1(rv$fileimportCal, rv$vec_cal, mode=NULL, logfilename, minmax = rv$minmax)
+  regression_results2 <- regression_type1(rv$fileimportCal, rv$vec_cal, mode=NULL, logfilename, minmax = rv$minmax, locus_id = NULL, locusname = rv$sampleLocusName)
 
   # save regression statistics to reactive value
   rv$regStats <- statisticsList_(rv$result_list, minmax = rv$minmax)
@@ -160,6 +161,7 @@ test_that("algorithm test, type 1, minmax = TRUE",{
 test_that("algorithm test, type 1, minmax = TRUE selection_method = RelError",{
   rv$minmax <- TRUE
   rv$selection_method <- "RelError"
+  rv$sampleLocusName <- "Test"
 
   # experimental data
   exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
@@ -176,7 +178,7 @@ test_that("algorithm test, type 1, minmax = TRUE selection_method = RelError",{
   plotlistR <- regression_results[["plot_list"]]
   rv$result_list <- regression_results[["result_list"]]
 
-  regression_results2 <- regression_type1(rv$fileimportCal, rv$vec_cal, mode=NULL, logfilename, minmax = rv$minmax)
+  regression_results2 <- regression_type1(rv$fileimportCal, rv$vec_cal, mode=NULL, logfilename, minmax = rv$minmax, locus_id = NULL, locusname = rv$sampleLocusName)
 
   # save regression statistics to reactive value
   rv$regStats <- statisticsList_(rv$result_list, minmax = rv$minmax)

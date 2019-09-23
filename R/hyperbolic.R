@@ -92,7 +92,7 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
     b1 <- 1 + (100 / d)
 
     # parameter 3
-    p3 <- (1 / abs(d)) * sqrt(I(a-d)^2 + I(b)^2 + 1)
+    s <- (1 / abs(d)) * sqrt(I(a-d)^2 + I(b)^2 + 1)
 
     fitted_values <- hyperbolic_equation(true_levels, a, b, d)
 
@@ -163,7 +163,7 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
                                    "d" = d,
                                    "R2" = 1 - (SSE / TSS),
                                    "b1" = b1,
-                                   "p3" = p3)
+                                   "s" = s)
   } else if (isTRUE(minmax)){
 
     outlist[["Coef_hyper"]] = list("y0" = y0,
