@@ -67,7 +67,16 @@
 #'
 #' @export
 
-BiasCorrection <- function(experimental, calibration, samplelocusname, minmax = FALSE, correct_method = "best", selection_method = "SSE", type = 1, csvdir = "./csvdir", plotdir = "./plotdir", logfilename = "./log.txt"){
+BiasCorrection <- function(experimental,
+                           calibration,
+                           samplelocusname,
+                           minmax = FALSE,
+                           correct_method = "best",
+                           selection_method = "SSE",
+                           type = 1,
+                           csvdir = "./csvdir",
+                           plotdir = "./plotdir",
+                           logfilename = "./log.txt"){
 
   stopifnot(is.character(experimental),
             is.character(calibration),
