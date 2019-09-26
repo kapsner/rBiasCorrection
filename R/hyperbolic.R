@@ -68,7 +68,7 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
 
     c <- tryCatch({
       set.seed(1234)
-      out <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, control = stats::nls.control(maxiter = 1e4))
+      out <- nls2::nls2(CpG ~ hyperbolic_equation(true_methylation, a, b, d), data=dat, start = st, control = stats::nls.control(maxiter = 100))
     }, error = function(e){
       # if convergence fails
       print(e)
@@ -122,7 +122,7 @@ hyperbolic_regression <- function(df_agg, vec, logfilename, minmax){
     
     c <- tryCatch({
       set.seed(1234)
-      out <- nls2::nls2(CpG ~ hyperbolic_equationMinMax(true_levels, b, y0, y1, m0, m1), data=dat, start = st, control = stats::nls.control(maxiter = 1e4))
+      out <- nls2::nls2(CpG ~ hyperbolic_equationMinMax(true_levels, b, y0, y1, m0, m1), data=dat, start = st, control = stats::nls.control(maxiter = 100))
     }, error = function(e){
       # if convergence fails
       print(e)
