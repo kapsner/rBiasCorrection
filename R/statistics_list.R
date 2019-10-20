@@ -1,16 +1,33 @@
+# rBiasCorrection: Correct Bias in Quantitative DNA Methylation Analyses.
+# Copyright (C) 2019 Lorenz Kapsner
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' @title statisticsList_ helper function
+#' @title statistics_list helper function
 #'
-#' @description Internal function that converts the results_list (output of \code{regressionUtility_()})
-#'   into a data.table object.
+#' @description Internal function that converts the results_list (output of
+#'   \code{regressionUtility_()}) into a data.table object.
 #'
-#' @param resultlist A list object. The results_list output of \code{regressionUtility_()}.
-#' @inheritParams BiasCorrection
+#' @param resultlist A list object. The results_list output of
+#'   \code{regressionUtility_()}.
+#' @inheritParams biascorrection
 #'
 #' @export
 #'
-statisticsList_ <- function(resultlist, minmax = FALSE){
-  if (isFALSE(minmax)){
+statistics_list <- function(resultlist,
+                            minmax = FALSE) {
+  if (isFALSE(minmax)) {
     outdat <- data.table::data.table("Name" = names(resultlist),
                                      "relative_error" = NA,
                                      "SSE_hyperbolic" = NA,
@@ -31,9 +48,11 @@ statisticsList_ <- function(resultlist, minmax = FALSE){
     outdat[, ("Name") := names(resultlist)]
 
     vec <- names(outdat)[-1]
-    outdat[,(vec) := lapply(.SD, function(x){as.numeric(as.character(x))}), .SDcols = vec]
+    outdat[, (vec) := lapply(.SD, function(x) {
+      as.numeric(as.character(x))
+      }), .SDcols = vec]
 
-    for (i in names(resultlist)){
+    for (i in names(resultlist)) {
       out_names <- c("relative_error",
                      "SSE_hyperbolic",
                      "R2_hyperbolic",
@@ -64,7 +83,7 @@ statisticsList_ <- function(resultlist, minmax = FALSE){
                        resultlist[[i]][["Coef_cubic"]][["d"]])
       outdat[get("Name") == i, (out_names) := out_list]
     }
-  } else if (isTRUE(minmax)){
+  } else if (isTRUE(minmax)) {
     outdat <- data.table::data.table("Name" = names(resultlist),
                                      "relative_error" = NA,
                                      "SSE_hyperbolic" = NA,
@@ -84,9 +103,11 @@ statisticsList_ <- function(resultlist, minmax = FALSE){
     outdat[, ("Name") := names(resultlist)]
 
     vec <- names(outdat)[-1]
-    outdat[,(vec) := lapply(.SD, function(x){as.numeric(as.character(x))}), .SDcols = vec]
+    outdat[, (vec) := lapply(.SD, function(x) {
+      as.numeric(as.character(x))
+      }), .SDcols = vec]
 
-    for (i in names(resultlist)){
+    for (i in names(resultlist)) {
       out_names <- c("relative_error",
                      "SSE_hyperbolic",
                      "R2_hyperbolic",
@@ -114,7 +135,11 @@ statisticsList_ <- function(resultlist, minmax = FALSE){
       outdat[get("Name") == i, (out_names) := out_list]
     }
   }
-  # # mark the better model: 1 = cubic, 0 = hyperbolic
-  # outdat[,("better_model") := ifelse(get("SSE_cubic") <= get("SSE_hyperbolic"), 1, 0)]
+  #" mark the better model: 1 = cubic, 0 = hyperbolic
+  #" outdat[, ("better_model") := ifelse(
+  #"   get("SSE_cubic") <= get("SSE_hyperbolic"),
+  #"   1,
+  #"   0
+  #" )]
   return(outdat)
 }

@@ -1,4 +1,4 @@
-# PCRBiasCorrection: Correct PCR-Bias in Quantitative DNA Methylation Analyses.
+# rBiasCorrection: Correct Bias in Quantitative DNA Methylation Analyses.
 # Copyright (C) 2019 Lorenz Kapsner
 #
 # This program is free software: you can redistribute it and/or modify
@@ -14,20 +14,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' @title onStart_ helper function
+#' @title on_start helper function
 #'
-#' @description Internal function, that initializes plotdir, csvdir and logfilename.
+#' @description Internal function, that initializes plotdir,
+#'   csvdir and logfilename.
 #'
-#' @param plotdir A character string. Path to the folder, where plots are saved.
-#' @param csvdir A character string. Path to the folder, where resulting tables are saved.
-#' @inheritParams cleanDT_
+#' @param plotdir A character string. Path to the folder,
+#'   where plots are saved.
+#' @param csvdir A character string. Path to the folder,
+#'   where resulting tables are saved.
+#' @inheritParams clean_dt
 #'
 #' @export
 #'
-onStart_ <- function(plotdir, csvdir, logfilename){
+on_start <- function(plotdir,
+                     csvdir,
+                     logfilename) {
 
-  if (dir.exists(plotdir)){
-    cleanUp_(plotdir, csvdir)
+  if (dir.exists(plotdir)) {
+    clean_up(plotdir, csvdir)
   }
 
   # create directories
@@ -38,14 +43,15 @@ onStart_ <- function(plotdir, csvdir, logfilename){
   suppressMessages(suppressWarnings(file.create(logfilename)))
 }
 
-#' @title cleanUp_ helper function
+#' @title clean_up helper function
 #'
 #' @description Internal function to clean up directories.
-#' @inheritParams onStart_
+#' @inheritParams on_start
 #'
 #' @export
 #'
-cleanUp_ <- function(plotdir, csvdir){
+clean_up <- function(plotdir,
+                     csvdir) {
   # on session end, remove plots and and all other files from tempdir
   do.call(file.remove, list(list.files(plotdir, full.names = TRUE)))
   unlink(plotdir, recursive = T)
@@ -54,26 +60,27 @@ cleanUp_ <- function(plotdir, csvdir){
 }
 
 
-#' @title writeLog_ helper function
+#' @title write_log helper function
 #'
-#' @description Internal function to write log-messages to the file specified in logfilename.
+#' @description Internal function to write log-messages to the file
+#'   specified in logfilename.
 #'
 #' @param message A character string containing the log message.
-#' @inheritParams cleanDT_
+#' @inheritParams clean_dt
 #'
 #' @export
 #'
 # write log messages
-writeLog_ <- function(message, logfilename){
-  print(paste0("[", getTimestamp_(), "]: ", message))
+write_log <- function(message, logfilename) {
+  print(paste0("[", get_timestamp(), "]: ", message))
   message_out <- paste0("===========================================  \n",
-                        "[Timestamp: ", getTimestamp_(), "]  \n  \n",
+                        "[Timestamp: ", get_timestamp(), "]  \n  \n",
                         message, "  \n  \n")
   write(message_out, file = logfilename, append = T)
 }
 
 
-#' @title writeCSV_ helper function
+#' @title write_csv helper function
 #'
 #' @description Internal function to store the created tables in csv files.
 #'
@@ -83,7 +90,7 @@ writeLog_ <- function(message, logfilename){
 #' @export
 #'
 # write csv files
-writeCSV_ <- function(table, filename){
+write_csv <- function(table, filename) {
   return(data.table::fwrite(x = table,
                             file = filename,
                             row.names = F,
@@ -92,37 +99,42 @@ writeCSV_ <- function(table, filename){
                             eol = "\n"))
 }
 
-#' @title getTimestamp_ helper function
+#' @title get_timestamp helper function
 #'
-#' @description Internal function to get the current timestamp to write it to filenames.
+#' @description Internal function to get the current timestamp to
+#'   write it to filenames.
 #'
 #' @export
 #'
 # get timestamp
-getTimestamp_ <- function(){
-  return(paste(gsub("\\-", "", substr(Sys.time(), 1, 10)), gsub("\\:", "", substr(Sys.time(), 12, 20)), sep="_"))
+get_timestamp <- function() {
+  return(
+    paste(gsub("\\-", "", substr(Sys.time(), 1, 10)),
+          gsub("\\:", "", substr(Sys.time(), 12, 20)),
+          sep = "_"))
 }
 
 # R-squared function
-rsq <- function(true, fitted){
+rsq <- function(true, fitted) {
   # https://en.wikipedia.org/wiki/Coefficient_of_determination
   return(stats::cor(true, fitted) ^ 2)
 }
 
 
-sdm <- function(vector){
-  I((vector-mean(vector))^2)
+sdm <- function(vector) {
+  I((vector - mean(vector))^2)
 }
 
 
-#' @title substitutionsCreate_ helper function
+#' @title substitutions_create helper function
 #'
-#' @description Internal function to initialize a data.table object to store the substitutions.
+#' @description Internal function to initialize a data.table object
+#'   to store the substitutions.
 #'
 #' @export
 #'
 # create substitutions dataframe
-substitutionsCreate_ <- function(){
+substitutions_create <- function() {
   substitutions <- data.table::data.table("id" = character(),
                                           "CpG_site" = character(),
                                           "corrected" = character(),
@@ -131,20 +143,22 @@ substitutionsCreate_ <- function(){
   return(substitutions)
 }
 
-#' @title handleTextInput_ helper function
+#' @title handle_text_input helper function
 #'
-#' @description Internal function to remove punctuation and unneeded stuff from user inputs with regular expressions.
+#' @description Internal function to remove punctuation and unneeded stuff
+#'   from user inputs with regular expressions.
 #'
-#' @param textinput A character string with the textinput to perform these predefined regular expressions on.
+#' @param textinput A character string with the textinput to perform these
+#'   predefined regular expressions on.
 #'
 #' @export
 #'
 # handle user text inputs
-handleTextInput_ <- function(textinput){
+handle_text_input <- function(textinput) {
   textinput <- gsub("[^[:alnum:]]", "", textinput)
 
   # max 15 chars:
-  if (nchar(textinput) > 15){
+  if (nchar(textinput) > 15) {
     textinput <- substr(textinput, 1, 15)
   }
 

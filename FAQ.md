@@ -2,18 +2,18 @@
 
 ## Table of Contents  
 
-[Where does the PCR-bias correction algorithm come from?](#where-does-the-pcr-bias-correction-algorithm-come-from)  
-[What kind of data can be corrected by PCRBiasCorrection/BiasCorrector?](#what-kind-of-data-can-be-corrected-by-pcrbiascorrectionbiascorrector)   
+[Where does the bias correction algorithm come from?](#where-does-the-bias-correction-algorithm-come-from)  
+[What kind of data can be corrected by rBiasCorrection/BiasCorrector?](#what-kind-of-data-can-be-corrected-by-rBiasCorrectionbiascorrector)   
 [Do my input files need to be in a special format?](#do-my-input-files-need-to-be-in-a-special-format)  
 [Are there any requirements for naming the files?](#are-there-any-requirements-for-naming-the-files)  
-[What is exactly done during PCRBiasCorrection's/BiasCorrector's data preprocessing?](#what-is-exactly-done-during-pcrbiascorrectionsbiascorrectors-data-preprocessing)  
+[What is exactly done during rBiasCorrection's/BiasCorrector's data preprocessing?](#what-is-exactly-done-during-rBiasCorrectionsbiascorrectors-data-preprocessing)  
 [What are the regression statistics?](#what-are-the-regression-statistics)  
 [What are 'substitutions' in my final results?](#what-are-substitutions-in-my-final-results)  
 
 
-## Where does the PCR-bias correction algorithm come from?  
+## Where does the bias correction algorithm come from?  
 
-PCRBiasCorrection/BiasCorrector is the user friendly implementation of the algorithms, described by Moskalev et. al in their article *'Correction of PCR-bias in quantitative DNA methylation studies by means of cubic polynomial regression'*, published 2011 in *Nucleic acids research, Oxford University Press* (DOI: [https://doi.org/10.1093/nar/gkr213](https://doi.org/10.1093/nar/gkr213)).  
+rBiasCorrection/BiasCorrector is the user friendly implementation of the algorithms, described by Moskalev et. al in their article *'Correction of PCR-bias in quantitative DNA methylation studies by means of cubic polynomial regression'*, published 2011 in *Nucleic acids research, Oxford University Press* (DOI: [https://doi.org/10.1093/nar/gkr213](https://doi.org/10.1093/nar/gkr213)).  
 
 ### Citation:  
 ```
@@ -35,18 +35,18 @@ PCRBiasCorrection/BiasCorrector is the user friendly implementation of the algor
 ```
 
 
-## What kind of data can be corrected by PCRBiasCorrection/BiasCorrector?  
+## What kind of data can be corrected by rBiasCorrection/BiasCorrector?  
 
 <!-- BiasCorrector can handle two types of input data:  
   
 - Type 1: one locus in many samples (e.g. pyrosequencing data)  
 - Type 2: many loci in one sample (e.g. next-generation sequencing data or microarray data)
 -->
-Currently, both R packages, PCRBiasCorrection and BiasCorrector, can only correct measurement biases in DNA methylation data of the type "one locus in many samples (e.g. pyrosequencing data)". A future implementation to correct data of the type "many loci in one sample (e.g. next-generation sequencing data or microarray data)" is planned. However with some effort, data of the second type can be transformed to data of the first type and thus also be corrected with BiasCorrector. 
+Currently, both R packages, rBiasCorrection and BiasCorrector, can only correct measurement biases in DNA methylation data of the type "one locus in many samples (e.g. pyrosequencing data)". A future implementation to correct data of the type "many loci in one sample (e.g. next-generation sequencing data or microarray data)" is planned. However with some effort, data of the second type can be transformed to data of the first type and thus also be corrected with BiasCorrector. 
 
 ## Do my input files need to be in a special format?  
 
-Yes, PCRBiasCorrection/BiasCorrector places very strict requirements on the file format. Below is a description of the exact requirements. <!-- for the two types of input data, which differ in several aspects.-->  
+Yes, rBiasCorrection/BiasCorrector places very strict requirements on the file format. Below is a description of the exact requirements. <!-- for the two types of input data, which differ in several aspects.-->  
 However, all uploaded files must  
 
 - be in CSV format [file endings: \*.csv and \*.CSV]  
@@ -111,7 +111,7 @@ Example: to upload a file for bias correction of type 2, that contains the calib
   *'my-calibrationfile_CS12_5.csv'* --> 
 
 
-## What is exactly done during PCRBiasCorrection's/BiasCorrector's data preprocessing?  
+## What is exactly done during rBiasCorrection's/BiasCorrector's data preprocessing?  
 
 During the preprocessing, all requirements on the input files as stated in [Do my input files need to be in a special format?](#do-my-input-files-need-to-be-in-a-special-format) are checked. Furthermore, the rowmeans of all CpG-columns are calculated for every provided file. 
 

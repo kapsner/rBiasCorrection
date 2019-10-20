@@ -1,4 +1,4 @@
-# PCRBiasCorrection: Correct PCR-Bias in Quantitative DNA Methylation Analyses.
+# rBiasCorrection: Correct Bias in Quantitative DNA Methylation Analyses.
 # Copyright (C) 2019 Lorenz Kapsner
 #
 # This program is free software: you can redistribute it and/or modify
@@ -16,41 +16,73 @@
 
 
 # implementation of cubic equation
-cubic_equation <- function(x, a, b, c, d){
-  return((a*I(x^3) + b*I(x^2) + c*x + d))
+cubic_eq <- function(x, a, b, c, d) {
+  return(
+    (a * I(x^3) + b * I(x^2) + c * x + d)
+  )
 }
 
-cubic_equationMinMax <- function(x, a, b, y0, y1, m0, m1){
-  return((a * I((x - m0)^3) + b * I((x - m0)^2) + (x - m0) * (((y1 - y0) / (m1 - m0)) - a * I((m1 - m0)^2) - b * (m1 - m0)) + y0))
+cubic_eq_minmax <- function(x, a, b, y0, y1, m0, m1) {
+  return(
+    (a * I((x - m0)^3) +
+       b * I((x - m0)^2) +
+       (x - m0) * (((y1 - y0) /
+                      (m1 - m0)) - a * I((m1 - m0)^2) - b * (m1 - m0))
+     + y0)
+  )
 }
 
 # find best parameters for cubic regression
-cubic_regression <- function(df_agg, vec, logfilename, minmax = minmax) {
-  writeLog_("Entered 'cubic_regression'-Function", logfilename)
+cubic_regression <- function(df_agg,
+                             vec,
+                             logfilename,
+                             minmax = minmax) {
+  write_log(message = "Entered 'cubic_regression'-Function",
+            logfilename = logfilename)
 
   dat <- df_agg
 
   # true y-values
-  true_levels <- dat[,get("true_methylation")]
+  true_levels <- dat[, get("true_methylation")]
 
-  if (isFALSE(minmax)){
-    writeLog_("'cubic_regression': minmax = FALSE", logfilename)
+  if (isFALSE(minmax)) {
+    write_log(message = "'cubic_regression': minmax = FALSE",
+              logfilename = logfilename)
 
-    #pol_reg <- lm(true_methylation ~ poly(CpG, degree = 3, raw = T), data = dat)
-    pol_reg <- stats::lm(CpG ~ true_methylation + I(true_methylation^2) + I(true_methylation^3), data = dat)
+    pol_reg <- stats::lm(CpG ~ true_methylation +
+                           I(true_methylation^2) +
+                           I(true_methylation^3),
+                         data = dat)
     cof <- stats::coefficients(pol_reg)
 
     # correct values
-    fitted_values <- cubic_equation(x = true_levels, a = cof[4], b  = cof[3], c = cof[2], d = cof[1])
+    fitted_values <- cubic_eq(
+      x = true_levels,
+      a = cof[4],
+      b  = cof[3],
+      c = cof[2],
+      d = cof[1]
+    )
 
-  } else if (isTRUE(minmax)){
-    writeLog_("'cubic_regression': minmax = TRUE --> WARNING: this is experimental", logfilename)
+  } else if (isTRUE(minmax)) {
+    write_log(
+      message = paste0("'cubic_regression': minmax = TRUE --> WARNING: ",
+                       "this is experimental"),
+      logfilename = logfilename)
 
     # extract parameters of equation
-    y0 <- dat[get("true_methylation")==dat[,min(get("true_methylation"))], get("CpG")]
-    y1 <- dat[get("true_methylation")==dat[,max(get("true_methylation"))], get("CpG")]
-    m0 <- dat[,min(get("true_methylation"))]
-    m1 <- dat[,max(get("true_methylation"))]
+    y0 <- dat[
+      get("true_methylation") == dat[
+        , min(get("true_methylation"))
+        ], get("CpG")
+      ]
+    y1 <- dat[
+      get("true_methylation") == dat[
+        , max(get("true_methylation"))
+        ], get("CpG")
+      ]
+    m0 <- dat[, min(get("true_methylation"))]
+    m1 <- dat[, max(get("true_methylation"))]
 
     # starting values
     st <- data.frame(a = c(-1000, 1000),
@@ -58,16 +90,52 @@ cubic_regression <- function(df_agg, vec, logfilename, minmax = minmax) {
 
     c <- tryCatch({
       set.seed(1234)
-      out <- nls2::nls2(CpG ~ cubic_equationMinMax(true_methylation, a, b, y0, y1, m0, m1), data=dat, start = st, control = stats::nls.control(maxiter = 100))
-    }, error = function(e){
+      ret <- nls2::nls2(CpG ~ cubic_eq_minmax(
+        x = true_levels,
+        a = a,
+        b = b,
+        y0 = y0,
+        y1 = y1,
+        m0 = m0,
+        m1 = m1
+      ),
+      data = dat,
+      start = st,
+      control = stats::nls.control(maxiter = 50))
+    }, error = function(e) {
       # if convergence fails
       print(e)
       set.seed(1234)
-      mod <- nls2::nls2(CpG ~ cubic_equationMinMax(true_methylation, a, b, y0, y1, m0, m1), data=dat, start = st, algorithm = "brute-force", control = stats::nls.control(maxiter = 1e5))
+      mod <- nls2::nls2(CpG ~ cubic_eq_minmax(
+        x = true_levels,
+        a = a,
+        b = b,
+        y0 = y0,
+        y1 = y1,
+        m0 = m0,
+        m1 = m1
+      ),
+      data = dat,
+      start = st,
+      algorithm = "brute-force",
+      control = stats::nls.control(maxiter = 1e5))
+
       set.seed(1234)
-      out <- nls2::nls2(CpG ~ cubic_equationMinMax(true_methylation, a, b, y0, y1, m0, m1), data=dat, start = mod, algorithm = "brute-force", control = stats::nls.control(maxiter = 1e3))
-    }, finally = function(f){
-      return(out)
+      ret <- nls2::nls2(CpG ~ cubic_eq_minmax(
+        x = true_levels,
+        a = a,
+        b = b,
+        y0 = y0,
+        y1 = y1,
+        m0 = m0,
+        m1 = m1
+      ),
+      data = dat,
+      start = mod,
+      algorithm = "brute-force",
+      control = stats::nls.control(maxiter = 1e3))
+    }, finally = function(f) {
+      return(ret)
     })
 
     # get coefficients
@@ -75,7 +143,15 @@ cubic_regression <- function(df_agg, vec, logfilename, minmax = minmax) {
     a <- coe[["a"]]
     b <- coe[["b"]]
 
-    fitted_values <- cubic_equationMinMax(true_levels, a, b, y0, y1, m0, m1)
+    fitted_values <- cubic_eq_minmax(
+      x = true_levels,
+      a = a,
+      b = b,
+      y0 = y0,
+      y1 = y1,
+      m0 = m0,
+      m1 = m1
+    )
 
   }
 
@@ -83,37 +159,37 @@ cubic_regression <- function(df_agg, vec, logfilename, minmax = minmax) {
   dat[, ("fitted") := fitted_values]
 
   # sum of squares between fitted and measuerd values
-  dat[,("CpG_fitted_diff") := get("CpG")-get("fitted")]
-  dat[,("squared_error") := I((get("CpG_fitted_diff"))^2)]
+  dat[, ("CpG_fitted_diff") := get("CpG") - get("fitted")]
+  dat[, ("squared_error") := I((get("CpG_fitted_diff"))^2)]
 
   # sum of squared errors = residual sum of squares
-  SSE <- as.numeric(dat[,sum(get("squared_error"), na.rm = T)])
+  sse <- as.numeric(dat[, sum(get("squared_error"), na.rm = T)])
 
   # squared dist to mean
-  dat[,("squared_dist_mean") := sdm(get("fitted"))]
+  dat[, ("squared_dist_mean") := sdm(get("fitted"))]
 
   # total sum of squares
-  TSS <- as.numeric(dat[,sum(get("squared_dist_mean"), na.rm = T)])
+  tss <- as.numeric(dat[, sum(get("squared_dist_mean"), na.rm = T)])
 
 
   # sum of squared errors
-  outlist <- list("SSE_cubic" = SSE)
+  outlist <- list("SSE_cubic" = sse)
 
-  if (isFALSE(minmax)){
-    outlist[["Coef_cubic"]] = list("a" = unname(cof[4]),
-                                   "b" = unname(cof[3]),
-                                   "c" = unname(cof[2]),
-                                   "d" = unname(cof[1]),
-                                   "R2" = 1 - (SSE / TSS))
-  } else if (isTRUE(minmax)){
+  if (isFALSE(minmax)) {
+    outlist[["Coef_cubic"]] <- list("a" = unname(cof[4]),
+                                    "b" = unname(cof[3]),
+                                    "c" = unname(cof[2]),
+                                    "d" = unname(cof[1]),
+                                    "R2" = 1 - (sse / tss))
+  } else if (isTRUE(minmax)) {
 
-    outlist[["Coef_cubic"]] = list("y0" = y0,
-                                   "y1" = y1,
-                                   "a" = a,
-                                   "b" = b,
-                                   "m0" = m0,
-                                   "m1" = m1,
-                                   "R2" = 1 - (SSE / TSS))
+    outlist[["Coef_cubic"]] <- list("y0" = y0,
+                                    "y1" = y1,
+                                    "a" = a,
+                                    "b" = b,
+                                    "m0" = m0,
+                                    "m1" = m1,
+                                    "R2" = 1 - (sse / tss))
   }
   return(outlist)
 }

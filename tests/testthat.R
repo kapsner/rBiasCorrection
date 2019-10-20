@@ -1,4 +1,4 @@
 library(testthat)
-library(PCRBiasCorrection)
+library(rBiasCorrection)
 
-test_check("PCRBiasCorrection")
+test_check("rBiasCorrection")

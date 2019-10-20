@@ -1,4 +1,4 @@
-# PCRBiasCorrection: Correct PCR-Bias in Quantitative DNA Methylation Analyses.
+# rBiasCorrection: Correct Bias in Quantitative DNA Methylation Analyses.
 # Copyright (C) 2019 Lorenz Kapsner
 #
 # This program is free software: you can redistribute it and/or modify
@@ -15,56 +15,103 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#' @title regressionUtility_ helper function
+#' @title regression_utility helper function
 #'
 #' @description Internal function to carry out the regression calculations.
 #'
 #' @param data A data.table object that contains the calibration data.
-#' @inheritParams BiasCorrection
-#' @param locus_id A character string. Default: NULL. ID of the respective locus (only used in type 2 correction).
-#' @param rv A list object. A list that contains additional objects needed for the algorithms.
-#' @param headless A logical (default: FALSE). Indicates, if the function is called from within a shiny app (default)
-#'   or just from the console without a graphical user interface.
-#' @param mode A character string. Default: NULL. Used to indicate "corrected" calibration data.
+#' @inheritParams biascorrection
+#' @param locus_id A character string. Default: NULL. ID of the respective
+#'   locus (only used in type 2 correction).
+#' @param rv A list object. A list that contains additional objects needed
+#'   for the algorithms.
+#' @param headless A logical (default: FALSE). Indicates, if the function is
+#'   called from within a shiny app (default) or just from the console without
+#'   a graphical user interface.
+#' @param mode A character string. Default: NULL. Used to indicate "corrected"
+#'   calibration data.
 #'
 #' @export
 #'
-regressionUtility_ <- function(data, samplelocusname, locus_id = NULL, rv, mode = NULL, headless = FALSE, logfilename, minmax){
+regression_utility <- function(data,
+                               samplelocusname,
+                               locus_id = NULL,
+                               rv,
+                               mode = NULL,
+                               headless = FALSE,
+                               logfilename,
+                               minmax) {
 
-  if (!is.null(locus_id)){
-    writeLog_(paste0("### Starting with regression calculations ###\n\nLocus ID: ", locus_id), logfilename)
+  if (!is.null(locus_id)) {
+    write_log(
+      message = paste0("### Starting with regression ",
+                       "calculations ###\n\nLocus ID: ",
+                       locus_id),
+      logfilename = logfilename)
   } else {
-    writeLog_(paste0("### Starting with regression calculations ###"), logfilename)
+    write_log(
+      message = paste0("### Starting with regression calculations ###"),
+      logfilename = logfilename)
   }
 
 
   # workaround to hide shiny-stuff, when going headless
-  if (isFALSE(headless)){
+  if (isFALSE(headless)) {
     # for plotting: basic idea and some code snippets from:
     # https://gist.github.com/wch/5436415/
     regression <- shiny::reactive({
-      regression_type1(datatable = data, vec_cal = rv$vec_cal, mode = mode, logfilename = logfilename, minmax = minmax, locus_id, locusname = rv$sampleLocusName)
+      regression_type1(datatable = data,
+                       vec_cal = rv$vec_cal,
+                       mode = mode,
+                       logfilename = logfilename,
+                       minmax = minmax,
+                       locus_id,
+                       locusname = rv$sample_locus_name)
     })
 
-    shiny::withProgress(message = "Calculating calibration curves", value = 0, {
-      shiny::incProgress(1/1, detail = "... working on calculations ...")
-      # calculate results (if this is run here, j must be resetted)
-      regression_results <- regression()
-    })
+    shiny::withProgress(
+      message = "Calculating calibration curves",
+      value = 0,
+      expr = {
+        shiny::incProgress(1 / 1,
+                           detail = "... working on calculations ...")
+        # calculate results (if this is run here, j must be resetted)
+        regression_results <- regression()
+      }
+    )
   } else {
-    regression_results <- regression_type1(datatable = data, vec_cal = rv$vec_cal, mode = mode, logfilename = logfilename, minmax = minmax, locus_id, locusname = rv$sampleLocusName)
+    regression_results <- regression_type1(datatable = data,
+                                           vec_cal = rv$vec_cal,
+                                           mode = mode,
+                                           logfilename = logfilename,
+                                           minmax = minmax,
+                                           locus_id,
+                                           locusname = rv$sample_locus_name)
   }
 
   return(regression_results)
 }
 
-regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename, minmax, locus_id = NULL, locusname){
-  writeLog_("Entered 'regression_type1'-Function", logfilename)
-  
-  if (is.null(locus_id)){
+regression_type1 <- function(datatable,
+                             vec_cal,
+                             mode = NULL,
+                             logfilename,
+                             minmax,
+                             locus_id = NULL,
+                             locusname) {
+  write_log(
+    message = "Entered 'regression_type1'-Function",
+    logfilename = logfilename
+  )
+
+  if (is.null(locus_id)) {
     locus <- locusname
   } else {
-    locus <- paste("Locus:", locus_id, "-", "Sample:", locusname)
+    locus <- paste("Locus:",
+                   locus_id,
+                   "-",
+                   "Sample:",
+                   locusname)
   }
 
   # result_list
@@ -72,48 +119,89 @@ regression_type1 <- function(datatable, vec_cal, mode=NULL, logfilename, minmax,
 
   plot.listR <- list()
 
-  for (i in 1:length(vec_cal)){
+  for (i in seq_len(length.out = length(vec_cal))) {
     message <- paste0("# CpG-site: ", vec_cal[i])
-    writeLog_(message, logfilename)
-    df_agg <- stats::na.omit(create_agg_df(datatable = datatable, index = vec_cal[i]))
+    write_log(message = message,
+              logfilename = logfilename)
+    df_agg <- stats::na.omit(
+      create_agg_df(
+        datatable = datatable,
+        index = vec_cal[i]
+      )
+    )
 
     print(df_agg)
-    writeLog_(paste("Logging df_agg:", vec_cal[i]), logfilename)
-    writeLog_(df_agg, logfilename)
+    write_log(
+      message = paste("Logging df_agg:", vec_cal[i]),
+      logfilename = logfilename
+    )
+    write_log(message = df_agg, logfilename = logfilename)
 
-    result_list[[vec_cal[i]]] <- hyperbolic_regression(df_agg = df_agg, vec = vec_cal[i], logfilename = logfilename, minmax = minmax)
+    result_list[[vec_cal[i]]] <- hyperbolic_regression(
+      df_agg = df_agg,
+      vec = vec_cal[i],
+      logfilename = logfilename,
+      minmax = minmax
+    )
     # append result_list
-    result_list[[vec_cal[i]]] <- c(result_list[[vec_cal[i]]], cubic_regression(df_agg, vec_cal[i], logfilename, minmax = minmax))
+    result_list[[vec_cal[i]]] <- c(result_list[[vec_cal[i]]],
+                                   cubic_regression(df_agg = df_agg,
+                                                    vec = vec_cal[i],
+                                                    logfilename = logfilename,
+                                                    minmax = minmax))
 
-    if (is.null(mode)){
-      custom_ylab <- "% methylation, apparent after PCR"
-    } else if (mode == "corrected"){
+    if (is.null(mode)) {
+      custom_ylab <- "% methylation, apparent after quantification"
+    } else if (mode == "corrected") {
       custom_ylab <- "% methylation, after BiasCorrection"
     }
 
     lb1 <- c(paste0("  R\u00B2: \n  Hyperbolic = ",
-                  round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2),
-                  "\n  Cubic = ",
-                  round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)), "")
+                    round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2),
+                    "\n  Cubic = ",
+                    round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)), "")
 
 
     gdat <- df_agg[
-      ,("true_methylation"):=as.numeric(as.character(get("true_methylation")))
+      , ("true_methylation") := as.numeric(
+        as.character(
+          get("true_methylation")
+        )
+      )
       ][
-        ,("CpG"):=as.numeric(as.character(get("CpG")))
-      ]
+        , ("CpG") := as.numeric(
+          as.character(
+            get("CpG")
+          )
+        )
+        ]
 
-    p <- ggplot2::ggplot(data=gdat, ggplot2::aes_string(x = "true_methylation", y = "CpG")) +
+    p <- ggplot2::ggplot(data = gdat,
+                         ggplot2::aes_string(
+                           x = "true_methylation",
+                           y = "CpG")
+    ) +
       ggplot2::geom_point() +
       ggplot2::ylab(custom_ylab) +
       ggplot2::xlab("% actual methylation") +
-      ggplot2::labs(title = locus, subtitle = paste("CpG:", vec_cal[i])) +
-      ggplot2:: geom_text(data = data.frame(),
-                          ggplot2::aes(x=-Inf, y=c(max(gdat$CpG), 0.95*max(gdat$CpG)), hjust=0, vjust = 1),
-                          label = lb1,
-                          size = 10,
-                          parse = F)
+      ggplot2::labs(
+        title = locus,
+        subtitle = paste("CpG:", vec_cal[i])
+      ) +
+      ggplot2::geom_text(
+        data = data.frame(),
+        ggplot2::aes(x = -Inf,
+                     y = c(max(gdat$CpG),
+                           0.95 * max(gdat$CpG)),
+                     hjust = 0, vjust = 1),
+        label = lb1,
+        size = 10,
+        parse = F
+      )
     plot.listR[[i]] <- p
   }
-  return(list("plot_list" = plot.listR, "result_list" = result_list))
+  return(
+    list("plot_list" = plot.listR,
+         "result_list" = result_list)
+  )
 }

@@ -1,6 +1,6 @@
-# PCRBiasCorrection (!!!under development!!!)
+# rBiasCorrection (!!!under development!!!)
 
-PCRBiasCorrection is the R implementation of the algorithms described by Moskalev et. al in their research article *'Correction of PCR-bias in quantitative DNA methylation studies by means of cubic polynomial regression'*, published 2011 in *Nucleic acids research, Oxford University Press* (DOI: [https://doi.org/10.1093/nar/gkr213](https://doi.org/10.1093/nar/gkr213)).  
+rBiasCorrection is the R implementation of the algorithms described by Moskalev et. al in their research article *'Correction of PCR-bias in quantitative DNA methylation studies by means of cubic polynomial regression'*, published 2011 in *Nucleic acids research, Oxford University Press* (DOI: [https://doi.org/10.1093/nar/gkr213](https://doi.org/10.1093/nar/gkr213)).  
 
 ## Citation:  
 ```
@@ -23,11 +23,11 @@ PCRBiasCorrection is the R implementation of the algorithms described by Moskale
 
 ## Installation
 
-You can install the development version of PCRBiasCorrection with:
+You can install the development version of rBiasCorrection with:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("kapsner/PCRBiasCorrection")
+devtools::install_github("kapsner/rBiasCorrection")
 ```
 
 ## Example
@@ -35,8 +35,8 @@ devtools::install_github("kapsner/PCRBiasCorrection")
 This is a basic example which shows you how to correct PCR-bias in quantitative DNA methylation data:
 
 ``` r
-library(PCRBiasCorrection)
-BiasCorrection("type1_experimentaldata.csv", "type1_calibrationdata.csv", samplelocusname = "BRAF")
+library(rBiasCorrection)
+biascorrection("type1_experimentaldata.csv", "type1_calibrationdata.csv", samplelocusname = "BRAF")
 ```
 
 ## FAQ 
