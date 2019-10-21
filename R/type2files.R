@@ -77,8 +77,8 @@ type2_filereq <- function(filelist, rv, logfilename) {
       } else {
 
         # necessary for selectInput-choices
-        #" numberby <- 100 / (length(rv$fileimportCal) - 1)
-        #" choicesseq <- seq(from = 0, to = 100.00, by = numberby)
+        #% numberby <- 100 / (length(rv$fileimportCal) - 1)
+        #% choicesseq <- seq(from = 0, to = 100.00, by = numberby)
         pattern <- "(\\_CS\\d+(\\_\\d+)?(\\.csv|\\.CSV))$"
         calibr_steps <- data.table::data.table(
           "name" = character(),

@@ -133,7 +133,7 @@ solving_equations <- function(datatable,
                    bx2,
                    ax3)
 
-          #" print(paste(x_vec, class(x_vec)))
+          #% print(paste(x_vec, class(x_vec)))
         } else if (isTRUE(minmax)) {
           a <- rv$result_list[[i]][["Coef_cubic"]][["a"]]
           b <- rv$result_list[[i]][["Coef_cubic"]][["b"]]
@@ -154,12 +154,12 @@ solving_equations <- function(datatable,
         print(coe)
 
         x_vec <- solve(polynom::polynomial(coe))               # polynom
-        #" x_vec <- cubic(rev(coe))                    # RConics
+        #% x_vec <- cubic(rev(coe))                    # RConics
 
         find_x <- list()
 
         for (m in x_vec) {
-          #" print(m)
+          #% print(m)
           if (grepl("(+|-)0i", as.character(m))) {   # muss am ende stehen!
             compl <- as.character(m)
             compl_out <- as.numeric((substr(compl, 1, nchar(compl) - 3)))
@@ -171,7 +171,7 @@ solving_equations <- function(datatable,
 
         if (isTRUE(minmax)) {
           # if minmax = TRUE and cubic = TRUE add m0, since we
-          #" solved (x - m0) ^ j
+          #% solved (x - m0) ^ j
           find_x <- lapply(find_x, function(x) {
             x + m0
           })
@@ -252,32 +252,32 @@ solving_equations <- function(datatable,
                     collapse = ", ")
             )
             replacement <- "NA"
-            #" } else {
-            #"
-            #"   print("Nonfitting")
-            #"   print(nonfitting)
-            #"
-            #"   if (sum(nonfitting >= 110) > 0) {
-            #"     nf <- nonfitting[nonfitting >= 110]
-            #"     msg3 <- paste0("No fitting numeric roots within ",
-            #"                    "the borders ",
-            #"                    "found: since we are in mode == corrected, ",
-            #"                    "substitute 100")
-            #"     vector <- c(vector, 100)
-            #"     replacement = "100"
-            #"   } else if (sum(nonfitting <= -10) > 0) {
-            #"     nf <- nonfitting[nonfitting <= -10]
-            #"     msg3 <- paste0("No fitting numeric roots within ",
-            #"                    "the borders ",
-            #"                    "found: since we are in mode == corrected, ",
-            #"                    "substitute 0")
-            #"     vector <- c(vector, 0)
-            #"     replacement = "0"
-            #"   }
-            #"   # store substitutions
-            #"   original = as.character(paste(round(nonfitting, 3),
-            #"                                 collapse = ", "))
-            #" }
+            #% } else {
+            #%
+            #%   print("Nonfitting")
+            #%   print(nonfitting)
+            #%
+            #%   if (sum(nonfitting >= 110) > 0) {
+            #%     nf <- nonfitting[nonfitting >= 110]
+            #%     msg3 <- paste0("No fitting numeric roots within ",
+            #%                    "the borders ",
+            #%                    "found: since we are in mode == corrected, ",
+            #%                    "substitute 100")
+            #%     vector <- c(vector, 100)
+            #%     replacement = "100"
+            #%   } else if (sum(nonfitting <= -10) > 0) {
+            #%     nf <- nonfitting[nonfitting <= -10]
+            #%     msg3 <- paste0("No fitting numeric roots within ",
+            #%                    "the borders ",
+            #%                    "found: since we are in mode == corrected, ",
+            #%                    "substitute 0")
+            #%     vector <- c(vector, 0)
+            #%     replacement = "0"
+            #%   }
+            #%   # store substitutions
+            #%   original = as.character(paste(round(nonfitting, 3),
+            #%                                 collapse = ", "))
+            #% }
 
           }
 
@@ -397,25 +397,25 @@ solving_equations <- function(datatable,
             # store substitutions
             original <- as.character(h_solv)
             replacement <- "NA"
-            #" } else {
-            #"   if (h_solv >= 110) {
-            #"     msg3 <- paste0("No fitting numeric roots within ",
-            #"                    "the borders ",
-            #"                    "found: since we are in mode == corrected, ",
-            #"                    "substitute 100")
-            #"     vector <- c(vector, 100)
-            #"     replacement = "100"
-            #"   } else if (h_solv <= -10) {
-            #"     msg3 <- paste0("No fitting numeric roots within ",
-            #"                    "the borders ",
-            #"                    "found: since we are in mode == corrected, ",
-            #"                    "substitute 0")
-            #"     vector <- c(vector, 0)
-            #"     replacement = "0"
-            #"   }
-            #"   # store substitutions
-            #"   original = as.character(h_solv)
-            #" }
+            #% } else {
+            #%   if (h_solv >= 110) {
+            #%     msg3 <- paste0("No fitting numeric roots within ",
+            #%                    "the borders ",
+            #%                    "found: since we are in mode == corrected, ",
+            #%                    "substitute 100")
+            #%     vector <- c(vector, 100)
+            #%     replacement = "100"
+            #%   } else if (h_solv <= -10) {
+            #%     msg3 <- paste0("No fitting numeric roots within ",
+            #%                    "the borders ",
+            #%                    "found: since we are in mode == corrected, ",
+            #%                    "substitute 0")
+            #%     vector <- c(vector, 0)
+            #%     replacement = "0"
+            #%   }
+            #%   # store substitutions
+            #%   original = as.character(h_solv)
+            #% }
 
 
           }
@@ -447,19 +447,19 @@ solving_equations <- function(datatable,
 
       # replace negative values, which are mathematically correct,
       # with "0", which makes more sense
-      #" vector <- as.numeric(as.character(vector))
-      #" vector <- ifelse(vector < 0,
-      #"                  ifelse(vector > -10,
-      #"                         0,
-      #"                         NA),
-      #"                  ifelse(vector <= 100,
-      #"                         vector,
-      #"                         ifelse(vector < 110,
-      #"                                100,
-      #"                                NA
-      #"                         )
-      #"                  )
-      #" )
+      #% vector <- as.numeric(as.character(vector))
+      #% vector <- ifelse(vector < 0,
+      #%                  ifelse(vector > -10,
+      #%                         0,
+      #%                         NA),
+      #%                  ifelse(vector <= 100,
+      #%                         vector,
+      #%                         ifelse(vector < 110,
+      #%                                100,
+      #%                                NA
+      #%                         )
+      #%                  )
+      #% )
 
       # append output-vector to results
       results <- results[, (paste0(i, "_h")) := get("vector")]

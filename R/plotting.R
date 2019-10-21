@@ -218,10 +218,10 @@ create_plots <- function(plotlist,
                          "Hyperbolic Regression",
                          "unbiased")
             ) +
-            #" scale_colour_manual("Regression:",
-            #"                     values = c(Cubic = "indianred1",
-            #"                                Hyperbolic = "mediumspringgreen",
-            #"                                unbiased = "lightblue")) +
+            #% scale_colour_manual("Regression:",
+            #%                     values = c(Cubic = "indianred1",
+            #%                                Hyperbolic = "mediumspringgreen",
+            #%                                unbiased = "lightblue")) +
             ggpubr::theme_pubr() +
             ggplot2::theme(
               plot.title = ggplot2::element_text(hjust = 0.5),
@@ -297,10 +297,10 @@ create_plots <- function(plotlist,
                          "Hyperbolic Regression",
                          "unbiased")
             ) +
-            #" scale_colour_manual("Regression:",
-            #"                     values = c(Cubic = "indianred1",
-            #"                                Hyperbolic = "mediumspringgreen",
-            #"                                unbiased = "lightblue")) +
+            #% scale_colour_manual("Regression:",
+            #%                     values = c(Cubic = "indianred1",
+            #%                                Hyperbolic = "mediumspringgreen",
+            #%                                unbiased = "lightblue")) +
             ggpubr::theme_pubr() +
             ggplot2::theme(
               plot.title = ggplot2::element_text(hjust = 0.5),
@@ -476,9 +476,9 @@ createbarerrorplots <- function(statstable_pre,
           x = "regressiontype",
           y = "value",
           fill = "regressiontype")) +
-          #" scale_fill_manual(
-          #"   values = c("Cubic Regression" = "indianred1",
-          #"              "Hyperbolic Regression" = "mediumspringgreen")) +
+          #% scale_fill_manual(
+          #%   values = c("Cubic Regression" = "indianred1",
+          #%              "Hyperbolic Regression" = "mediumspringgreen")) +
           ggplot2::geom_col() +
           ggplot2::geom_text(
             ggplot2::aes_string(
@@ -505,9 +505,9 @@ createbarerrorplots <- function(statstable_pre,
             plot.subtitle = ggplot2::element_text(hjust = 0.5),
             text = ggplot2::element_text(size = 32)
           ) #,
-        #" axis.ticks.x = element_blank(),
-        #" axis.text.x = element_blank())
-        #" print whole plot in return, otherwise it will fail
+        #% axis.ticks.x = element_blank(),
+        #% axis.text.x = element_blank())
+        #% print whole plot in return, otherwise it will fail
         return(print(p))
       },
       filename = filename,

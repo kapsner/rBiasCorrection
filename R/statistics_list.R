@@ -135,11 +135,11 @@ statistics_list <- function(resultlist,
       outdat[get("Name") == i, (out_names) := out_list]
     }
   }
-  #" mark the better model: 1 = cubic, 0 = hyperbolic
-  #" outdat[, ("better_model") := ifelse(
-  #"   get("SSE_cubic") <= get("SSE_hyperbolic"),
-  #"   1,
-  #"   0
-  #" )]
+  #% mark the better model: 1 = cubic, 0 = hyperbolic
+  #% outdat[, ("better_model") := ifelse(
+  #%   get("SSE_cubic") <= get("SSE_hyperbolic"),
+  #%   1,
+  #%   0
+  #% )]
   return(outdat)
 }

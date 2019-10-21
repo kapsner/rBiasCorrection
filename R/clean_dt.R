@@ -98,7 +98,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
     return(NULL)
   }
 
-  #" print(is.data.table(datatable))
+  #% print(is.data.table(datatable))
 
   # all other columns are numeric
   vec <- names(datatable)
@@ -183,18 +183,18 @@ clean_dt <- function(datatable, description, type, logfilename) {
   # check file requirements: missing values and remove rows
   # containing missing values
   if (type == "1") {
-    #" if (isTRUE(any(is.na(datatable)))) {
-    #"   before <- nrow(datatable)
-    #"   datatable <- na.omit(datatable)
-    #"   after <- nrow(datatable)
-    #"   rv$omitnas <- before - after
-    #"   message <- paste0("Deleted ",
-    #"                     rv$omitnas,
-    #"                     " row(s) containing missing values from '",
-    #"                     description,
-    #"                     " data'.")
-    #"   write_log(message)
-    #" }
+    #% if (isTRUE(any(is.na(datatable)))) {
+    #%   before <- nrow(datatable)
+    #%   datatable <- na.omit(datatable)
+    #%   after <- nrow(datatable)
+    #%   rv$omitnas <- before - after
+    #%   message <- paste0("Deleted ",
+    #%                     rv$omitnas,
+    #%                     " row(s) containing missing values from '",
+    #%                     description,
+    #%                     " data'.")
+    #%   write_log(message)
+    #% }
 
     if (description == "calibration") {
       # type 1 data must have at least 4 calibration steps

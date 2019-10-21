@@ -18,7 +18,7 @@
 # implementation of hyperbolic equation
 hyperbolic_eq_minmax <- function(x, b, y0, y1, m0, m1) {
   # old equation (16.01.2019) with min = 0, max = 100
-  #" return((((y1 * b) - y0) * x + 100 * y0) / ((b * x) - x + 100))
+  #% return((((y1 * b) - y0) * x + 100 * y0) / ((b * x) - x + 100))
   # new equation (17.01.2019) with data-dependent min and max
   return(
     (((b * y1) - y0) * (x - m0) + (m1 - m0) * y0) /
@@ -36,7 +36,7 @@ hyperbolic_eq <- function(x, a, b, d) {
 # solved hyperbolic equation
 hyperbolic_eq_solved_minmax <- function(y, b, y0, y1, m0, m1) {
   # old solved equation
-  #" return(((100 * y0) - (100 * y)) / ((y * b) - (y1 * b) + y0 - y))
+  #% return(((100 * y0) - (100 * y)) / ((y * b) - (y1 * b) + y0 - y))
   # new solved equation
   return(
     ((m0 * b * (y - y1)) + (m1 * (y0 - y))) / ((b * (y - y1)) - y + y0)
@@ -162,25 +162,25 @@ hyperbolic_regression <- function(df_agg,
     m1 <- dat[, max(get("true_methylation"))]
 
     #  implementation of optimization function
-    #" fn <- function(bias) {
-    #"   fitted_vals <- hyperbolic_eq_minmax(true_levels,
-    #"                                             b = bias,
-    #"                                             y0 = y0,
-    #"                                             y1 = y1,
-    #"                                             m0 = m0,
-    #"                                             m1 = m1)
-    #"  # optimize biasfactor with minimizing sum of squares error
-    #"   return(sum(I(dat[, get("CpG")] - fitted_vals)^2))
-    #" }
+    #% fn <- function(bias) {
+    #%   fitted_vals <- hyperbolic_eq_minmax(true_levels,
+    #%                                             b = bias,
+    #%                                             y0 = y0,
+    #%                                             y1 = y1,
+    #%                                             m0 = m0,
+    #%                                             m1 = m1)
+    #%  # optimize biasfactor with minimizing sum of squares error
+    #%   return(sum(I(dat[, get("CpG")] - fitted_vals)^2))
+    #% }
     #
     # optimization function of built in R -> based on Nelder-Mead
     # by default, optim performs minimization
-    #" bias_factor <- optim(1, fn, method = "Nelder-Mead")$par
-    #" b <- stats::optim(1,
-    #"                   fn,
-    #"                   method = "Brent",
-    #"                   lower = 0,
-    #"                   upper = 50)$par # due to error with Nelder-Mead
+    #% bias_factor <- optim(1, fn, method = "Nelder-Mead")$par
+    #% b <- stats::optim(1,
+    #%                   fn,
+    #%                   method = "Brent",
+    #%                   lower = 0,
+    #%                   upper = 50)$par # due to error with Nelder-Mead
 
     # starting values
     st <- data.frame(b = c(-1000, 1000))

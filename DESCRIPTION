@@ -15,7 +15,7 @@ LazyData: true
 URL: https://github.com/kapsner/rBiasCorrection
 BugReports: https://github.com/kapsner/rBiasCorrection/issues
 Encoding: UTF-8
-Date/Publication: 2019-10-20 14:28:17 UTC
+Date/Publication: 2019-10-21 15:13:02 UTC
 Depends: 
     R (>= 2.10)
 Imports: 
@@ -28,5 +28,5 @@ Imports:
     ggpubr,
     stats
 Suggests: 
-    testthat
-RoxygenNote: 6.1.1
+    testthat,
+    lintr
