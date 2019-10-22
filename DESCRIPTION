@@ -30,3 +30,4 @@ Imports:
 Suggests: 
     testthat,
     lintr
+RoxygenNote: 6.1.1

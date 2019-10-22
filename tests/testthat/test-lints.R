@@ -1,8 +1,8 @@
 context("lints")
 
-prefix <- "./"
+#% prefix <- "./"
 
-#% prefix <- "../../"
+prefix <- "../../00_pkg_src/rBiasCorrection/"
 
 test_that(
   desc = "test lints",
@@ -36,12 +36,21 @@ test_that(
       print(directory)
       for (fname in names(lintlist[[directory]])) {
         print(fname)
+        #% print(list.files(prefix))
+
+        # skip on cran
+        skip_on_cran()
+
         lintr::expect_lint(
-          file = paste0(prefix,
-                        directory,
-                        "/",
-                        fname),
-          checks = lintlist[[directory]][[fname]])
+          file = paste0(
+            prefix,
+            directory,
+            "/",
+            fname
+          ),
+          checks = lintlist[[directory]][[fname]]
+        )
       }
     }
-  })
+  }
+)
