@@ -354,13 +354,13 @@ createbarerrorplots <- function(statstable_pre,
   )
 
   if (is.null(locus_id)) {
-    locus <- rv$sampleLocusName
+    locus <- rv$sample_locus_name
   } else {
     locus <- paste("Locus:",
                    locus_id,
                    "-",
                    "Sample:",
-                   rv$sampleLocusName)
+                   rv$sample_locus_name)
   }
 
   # Test if names are eqal
@@ -375,7 +375,7 @@ createbarerrorplots <- function(statstable_pre,
 
       if (type == 1) {
         filename <- paste0(plotdir,
-                           rv$sampleLocusName,
+                           rv$sample_locus_name,
                            "_",
                            "error_",
                            plotname,
@@ -386,7 +386,7 @@ createbarerrorplots <- function(statstable_pre,
         filename <- paste0(plotdir,
                            paste0(gsub("[[:punct:]]", "", locus_id)),
                            "-",
-                           rv$sampleLocusName,
+                           rv$sample_locus_name,
                            "_",
                            "error_",
                            plotname,
