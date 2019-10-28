@@ -14,6 +14,7 @@ test_that(
         "clean_dt.R" = "cyclomatic complexity",
         "cubic.R" = NULL,
         "hyperbolic.R" = NULL,
+        "plot_functions.R" = NULL,
         "plotting.R" = NULL,
         "regression.R" = NULL,
         "regression_solving.R" = "cyclomatic complexity",

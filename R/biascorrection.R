@@ -513,3 +513,36 @@ NULL
 #' @docType data
 #' @keywords data
 NULL
+
+#' @title example._plot.df_agg
+#'
+#' @description A data.table containing the aggregated
+#'   calibration data for CpG site 1
+#'   to create an example plot.
+#'
+#' @name example._plot.df_agg
+#' @docType data
+#' @keywords data
+NULL
+
+#' @title example._plot_coef_c
+#'
+#' @description A list containing exemplary coefficients
+#'   of the cubic regression equation for CpG site 1
+#'   to create an example plot.
+#'
+#' @name example._plot_coef_c
+#' @docType data
+#' @keywords data
+NULL
+
+#' @title example._plot_coef_h
+#'
+#' @description A list containing exemplary coefficients
+#'   of the hyperbolic regression equation for CpG site 1
+#'   to create an example plot.
+#'
+#' @name example._plot_coef_h
+#' @docType data
+#' @keywords data
+NULL
