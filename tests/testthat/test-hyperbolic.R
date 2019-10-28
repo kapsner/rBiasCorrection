@@ -20,6 +20,7 @@ test_that(
   h1 <- hyperbolic_regression(df_agg = df_agg,
                               vec = colnames(cal_type_1)[2],
                               logfilename,
-                              minmax = TRUE)
+                              minmax = TRUE,
+                              seed = 1234)
   expect_known_hash(h1, "3578c7d484")
 })

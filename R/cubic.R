@@ -36,7 +36,8 @@ cubic_eq_minmax <- function(x, a, b, y0, y1, m0, m1) {
 cubic_regression <- function(df_agg,
                              vec,
                              logfilename,
-                             minmax = minmax) {
+                             minmax,
+                             seed) {
   write_log(message = "Entered 'cubic_regression'-Function",
             logfilename = logfilename)
 
@@ -89,7 +90,7 @@ cubic_regression <- function(df_agg,
                      b = c(-1000, 1000))
 
     c <- tryCatch({
-      set.seed(1234)
+      set.seed(seed)
       ret <- nls2::nls2(CpG ~ cubic_eq_minmax(
         x = true_levels,
         a = a,
@@ -105,7 +106,7 @@ cubic_regression <- function(df_agg,
     }, error = function(e) {
       # if convergence fails
       print(e)
-      set.seed(1234)
+      set.seed(seed)
       mod <- nls2::nls2(CpG ~ cubic_eq_minmax(
         x = true_levels,
         a = a,
@@ -120,7 +121,7 @@ cubic_regression <- function(df_agg,
       algorithm = "brute-force",
       control = stats::nls.control(maxiter = 1e5))
 
-      set.seed(1234)
+      set.seed(seed)
       ret <- nls2::nls2(CpG ~ cubic_eq_minmax(
         x = true_levels,
         a = a,

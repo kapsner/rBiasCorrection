@@ -7,7 +7,8 @@
 biascorrection(experimental, calibration, samplelocusname,
   minmax = FALSE, correct_method = "best", selection_method = "SSE",
   type = 1, csvdir = "./csvdir", plotdir = "./plotdir",
-  logfilename = "./log.txt")
+  logfilename = "./log.txt", plot_height = 5, plot_width = 7.5,
+  plot_textsize = 16, seed = 1234)
 }
 \arguments{
 \item{experimental}{A character string. Path to the file containing the raw
@@ -69,6 +70,19 @@ a warning.}
 
 \item{logfilename}{A character string. Path to a file to save the log
 messages. Default = "./log.txt"}
+
+\item{plot_height}{A integer value. The height (unit: inch) of the
+resulting plots (default: 5).}
+
+\item{plot_width}{A integer value. The width (unit: inch) of the
+resulting plots (default: 7.5).}
+
+\item{plot_textsize}{A integer value. The textsize of the
+resulting plots (default: 16).}
+
+\item{seed}{A integer value. The seed used when solving the unknowns in the
+hyperbolic regression equation and the cubic regression equation.
+Important for reproducibility (default: 1234).}
 }
 \value{
 TRUE, if the correction of PCR measurment biases succeeds. If the

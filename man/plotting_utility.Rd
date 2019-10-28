@@ -6,7 +6,8 @@
 \usage{
 plotting_utility(data, plotlist_reg, type, samplelocusname,
   locus_id = NULL, rv, mode = NULL, headless = FALSE, plotdir,
-  logfilename, minmax)
+  logfilename, minmax, plot_height = 5, plot_width = 7.5,
+  plot_textsize = 1)
 }
 \arguments{
 \item{data}{A data.table object that contains the calibration data.}
@@ -44,6 +45,15 @@ messages. Default = "./log.txt"}
 \item{minmax}{A logical, indicating which equations are used for
 BiasCorrection (default: FALSE). If TRUE, equations are used that include
 the respective minima and maxima of the provided data.}
+
+\item{plot_height}{A integer value. The height (unit: inch) of the
+resulting plots (default: 5).}
+
+\item{plot_width}{A integer value. The width (unit: inch) of the
+resulting plots (default: 7.5).}
+
+\item{plot_textsize}{A integer value. The textsize of the
+resulting plots (default: 16).}
 }
 \description{
 Internal function to carry out the plotting of the

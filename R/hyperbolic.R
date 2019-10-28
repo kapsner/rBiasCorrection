@@ -52,7 +52,8 @@ hyperbolic_eq_solved <- function(y, a, b, d) {
 hyperbolic_regression <- function(df_agg,
                                   vec,
                                   logfilename,
-                                  minmax) {
+                                  minmax,
+                                  seed) {
   write_log(message = "Entered 'hyperbolic_regression'-Function",
             logfilename = logfilename)
 
@@ -83,7 +84,7 @@ hyperbolic_regression <- function(df_agg,
                      d = c(-1000, 1000))
 
     c <- tryCatch({
-      set.seed(1234)
+      set.seed(seed)
       ret <- nls2::nls2(CpG ~ hyperbolic_eq(
         x = true_levels,
         a = a,
@@ -93,10 +94,11 @@ hyperbolic_regression <- function(df_agg,
       data = dat,
       start = st,
       control = stats::nls.control(maxiter = 50))
+
     }, error = function(e) {
       # if convergence fails
       print(e)
-      set.seed(1234)
+      set.seed(seed)
       mod <- nls2::nls2(CpG ~ hyperbolic_eq(
         x = true_levels,
         a = a,
@@ -107,7 +109,7 @@ hyperbolic_regression <- function(df_agg,
       start = st,
       algorithm = "brute-force",
       control = stats::nls.control(maxiter = 1e5))
-      set.seed(1234)
+      set.seed(seed)
 
       ret <- nls2::nls2(CpG ~ hyperbolic_eq(
         x = true_levels,
@@ -119,6 +121,7 @@ hyperbolic_regression <- function(df_agg,
       start = mod,
       algorithm = "brute-force",
       control = stats::nls.control(maxiter = 1e3))
+
     }, finally = function(f) {
       return(ret)
     })
@@ -186,7 +189,7 @@ hyperbolic_regression <- function(df_agg,
     st <- data.frame(b = c(-1000, 1000))
 
     c <- tryCatch({
-      set.seed(1234)
+      set.seed(seed)
       ret <- nls2::nls2(CpG ~ hyperbolic_eq_minmax(
         x = true_levels,
         b = b,
@@ -197,11 +200,12 @@ hyperbolic_regression <- function(df_agg,
         data = dat,
         start = st,
         control = stats::nls.control(maxiter = 50))
+
     }, error = function(e) {
       # if convergence fails
       print(e)
       st <- data.frame(b = c(-1000, 1000))
-      set.seed(1234)
+      set.seed(seed)
       mod <- nls2::nls2(CpG ~ hyperbolic_eq_minmax(
         x = true_levels,
         b = b,
@@ -213,7 +217,8 @@ hyperbolic_regression <- function(df_agg,
         start = st,
         algorithm = "brute-force",
         control = stats::nls.control(maxiter = 1e5))
-      set.seed(1234)
+
+      set.seed(seed)
       ret <- nls2::nls2(CpG ~ hyperbolic_eq_minmax(
         x = true_levels,
         b = b,
@@ -225,6 +230,7 @@ hyperbolic_regression <- function(df_agg,
         start = mod,
         algorithm = "brute-force",
         control = stats::nls.control(maxiter = 1e3))
+
     }, finally = function(f) {
       return(ret)
     })

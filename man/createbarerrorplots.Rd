@@ -6,7 +6,8 @@
 \usage{
 createbarerrorplots(statstable_pre, statstable_post, rv, type,
   locus_id = NULL, headless = FALSE, plotdir, logfilename,
-  mode = NULL)
+  mode = NULL, plot_height = 5, plot_width = 7.5,
+  plot_textsize = 16)
 }
 \arguments{
 \item{statstable_pre}{A data.table object, containing the output of
@@ -39,6 +40,15 @@ messages. Default = "./log.txt"}
 
 \item{mode}{A character string. Default: NULL. Used to indicate "corrected"
 calibration data.}
+
+\item{plot_height}{A integer value. The height (unit: inch) of the
+resulting plots (default: 5).}
+
+\item{plot_width}{A integer value. The width (unit: inch) of the
+resulting plots (default: 7.5).}
+
+\item{plot_textsize}{A integer value. The textsize of the
+resulting plots (default: 16).}
 }
 \description{
 Internal function to create relative-error bar plots.

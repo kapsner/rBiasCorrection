@@ -37,7 +37,10 @@ plotting_utility <- function(data,
                              headless = FALSE,
                              plotdir,
                              logfilename,
-                             minmax) {
+                             minmax,
+                             plot_height = 5,
+                             plot_width = 7.5,
+                             plot_textsize = 1) {
 
   if (!is.null(locus_id)) {
     write_log(
@@ -123,7 +126,10 @@ plotting_utility <- function(data,
                  filename = filename,
                  logfilename = logfilename,
                  mode = mode,
-                 minmax = minmax)
+                 minmax = minmax,
+                 plot_height = plot_height,
+                 plot_width = plot_width,
+                 plot_textsize = plot_textsize)
 
   }, 1:length_vector)
 }
@@ -134,185 +140,184 @@ create_plots <- function(plotlist,
                          filename,
                          logfilename,
                          mode = NULL,
-                         minmax) {
-  shiny::plotPNG({
+                         minmax,
+                         plot_height = 5,
+                         plot_width = 7.5,
+                         plot_textsize = 16) {
 
-    # get coefficients
-    if (is.null(mode)) {
-      # hyperbolic parameters
-      coe <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]
-      # cubic parameters
-      c <- rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]]
-    } else if (mode == "corrected_h") {
-      # hyperbolic parameters
-      coe <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_hyper"]]
-      # cubic parameters
-      c <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_cubic"]]
-    } else if (mode == "corrected_c") {
-      # hyperbolic parameters
-      coe <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_hyper"]]
-      # cubic parameters
-      c <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_cubic"]]
-    }
+  # get coefficients
+  if (is.null(mode)) {
+    # hyperbolic parameters
+    coe <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]
+    # cubic parameters
+    c <- rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]]
+  } else if (mode == "corrected_h") {
+    # hyperbolic parameters
+    coe <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_hyper"]]
+    # cubic parameters
+    c <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_cubic"]]
+  } else if (mode == "corrected_c") {
+    # hyperbolic parameters
+    coe <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_hyper"]]
+    # cubic parameters
+    c <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_cubic"]]
+  }
 
-    if (isFALSE(minmax)) {
-      # unlist c
-      c <- sapply(c, unlist)[c(4:1)]
+  if (isFALSE(minmax)) {
+    # unlist c
+    c <- sapply(c, unlist)[c(4:1)]
 
-      # create messages
-      message <- paste0("# CpG-site: ", rv$vec_cal[f])
-      msg2 <- paste("Hyperbolic: Using bias_weight =",
-                    coe$b,
-                    ", a =",
-                    coe$a,
-                    ", b =",
-                    coe$b,
-                    ", d =", coe$d)
-      write_log(message = paste(message, msg2, sep = "\n"),
-                logfilename = logfilename)
+    # create messages
+    message <- paste0("# CpG-site: ", rv$vec_cal[f])
+    msg2 <- paste("Hyperbolic: Using bias_weight =",
+                  coe$b,
+                  ", a =",
+                  coe$a,
+                  ", b =",
+                  coe$b,
+                  ", d =", coe$d)
+    write_log(message = paste(message, msg2, sep = "\n"),
+              logfilename = logfilename)
 
-      message <- paste0("# CpG-site: ", rv$vec_cal[f])
-      msg2 <- paste("Cubic: Using c =", paste(c, collapse = ", "))
-      write_log(message = paste(message, msg2, sep = "\n"),
-                logfilename = logfilename)
+    message <- paste0("# CpG-site: ", rv$vec_cal[f])
+    msg2 <- paste("Cubic: Using c =", paste(c, collapse = ", "))
+    write_log(message = paste(message, msg2, sep = "\n"),
+              logfilename = logfilename)
 
-      return(
-        print(
-          plotlist +
-            ggplot2::stat_function(
-              fun = hyperbolic_eq,
-              args = list(a = coe$a,
-                          b = coe$b,
-                          d = coe$d),
-              geom = "line",
-              ggplot2::aes(
-                color = "Hyperbolic Regression"),
-              size = 1.06
-            ) +
-            ggplot2::stat_function(
-              fun = cubic_eq,
-              args = list(a = c[4],
-                          b = c[3],
-                          c = c[2],
-                          d = c[1]),
-              geom = "line",
-              ggplot2::aes(color = "Cubic Regression"),
-              size = 1.06
-            ) +
-            ggplot2::geom_line(
-              ggplot2::aes(
-                x = plotlist$data$true_methylation,
-                y = plotlist$data$true_methylation,
-                color = "unbiased"),
-              linetype = "dashed",
-              size = 1.04
-            ) +
-            ggplot2::labs(
-              color = ggplot2::element_blank()
-            ) +
-            ggplot2::scale_color_manual(
-              values = c("#E64B35FF",
-                         "#4DBBD5FF",
-                         "#00A087FF"),
-              labels = c("Cubic Regression",
-                         "Hyperbolic Regression",
-                         "unbiased")
-            ) +
-            #% scale_colour_manual("Regression:",
-            #%                     values = c(Cubic = "indianred1",
-            #%                                Hyperbolic = "mediumspringgreen",
-            #%                                unbiased = "lightblue")) +
-            ggpubr::theme_pubr() +
-            ggplot2::theme(
-              plot.title = ggplot2::element_text(hjust = 0.5),
-              plot.subtitle = ggplot2::element_text(hjust = 0.5),
-              text = ggplot2::element_text(size = 32)
-            )
-        ))
+    outplot <- plotlist +
+      ggplot2::stat_function(
+        fun = hyperbolic_eq,
+        args = list(a = coe$a,
+                    b = coe$b,
+                    d = coe$d),
+        geom = "line",
+        ggplot2::aes(
+          color = "Hyperbolic Regression"),
+        size = 1.08
+      ) +
+      ggplot2::stat_function(
+        fun = cubic_eq,
+        args = list(a = c[4],
+                    b = c[3],
+                    c = c[2],
+                    d = c[1]),
+        geom = "line",
+        ggplot2::aes(color = "Cubic Regression"),
+        size = 1.08
+      ) +
+      ggplot2::geom_line(
+        ggplot2::aes(
+          x = plotlist$data$true_methylation,
+          y = plotlist$data$true_methylation,
+          color = "unbiased"),
+        linetype = "dashed",
+        size = 1.08
+      ) +
+      ggplot2::labs(
+        color = ggplot2::element_blank()
+      ) +
+      ggplot2::scale_color_manual(
+        values = c("#E64B35FF",
+                   "#4DBBD5FF",
+                   "#00A087FF"),
+        labels = c("Cubic Regression",
+                   "Hyperbolic Regression",
+                   "unbiased")
+      ) +
+      #% scale_colour_manual("Regression:",
+      #%                     values = c(Cubic = "indianred1",
+      #%                                Hyperbolic = "mediumspringgreen",
+      #%                                unbiased = "lightblue")) +
+      ggpubr::theme_pubr() +
+      ggplot2::theme(
+        plot.title = ggplot2::element_text(hjust = 0.5),
+        plot.subtitle = ggplot2::element_text(hjust = 0.5),
+        text = ggplot2::element_text(size = plot_textsize)
+      )
 
-    } else if (isTRUE(minmax)) {
-      # create messages
-      message <- paste0("# CpG-site: ", rv$vec_cal[f])
-      msg2 <- paste("Hyperbolic: Using bias_weight =", coe$b,
-                    ", y0 =", coe$y0,
-                    ", y1 =", coe$y1,
-                    ", m0 =", coe$m0,
-                    ", m1 =", coe$m1)
-      write_log(message = paste(message, msg2, sep = "\n"),
-                logfilename = logfilename)
+  } else if (isTRUE(minmax)) {
+    # create messages
+    message <- paste0("# CpG-site: ", rv$vec_cal[f])
+    msg2 <- paste("Hyperbolic: Using bias_weight =", coe$b,
+                  ", y0 =", coe$y0,
+                  ", y1 =", coe$y1,
+                  ", m0 =", coe$m0,
+                  ", m1 =", coe$m1)
+    write_log(message = paste(message, msg2, sep = "\n"),
+              logfilename = logfilename)
 
-      message <- paste0("# CpG-site: ", rv$vec_cal[f])
-      msg2 <- paste("Cubic: Using a =", c$a,
-                    ", b =", c$b,
-                    ", y0 =", c$y0,
-                    ", y1 =", c$y1,
-                    "m0 =", c$m0,
-                    ", m1 = ", c$m1)
-      write_log(message = paste(message, msg2, sep = "\n"),
-                logfilename = logfilename)
+    message <- paste0("# CpG-site: ", rv$vec_cal[f])
+    msg2 <- paste("Cubic: Using a =", c$a,
+                  ", b =", c$b,
+                  ", y0 =", c$y0,
+                  ", y1 =", c$y1,
+                  "m0 =", c$m0,
+                  ", m1 = ", c$m1)
+    write_log(message = paste(message, msg2, sep = "\n"),
+              logfilename = logfilename)
 
-      return(
-        print(
-          plotlist +
-            ggplot2::stat_function(
-              fun = hyperbolic_eq_minmax,
-              args = list(b = coe$b,
-                          y0 = coe$y0,
-                          y1 = coe$y1,
-                          m0 = coe$m0,
-                          m1 = coe$m1),
-              geom = "line",
-              ggplot2::aes(
-                color = "Hyperbolic Regression"),
-              size = 1.06
-            ) +
-            ggplot2::stat_function(
-              fun = cubic_eq_minmax,
-              args = list(a = c$a,
-                          b = c$b,
-                          y0 = c$y0,
-                          y1 = c$y1,
-                          m0 = c$m0,
-                          m1 = c$m1),
-              geom = "line", ggplot2::aes(
-                color = "Cubic Regression"),
-              size = 1.06
-            ) +
-            ggplot2::geom_line(
-              ggplot2::aes(
-                x = plotlist$data$true_methylation,
-                y = plotlist$data$true_methylation,
-                color = "unbiased"),
-              linetype = "dashed",
-              size = 1.04
-            ) +
-            ggplot2::labs(
-              color = ggplot2::element_blank()
-            ) +
-            ggplot2::scale_color_manual(
-              values = c("#E64B35FF",
-                         "#4DBBD5FF",
-                         "#00A087FF"),
-              labels = c("Cubic Regression",
-                         "Hyperbolic Regression",
-                         "unbiased")
-            ) +
-            #% scale_colour_manual("Regression:",
-            #%                     values = c(Cubic = "indianred1",
-            #%                                Hyperbolic = "mediumspringgreen",
-            #%                                unbiased = "lightblue")) +
-            ggpubr::theme_pubr() +
-            ggplot2::theme(
-              plot.title = ggplot2::element_text(hjust = 0.5),
-              plot.subtitle = ggplot2::element_text(hjust = 0.5),
-              text = ggplot2::element_text(size = 32)
-            )
-        ))
-    }
-  },
-  filename = filename,
-  height = 768,
-  width = 1024)
+    outplot <- plotlist +
+      ggplot2::stat_function(
+        fun = hyperbolic_eq_minmax,
+        args = list(b = coe$b,
+                    y0 = coe$y0,
+                    y1 = coe$y1,
+                    m0 = coe$m0,
+                    m1 = coe$m1),
+        geom = "line",
+        ggplot2::aes(
+          color = "Hyperbolic Regression"),
+        size = 1.08
+      ) +
+      ggplot2::stat_function(
+        fun = cubic_eq_minmax,
+        args = list(a = c$a,
+                    b = c$b,
+                    y0 = c$y0,
+                    y1 = c$y1,
+                    m0 = c$m0,
+                    m1 = c$m1),
+        geom = "line", ggplot2::aes(
+          color = "Cubic Regression"),
+        size = 1.08
+      ) +
+      ggplot2::geom_line(
+        ggplot2::aes(
+          x = plotlist$data$true_methylation,
+          y = plotlist$data$true_methylation,
+          color = "unbiased"),
+        linetype = "dashed",
+        size = 1.08
+      ) +
+      ggplot2::labs(
+        color = ggplot2::element_blank()
+      ) +
+      ggplot2::scale_color_manual(
+        values = c("#E64B35FF",
+                   "#4DBBD5FF",
+                   "#00A087FF"),
+        labels = c("Cubic Regression",
+                   "Hyperbolic Regression",
+                   "unbiased")
+      ) +
+      #% scale_colour_manual("Regression:",
+      #%                     values = c(Cubic = "indianred1",
+      #%                                Hyperbolic = "mediumspringgreen",
+      #%                                unbiased = "lightblue")) +
+      ggpubr::theme_pubr() +
+      ggplot2::theme(
+        plot.title = ggplot2::element_text(hjust = 0.5),
+        plot.subtitle = ggplot2::element_text(hjust = 0.5),
+        text = ggplot2::element_text(size = plot_textsize)
+      )
+  }
+  ggplot2::ggsave(
+    filename = filename,
+    plot = outplot,
+    device = "png",
+    height = plot_height,
+    width = plot_width
+  )
 }
 
 
@@ -326,6 +331,12 @@ create_plots <- function(plotlist,
 #' @param statstable_post A data.table object, containing the output of
 #'   \code{statisticsList_()} of the calculated regression parameters form
 #'   the corrected calibration data.
+#' @param plot_height A integer value. The height (unit: inch) of the
+#'   resulting plots (default: 5).
+#' @param plot_width A integer value. The width (unit: inch) of the
+#'   resulting plots (default: 7.5).
+#' @param plot_textsize A integer value. The textsize of the
+#'   resulting plots (default: 16).
 #' @inheritParams regression_utility
 #' @inheritParams clean_dt
 #' @inheritParams on_start
@@ -340,7 +351,10 @@ createbarerrorplots <- function(statstable_pre,
                                 headless = FALSE,
                                 plotdir,
                                 logfilename,
-                                mode = NULL) {
+                                mode = NULL,
+                                plot_height = 5,
+                                plot_width = 7.5,
+                                plot_textsize = 16) {
 
   stats_pre <- statstable_pre[, c("Name", "relative_error"), with = F]
   stats_post <- statstable_post[, c("Name", "relative_error"), with = F]
@@ -471,48 +485,51 @@ createbarerrorplots <- function(statstable_pre,
         values <- c("#8491B4FF", "#4DBBD5FF")
       }
 
-      shiny::plotPNG({
-        p <- ggplot2::ggplot(dt, ggplot2::aes_string(
-          x = "regressiontype",
-          y = "value",
-          fill = "regressiontype")) +
-          #% scale_fill_manual(
-          #%   values = c("Cubic Regression" = "indianred1",
-          #%              "Hyperbolic Regression" = "mediumspringgreen")) +
-          ggplot2::geom_col() +
-          ggplot2::geom_text(
-            ggplot2::aes_string(
-              label = "value",
-              y = "value"),
-            vjust = -1,
-            size = 10
-          ) +
-          ggplot2::ylab("% average relative error") +
-          ggplot2::labs(
-            title = paste0("Quantification Error: ", locus),
-            subtitle = paste("CpG:", vec_cal[i]),
-            fill = ggplot2::element_blank()
-          ) +
-          ggplot2::ylim(0, 100) +
-          ggplot2::scale_fill_manual(
-            values = values
-          ) +
-          ggpubr::theme_pubr() +
-          ggplot2::theme(
-            axis.title.x = ggplot2::element_blank(),
-            legend.position = "none",
-            plot.title = ggplot2::element_text(hjust = 0.5),
-            plot.subtitle = ggplot2::element_text(hjust = 0.5),
-            text = ggplot2::element_text(size = 32)
-          ) #,
-        #% axis.ticks.x = element_blank(),
-        #% axis.text.x = element_blank())
-        #% print whole plot in return, otherwise it will fail
-        return(print(p))
-      },
-      filename = filename,
-      height = 768,
-      width = 1024)
+
+      outplot <- ggplot2::ggplot(dt, ggplot2::aes_string(
+        x = "regressiontype",
+        y = "value",
+        fill = "regressiontype")) +
+        #% scale_fill_manual(
+        #%   values = c("Cubic Regression" = "indianred1",
+        #%              "Hyperbolic Regression" = "mediumspringgreen")) +
+        ggplot2::geom_col() +
+        ggplot2::geom_text(
+          ggplot2::aes_string(
+            label = "value",
+            y = "value"),
+          vjust = -1
+        ) +
+        ggplot2::ylab("% average relative error") +
+        ggplot2::labs(
+          title = paste0("Quantification Error: ", locus),
+          subtitle = paste("CpG:", vec_cal[i]),
+          fill = ggplot2::element_blank()
+        ) +
+        ggplot2::ylim(0, 100) +
+        ggplot2::scale_fill_manual(
+          values = values
+        ) +
+        ggpubr::theme_pubr() +
+        ggplot2::theme(
+          axis.title.x = ggplot2::element_blank(),
+          legend.position = "none",
+          plot.title = ggplot2::element_text(hjust = 0.5),
+          plot.subtitle = ggplot2::element_text(hjust = 0.5),
+          text = ggplot2::element_text(size = plot_textsize)
+        ) #,
+      #% axis.ticks.x = element_blank(),
+      #% axis.text.x = element_blank())
+      #% print whole plot in return, otherwise it will fail
+
+      ggplot2::ggsave(
+        filename = filename,
+        plot = outplot,
+        device = "png",
+        height = plot_height,
+        width = plot_width
+      )
+
     }, 1:length_vector)
   } else {
     write_log(

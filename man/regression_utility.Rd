@@ -5,7 +5,7 @@
 \title{regression_utility helper function}
 \usage{
 regression_utility(data, samplelocusname, locus_id = NULL, rv,
-  mode = NULL, headless = FALSE, logfilename, minmax)
+  mode = NULL, headless = FALSE, logfilename, minmax, seed = 1234)
 }
 \arguments{
 \item{data}{A data.table object that contains the calibration data.}
@@ -33,6 +33,10 @@ messages. Default = "./log.txt"}
 \item{minmax}{A logical, indicating which equations are used for
 BiasCorrection (default: FALSE). If TRUE, equations are used that include
 the respective minima and maxima of the provided data.}
+
+\item{seed}{A integer value. The seed used when solving the unknowns in the
+hyperbolic regression equation and the cubic regression equation.
+Important for reproducibility (default: 1234).}
 }
 \description{
 Internal function to carry out the regression calculations.

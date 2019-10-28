@@ -73,6 +73,11 @@
 #'   a warning.
 #' @param logfilename A character string. Path to a file to save the log
 #'   messages. Default = "./log.txt"
+#' @param seed A integer value. The seed used when solving the unknowns in the
+#'   hyperbolic regression equation and the cubic regression equation.
+#'   Important for reproducibility (default: 1234).
+#'
+#' @inheritParams createbarerrorplots
 #'
 #' @return TRUE, if the correction of PCR measurment biases succeeds. If the
 #'   correction fails, an error message is returned.
@@ -98,21 +103,31 @@ biascorrection <- function(experimental,
                            type = 1,
                            csvdir = "./csvdir",
                            plotdir = "./plotdir",
-                           logfilename = "./log.txt") {
+                           logfilename = "./log.txt",
+                           plot_height = 5,
+                           plot_width = 7.5,
+                           plot_textsize = 16,
+                           seed = 1234) {
 
-  stopifnot(is.character(experimental),
-            is.character(calibration),
-            is.character(samplelocusname),
-            is.logical(minmax),
-            is.numeric(type),
-            type == 1 || type == 2,
-            is.character(correct_method),
-            correct_method %in% c("best", "hyperbolic", "cubic", "b", "h", "c"),
-            is.character(selection_method),
-            selection_method %in% c("SSE", "RelError"),
-            is.character(csvdir),
-            is.character(plotdir),
-            is.character(logfilename))
+  stopifnot(
+    is.character(experimental),
+    is.character(calibration),
+    is.character(samplelocusname),
+    is.logical(minmax),
+    is.numeric(type),
+    type == 1 || type == 2,
+    is.character(correct_method),
+    correct_method %in% c("best", "hyperbolic", "cubic", "b", "h", "c"),
+    is.character(selection_method),
+    selection_method %in% c("SSE", "RelError"),
+    is.character(csvdir),
+    is.character(plotdir),
+    is.character(logfilename),
+    is.numeric(plot_height),
+    is.numeric(plot_width),
+    is.numeric(plot_textsize),
+    is.numeric(seed)
+  )
 
   # fix directories to work with all functions
   # therefore we need a "/" at the end of the dir-string
@@ -121,7 +136,6 @@ biascorrection <- function(experimental,
 
   # initialize some stuff
   on_start(plotdir, csvdir, logfilename)
-
 
   # initialize our list for reactive values
   rv <- list()
@@ -177,23 +191,30 @@ biascorrection <- function(experimental,
       mode = NULL,
       headless = TRUE,
       logfilename = logfilename,
-      minmax = rv$minmax
+      minmax = rv$minmax,
+      seed = seed
     )
+
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list <- regression_results[["result_list"]]
 
     # create calibration plots
-    plotting_utility(data = rv$fileimport_calibration,
-                     plotlist_reg = plotlist_reg,
-                     type = 1,
-                     samplelocusname = rv$sample_locus_name,
-                     locus_id = NULL,
-                     rv = rv,
-                     mode = NULL,
-                     headless = TRUE,
-                     plotdir = plotdir,
-                     logfilename = logfilename,
-                     minmax = rv$minmax)
+    plotting_utility(
+      data = rv$fileimport_calibration,
+      plotlist_reg = plotlist_reg,
+      type = 1,
+      samplelocusname = rv$sample_locus_name,
+      locus_id = NULL,
+      rv = rv,
+      mode = NULL,
+      headless = TRUE,
+      plotdir = plotdir,
+      logfilename = logfilename,
+      minmax = rv$minmax,
+      plot_height = plot_height,
+      plot_width = plot_width,
+      plot_textsize = plot_textsize
+    )
 
     # save regression statistics to reactive value
     rv$reg_stats <- statistics_list(rv$result_list, minmax = rv$minmax)
@@ -256,22 +277,28 @@ biascorrection <- function(experimental,
       mode = "corrected",
       headless = TRUE,
       logfilename = logfilename,
-      minmax = rv$minmax
+      minmax = rv$minmax,
+      seed = seed
     )
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list_hyperbolic <- regression_results[["result_list"]]
 
-    plotting_utility(data = rv$fileimport_cal_corrected_h,
-                     plotlist_reg = plotlist_reg,
-                     type = 1,
-                     samplelocusname = rv$sample_locus_name,
-                     locus_id = NULL,
-                     rv = rv,
-                     mode = "corrected_h",
-                     headless = TRUE,
-                     plotdir = plotdir,
-                     logfilename = logfilename,
-                     minmax = rv$minmax)
+    plotting_utility(
+      data = rv$fileimport_cal_corrected_h,
+      plotlist_reg = plotlist_reg,
+      type = 1,
+      samplelocusname = rv$sample_locus_name,
+      locus_id = NULL,
+      rv = rv,
+      mode = "corrected_h",
+      headless = TRUE,
+      plotdir = plotdir,
+      logfilename = logfilename,
+      minmax = rv$minmax,
+      plot_height = plot_height,
+      plot_width = plot_width,
+      plot_textsize = plot_textsize
+    )
 
     # save regression statistics to reactive value
     rv$reg_stats_corrected_h <- statistics_list(
@@ -289,15 +316,20 @@ biascorrection <- function(experimental,
                                 ".csv")
     )
 
-    createbarerrorplots(statstable_pre = rv$reg_stats,
-                        statstable_post = rv$reg_stats_corrected_h,
-                        rv = rv,
-                        type = 1,
-                        locus_id = NULL,
-                        headless = TRUE,
-                        plotdir = plotdir,
-                        logfilename = logfilename,
-                        mode = "corrected_h")
+    createbarerrorplots(
+      statstable_pre = rv$reg_stats,
+      statstable_post = rv$reg_stats_corrected_h,
+      rv = rv,
+      type = 1,
+      locus_id = NULL,
+      headless = TRUE,
+      plotdir = plotdir,
+      logfilename = logfilename,
+      mode = "corrected_h",
+      plot_height = plot_height,
+      plot_width = plot_width,
+      plot_textsize = plot_textsize
+    )
 
 
     # cubic correction
@@ -347,22 +379,28 @@ biascorrection <- function(experimental,
       mode = "corrected",
       headless = TRUE,
       logfilename = logfilename,
-      minmax = rv$minmax
+      minmax = rv$minmax,
+      seed = seed
     )
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list_cubic <- regression_results[["result_list"]]
 
-    plotting_utility(data = rv$fileimport_experimental_corrected_c,
-                     plotlist_reg = plotlist_reg,
-                     type = 1,
-                     samplelocusname = rv$sample_locus_name,
-                     locus_id = NULL,
-                     rv = rv,
-                     mode = "corrected_c",
-                     headless = TRUE,
-                     plotdir = plotdir,
-                     logfilename = logfilename,
-                     minmax = rv$minmax)
+    plotting_utility(
+      data = rv$fileimport_experimental_corrected_c,
+      plotlist_reg = plotlist_reg,
+      type = 1,
+      samplelocusname = rv$sample_locus_name,
+      locus_id = NULL,
+      rv = rv,
+      mode = "corrected_c",
+      headless = TRUE,
+      plotdir = plotdir,
+      logfilename = logfilename,
+      minmax = rv$minmax,
+      plot_height = plot_height,
+      plot_width = plot_width,
+      plot_textsize = plot_textsize
+    )
 
     # save regression statistics to reactive value
     rv$reg_stats_corrected_c <- statistics_list(
@@ -380,15 +418,20 @@ biascorrection <- function(experimental,
                                 ".csv")
     )
 
-    createbarerrorplots(statstable_pre = rv$reg_stats,
-                        statstable_post = rv$reg_stats_corrected_c,
-                        rv = rv,
-                        locus_id = NULL,
-                        type = 1,
-                        headless = TRUE,
-                        plotdir = plotdir,
-                        logfilename = logfilename,
-                        mode = "corrected_c")
+    createbarerrorplots(
+      statstable_pre = rv$reg_stats,
+      statstable_post = rv$reg_stats_corrected_c,
+      rv = rv,
+      locus_id = NULL,
+      type = 1,
+      headless = TRUE,
+      plotdir = plotdir,
+      logfilename = logfilename,
+      mode = "corrected_c",
+      plot_height = plot_height,
+      plot_width = plot_width,
+      plot_textsize = plot_textsize
+    )
 
 
     # now correct the real experimental data with the method chosen:

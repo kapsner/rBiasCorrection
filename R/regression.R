@@ -40,7 +40,8 @@ regression_utility <- function(data,
                                mode = NULL,
                                headless = FALSE,
                                logfilename,
-                               minmax) {
+                               minmax,
+                               seed = 1234) {
 
   if (!is.null(locus_id)) {
     write_log(
@@ -66,7 +67,8 @@ regression_utility <- function(data,
                        logfilename = logfilename,
                        minmax = minmax,
                        locus_id,
-                       locusname = rv$sample_locus_name)
+                       locusname = rv$sample_locus_name,
+                       seed = seed)
     })
 
     shiny::withProgress(
@@ -86,7 +88,8 @@ regression_utility <- function(data,
                                            logfilename = logfilename,
                                            minmax = minmax,
                                            locus_id,
-                                           locusname = rv$sample_locus_name)
+                                           locusname = rv$sample_locus_name,
+                                           seed = seed)
   }
 
   return(regression_results)
@@ -98,7 +101,8 @@ regression_type1 <- function(datatable,
                              logfilename,
                              minmax,
                              locus_id = NULL,
-                             locusname) {
+                             locusname,
+                             seed = 1234) {
   write_log(
     message = "Entered 'regression_type1'-Function",
     logfilename = logfilename
@@ -141,19 +145,23 @@ regression_type1 <- function(datatable,
       df_agg = df_agg,
       vec = vec_cal[i],
       logfilename = logfilename,
-      minmax = minmax
+      minmax = minmax,
+      seed = seed
     )
     # append result_list
     result_list[[vec_cal[i]]] <- c(result_list[[vec_cal[i]]],
-                                   cubic_regression(df_agg = df_agg,
-                                                    vec = vec_cal[i],
-                                                    logfilename = logfilename,
-                                                    minmax = minmax))
+                                   cubic_regression(
+                                     df_agg = df_agg,
+                                     vec = vec_cal[i],
+                                     logfilename = logfilename,
+                                     minmax = minmax,
+                                     seed = seed
+                                   ))
 
     if (is.null(mode)) {
-      custom_ylab <- "% methylation, apparent after quantification"
+      custom_ylab <- "methylation (%)\napparent after quantification"
     } else if (mode == "corrected") {
-      custom_ylab <- "% methylation, after BiasCorrection"
+      custom_ylab <- "methylation (%)\nafter BiasCorrection"
     }
 
     lb1 <- c(paste0("  R\u00B2: \n  Hyperbolic = ",
@@ -183,7 +191,7 @@ regression_type1 <- function(datatable,
     ) +
       ggplot2::geom_point() +
       ggplot2::ylab(custom_ylab) +
-      ggplot2::xlab("% actual methylation") +
+      ggplot2::xlab("actual methylation (%)") +
       ggplot2::labs(
         title = locus,
         subtitle = paste("CpG:", vec_cal[i])
@@ -195,7 +203,6 @@ regression_type1 <- function(datatable,
                            0.95 * max(gdat$CpG)),
                      hjust = 0, vjust = 1),
         label = lb1,
-        size = 10,
         parse = F
       )
     plot.listR[[i]] <- p
