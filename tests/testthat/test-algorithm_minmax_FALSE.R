@@ -17,6 +17,8 @@ test_that(
   desc = "algorithm test, type 1, minmax = FALSE",
   code = {
 
+    skip_on_cran()
+
     rv$minmax <- FALSE
     rv$sample_locus_name <- "Test"
     rv$seed <- 1234
@@ -251,6 +253,9 @@ test_that(
   desc = paste0("algorithm test, type 1, minmax = FALSE ",
                 "selection_method = RelError"),
   code = {
+
+    skip_on_cran()
+
     rv$minmax <- FALSE
     rv$selection_method <- "RelError"
     rv$sample_locus_name <- "Test"
