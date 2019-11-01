@@ -11,6 +11,7 @@ default:
     - echo "options('repos' = 'https://ftp.fau.de/cran/')" >> /usr/local/lib/R/etc/Rprofile.site
     - R -e "devtools::install_deps(pkg = '.', upgrade = 'always')"
     - R -e "devtools::install_dev_deps(pkg = '.', upgrade = 'always')"
+    - mkdir ci
 
 stages:
   - build
