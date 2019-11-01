@@ -18,6 +18,7 @@ test_that(
   code = {
     rv$minmax <- TRUE
     rv$sample_locus_name <- "Test"
+    rv$seed <- 1234
 
     # experimental data
     exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
@@ -45,7 +46,8 @@ test_that(
                                              mode = NULL,
                                              headless = TRUE,
                                              logfilename,
-                                             minmax = rv$minmax)
+                                             minmax = rv$minmax,
+                                             seed = rv$seed)
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list <- regression_results[["result_list"]]
 
@@ -55,7 +57,8 @@ test_that(
                                             logfilename,
                                             minmax = rv$minmax,
                                             locus_id = NULL,
-                                            locusname = rv$sample_locus_name)
+                                            locusname = rv$sample_locus_name,
+                                            seed = rv$seed)
 
     # save regression statistics to reactive value
     rv$reg_stats <- statistics_list(rv$result_list, minmax = rv$minmax)
@@ -156,7 +159,8 @@ test_that(
       mode = "corrected",
       headless = TRUE,
       logfilename = logfilename,
-      minmax = rv$minmax
+      minmax = rv$minmax,
+      seed = rv$seed
     )
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list_hyperbolic <- regression_results[["result_list"]]
@@ -216,7 +220,8 @@ test_that(
       mode = "corrected",
       headless = TRUE,
       logfilename = logfilename,
-      minmax = rv$minmax
+      minmax = rv$minmax,
+      seed = rv$seed
     )
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list_cubic <- regression_results[["result_list"]]
@@ -244,6 +249,7 @@ test_that(
     rv$minmax <- TRUE
     rv$selection_method <- "RelError"
     rv$sample_locus_name <- "Test"
+    rv$seed <- 1234
 
     # experimental data
     exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
@@ -266,7 +272,8 @@ test_that(
                                              mode = NULL,
                                              headless = TRUE,
                                              logfilename,
-                                             minmax = rv$minmax)
+                                             minmax = rv$minmax,
+                                             seed = rv$seed)
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list <- regression_results[["result_list"]]
 
@@ -276,7 +283,8 @@ test_that(
                                             logfilename,
                                             minmax = rv$minmax,
                                             locus_id = NULL,
-                                            locusname = rv$sample_locus_name)
+                                            locusname = rv$sample_locus_name,
+                                            seed = rv$seed)
 
     # save regression statistics to reactive value
     rv$reg_stats <- statistics_list(rv$result_list, minmax = rv$minmax)
@@ -309,7 +317,8 @@ test_that(
       mode = "corrected",
       headless = TRUE,
       logfilename = logfilename,
-      minmax = rv$minmax
+      minmax = rv$minmax,
+      seed = rv$seed
     )
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list_hyperbolic <- regression_results[["result_list"]]
@@ -345,7 +354,8 @@ test_that(
       mode = "corrected",
       headless = TRUE,
       logfilename = logfilename,
-      minmax = rv$minmax
+      minmax = rv$minmax,
+      seed = rv$seed
     )
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list_cubic <- regression_results[["result_list"]]

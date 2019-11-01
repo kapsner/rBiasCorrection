@@ -84,6 +84,7 @@ hyperbolic_regression <- function(df_agg,
                      d = c(-1000, 1000))
 
     c <- tryCatch({
+      suppressWarnings(RNGkind(sample.kind = "Rounding"))
       set.seed(seed)
       ret <- nls2::nls2(CpG ~ hyperbolic_eq(
         x = true_levels,
@@ -98,6 +99,7 @@ hyperbolic_regression <- function(df_agg,
     }, error = function(e) {
       # if convergence fails
       print(e)
+      suppressWarnings(RNGkind(sample.kind = "Rounding"))
       set.seed(seed)
       mod <- nls2::nls2(CpG ~ hyperbolic_eq(
         x = true_levels,
@@ -109,8 +111,9 @@ hyperbolic_regression <- function(df_agg,
       start = st,
       algorithm = "brute-force",
       control = stats::nls.control(maxiter = 1e5))
-      set.seed(seed)
 
+      suppressWarnings(RNGkind(sample.kind = "Rounding"))
+      set.seed(seed)
       ret <- nls2::nls2(CpG ~ hyperbolic_eq(
         x = true_levels,
         a = a,
@@ -189,6 +192,7 @@ hyperbolic_regression <- function(df_agg,
     st <- data.frame(b = c(-1000, 1000))
 
     c <- tryCatch({
+      suppressWarnings(RNGkind(sample.kind = "Rounding"))
       set.seed(seed)
       ret <- nls2::nls2(CpG ~ hyperbolic_eq_minmax(
         x = true_levels,
@@ -205,6 +209,8 @@ hyperbolic_regression <- function(df_agg,
       # if convergence fails
       print(e)
       st <- data.frame(b = c(-1000, 1000))
+
+      suppressWarnings(RNGkind(sample.kind = "Rounding"))
       set.seed(seed)
       mod <- nls2::nls2(CpG ~ hyperbolic_eq_minmax(
         x = true_levels,
@@ -218,6 +224,7 @@ hyperbolic_regression <- function(df_agg,
         algorithm = "brute-force",
         control = stats::nls.control(maxiter = 1e5))
 
+      suppressWarnings(RNGkind(sample.kind = "Rounding"))
       set.seed(seed)
       ret <- nls2::nls2(CpG ~ hyperbolic_eq_minmax(
         x = true_levels,

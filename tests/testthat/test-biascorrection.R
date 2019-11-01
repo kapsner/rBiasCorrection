@@ -23,7 +23,8 @@ test_that(
       type = 1,
       plotdir = plotdir,
       csvdir = csvdir,
-      logfilename = paste0(prefix, "log.txt")
+      logfilename = paste0(prefix, "log.txt"),
+      seed = 1234
     )
   )
   expect_length(list.files(plotdir), 50)
