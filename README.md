@@ -41,11 +41,15 @@ This is a basic example which shows you how to correct PCR-bias in quantitative 
 
 ``` r
 library(rBiasCorrection)
-biascorrection("type1_experimentaldata.csv", "type1_calibrationdata.csv", samplelocusname = "BRAF")
+biascorrection(
+    "path/to/experimental_data.csv",
+    "path/to/calibration_data.csv",
+    samplelocusname = "BRAF"
+)
 ```
 
 ## FAQ 
 
-For further information, please refere to our [frequently asked questions](https://github.com/kapsner/BiasCorrector/blob/master/FAQ.md).
+For further information, please refere to our [frequently asked questions](https://github.com/kapsner/rBiasCorrection/blob/master/FAQ.md).
 
 
