@@ -1,8 +1,12 @@
 context("lints")
 
-#% prefix <- "./"
-
-prefix <- "../../00_pkg_src/rBiasCorrection/"
+if (any(grepl("00_pkg_src", list.files("../../")))) {
+  prefix <- "../../00_pkg_src/rBiasCorrection/"
+} else if (any(grepl("DESCRIPTION", list.files("../../")))) {
+  prefix <- "../../"
+} else {
+  prefix <- "./"
+}
 
 test_that(
   desc = "test lints",
@@ -39,8 +43,8 @@ test_that(
         print(fname)
         #% print(list.files(prefix))
 
-        # skip on cran
-        skip_on_cran()
+        # skip on covr
+        skip_on_covr()
 
         lintr::expect_lint(
           file = paste0(
