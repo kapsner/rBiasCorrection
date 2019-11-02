@@ -73,11 +73,11 @@ test_that(
     expect_type(plotlist_reg, "list")
     #" expect_known_hash(plotlist_reg, "20fa85b532")
     # oder c2e96f84fc, 0c3c5db52b
-    expect_type(rv$result_list, "list")
-    expect_known_hash(rv$result_list, "66dbae3141") # d7f426a1a8, 2eb93a74d3
+    expect_known_hash(rv$result_list, "70c4aa7531")
+    # 66dbae3141, d7f426a1a8, 2eb93a74d3
     expect_type(rv$reg_stats, "list")
     expect_s3_class(rv$reg_stats, "data.table")
-    expect_known_hash(rv$reg_stats, "3603e3abcb")
+    expect_known_hash(rv$reg_stats, "d2e883e81d") # 3603e3abcb
     #a27d84167e, b88f6a9fcf, 057c7d0a13, 33e1d855be
     expect_equal(regression_results, regression_results2)
     expect_equal(regression_results[["plot_list"]],
@@ -106,22 +106,24 @@ test_that(
                                     logfilename = logfilename,
                                     minmax = rv$minmax)
     rv$fileimport_cal_corrected <- solved_eq2[["results"]]
-    colnames(rv$fileimport_cal_corrected) <- colnames(rv$fileimport_calibration)
+    colnames(rv$fileimport_cal_corrected) <-
+      colnames(rv$fileimport_calibration)
 
     # some tests
     expect_type(solved_eq, "list")
-    expect_known_hash(solved_eq, "af9980684d")
+    expect_known_hash(solved_eq, "15eb3be08d") # af9980684d
     expect_type(rv$final_results, "list")
     expect_s3_class(rv$final_results, "data.table")
-    expect_known_hash(rv$final_results, "16edb2d3ca")
+    expect_known_hash(rv$final_results, "c28704311f") # 16edb2d3ca
     expect_type(rv$substitutions, "list")
     expect_s3_class(rv$substitutions, "data.table")
-    expect_known_hash(rv$substitutions, "c67561996f")
+    expect_known_hash(rv$substitutions, "6ca563f935") # c67561996f
     expect_type(solved_eq2, "list")
-    expect_known_hash(solved_eq2, "9ea9e3d04d")
+    expect_known_hash(solved_eq2, "b4605bb70f") # 9ea9e3d04d
     expect_type(rv$fileimport_cal_corrected, "list")
     expect_s3_class(rv$fileimport_cal_corrected, "data.table")
-    expect_known_hash(rv$fileimport_cal_corrected, "947a883caa")
+    expect_known_hash(rv$fileimport_cal_corrected, "fd7708da93")
+    # 947a883caa
 
 
 
@@ -146,13 +148,15 @@ test_that(
     rv$substitutions_corrected_h <- solved_eq_h[["substitutions"]]
 
     expect_type(solved_eq_h, "list")
-    expect_known_hash(solved_eq_h, "8ce2d1e597")
+    expect_known_hash(solved_eq_h, "522a653888") # 8ce2d1e597
     expect_type(rv$fileimport_cal_corrected_h, "list")
     expect_s3_class(rv$fileimport_cal_corrected_h, "data.table")
-    expect_known_hash(rv$fileimport_cal_corrected_h, "0592bdf33f")
+    expect_known_hash(rv$fileimport_cal_corrected_h, "652ac3a81f")
+    # 0592bdf33f
     expect_type(rv$substitutions_corrected_h, "list")
     expect_s3_class(rv$substitutions_corrected_h, "data.table")
-    expect_known_hash(rv$substitutions_corrected_h, "d1b7a8b151")
+    expect_known_hash(rv$substitutions_corrected_h, "16c7efb563")
+    # d1b7a8b151
 
     # calculate new calibration curves from corrected calibration data
     regression_results <- regression_utility(
@@ -178,11 +182,11 @@ test_that(
     #" expect_known_hash(plotlist_reg, "20fa85b532")
     # oder c2e96f84fc, 0c3c5db52b
     expect_type(rv$result_list_hyperbolic, "list")
-    expect_known_hash(rv$result_list_hyperbolic, "b39e4cbca1")
+    expect_known_hash(rv$result_list_hyperbolic, "f49cd1b17c") # b39e4cbca1
     # 3d50611917, ccbe9ff93a
     expect_type(rv$reg_stats_corrected_h, "list")
     expect_s3_class(rv$reg_stats_corrected_h, "data.table")
-    expect_known_hash(rv$reg_stats_corrected_h, "f8ac0ddffd")
+    expect_known_hash(rv$reg_stats_corrected_h, "9b4f5b4dcb") # f8ac0ddffd
     #a27d84167e, 5205aae446, 81e6bcb79b, 5c8f64e551
 
 
@@ -208,10 +212,11 @@ test_that(
     rv$substitutions_corrected_c <- solved_eq_c[["substitutions"]]
 
     expect_type(solved_eq_c, "list")
-    expect_known_hash(solved_eq_c, "a840531423")
+    expect_known_hash(solved_eq_c, "b708e60ff0") # a840531423
     expect_type(rv$fileimport_cal_corrected_c, "list")
     expect_s3_class(rv$fileimport_cal_corrected_c, "data.table")
-    expect_known_hash(rv$fileimport_cal_corrected_c, "a99f550089")
+    expect_known_hash(rv$fileimport_cal_corrected_c, "9c02bbabfd")
+    # a99f550089
     expect_type(rv$substitutions_corrected_c, "list")
     expect_s3_class(rv$substitutions_corrected_c, "data.table")
     expect_known_hash(rv$substitutions_corrected_c, "5e15c67e45")
@@ -240,11 +245,11 @@ test_that(
     #" expect_known_hash(plotlist_reg, "20fa85b532")
     # oder c2e96f84fc, 0c3c5db52b
     expect_type(rv$result_list_cubic, "list")
-    expect_known_hash(rv$result_list_cubic, "77dda04aba")
+    expect_known_hash(rv$result_list_cubic, "36e27655ea") # 77dda04aba
     # 7214d93552, 9bc037ad08
     expect_type(rv$reg_stats_corrected_c, "list")
     expect_s3_class(rv$reg_stats_corrected_c, "data.table")
-    expect_known_hash(rv$reg_stats_corrected_c, "446af74c7a")
+    expect_known_hash(rv$reg_stats_corrected_c, "88bb1a0300") # 446af74c7a
     #a27d84167e, 1d48c373f6, 90a3a2cb09, e79434dab7
   })
 
@@ -287,14 +292,16 @@ test_that(
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list <- regression_results[["result_list"]]
 
-    regression_results2 <- regression_type1(rv$fileimport_calibration,
-                                            rv$vec_cal,
-                                            mode = NULL,
-                                            logfilename,
-                                            minmax = rv$minmax,
-                                            locus_id = NULL,
-                                            locusname = rv$sample_locus_name,
-                                            seed = rv$seed)
+    regression_results2 <- regression_type1(
+      rv$fileimport_calibration,
+      rv$vec_cal,
+      mode = NULL,
+      logfilename,
+      minmax = rv$minmax,
+      locus_id = NULL,
+      locusname = rv$sample_locus_name,
+      seed = rv$seed
+    )
 
     # save regression statistics to reactive value
     rv$reg_stats <- statistics_list(rv$result_list, minmax = rv$minmax)
@@ -401,16 +408,17 @@ test_that(
 
     # some tests
     expect_type(solved_eq, "list")
-    expect_known_hash(solved_eq, "d9350cb0b2")
+    expect_known_hash(solved_eq, "fe0adc367e") # d9350cb0b2
     expect_type(rv$final_results, "list")
     expect_s3_class(rv$final_results, "data.table")
-    expect_known_hash(rv$final_results, "3189653abe")
+    expect_known_hash(rv$final_results, "b25fab0cf3") # 3189653abe
     expect_type(rv$substitutions, "list")
     expect_s3_class(rv$substitutions, "data.table")
-    expect_known_hash(rv$substitutions, "ca18ba24a0")
+    expect_known_hash(rv$substitutions, "7e1aaead80") # ca18ba24a0
     expect_type(solved_eq2, "list")
-    expect_known_hash(solved_eq2, "3e2fa23575")
+    expect_known_hash(solved_eq2, "df59cd9f96") # 3e2fa23575
     expect_type(rv$fileimport_cal_corrected, "list")
     expect_s3_class(rv$fileimport_cal_corrected, "data.table")
-    expect_known_hash(rv$fileimport_cal_corrected, "ff0a502640")
+    expect_known_hash(rv$fileimport_cal_corrected, "248f22f000")
+    # ff0a502640
   })
