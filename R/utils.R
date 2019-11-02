@@ -164,3 +164,8 @@ handle_text_input <- function(textinput) {
 
   return(ifelse(nchar(textinput) > 0, textinput, "default"))
 }
+
+
+round_to_fifty <- function(max_err) {
+  return(ceiling(max_err / 50) * 50)
+}

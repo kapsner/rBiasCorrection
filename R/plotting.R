@@ -268,6 +268,14 @@ createbarerrorplots <- function(statstable_pre,
   stats_pre <- statstable_pre[, c("Name", "relative_error"), with = F]
   stats_post <- statstable_post[, c("Name", "relative_error"), with = F]
 
+  # calc ylim based on observed relative error
+  max_err <- ifelse(max(stats_pre$relative_error) >
+                      max(stats_post$relative_error),
+                    max(stats_pre$relative_error),
+                    max(stats_post$relative_error))
+
+  ylim_max <- round_to_fifty(max_err)
+
   error_data <- merge(
     x = stats_post,
     y = stats_pre,
@@ -415,7 +423,7 @@ createbarerrorplots <- function(statstable_pre,
           subtitle = paste("CpG:", vec_cal[i]),
           fill = ggplot2::element_blank()
         ) +
-        ggplot2::ylim(0, 100) +
+        ggplot2::ylim(0, ylim_max) +
         ggplot2::scale_fill_manual(
           values = values
         ) +
