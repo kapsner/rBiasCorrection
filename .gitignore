@@ -11,3 +11,4 @@ FAQ.html
 tests/testthat/csvdir
 tests/testthat/plotdir
 .RData
+revdep

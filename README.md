@@ -26,7 +26,7 @@ rBiasCorrection is the R implementation of the algorithms described by Moskalev 
 }
 ```
 
-## Installation
+# Installation
 
 You can install the development version of rBiasCorrection with:
 
@@ -48,7 +48,11 @@ biascorrection(
 )
 ```
 
-## FAQ 
+# BiasCorrector
+
+The GUI `BiasCorrector` provides the functionality implemented in `rBiasCorrection` in a web application. For further infomation please visit [https://github.com/kapsner/BiasCorrector](https://github.com/kapsner/BiasCorrector).
+
+# FAQ 
 
 For further information, please refere to our [frequently asked questions](https://github.com/kapsner/rBiasCorrection/blob/master/FAQ.md).
 
