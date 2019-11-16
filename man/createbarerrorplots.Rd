@@ -4,10 +4,20 @@
 \alias{createbarerrorplots}
 \title{createbarerrorplots helper function}
 \usage{
-createbarerrorplots(statstable_pre, statstable_post, rv, type,
-  locus_id = NULL, headless = FALSE, plotdir, logfilename,
-  mode = NULL, plot_height = 5, plot_width = 7.5,
-  plot_textsize = 16)
+createbarerrorplots(
+  statstable_pre,
+  statstable_post,
+  rv,
+  type,
+  locus_id = NULL,
+  headless = FALSE,
+  plotdir,
+  logfilename,
+  mode = NULL,
+  plot_height = 5,
+  plot_width = 7.5,
+  plot_textsize = 16
+)
 }
 \arguments{
 \item{statstable_pre}{A data.table object, containing the output of

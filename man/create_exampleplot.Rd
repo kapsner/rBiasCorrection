@@ -4,8 +4,15 @@
 \alias{create_exampleplot}
 \title{create_exampleplot helper function}
 \usage{
-create_exampleplot(data, coef_hyper, coef_cubic, plot_height, plot_width,
-  plot_textsize, filename)
+create_exampleplot(
+  data,
+  coef_hyper,
+  coef_cubic,
+  plot_height,
+  plot_width,
+  plot_textsize,
+  filename
+)
 }
 \arguments{
 \item{data}{A data.table containing the aggregated

@@ -4,8 +4,15 @@
 \alias{solving_equations}
 \title{solving_equations helper function}
 \usage{
-solving_equations(datatable, regmethod, type, rv, mode = NULL,
-  logfilename, minmax)
+solving_equations(
+  datatable,
+  regmethod,
+  type,
+  rv,
+  mode = NULL,
+  logfilename,
+  minmax
+)
 }
 \arguments{
 \item{datatable}{A data.table object that contains either the experimental

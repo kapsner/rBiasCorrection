@@ -190,6 +190,7 @@ create_exampleplot <- function(data,
     plot = outplot,
     device = "png",
     height = plot_height,
-    width = plot_width
+    width = plot_width,
+    dpi = 600
   )
 }

@@ -4,11 +4,22 @@
 \alias{biascorrection}
 \title{Correct PCR-Bias in Quantitative DNA Methylation Analyses.}
 \usage{
-biascorrection(experimental, calibration, samplelocusname,
-  minmax = FALSE, correct_method = "best", selection_method = "SSE",
-  type = 1, csvdir = "./csvdir", plotdir = "./plotdir",
-  logfilename = "./log.txt", plot_height = 5, plot_width = 7.5,
-  plot_textsize = 16, seed = 1234)
+biascorrection(
+  experimental,
+  calibration,
+  samplelocusname,
+  minmax = FALSE,
+  correct_method = "best",
+  selection_method = "SSE",
+  type = 1,
+  csvdir = "./csvdir",
+  plotdir = "./plotdir",
+  logfilename = "./log.txt",
+  plot_height = 5,
+  plot_width = 7.5,
+  plot_textsize = 16,
+  seed = 1234
+)
 }
 \arguments{
 \item{experimental}{A character string. Path to the file containing the raw

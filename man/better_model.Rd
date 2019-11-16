@@ -4,8 +4,12 @@
 \alias{better_model}
 \title{betterModel_ helper function}
 \usage{
-better_model(statstable_pre, statstable_post_hyperbolic = NULL,
-  statstable_post_cubic = NULL, selection_method = "SSE")
+better_model(
+  statstable_pre,
+  statstable_post_hyperbolic = NULL,
+  statstable_post_cubic = NULL,
+  selection_method = "SSE"
+)
 }
 \arguments{
 \item{statstable_pre}{A data.table object, containing the output of

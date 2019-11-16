@@ -4,8 +4,17 @@
 \alias{regression_utility}
 \title{regression_utility helper function}
 \usage{
-regression_utility(data, samplelocusname, locus_id = NULL, rv,
-  mode = NULL, headless = FALSE, logfilename, minmax, seed = 1234)
+regression_utility(
+  data,
+  samplelocusname,
+  locus_id = NULL,
+  rv,
+  mode = NULL,
+  headless = FALSE,
+  logfilename,
+  minmax,
+  seed = 1234
+)
 }
 \arguments{
 \item{data}{A data.table object that contains the calibration data.}

@@ -4,10 +4,22 @@
 \alias{plotting_utility}
 \title{plotting_utility helper function}
 \usage{
-plotting_utility(data, plotlist_reg, type, samplelocusname,
-  locus_id = NULL, rv, mode = NULL, headless = FALSE, plotdir,
-  logfilename, minmax, plot_height = 5, plot_width = 7.5,
-  plot_textsize = 1)
+plotting_utility(
+  data,
+  plotlist_reg,
+  type,
+  samplelocusname,
+  locus_id = NULL,
+  rv,
+  mode = NULL,
+  headless = FALSE,
+  plotdir,
+  logfilename,
+  minmax,
+  plot_height = 5,
+  plot_width = 7.5,
+  plot_textsize = 1
+)
 }
 \arguments{
 \item{data}{A data.table object that contains the calibration data.}

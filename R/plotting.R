@@ -225,7 +225,8 @@ create_plots <- function(plotlist,
     plot = outplot,
     device = "png",
     height = plot_height,
-    width = plot_width
+    width = plot_width,
+    dpi = 600
   )
 }
 
@@ -444,7 +445,8 @@ createbarerrorplots <- function(statstable_pre,
         plot = outplot,
         device = "png",
         height = plot_height,
-        width = plot_width
+        width = plot_width,
+        dpi = 600
       )
 
     }, 1:length_vector)
