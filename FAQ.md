@@ -42,12 +42,12 @@ rBiasCorrection/BiasCorrector is the user friendly implementation of the algorit
 - Type 1: one locus in many samples (e.g. pyrosequencing data)  
 - Type 2: many loci in one sample (e.g. next-generation sequencing data or microarray data)
 -->
-Currently, both R packages, rBiasCorrection and BiasCorrector, can only correct measurement biases in DNA methylation data of the type "one locus in many samples (e.g. pyrosequencing data)". A future implementation to correct data of the type "many loci in one sample (e.g. next-generation sequencing data or microarray data)" is planned. However with some effort, data of the second type can be transformed to data of the first type and thus also be corrected with BiasCorrector. 
+Currently, both R packages, `rBiasCorrection` and `BiasCorrector`, can correct measurement biases in DNA methylation data of the type "one locus in many biological samples". The programme has been tested on data derived by bisulphite pyrosequencing, next-generation sequencing, and oligonucleotide microarrays. A future implementation is planned for correcting data of the type "many loci in one biological sample". However with some effort, the latter can be transformed to data of the first type in order be corrected with `BiasCorrector`. 
 
 ## Do my input files need to be in a special format?  
 
 Yes, rBiasCorrection/BiasCorrector places very strict requirements on the file format. Below is a description of the exact requirements. <!-- for the two types of input data, which differ in several aspects.-->  
-However, all uploaded files must  
+All uploaded files must  
 
 - be in CSV format [file endings: \*.csv and \*.CSV]  
 - contain the column headers in the first row   
@@ -59,17 +59,15 @@ However, all uploaded files must
 - Experimental data:  
 
   + the first column contains the sample IDs (alphanumeric)  
-  + sample IDs may occure more than once (indicating repeated measurements of the same sample; in this case, the mean-values of the repeated measurements will be used for bias correction)   
+  + sample IDs may occur more than once (indicating repeated measurements of the same sample; in this case, the mean values of the replicates will be used for bias correction)   
   + all other columns contain the results of your methylation analysis for each CpG-side of the respective sample  
-  + missing values are not allowed (rows containing empty cells [= missing values] will be removed during the data preprocessing step)  
   
 - Calibration data:  
 
-  + the first column contains the degrees of true methylation of the calibration sample (calibration steps, numeric)  
-  + calibration steps may occure more than once (indicating repeated measurements of the same calibration sample; in this case, the mean-values of the repeated measurements will be used for calculation of the calibration curve)  
-  + all other columns contain the results of the methylation analysis for each CpG-side of the respective calibration sample  
-  + missing values are not allowed (rows containing empty cells [= missing values] will be removed during the data preprocessing step)  
-  + a minimum of four distinct calibration steps are provided  
+  + the first column contains the percentages of actual methylation of the calibration samples (calibration steps, numeric)  
+  + calibration steps may occur more than once (indicating repeated measurements of the same calibration sample; in this case, the mean values of the repeated measurements will be used for calculation of the calibration curve)  
+  + all other columns contain the results of the methylation analysis for each CpG site of the respective calibration sample  
+  + a minimum of four distinct calibration steps are required  
   + the calibration steps (CS) must be in the range 0 <= CS <= 100  
   
 
@@ -78,13 +76,13 @@ However, all uploaded files must
 - Experimental data: 
 
   -- the first column contains the locus IDs (alphanumeric)  
-  -- locus IDs may occure more than once (indicating repeated measurements of the same locus; in this case, the mean-values of the repeated measurements will be used for bias correction)
+  -- locus IDs may occur more than once (indicating repeated measurements of the same locus; in this case, the mean-values of the repeated measurements will be used for bias correction)
   -- all other columns contain the results of your methylation analysis for each CpG-side of the respective locus  
   
 - Calibration data:  
 
   -- the first column contains the locus IDs (alphanumeric)  
-  -- locus IDs may occure more than once (indicating repeated measurements of the same locus; in this case, the mean-values of the repeated measurements will be used for bias correction)
+  -- locus IDs may occur more than once (indicating repeated measurements of the same locus; in this case, the mean-values of the repeated measurements will be used for bias correction)
   -- all other columns contain the results of your methylation analysis for each CpG-side of the respective locus  
   -- for bias correction of type 2 data, you need to provide one separate calibration file for each degree of methylation  
   -- a minimum of four calibration data files (four distinct calibration steps) are provided  
@@ -113,24 +111,24 @@ Example: to upload a file for bias correction of type 2, that contains the calib
 
 ## What is exactly done during rBiasCorrection's/BiasCorrector's data preprocessing?  
 
-During the preprocessing, all requirements on the input files as stated in [Do my input files need to be in a special format?](#do-my-input-files-need-to-be-in-a-special-format) are checked. Furthermore, the rowmeans of all CpG-columns are calculated for every provided file. 
+During the preprocessing, all requirements of the input files as stated in [Do my input files need to be in a special format?](#do-my-input-files-need-to-be-in-a-special-format) are checked. Furthermore, the mean methylation percentages of all CpG columns are calculated for every provided file. 
 
-If any of the abovementioned file requirements is not met, an error will occur, e.g. if any calibration step is not within the range of 0 <= CS <= 100 or if you provided less then four calibration steps with your input data. 
+If any of the abovementioned file requirements is not met, an error will occur. For example, an error message will pop up if any calibration step is not within the range of 0 <= CS <= 100 or if you provided less than four calibration steps in your input data. 
 
 
 ## What are the regression statistics?
 
-The regression statistics table shows the regression parameters of the hyperbolic regression and the cubic regression. 
+The regression statistics table shows the regression parameters of the hyperbolic and the cubic polynomial regression. 
 
-- Column 1 presents the CpG-site's name. 
-- Column 2 presents the mean of the relative absolute errors for every CpG-site. 
-- Columns 3-6 present the sum of squared error of the hyperbolic regression ('SSE [h]') and the regression parameters used to calculate the hyperbolic regression curves for the respective CpG-site. 
-- Columns 7-11 present the sum of squared error of the cubic regression ('SSE [c]') and the regression parameters used to calculate the cubic regression curves. 
-- The rows highlighted with a green background colour indicate the regression equation, that in comparison of the sum of squared errors better fits the data points for the respecitve CpG-site. 
+- Column 1 presents the CpG site's ID. 
+- Column 2 contains the mean of the relative absolute errors for every interrogated CpG site. 
+- Columns 3-9 comprise the sum of squared errors of the hyperbolic regression ('SSE [h]') and coefficients of the hyperbolic equation that describes the hyperbolic regression curves for the respective CpG sites. 
+- Columns 10-15 summarise the sum of squared errors of the cubic polynomial regression ('SSE [c]') and the coefficients of the cubic equations. 
+- The rows highlighted with a green background colour indicate the regression method (hyperbolic or cubic polynomial) that is suggested by BiasCorrector for correcting data. This automatic choice of the regression method relies on either minimising the value of SSE (the default setting) or minimising the average relative error as selected by the user in the Settings tab.
 
 
 ## What are 'substitutions' in my final results?
 
-Substitutions occur, when no result is found in the range of plausible values between 0 and 100 during the BiasCorrection. A 'border zone' is implemented in the ranges 0 – 10% and 100 + 10%. If a result is in the range -10 < x < 0 percentage or 100 < x < 110 percentage, the value is substituted in the final results with 0 percentage or 100 percentage respectively. 
+Substitutions occur if no result is found in the range of plausible values between 0 and 100 during the BiasCorrection. A 'border zone' is implemented in the ranges 0 – 10% and 100 + 10%. If a result is in the range -10% < x < 0% or 100% < x < 110% , the value is substituted in the final results with 0% or 100%, respectively. 
 Values beyond these border zones will be substituted with a blank value in the final output, as they seem implausible and could indicate substantial errors in the underlying data. 
 For a detailed feedback, the substitutions table shows the results of the algorithm 'BiasCorrected value' and the corresponding substitution 'Substituted value' for the respective CpG-site. 
