@@ -122,8 +122,8 @@ The regression statistics table shows the regression parameters of the hyperboli
 
 - Column 1 presents the CpG site's ID. 
 - Column 2 contains the mean of the relative absolute errors for every interrogated CpG site. 
-- Columns 3-9 comprise the sum of squared errors of the hyperbolic regression ('SSE [h]') and coefficients of the hyperbolic equation that describes the hyperbolic regression curves for the respective CpG sites. 
-- Columns 10-15 summarise the sum of squared errors of the cubic polynomial regression ('SSE [c]') and the coefficients of the cubic equations. 
+- Columns 3-9 comprise the sum of squared errors of the hyperbolic regression ('SSE [h]') and the coefficients of the hyperbolic equation that describes the hyperbolic regression curves for the respective CpG sites. 
+- Columns 10-15 summarise the sum of squared errors of the cubic polynomial regression ('SSE [c]') and the coefficients of the cubic polynomial equations. 
 - The rows highlighted with a green background colour indicate the regression method (hyperbolic or cubic polynomial) that is suggested by BiasCorrector for correcting data. This automatic choice of the regression method relies on either minimising the value of SSE (the default setting) or minimising the average relative error as selected by the user in the Settings tab.
 
 
