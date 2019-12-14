@@ -21,15 +21,6 @@ check:
   stage: build
   script:
     - R -e "devtools::check(pkg = '.', args = c('--no-tests'), build_args = c('--no-build-vignettes'), check_dir = '${CI_PROJECT_DIR}/ci')"
-  after_script:
-    - git config --global user.name "kapsner"
-    - git config --global user.email "lorenz.kapsner@gmail.com"
-    - git clone https://kapsner:$K8S_SECRET_GITHUB_ACCESS_TOKEN@github.com/kapsner/kapsner.github.io
-    - cd kapsner.github.io/
-    - echo "test" >> test/test.md
-    - git add .
-    - git commit -m "Deploy to Github Pages"
-    - git push
   artifacts:
     paths:
       - "${CI_PROJECT_DIR}/ci/*.Rcheck"
