@@ -45,7 +45,6 @@ create_manual:
     - tags
   only:
     - master
-    - development
 
 build_source:
   stage: build
@@ -59,7 +58,6 @@ build_source:
     - tags
   only:
     - master
-    - development
 
 build_binary:
   stage: build
@@ -73,7 +71,6 @@ build_binary:
     - tags
   only:
     - master
-    - development
 
 # To have the coverage percentage appear as a gitlab badge follow these
 # instructions:
@@ -88,14 +85,10 @@ coverage:
   script:
     - R -e "install.packages('DT')"
     - R -e "covr::gitlab(quiet = FALSE)"
-  artifacts:
-    paths:
-      - public
   except:
     - tags
   only:
     - master
-    - development
 
 testing:
   stage: test
@@ -120,4 +113,3 @@ install:
     - tags
   only:
     - master
-    - development
