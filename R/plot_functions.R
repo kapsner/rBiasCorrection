@@ -163,8 +163,8 @@ create_exampleplot <- function(data,
     ggplot2::ylab("methylation (%)\napparent after quantification") +
     ggplot2::xlab("actual methylation (%)") +
     ggplot2::labs(
-      title = "Test-Locus",
-      subtitle = "CpG: Test-CpG"
+      title = "Test Locus",
+      subtitle = "CpG: Test CpG"
     ) +
     ggplot2::geom_text(
       data = data.frame(),

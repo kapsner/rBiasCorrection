@@ -14,7 +14,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.1.4")
+my_desc$set_version("0.1.5")
 # The title of your package
 my_desc$set(Title = "A Package to Correct Bias in DNA Methylation Analyses")
 # The description of your package
