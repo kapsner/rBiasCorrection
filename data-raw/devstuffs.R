@@ -25,6 +25,10 @@ my_desc$set("Date/Publication" = paste(as.character(Sys.time()), "UTC"))
 my_desc$set("URL", "https://github.com/kapsner/rBiasCorrection")
 my_desc$set("BugReports",
             "https://github.com/kapsner/rBiasCorrection/issues")
+
+# Vignette Builder
+my_desc$set("VignetteBuilder" = "knitr")
+
 # License
 my_desc$set("License", "GPL-3")
 # Save everyting
@@ -50,6 +54,7 @@ usethis::use_package("stats", type="Imports")
 # Suggests
 usethis::use_package("testthat", type = "Suggests")
 usethis::use_package("lintr", type = "Suggests")
+usethis::use_package("knitr", type = "Suggests")
 
 
 # gitignore
@@ -70,6 +75,7 @@ usethis::use_git_ignore("!/man/")
 usethis::use_git_ignore("!NAMESPACE")
 usethis::use_git_ignore("!/R/")
 usethis::use_git_ignore("!/README.md")
+usethis::use_git_ignore("!/vignettes/")
 usethis::use_git_ignore("!/tests/")
 usethis::use_git_ignore("/tests/*")
 usethis::use_git_ignore("!/tests/testthat/")

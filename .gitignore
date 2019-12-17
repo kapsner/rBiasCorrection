@@ -27,3 +27,5 @@
 !/tests/testthat.R
 /tests/testthat/*
 !/tests/testthat/test-*.R
+inst/doc
+!/vignettes/
