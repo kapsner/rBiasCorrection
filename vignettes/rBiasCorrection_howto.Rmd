@@ -27,14 +27,14 @@ library(rBiasCorrection)
 
 # Introduction 
 
-rBiasCorrection is the R implementation of the algorithms described by Moskalev et. al in their research article *'Correction of PCR-bias in quantitative DNA methylation studies by means of cubic polynomial regression'*, published 2011 in *Nucleic acids research, Oxford University Press* (DOI: [https://doi.org/10.1093/nar/gkr213](https://doi.org/10.1093/nar/gkr213)). 
+rBiasCorrection is the R implementation of the algorithms described by Moskalev et. al in the research article *'Correction of PCR-bias in quantitative DNA methylation studies by means of cubic polynomial regression'*, published 2011 in *Nucleic acids research, Oxford University Press* (DOI: [https://doi.org/10.1093/nar/gkr213](https://doi.org/10.1093/nar/gkr213)). 
 
 # Setup the prerequisites 
 
 First of all, some variables need to be defined. These include:  
 
-- the path to the `experimental` file, including it's filename  
-- the path to the `calibration` file, including it's filename  
+- the path to the `experimental` file, including its filename  
+- the path to the `calibration` file, including its filename  
 - `samplelocusname`: the name of the sample or locus under investigation  
 - the `seed` argument shoud be set for reproducibility  
 - `plotdir`: a folder, where the resulting plots should be stored  
@@ -47,7 +47,7 @@ samplelocusname <- "CDH1"
 seed <- 1234
 ```
 
-For demonstration purposes, we will here correct biases in only one CpG site. The example data is included in this R package. 
+For demonstration purposes, we will here correct experimental biases in only one CpG site. The example data is included in this R package. 
 
 ```{r include=FALSE}
 cols <- c("sample_id", "CpG#1")
@@ -65,7 +65,7 @@ calibration <- "./calibration_data.csv"
 
 # Conduct the correction of experimental biases  
 
-The above defined variables can now be passed to the function `rBiasCorrection::biascorrection` in order to calculate the bias-corrected values of the experimental data.
+The aforementioned variables can now be passed to the function `rBiasCorrection::biascorrection` in order to calculate the bias-corrected values of the experimental data.
 
 ```{r results='hide', message=FALSE, warning=FALSE, error=FALSE}
 rBiasCorrection::biascorrection(
@@ -81,10 +81,10 @@ rBiasCorrection::biascorrection(
 # Background information  
 
 First of all, a preprocessing step is performed. During this step, all requirements of the input files are checked (please find further information of the specific file requirements in the [FAQ](https://github.com/kapsner/rBiasCorrection/blob/master/FAQ.md)).
-Furthermore, the mean methylation percentages of all CpG columns are calculated for every provided file and stored in a new column *rowmeans*. 
+Furthermore, the mean methylation percentages of all CpG sites are calculated for every provided file and stored in a new column *rowmeans*. 
 
-Biases are calculated using two regression algorithms: *hyperbolic* and *cubic polynomial* regression. With the default settings, the general equations will be used for both algorithms.
-However, an experimental feature exists, which can be accessed by using the argument `minmax = TRUE`. These regression equations are somehow data-dependend, assuming, that the minima and maxima of the provided calibration data are not biased at all (e.g. 100% actual methylation means 100% observed methylation).
+Biases are calculated using two regression algorithms: *hyperbolic* and *cubic polynomial* regression. With the default settings, the general forms of hyperbolic and cubic polynomial equations are used.
+However, an experimental feature exists, which can be accessed by using the argument `minmax = TRUE`. These special regression equations are data-dependent, assuming, that the minima and maxima of the provided calibration data are not biased at all (e.g. 100% actual methylation corresponds to 100% observed methylation).
 
 # General regression equations  
 
@@ -104,7 +104,7 @@ y = a * x^3 + b * x^2 + c * x + d
 \end{equation}
 $$
 
-# Data dependend regression equations (experimental feature) 
+# Data dependent regression equations (experimental feature) 
 
 - m0: the actual minimum of the calibration data  
 - m1: the actual maximum of the calibration data  
@@ -129,7 +129,7 @@ $$
 
 # Selection of the correction algorithm 
 
-The correction algorithm to correct the biases can be chosen by setting the argument `correct_method` to either 'hyperbolic' or 'cubic'. If using the default setting 'best', the regression method will be selected for each CpG site based on best on the method, specified in the `selection_method` argument. 
+The correction algorithm to correct the biases can be chosen by setting the argument `correct_method` to either 'hyperbolic' or 'cubic'. If using the default setting 'best', the regression method will be selected for each CpG site based on the most appropriate method, specified in the `selection_method` argument. 
 
 The `selection_method` argument can be either 'SSE' (the default setting) or 'RelError'. By using 'SSE', the [*error sum of squares*](https://en.wikipedia.org/wiki/Residual_sum_of_squares) (SSE) is calculated for each CpG site for both regression methods. The regression method resulting in a lower (better) SSE is then subsequently used to correct the biases of the corresponding experimental data. "RelError" selects the regression method based on the theoretical relative error after correction. This metric is calculated by correcting the calibration data with both the hyperbolic regression and the cubic regression and using them again as input data to calculate the 'goodness of fit'-metrics. 
 
@@ -143,10 +143,10 @@ The following tables are stored:
 
 -  **[name]_corrected_values_[timestamp].csv**: the bias corrected experimental data (this is the final results table of the samples under investigaion)  
 -  [name]_regression_stats_[timestamp].csv: the regression parameters calculated for each CpG site, including goodness-of-fit metrics  
--  [name]_corrected_calibrations_h_[timestamp].csv: the calibration data, which has been bias corrected using the hyperbolic regression parameters for all CpG sites  
--  [name]_corrected_calibrations_c_[timestamp].csv: the calibration data, which has been bias corrected using the cubic regression parameters for all CpG sites  
+-  [name]_corrected_calibrations_h_[timestamp].csv: the calibration data, which has been bias corrected using the hyperbolic regression parameters for all CpG sites of an interrogated locus  
+-  [name]_corrected_calibrations_c_[timestamp].csv: the calibration data, which has been bias corrected using the cubic regression parameters for all CpG sites of an interrogated locus  
 -  [name]_corrected_regression_stats_h_[timestamp].csv: the regression parameters calculated, using the *[name]_corrected_calibrations_h_[timestamp].csv*-file as input data 
--  [name]_corrected_regression_stats_c_[timestamp].csv: the regression parameters calculated, using the *[name]_corrected_calibrations_c_[timestamp].csv*-file as input data
+-  [name]_corrected_regression_stats_c_[timestamp].csv: the regression parameters calculated, using the *[name]_corrected_calibrations_c_[timestamp].csv*-file as input data 
 
 
 **Regression statistics:**
