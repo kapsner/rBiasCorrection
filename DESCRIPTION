@@ -16,7 +16,7 @@ LazyData: true
 URL: https://github.com/kapsner/rBiasCorrection
 BugReports: https://github.com/kapsner/rBiasCorrection/issues
 Encoding: UTF-8
-Date/Publication: 2019-12-17 12:04:44 UTC
+Date/Publication: 2020-01-03 16:49:45 UTC
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
@@ -33,4 +33,4 @@ Suggests:
     testthat,
     lintr,
     knitr
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2
