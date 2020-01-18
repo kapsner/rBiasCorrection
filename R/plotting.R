@@ -394,7 +394,7 @@ createbarerrorplots <- function(statstable_pre,
                                                   "Corrected [Hyperbolic]")
         )
         ][
-          , ("value") := as.numeric(as.character(get("value")))
+          , ("value") := round(as.numeric(as.character(get("value"))), 1)
           ]
 
       if ("Corrected [Cubic]" %in% dt[, get("regressiontype")]) {

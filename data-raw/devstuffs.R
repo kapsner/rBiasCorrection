@@ -14,7 +14,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.1.5")
+my_desc$set_version("0.1.6")
 # The title of your package
 my_desc$set(Title = "A Package to Correct Bias in DNA Methylation Analyses")
 # The description of your package
@@ -66,6 +66,7 @@ usethis::use_git_ignore("!/.Rbuildignore")
 usethis::use_git_ignore("!/.gitlab-ci.yml")
 usethis::use_git_ignore("!/data-raw/")
 usethis::use_git_ignore("!/data/")
+usethis::use_git_ignore("!/inst/")
 usethis::use_git_ignore("/data-raw/*")
 usethis::use_git_ignore("!/data-raw/devstuffs.R")
 usethis::use_git_ignore("!/DESCRIPTION")

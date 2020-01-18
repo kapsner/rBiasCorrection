@@ -46,7 +46,7 @@ calibration_plot <- function(plotlist,
                     d = coef_hyper$d),
         geom = "line",
         ggplot2::aes(
-          color = "Hyperbolic Regression"),
+          color = "hyperbolic"),
         size = 1.08
       ) +
       ggplot2::stat_function(
@@ -56,7 +56,7 @@ calibration_plot <- function(plotlist,
                     c = coef_cubic$c,
                     d = coef_cubic$d),
         geom = "line",
-        ggplot2::aes(color = "Cubic Regression"),
+        ggplot2::aes(color = "cubic"),
         size = 1.08
       )
 
@@ -72,7 +72,7 @@ calibration_plot <- function(plotlist,
                     m1 = coef_hyper$m1),
         geom = "line",
         ggplot2::aes(
-          color = "Hyperbolic Regression"),
+          color = "hyperbolic"),
         size = 1.08
       ) +
       ggplot2::stat_function(
@@ -84,7 +84,7 @@ calibration_plot <- function(plotlist,
                     m0 = coef_cubic$m0,
                     m1 = coef_cubic$m1),
         geom = "line", ggplot2::aes(
-          color = "Cubic Regression"),
+          color = "cubic"),
         size = 1.08
       )
   }
@@ -104,9 +104,9 @@ calibration_plot <- function(plotlist,
     ggplot2::scale_color_manual(
       values = c("#E64B35FF",
                  "#4DBBD5FF",
-                 "#00A087FF"),
-      labels = c("Cubic Regression",
-                 "Hyperbolic Regression",
+                 "grey47"),
+      labels = c("cubic",
+                 "hyperbolic",
                  "unbiased")
     ) +
     #% scale_colour_manual("Regression:",
