@@ -70,8 +70,8 @@ All uploaded files must
 ### Examples  
 
 Example files are available for download, to demonstrate how to preprare files appropriately: 
-* calibration data: [Example_calibration.csv](tests/testthat/testdata/cal_type1.csv)  
-* experimental data: [Example_experimental.csv](tests/testthat/testdata/exp_type1.csv)  
+* calibration data: [Example_calibration.csv](tests/testthat/testdata/cal_type_1.csv)  
+* experimental data: [Example_experimental.csv](tests/testthat/testdata/exp_type_1.csv)  
 
 ### Templates  
 

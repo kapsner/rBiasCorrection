@@ -104,6 +104,22 @@ usethis::use_build_ignore("tests/testthat/plotdir")
 # data
 example.data_experimental <- data.table::fread("./tests/testthat/testdata/exp_type_1.csv")
 example.data_calibration <- data.table::fread("./tests/testthat/testdata/cal_type_1.csv")
+
+# vec <- colnames(example.data_experimental)
+# vec <- vec[2:length(vec)]
+# example.data_experimental[, (vec) := lapply(.SD, function(x) {
+#   as.numeric(gsub("\\,", ".", x))
+#   }), .SDcols=vec]
+#
+# data.table::fwrite(example.data_experimental, "./tests/testthat/testdata/exp_type_1.csv")
+#
+# vec <- colnames(example.data_calibration)
+# example.data_calibration[, (vec) := lapply(.SD, function(x) {
+#   as.numeric(gsub("\\,", ".", x))
+# }), .SDcols=vec]
+#
+# data.table::fwrite(example.data_calibration, "./tests/testthat/testdata/cal_type_1.csv")
+
 example.data_experimental <- rBiasCorrection::clean_dt(example.data_experimental,
                                                        "experimental",
                                                        1,
