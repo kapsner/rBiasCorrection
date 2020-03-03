@@ -67,13 +67,13 @@ All uploaded files must
   + the other columns contain the calibration sample's results of the methylation analysis with one column for each CpG site  
   + calibration steps may occur more than once, indicating repeated measurements of the same calibration sample (in this case, the mean values of the repeated measurements will be used for calculation of the calibration curve)   
 
-### Examples  
+### Example files  
 
 Example files are available for download, to demonstrate how to preprare files appropriately: 
 * calibration data: [Example_calibration.csv](tests/testthat/testdata/cal_type_1.csv)  
 * experimental data: [Example_experimental.csv](tests/testthat/testdata/exp_type_1.csv)  
 
-### Templates  
+### Template files  
 
 Template files are available, if you want to copy-paste your data. Please note that you might have to adjust the column headers and sample IDs or calibration steps: 
 * calibration data: [Template_calibration.csv](inst/template_calibration.csv)  
