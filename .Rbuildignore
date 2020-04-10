@@ -11,3 +11,5 @@
 ^tests/testthat/csvdir$
 ^tests/testthat/plotdir$
 ^\.gitlab-ci\.yml$
+^\.vscode$
+^\.lintr$
