@@ -2,7 +2,7 @@ variables:
   _R_CHECK_CRAN_INCOMING_: "false"
   _R_CHECK_FORCE_SUGGESTS_: "true"
   CI_IMAGE_NAME: "rocker/r-ubuntu"
-  CI_IMAGE_TAG: "18.04"
+  CI_IMAGE_TAG: "20.04"
   R_PKG_NAME: "rBiasCorrection"
 
 default:
