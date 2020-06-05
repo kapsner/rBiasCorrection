@@ -13,3 +13,5 @@
 ^\.gitlab-ci\.yml$
 ^\.vscode$
 ^\.lintr$
+^tic\.R$
+^\.github$

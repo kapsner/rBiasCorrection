@@ -32,3 +32,5 @@ inst/doc
 !/inst/
 /.vscode
 !/.lintr
+!/.github/
+!/tic.R

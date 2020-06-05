@@ -14,7 +14,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.1.6.9001")
+my_desc$set_version("0.1.6.9002")
 # The title of your package
 my_desc$set(Title = "A Package to Correct Bias in DNA Methylation Analyses")
 # The description of your package
@@ -90,6 +90,8 @@ usethis::use_git_ignore("/.Rproj*")
 usethis::use_git_ignore("/.RData")
 usethis::use_git_ignore("/.vscode")
 usethis::use_git_ignore("!/.lintr")
+usethis::use_git_ignore("!/.github/")
+usethis::use_git_ignore("!/tic.R")
 
 usethis::use_build_ignore("csvdir")
 usethis::use_build_ignore("plotdir")
@@ -101,6 +103,8 @@ usethis::use_build_ignore("tests/testthat/csvdir")
 usethis::use_build_ignore("tests/testthat/plotdir")
 usethis::use_build_ignore(".vscode")
 usethis::use_build_ignore(".lintr")
+usethis::use_build_ignore("tic.R")
+usethis::use_build_ignore(".github")
 
 
 # experimental = "../19_PCR-bias/data/example_data/type1/example_data_type1_experimentaldata.csv"

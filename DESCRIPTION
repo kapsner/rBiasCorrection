@@ -1,6 +1,6 @@
 Package: rBiasCorrection
 Title: A Package to Correct Bias in DNA Methylation Analyses
-Version: 0.1.6.9001
+Version: 0.1.6.9002
 Authors@R: 
     c(person(given = "Lorenz A.",
              family = "Kapsner",
@@ -16,7 +16,7 @@ LazyData: true
 URL: https://github.com/kapsner/rBiasCorrection
 BugReports: https://github.com/kapsner/rBiasCorrection/issues
 Encoding: UTF-8
-Date/Publication: 2020-04-10 08:41:15 UTC
+Date/Publication: 2020-06-05 13:29:20 UTC
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
@@ -33,4 +33,3 @@ Suggests:
     testthat,
     lintr,
     knitr
-RoxygenNote: 7.1.0
