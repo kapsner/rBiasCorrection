@@ -33,3 +33,4 @@ Suggests:
     testthat,
     lintr,
     knitr
+RoxygenNote: 7.1.0
