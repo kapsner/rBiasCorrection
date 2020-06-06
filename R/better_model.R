@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' @title betterModel_ helper function
+#' @title better_model helper function
 #'
 #' @description Internal function to select the better model between
 #'   hyperbolic regression and cubic regression.
@@ -27,6 +27,61 @@
 #'   of \code{statisticsList_()} of the calculated regression parameters form
 #'   the calibration data corrected with cubic regression.
 #' @inheritParams biascorrection
+#'
+#' @return The function returns a data.table with 4 columns, the last column
+#'   being named 'better_model', which indicates in a binary manner,
+#'   if the hyperbolic model (better_model = 0) or the cubic model
+#'   (better_model = 1) result in a 'better' `SSE` or `RelError` respectively.
+#'
+#' @examples
+#' \donttest{
+#' # define list object to save all data
+#' rv <- list()
+#' rv$minmax <- TRUE
+#' rv$selection_method <- "RelError"
+#' rv$sample_locus_name <- "Test"
+#' rv$seed <- 1234
+#'
+#' # define logfilename
+#' logfilename <- "log.txt"
+#'
+#' # import experimental file
+#' exp_type_1 <- rBiasCorrection::example.data_experimental
+#' rv$fileimport_experimental <- exp_type_1[["dat"]]
+#'
+#' # import calibration file
+#' cal_type_1 <- rBiasCorrection::example.data_calibration
+#' rv$fileimport_calibration <- cal_type_1[["dat"]]
+#' rv$vec_cal <- cal_type_1[["vec_cal"]]
+#'
+#'
+#' # perform regression
+#' regression_results <- regression_utility(
+#'   rv$fileimport_calibration,
+#'   "Testlocus",
+#'   locus_id = NULL,
+#'   rv = rv,
+#'   mode = NULL,
+#'   headless = TRUE,
+#'   logfilename,
+#'   minmax = rv$minmax,
+#'   seed = rv$seed
+#' )
+#'
+#' # extract regression results
+#' rv$result_list <- regression_results[["result_list"]]
+#'
+#' # get regression statistics
+#' rv$reg_stats <- statistics_list(
+#'   rv$result_list,
+#'   minmax = TRUE
+#' )
+#'
+#' # select the better model based on the sum of squared errrors ("SSE")
+#' rv$choices_list <- better_model(
+#'   statstable_pre = rv$reg_stats,
+#'   selection_method = "SSE"
+#' )}
 #'
 #' @export
 #'

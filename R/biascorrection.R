@@ -79,8 +79,13 @@
 #'
 #' @inheritParams createbarerrorplots
 #'
-#' @return TRUE, if the correction of PCR measurment biases succeeds. If the
-#'   correction fails, an error message is returned.
+#' @return This function is a wrapper around all of `rBiasCorrection`'s
+#'   included functions. When executing it, it performs the whole workflow of
+#'   bias correction and writes resulting csv-files and plots, as well as a
+#'   log file to the local file system (the respective directories can be
+#'   specified with the function arguments). The return-value is TRUE, if the
+#'   correction of PCR measurement biases succeeds. If the correction fails,
+#'   an error message is returned.
 #'
 #' @import data.table
 #' @importFrom magrittr "%>%"

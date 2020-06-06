@@ -17,7 +17,7 @@ test_that(
   desc = "algorithm test, type 1, minmax = FALSE",
   code = {
 
-    skip_on_cran()
+    #"skip_on_cran()
 
     rv$minmax <- FALSE
     rv$sample_locus_name <- "Test"
@@ -73,8 +73,10 @@ test_that(
     expect_type(plotlist_reg, "list")
     #" expect_known_hash(plotlist_reg, "20fa85b532")
     # oder c2e96f84fc, 0c3c5db52b
-    expect_known_hash(rv$result_list, "66dbae3141")
+    #"expect_known_hash(rv$result_list, "66dbae3141")
     # 70c4aa7531, d7f426a1a8, 2eb93a74d3
+    expect_known_hash(unlist(rv$result_list[["row_means"]]), "645f15f793")
+
     expect_type(rv$reg_stats, "list")
     expect_s3_class(rv$reg_stats, "data.table")
     expect_known_hash(rv$reg_stats, "3603e3abcb") # d2e883e81d
@@ -182,13 +184,20 @@ test_that(
     #" expect_known_hash(plotlist_reg, "20fa85b532")
     # oder c2e96f84fc, 0c3c5db52b
     expect_type(rv$result_list_hyperbolic, "list")
-    expect_known_hash(rv$result_list_hyperbolic, "b39e4cbca1") # f49cd1b17c
+    #"expect_known_hash(rv$result_list_hyperbolic, "b39e4cbca1") # f49cd1b17c
     # 3d50611917, ccbe9ff93a
+    expect_known_hash(
+      unlist(rv$result_list_hyperbolic[["row_means"]]),
+      "5144e200a9"
+    )
     expect_type(rv$reg_stats_corrected_h, "list")
     expect_s3_class(rv$reg_stats_corrected_h, "data.table")
-    expect_known_hash(rv$reg_stats_corrected_h, "f8ac0ddffd") # 9b4f5b4dcb
+    #"expect_known_hash(rv$reg_stats_corrected_h, "f8ac0ddffd") # 9b4f5b4dcb
     #a27d84167e, 5205aae446, 81e6bcb79b, 5c8f64e551
-
+    expect_known_hash(
+      as.matrix(rv$reg_stats_corrected_h[10, ]),
+      "bc0545975d"
+    )
 
 
     # cubic correction
@@ -245,12 +254,21 @@ test_that(
     #" expect_known_hash(plotlist_reg, "20fa85b532")
     # oder c2e96f84fc, 0c3c5db52b
     expect_type(rv$result_list_cubic, "list")
-    expect_known_hash(rv$result_list_cubic, "77dda04aba") # 36e27655ea
+    #"expect_known_hash(rv$result_list_cubic, "77dda04aba") # 36e27655ea
     # 7214d93552, 9bc037ad08
+    expect_known_hash(
+      unlist(rv$result_list_cubic[["row_means"]]),
+      "c39c72b05c"
+    )
+
     expect_type(rv$reg_stats_corrected_c, "list")
     expect_s3_class(rv$reg_stats_corrected_c, "data.table")
-    expect_known_hash(rv$reg_stats_corrected_c, "446af74c7a") # 88bb1a0300
+    #"expect_known_hash(rv$reg_stats_corrected_c, "446af74c7a") # 88bb1a0300
     #a27d84167e, 1d48c373f6, 90a3a2cb09, e79434dab7
+    expect_known_hash(
+      as.matrix(rv$reg_stats_corrected_c[10, ]),
+      "6900d1046f"
+    )
   })
 
 
@@ -259,7 +277,7 @@ test_that(
                 "selection_method = RelError"),
   code = {
 
-    skip_on_cran()
+    #"skip_on_cran()
 
     rv$minmax <- FALSE
     rv$selection_method <- "RelError"
