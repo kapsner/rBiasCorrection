@@ -25,5 +25,8 @@ test_that(
                                 logfilename,
                                 minmax = TRUE,
                                 seed = 1234)
-    expect_known_hash(h1, "3578c7d484") # bce2d004e7
+    expect_error({
+      expect_known_hash(h1, "3578c7d484")
+      expect_known_hash(h1, "bce2d004e7")
+    }, class = "error", regexp = "3578c7d484|bce2d004e7") # bce2d004e7
   })
