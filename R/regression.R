@@ -140,22 +140,23 @@ regression_type1 <- function(datatable,
     )
     write_log(message = df_agg, logfilename = logfilename)
 
-    result_list[[vec_cal[i]]] <- hyperbolic_regression(
+    hr <- hyperbolic_regression(
       df_agg = df_agg,
       vec = vec_cal[i],
       logfilename = logfilename,
       minmax = minmax,
       seed = seed
     )
-    # append result_list
-    result_list[[vec_cal[i]]] <- c(result_list[[vec_cal[i]]],
-                                   cubic_regression(
+
+    cr <- cubic_regression(
                                      df_agg = df_agg,
                                      vec = vec_cal[i],
                                      logfilename = logfilename,
                                      minmax = minmax,
                                      seed = seed
-                                   ))
+                                   )
+    # append result_list
+    result_list[[vec_cal[i]]] <- list(hr, cr)
 
     if (is.null(mode)) {
       custom_ylab <- "methylation (%)\napparent after quantification"
