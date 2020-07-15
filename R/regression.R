@@ -118,31 +118,29 @@ regression_type1 <- function(datatable,
   }
 
   # result_list
-  result_list <- list()
-
-  plot.listR <- list()
-
-  for (i in seq_len(length.out = length(vec_cal))) {
-    message <- paste0("# CpG-site: ", vec_cal[i])
+  result_list <- lapply(
+    vec_cal,
+    FUN = function(i) {
+    message <- paste0("# CpG-site: ", i)
     write_log(message = message,
               logfilename = logfilename)
     df_agg <- stats::na.omit(
       create_agg_df(
         datatable = datatable,
-        index = vec_cal[i]
+        index = i
       )
     )
 
     print(df_agg)
     write_log(
-      message = paste("Logging df_agg:", vec_cal[i]),
+      message = paste("Logging df_agg:", i),
       logfilename = logfilename
     )
     write_log(message = df_agg, logfilename = logfilename)
 
     hr <- hyperbolic_regression(
       df_agg = df_agg,
-      vec = vec_cal[i],
+      vec = i,
       logfilename = logfilename,
       minmax = minmax,
       seed = seed
@@ -150,14 +148,19 @@ regression_type1 <- function(datatable,
 
     cr <- cubic_regression(
                                      df_agg = df_agg,
-                                     vec = vec_cal[i],
+                                     vec = i,
                                      logfilename = logfilename,
                                      minmax = minmax,
                                      seed = seed
                                    )
     # append result_list
-    result_list[[vec_cal[i]]] <- list(hr, cr)
+    return(list(hr, cr))
+    })
 
+  
+    plot.listR <- lapply(
+    vec_cal,
+    FUN = function(i) {
     if (is.null(mode)) {
       custom_ylab <- "methylation (%)\napparent after quantification"
     } else if (mode == "corrected") {
@@ -165,9 +168,9 @@ regression_type1 <- function(datatable,
     }
 
     lb1 <- c(paste0("  R\u00B2: \n  Hyperbolic = ",
-                    round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2),
+                    round(result_list[[i]]$Coef_hyper$R2, 2),
                     "\n  Cubic = ",
-                    round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)), "")
+                    round(result_list[[i]]$Coef_cubic$R2, 2)), "")
 
 
     gdat <- df_agg[
@@ -194,7 +197,7 @@ regression_type1 <- function(datatable,
       ggplot2::xlab("actual methylation (%)") +
       ggplot2::labs(
         title = plot_title,
-        subtitle = paste("CpG:", vec_cal[i])
+        subtitle = paste("CpG:", i)
       ) +
       ggplot2::geom_text(
         data = data.frame(),
@@ -205,8 +208,8 @@ regression_type1 <- function(datatable,
         label = lb1,
         parse = F
       )
-    plot.listR[[i]] <- p
-  }
+     return(p)
+  })
   return(
     list("plot_list" = plot.listR,
          "result_list" = result_list)
