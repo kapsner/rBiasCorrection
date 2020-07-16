@@ -1,7 +1,7 @@
 context("test functioning of algorithm, type 1")
 
 prefix <- "./"
-#" prefix <- "tests/testthat/"
+# prefix <- "tests/testthat/" # nolint
 
 # the writeLog-function needs the logfilename
 logfilename <- paste0(prefix, "log.txt")
@@ -42,15 +42,17 @@ test_that(
 
 
     # reconstruct parts from app_plottingUtility.R
-    regression_results <- regression_utility(rv$fileimport_calibration,
-                                             "Testlocus",
-                                             locus_id = NULL,
-                                             rv = rv,
-                                             mode = NULL,
-                                             headless = TRUE,
-                                             logfilename,
-                                             minmax = rv$minmax,
-                                             seed = rv$seed)
+    regression_results <- regression_utility(
+      data = rv$fileimport_calibration,
+      samplelocusname = "Testlocus",
+      locus_id = NULL,
+      rv = rv,
+      mode = NULL,
+      headless = TRUE,
+      logfilename = logfilename,
+      minmax = rv$minmax,
+      seed = rv$seed
+    )
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list <- regression_results[["result_list"]]
 
