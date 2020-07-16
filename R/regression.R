@@ -159,8 +159,15 @@ regression_type1 <- function(datatable,
 
   
     plot.listR <- lapply(
-    vec_cal,
+    seq_len(length(vec_cal)),
     FUN = function(i) {
+      
+    df_agg <- stats::na.omit(
+      create_agg_df(
+        datatable = datatable,
+        index = vec_cal[i]
+      )
+    )
     if (is.null(mode)) {
       custom_ylab <- "methylation (%)\napparent after quantification"
     } else if (mode == "corrected") {
@@ -168,9 +175,9 @@ regression_type1 <- function(datatable,
     }
 
     lb1 <- c(paste0("  R\u00B2: \n  Hyperbolic = ",
-                    round(result_list[[i]]$Coef_hyper$R2, 2),
+                    round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2),
                     "\n  Cubic = ",
-                    round(result_list[[i]]$Coef_cubic$R2, 2)), "")
+                    round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)), "")
 
 
     gdat <- df_agg[
@@ -197,7 +204,7 @@ regression_type1 <- function(datatable,
       ggplot2::xlab("actual methylation (%)") +
       ggplot2::labs(
         title = plot_title,
-        subtitle = paste("CpG:", i)
+        subtitle = paste("CpG:", vec_cal[i])
       ) +
       ggplot2::geom_text(
         data = data.frame(),
