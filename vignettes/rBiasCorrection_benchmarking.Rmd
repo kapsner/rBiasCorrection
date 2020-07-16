@@ -16,7 +16,7 @@ editor_options:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = TRUE
+  eval = FALSE
 )
 plotdir <- paste0(tempdir(), "/png/")
 csvdir <- paste0(tempdir(), "/csv/")
@@ -48,12 +48,12 @@ calibration <- paste0(tempdir(), "/calibration_data.csv")
 ```
 
 
-# Sequential: 1 Core
+# Sequential
 
 ```{r results='hide', message=FALSE, warning=FALSE, error=FALSE}
 future::plan("sequential")
 
-microbenchmark::microbenchmark({
+results <- microbenchmark::microbenchmark({
   rBiasCorrection::biascorrection(
     experimental = experimental,
     calibration = calibration,
@@ -66,12 +66,17 @@ microbenchmark::microbenchmark({
 )
 ```
 
+```{r}
+results
+```
+
+
 # Parallel
 
 ```{r results='hide', message=FALSE, warning=FALSE, error=FALSE}
 future::plan("multiprocess", workers = 4)
 
-microbenchmark::microbenchmark({
+results_multi <- microbenchmark::microbenchmark({
   rBiasCorrection::biascorrection(
     experimental = experimental,
     calibration = calibration,
@@ -82,4 +87,9 @@ microbenchmark::microbenchmark({
   )},
   times = times
 )
+```
+
+
+```{r}
+results_multi
 ```
