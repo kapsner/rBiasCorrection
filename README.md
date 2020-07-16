@@ -27,8 +27,14 @@ This is a basic example which shows you how to correct PCR-bias in quantitative 
 ```r
 library(rBiasCorrection)
 biascorrection(
-    "path/to/experimental_data.csv",
-    "path/to/calibration_data.csv",
+    experimental = system.file(
+        "tests/testthat/testdata/exp_type_1.csv",
+        package = "rBiasCorrection"
+    ),
+    calibration = system.file(
+        "tests/testthat/testdata/cal_type_1.csv",
+        package = "rBiasCorrection"
+    ),
     samplelocusname = "BRAF"
 )
 ```

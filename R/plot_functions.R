@@ -46,7 +46,8 @@ calibration_plot <- function(plotlist,
                     d = coef_hyper$d),
         geom = "line",
         ggplot2::aes(
-          color = "hyperbolic"),
+          color = "hyperbolic"
+        ),
         size = 1.08
       ) +
       ggplot2::stat_function(
@@ -56,7 +57,9 @@ calibration_plot <- function(plotlist,
                     c = coef_cubic$c,
                     d = coef_cubic$d),
         geom = "line",
-        ggplot2::aes(color = "cubic"),
+        ggplot2::aes(
+          color = "cubic"
+        ),
         size = 1.08
       )
 
@@ -72,7 +75,8 @@ calibration_plot <- function(plotlist,
                     m1 = coef_hyper$m1),
         geom = "line",
         ggplot2::aes(
-          color = "hyperbolic"),
+          color = "hyperbolic"
+        ),
         size = 1.08
       ) +
       ggplot2::stat_function(
@@ -83,8 +87,10 @@ calibration_plot <- function(plotlist,
                     y1 = coef_cubic$y1,
                     m0 = coef_cubic$m0,
                     m1 = coef_cubic$m1),
-        geom = "line", ggplot2::aes(
-          color = "cubic"),
+        geom = "line",
+        ggplot2::aes(
+          color = "cubic"
+        ),
         size = 1.08
       )
   }
@@ -94,7 +100,8 @@ calibration_plot <- function(plotlist,
       ggplot2::aes(
         x = plotlist$data$true_methylation,
         y = plotlist$data$true_methylation,
-        color = "unbiased"),
+        color = "unbiased"
+      ),
       linetype = "dashed",
       size = 1.08
     ) +

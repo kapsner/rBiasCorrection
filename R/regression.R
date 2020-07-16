@@ -125,11 +125,9 @@ regression_type1 <- function(datatable,
         message <- paste0("# CpG-site: ", i)
         write_log(message = message,
                   logfilename = logfilename)
-        df_agg <- stats::na.omit(
-          create_agg_df(
-            datatable = datatable,
-            index = i
-          )
+        df_agg <- create_agg_df(
+          datatable = datatable,
+          index = i
         )
 
         print(df_agg)
@@ -168,11 +166,9 @@ regression_type1 <- function(datatable,
     FUN = function(i) {
       local({
 
-        df_agg <- stats::na.omit(
-          create_agg_df(
-            datatable = datatable,
-            index = vec_cal[i]
-          )
+        df_agg <- create_agg_df(
+          datatable = datatable,
+          index = vec_cal[i]
         )
         if (is.null(mode)) {
           custom_ylab <- "methylation (%)\napparent after quantification"
@@ -200,6 +196,20 @@ regression_type1 <- function(datatable,
           )
         ]
 
+        if (is.null(mode)) {
+          gdat <- gdat[
+            , ("sd") := as.numeric(
+              as.character(
+                get("sd")
+              )
+            )
+          ][
+            , ("ymin") := get("CpG") - get("sd")
+          ][
+            , ("ymax") := get("CpG") + get("sd")
+          ]
+        }
+
         p <- ggplot2::ggplot(data = gdat,
                              ggplot2::aes_string(
                                x = "true_methylation",
@@ -221,6 +231,15 @@ regression_type1 <- function(datatable,
             label = lb1,
             parse = F
           )
+        if (is.null(mode)) {
+          p <- p + ggplot2::geom_errorbar(
+            ggplot2::aes_string(
+              ymin = "ymin",
+              ymax = "ymax"
+            ),
+            width = 0.2
+          )
+        }
         return(p)
       })
     })

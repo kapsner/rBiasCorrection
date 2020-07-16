@@ -58,79 +58,81 @@ plotting_utility <- function(data,
   # get number of CpG-sites
   length_vector <- length(rv$vec_cal)
 
-  Map(function(f) {
-    plotname <- paste0(gsub("[[:punct:]]", "", rv$vec_cal[f]))
+  future.apply::future_Map(function(f) {
+    local({
+      plotname <- paste0(gsub("[[:punct:]]", "", rv$vec_cal[f]))
 
-    # filename-suffix
-    fn_suffix <- ifelse(is.null(mode), "", paste0("_", mode))
-    # message-suffix
-    msg_suffix <- ifelse(is.null(mode), "", ifelse(
-      mode == "corrected_h",
-      "BiasCorrected (hyperbolic)",
-      "BiasCorrected (cubic)")
-    )
+      # filename-suffix
+      fn_suffix <- ifelse(is.null(mode), "", paste0("_", mode))
+      # message-suffix
+      msg_suffix <- ifelse(is.null(mode), "", ifelse(
+        mode == "corrected_h",
+        "BiasCorrected (hyperbolic)",
+        "BiasCorrected (cubic)")
+      )
 
-    # filname of temporary plot
-    if (type == 1) {
-      filename <- paste0(plotdir,
-                         samplelocusname,
-                         "_",
-                         plotname,
-                         fn_suffix,
-                         ".png")
-      plotmessage <- paste0("Creating ",
-                            msg_suffix,
-                            " plot No. ",
-                            f)
-    } else if (type == 2) {
-      filename <- paste0(plotdir,
-                         locus_id,
-                         "-",
-                         samplelocusname,
-                         "_",
-                         plotname,
-                         fn_suffix,
-                         ".png")
-      plotmessage <- paste0("Locus ID: ",
-                            locus_id,
-                            " --> Creating ",
-                            msg_suffix,
-                            " plot No. ",
-                            f)
-    }
+      # filname of temporary plot
+      if (type == 1) {
+        filename <- paste0(plotdir,
+                           samplelocusname,
+                           "_",
+                           plotname,
+                           fn_suffix,
+                           ".png")
+        plotmessage <- paste0("Creating ",
+                              msg_suffix,
+                              " plot No. ",
+                              f)
+      } else if (type == 2) {
+        filename <- paste0(plotdir,
+                           locus_id,
+                           "-",
+                           samplelocusname,
+                           "_",
+                           plotname,
+                           fn_suffix,
+                           ".png")
+        plotmessage <- paste0("Locus ID: ",
+                              locus_id,
+                              " --> Creating ",
+                              msg_suffix,
+                              " plot No. ",
+                              f)
+      }
 
-    write_log(
-      message = paste(plotmessage, "- filename:", filename),
-      logfilename = logfilename
-    )
+      write_log(
+        message = paste(plotmessage, "- filename:", filename),
+        logfilename = logfilename
+      )
 
-    # workaround to hide shiny-stuff, when going headless
-    if (isFALSE(headless)) {
-      # Create a Progress object
-      progress <- shiny::Progress$new()
-      # Make sure it closes when we exit this reactive, even if there's an error
-      on.exit(progress$close())
-      progress$set(message = plotmessage, value = 0)
+      # workaround to hide shiny-stuff, when going headless
+      if (isFALSE(headless)) {
+        # Create a Progress object
+        progress <- shiny::Progress$new()
+        # Make sure it closes when we exit this reactive,
+        # even if there's an error
+        on.exit(progress$close())
+        progress$set(message = plotmessage, value = 0)
 
-      # Increment the progress bar, and update the detail text.
-      progress$inc(1 / 1, detail = paste("... working hard on plot",
-                                         f,
-                                         "of",
-                                         length_vector))
-    }
+        # Increment the progress bar, and update the detail text.
+        progress$inc(1 / 1, detail = paste("... working hard on plot",
+                                           f,
+                                           "of",
+                                           length_vector))
+      }
 
-    # store plots to local temporary file
-    create_plots(plotlist = plotlist_reg[[f]],
-                 f = f,
-                 rv = rv,
-                 filename = filename,
-                 logfilename = logfilename,
-                 mode = mode,
-                 minmax = minmax,
-                 plot_height = plot_height,
-                 plot_width = plot_width,
-                 plot_textsize = plot_textsize)
-
+      # store plots to local temporary file
+      create_plots(plotlist = plotlist_reg[[f]],
+                   f = f,
+                   rv = rv,
+                   filename = filename,
+                   logfilename = logfilename,
+                   mode = mode,
+                   minmax = minmax,
+                   plot_height = plot_height,
+                   plot_width = plot_width,
+                   plot_textsize = plot_textsize)
+    })
   }, 1:length_vector)
 }
 
@@ -301,154 +303,154 @@ createbarerrorplots <- function(statstable_pre,
     vec_cal <- stats_pre[, get("Name")]
     length_vector <- length(vec_cal)
 
-    base::Map(function(i) {
+    future.apply::future_Map(function(i) {
+      local({
+        plotname <- paste0(gsub("[[:punct:]]", "", vec_cal[i]))
 
-      plotname <- paste0(gsub("[[:punct:]]", "", vec_cal[i]))
+        if (type == 1) {
+          filename <- paste0(plotdir,
+                             rv$sample_locus_name,
+                             "_",
+                             "error_",
+                             plotname,
+                             "_",
+                             mode,
+                             ".png")
+        } else if (type == 2) {
+          filename <- paste0(plotdir,
+                             paste0(gsub("[[:punct:]]", "", locus_id)),
+                             "-",
+                             rv$sample_locus_name,
+                             "_",
+                             "error_",
+                             plotname,
+                             "_",
+                             mode,
+                             ".png")
+        }
 
-      if (type == 1) {
-        filename <- paste0(plotdir,
-                           rv$sample_locus_name,
-                           "_",
-                           "error_",
-                           plotname,
-                           "_",
-                           mode,
-                           ".png")
-      } else if (type == 2) {
-        filename <- paste0(plotdir,
-                           paste0(gsub("[[:punct:]]", "", locus_id)),
-                           "-",
-                           rv$sample_locus_name,
-                           "_",
-                           "error_",
-                           plotname,
-                           "_",
-                           mode,
-                           ".png")
-      }
+        plotmessage <- paste("Creating barplot No.", i)
+        write_log(message = paste(plotmessage, "- filename:", filename),
+                  logfilename = logfilename)
 
-      plotmessage <- paste("Creating barplot No.", i)
-      write_log(message = paste(plotmessage, "- filename:", filename),
-                logfilename = logfilename)
-
-      dt <- data.table::data.table(
-        "timepoint" = character(0),
-        "value" = numeric(0),
-        "regressiontype" = character(0)
-      )
-
-      if (isFALSE(headless)) {
-        # Create a Progress object
-        progress <- shiny::Progress$new()
-        # Make sure it closes when we exit this reactive,
-        # even if there's an error
-        on.exit(progress$close())
-        progress$set(message = plotmessage, value = 0)
-
-        # Increment the progress bar, and update the detail text.
-        progress$inc(
-          1 / 1,
-          detail = paste("... working hard on barplot",
-                         i,
-                         "of",
-                         length_vector)
+        dt <- data.table::data.table(
+          "timepoint" = character(0),
+          "value" = numeric(0),
+          "regressiontype" = character(0)
         )
-      }
 
-      # add relative error of corrected hyperbolic curve
+        if (isFALSE(headless)) {
+          # Create a Progress object
+          progress <- shiny::Progress$new()
+          # Make sure it closes when we exit this reactive,
+          # even if there's an error
+          on.exit(progress$close())
+          progress$set(message = plotmessage, value = 0)
 
-      dt <- rbind(
-        dt,
-        cbind("timepoint" = "biased",
-              "value" = round(
-                error_data[
-                  get("Name") == vec_cal[i], get("relative_error_pre")
+          # Increment the progress bar, and update the detail text.
+          progress$inc(
+            1 / 1,
+            detail = paste("... working hard on barplot",
+                           i,
+                           "of",
+                           length_vector)
+          )
+        }
+
+        # add relative error of corrected hyperbolic curve
+
+        dt <- rbind(
+          dt,
+          cbind("timepoint" = "biased",
+                "value" = round(
+                  error_data[
+                    get("Name") == vec_cal[i], get("relative_error_pre")
                   ],
-                3),
-              "regressiontype" = "Raw")
-      )
-      dt <- rbind(
-        dt,
-        cbind("timepoint" = "corrected",
-              "value" = round(
-                error_data[
-                  get("Name") == vec_cal[i], get("relative_error")
+                  3),
+                "regressiontype" = "Raw")
+        )
+        dt <- rbind(
+          dt,
+          cbind("timepoint" = "corrected",
+                "value" = round(
+                  error_data[
+                    get("Name") == vec_cal[i], get("relative_error")
                   ],
-                3),
-              "regressiontype" = ifelse(
-                mode == "corrected_c",
-                "Corrected [Cubic]",
-                ifelse(
-                  mode == "corrected_h",
-                  "Corrected [Hyperbolic]",
-                  "NA"))
+                  3),
+                "regressiontype" = ifelse(
+                  mode == "corrected_c",
+                  "Corrected [Cubic]",
+                  ifelse(
+                    mode == "corrected_h",
+                    "Corrected [Hyperbolic]",
+                    "NA"))
+          )
         )
-      )
 
-      # set "Raw" as first level, to show corresponding bar
-      # on the left of the plot
-      dt[
-        , ("regressiontype") := factor(get("regressiontype"),
-                                       levels = c("Raw",
-                                                  "Corrected [Cubic]",
-                                                  "Corrected [Hyperbolic]")
-        )
+        # set "Raw" as first level, to show corresponding bar
+        # on the left of the plot
+        dt[
+          , ("regressiontype") := factor(get("regressiontype"),
+                                         levels = c("Raw",
+                                                    "Corrected [Cubic]",
+                                                    "Corrected [Hyperbolic]")
+          )
         ][
           , ("value") := round(as.numeric(as.character(get("value"))), 1)
-          ]
+        ]
 
-      if ("Corrected [Cubic]" %in% dt[, get("regressiontype")]) {
-        values <- c("#8491B4FF", "#E64B35FF")
-      } else if ("Corrected [Hyperbolic]" %in% dt[, get("regressiontype")]) {
-        values <- c("#8491B4FF", "#4DBBD5FF")
-      }
+        if ("Corrected [Cubic]" %in% dt[, get("regressiontype")]) {
+          values <- c("#8491B4FF", "#E64B35FF")
+        } else if ("Corrected [Hyperbolic]" %in% dt[, get("regressiontype")]) {
+          values <- c("#8491B4FF", "#4DBBD5FF")
+        }
 
 
-      outplot <- ggplot2::ggplot(dt, ggplot2::aes_string(
-        x = "regressiontype",
-        y = "value",
-        fill = "regressiontype")) +
-        #% scale_fill_manual(
-        #%   values = c("Cubic Regression" = "indianred1",
-        #%              "Hyperbolic Regression" = "mediumspringgreen")) +
-        ggplot2::geom_col() +
-        ggplot2::geom_text(
-          ggplot2::aes_string(
-            label = "value",
-            y = "value"),
-          vjust = -1
-        ) +
-        ggplot2::ylab("% average relative error") +
-        ggplot2::labs(
-          title = paste0("Quantification Error: ", locus),
-          subtitle = paste("CpG:", vec_cal[i]),
-          fill = ggplot2::element_blank()
-        ) +
-        ggplot2::ylim(0, ylim_max) +
-        ggplot2::scale_fill_manual(
-          values = values
-        ) +
-        ggpubr::theme_pubr() +
-        ggplot2::theme(
-          axis.title.x = ggplot2::element_blank(),
-          legend.position = "none",
-          plot.title = ggplot2::element_text(hjust = 0.5),
-          plot.subtitle = ggplot2::element_text(hjust = 0.5),
-          text = ggplot2::element_text(size = plot_textsize)
-        ) #,
-      #% axis.ticks.x = element_blank(),
-      #% axis.text.x = element_blank())
-      #% print whole plot in return, otherwise it will fail
+        outplot <- ggplot2::ggplot(dt, ggplot2::aes_string(
+          x = "regressiontype",
+          y = "value",
+          fill = "regressiontype")) +
+          #% scale_fill_manual(
+          #%   values = c("Cubic Regression" = "indianred1",
+          #%              "Hyperbolic Regression" = "mediumspringgreen")) +
+          ggplot2::geom_col() +
+          ggplot2::geom_text(
+            ggplot2::aes_string(
+              label = "value",
+              y = "value"),
+            vjust = -1
+          ) +
+          ggplot2::ylab("% average relative error") +
+          ggplot2::labs(
+            title = paste0("Quantification Error: ", locus),
+            subtitle = paste("CpG:", vec_cal[i]),
+            fill = ggplot2::element_blank()
+          ) +
+          ggplot2::ylim(0, ylim_max) +
+          ggplot2::scale_fill_manual(
+            values = values
+          ) +
+          ggpubr::theme_pubr() +
+          ggplot2::theme(
+            axis.title.x = ggplot2::element_blank(),
+            legend.position = "none",
+            plot.title = ggplot2::element_text(hjust = 0.5),
+            plot.subtitle = ggplot2::element_text(hjust = 0.5),
+            text = ggplot2::element_text(size = plot_textsize)
+          ) #,
+        #% axis.ticks.x = element_blank(),
+        #% axis.text.x = element_blank())
+        #% print whole plot in return, otherwise it will fail
 
-      ggplot2::ggsave(
-        filename = filename,
-        plot = outplot,
-        device = "png",
-        height = plot_height,
-        width = plot_width,
-        dpi = 600
-      )
-
+        ggplot2::ggsave(
+          filename = filename,
+          plot = outplot,
+          device = "png",
+          height = plot_height,
+          width = plot_width,
+          dpi = 600
+        )
+      })
     }, 1:length_vector)
   } else {
     write_log(

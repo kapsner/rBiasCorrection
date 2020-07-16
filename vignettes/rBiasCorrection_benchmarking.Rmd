@@ -1,0 +1,85 @@
+---
+title: "rBiasCorrection: Benchnmarking"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{rBiasCorrection_benchmarking}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = TRUE
+)
+plotdir <- paste0(tempdir(), "/png/")
+csvdir <- paste0(tempdir(), "/csv/")
+dir.create(plotdir)
+dir.create(csvdir)
+
+# benchmarking times
+times <- 10
+```
+
+```{r}
+library(rBiasCorrection)
+
+samplelocusname <- "CDH1"
+seed <- 1234
+
+
+data.table::fwrite(
+  rBiasCorrection::example.data_experimental$dat,
+  paste0(tempdir(), "/experimental_data.csv")
+)
+data.table::fwrite(
+  rBiasCorrection::example.data_calibration$dat,
+  paste0(tempdir(), "/calibration_data.csv")
+)
+
+experimental <- paste0(tempdir(), "/experimental_data.csv")
+calibration <- paste0(tempdir(), "/calibration_data.csv")
+```
+
+
+# Sequential: 1 Core
+
+```{r results='hide', message=FALSE, warning=FALSE, error=FALSE}
+future::plan("sequential")
+
+microbenchmark::microbenchmark({
+  rBiasCorrection::biascorrection(
+    experimental = experimental,
+    calibration = calibration,
+    samplelocusname = samplelocusname,
+    plotdir = plotdir,
+    csvdir = csvdir,
+    seed = seed
+  )},
+  times = times
+)
+```
+
+# Parallel
+
+```{r results='hide', message=FALSE, warning=FALSE, error=FALSE}
+future::plan("multiprocess", workers = 4)
+
+microbenchmark::microbenchmark({
+  rBiasCorrection::biascorrection(
+    experimental = experimental,
+    calibration = calibration,
+    samplelocusname = samplelocusname,
+    plotdir = plotdir,
+    csvdir = csvdir,
+    seed = seed
+  )},
+  times = times
+)
+```

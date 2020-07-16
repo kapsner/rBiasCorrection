@@ -19,19 +19,27 @@ create_agg_df <- function(datatable,
                           index) {
   df <- datatable[, c("true_methylation", index), with = F]
   colnames(df)[2] <- "CpG"
-  df[, ("true_methylation") := as.numeric(
+
+  df_out <- df[, ("true_methylation") := as.numeric(
     as.character(
       get("true_methylation")
     )
   )]
-  return(
-    df[, mean(get("CpG"), na.rm = T), by = "true_methylation"
-       ][
-         , ("CpG") := get("V1")
-         ][
-           , ("V1") := NULL
-           ]
-  )
+
+  df_out <- df[
+    ,
+    list(
+      "CpG" = mean(get("CpG"), na.rm = T),
+      "sd" = stats::sd(get("CpG"), na.rm = T)
+    ),
+    by = "true_methylation"
+  ]
+
+  if (df_out[is.na(get("sd")), .N] == nrow(df_out)) {
+    df_out[, ("sd") := NULL]
+  }
+
+  return(df_out[!is.na(get("CpG")), ])
 }
 
 # create aggregated datatable for experimental data
@@ -41,23 +49,33 @@ create_agg_df_exp <- function(datatable,
   if (type == 1) {
     df <- datatable[, c("sample_id", index), with = F]
     colnames(df)[2] <- "CpG"
-    df <- df[, mean(get("CpG"), na.rm = T), by = "sample_id"
-             ][
-               , ("CpG") := get("V1")
-               ][
-                 , ("V1") := NULL
-                 ]
+
+    df_out <- df[
+      ,
+      list(
+        "CpG" = mean(get("CpG"), na.rm = T),
+        "sd" = stats::sd(get("CpG"), na.rm = T)
+      ),
+      by = "sample_id"
+    ]
   } else if (type == 2) {
     df <- datatable[, c("locus_id", index), with = F]
     colnames(df)[2] <- "CpG"
-    df <- df[, mean(get("CpG"), na.rm = T), by = "locus_id"
-             ][
-               , ("CpG") := get("V1")
-               ][
-                 , ("V1") := NULL
-                 ]
+    df_out <- df[
+      ,
+      list(
+        "CpG" = mean(get("CpG"), na.rm = T),
+        "sd" = stats::sd(get("CpG"), na.rm = T)
+      ),
+      by = "locus_id"
+    ]
   }
-  return(df)
+
+  if (df_out[is.na(get("sd")), .N] == nrow(df_out)) {
+    df_out[, ("sd") := NULL]
+  }
+
+  return(df_out[!is.na(get("CpG")), ])
 }
 
 #' @title solving_equations helper function
