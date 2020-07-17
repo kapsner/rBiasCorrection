@@ -1,7 +1,7 @@
 context("test BiasCorrection function")
 
 prefix <- "./"
-#" prefix <- "tests/testthat/"
+# prefix <- "tests/testthat/" # nolint
 
 library(data.table)
 
@@ -28,7 +28,7 @@ test_that(
     )
   )
   expect_length(list.files(plotdir), 50)
-  expect_length(list.files(csvdir), 11)
+  expect_length(list.files(csvdir), 13)
 
 
   # cleanup

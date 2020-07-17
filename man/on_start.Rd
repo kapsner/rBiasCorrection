@@ -4,7 +4,7 @@
 \alias{on_start}
 \title{on_start helper function}
 \usage{
-on_start(plotdir, csvdir, logfilename)
+on_start(plotdir, csvdir, logfilename, parallel)
 }
 \arguments{
 \item{plotdir}{A character string. Path to the folder,
@@ -15,6 +15,9 @@ where resulting tables are saved.}
 
 \item{logfilename}{A character string. Path to the logfile to save the log
 messages.}
+
+\item{parallel}{A boolean. If TRUE (default), initializing
+`future::plan("multiprocess")` before running the code.}
 }
 \description{
 Internal function, that initializes plotdir,

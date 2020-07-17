@@ -24,12 +24,14 @@
 #' @param csvdir A character string. Path to the folder,
 #'   where resulting tables are saved.
 #' @inheritParams clean_dt
+#' @inheritParams biascorrection
 #'
 #' @export
 #'
 on_start <- function(plotdir,
                      csvdir,
-                     logfilename) {
+                     logfilename,
+                     parallel) {
 
   if (dir.exists(plotdir)) {
     clean_up(plotdir, csvdir)
@@ -41,6 +43,12 @@ on_start <- function(plotdir,
 
   # initialize logfile here
   suppressMessages(suppressWarnings(file.create(logfilename)))
+
+  if (isTRUE(parallel)) {
+    suppressWarnings(future::plan("multiprocess"))
+  } else {
+    suppressWarnings(future::plan("sequential"))
+  }
 }
 
 #' @title clean_up helper function
@@ -52,6 +60,9 @@ on_start <- function(plotdir,
 #'
 clean_up <- function(plotdir,
                      csvdir) {
+  # activate sequential future
+  suppressWarnings(future::plan("sequential"))
+
   # on session end, remove plots and and all other files from tempdir
   do.call(file.remove, list(list.files(plotdir, full.names = TRUE)))
   unlink(plotdir, recursive = T)

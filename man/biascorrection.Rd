@@ -18,7 +18,8 @@ biascorrection(
   plot_height = 5,
   plot_width = 7.5,
   plot_textsize = 16,
-  seed = 1234
+  seed = 1234,
+  parallel = TRUE
 )
 }
 \arguments{
@@ -94,6 +95,9 @@ resulting plots (default: 16).}
 \item{seed}{A integer value. The seed used when solving the unknowns in the
 hyperbolic regression equation and the cubic regression equation.
 Important for reproducibility (default: 1234).}
+
+\item{parallel}{A boolean. If TRUE (default), initializing
+`future::plan("multiprocess")` before running the code.}
 }
 \value{
 This function is a wrapper around all of `rBiasCorrection`'s

@@ -48,34 +48,15 @@ calibration <- paste0(tempdir(), "/calibration_data.csv")
 ```
 
 
-# Sequential
+# Available Cores
 
-```{r results='hide', message=FALSE, warning=FALSE, error=FALSE}
-future::plan("sequential")
-
-results <- microbenchmark::microbenchmark({
-  rBiasCorrection::biascorrection(
-    experimental = experimental,
-    calibration = calibration,
-    samplelocusname = samplelocusname,
-    plotdir = plotdir,
-    csvdir = csvdir,
-    seed = seed
-  )},
-  times = times
-)
+```{r warning=FALSE}
+future::availableCores()
 ```
 
-```{r}
-results
-```
-
-
-# Parallel
+# Benchmarking
 
 ```{r results='hide', message=FALSE, warning=FALSE, error=FALSE}
-future::plan("multiprocess", workers = 4)
-
 results_multi <- microbenchmark::microbenchmark({
   rBiasCorrection::biascorrection(
     experimental = experimental,
@@ -88,7 +69,6 @@ results_multi <- microbenchmark::microbenchmark({
   times = times
 )
 ```
-
 
 ```{r}
 results_multi

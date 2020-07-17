@@ -76,6 +76,8 @@
 #' @param seed A integer value. The seed used when solving the unknowns in the
 #'   hyperbolic regression equation and the cubic regression equation.
 #'   Important for reproducibility (default: 1234).
+#' @param parallel A boolean. If TRUE (default), initializing
+#'   `future::plan("multiprocess")` before running the code.
 #'
 #' @inheritParams createbarerrorplots
 #'
@@ -112,7 +114,8 @@ biascorrection <- function(experimental,
                            plot_height = 5,
                            plot_width = 7.5,
                            plot_textsize = 16,
-                           seed = 1234) {
+                           seed = 1234,
+                           parallel = TRUE) {
 
   stopifnot(
     is.character(experimental),
@@ -131,7 +134,8 @@ biascorrection <- function(experimental,
     is.numeric(plot_height),
     is.numeric(plot_width),
     is.numeric(plot_textsize),
-    is.numeric(seed)
+    is.numeric(seed),
+    is.logical(parallel)
   )
 
   # fix directories to work with all functions
@@ -140,7 +144,7 @@ biascorrection <- function(experimental,
   csvdir <- gsub("([[:alnum:]])$", "\\1/", csvdir)
 
   # initialize some stuff
-  on_start(plotdir, csvdir, logfilename)
+  on_start(plotdir, csvdir, logfilename, parallel)
 
   # initialize our list for reactive values
   rv <- list()
@@ -177,6 +181,28 @@ biascorrection <- function(experimental,
 
     # write names of columns to rv
     rv$vec_cal <- cal_type_1[["vec_cal"]]
+
+    # calculate aggregated inputs
+    rv$aggregated_experimental <- aggregated_input(
+      datatable = rv$fileimport_experimental,
+      description = "experimental",
+      vec_cal = rv$vec_cal,
+      type = 1
+    )
+    # write aggregated data to file
+    write_csv(table = rv$aggregated_experimental,
+              filename = paste0(csvdir, "aggregated_experimental_data.csv"))
+
+    rv$aggregated_calibration <- aggregated_input(
+      datatable = rv$fileimport_calibration,
+      description = "calibration",
+      vec_cal = rv$vec_cal
+    )
+    # write aggregated data to file
+    write_csv(table = rv$aggregated_calibration,
+              filename = paste0(csvdir, "aggregated_calibration_data.csv"))
+
+
 
   } else if (type == 2) {
     return(paste0("The correction of PCR measurement ",
