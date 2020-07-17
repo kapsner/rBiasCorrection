@@ -14,7 +14,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.1.7.9003")
+my_desc$set_version("0.2.0")
 # The title of your package
 my_desc$set(Title = "A Package to Correct Bias in DNA Methylation Analyses")
 # The description of your package
@@ -43,7 +43,6 @@ usethis::use_package("R", min_version = "2.10", type="Depends")
 # Imports
 # https://cran.r-project.org/web/packages/data.table/vignettes/datatable-importing.html
 usethis::use_package("data.table", type="Imports")
-usethis::use_package("shiny", type="Imports")
 usethis::use_package("ggplot2", type="Imports")
 usethis::use_package("magrittr", type="Imports")
 usethis::use_package("polynom", type="Imports")
@@ -140,7 +139,16 @@ example.data_calibration <- rBiasCorrection::clean_dt(example.data_calibration,
                                                       1,
                                                       "./logfile.txt")
 file.remove("./logfile.txt")
-usethis::use_data(example.data_experimental, example.data_calibration, internal = F)
+
+example._plot.df_agg <- rBiasCorrection:::create_agg_df(
+  datatable = example.data_calibration$dat,
+  index = "CpG#1"
+)
+
+usethis::use_data(example.data_experimental, example.data_calibration,
+                  example._plot.df_agg,
+                  internal = F,
+                  overwrite = F)
 
 
 # BiasCorrection(experimental = "../19_PCR-bias/data/example_data/type1/example_data_type1_experimentaldata.csv", calibration = "../19_PCR-bias/data/example_data/type1/example_data_type1_calibrationdata.csv", samplelocusname = "Test")
@@ -148,5 +156,6 @@ usethis::use_data(example.data_experimental, example.data_calibration, internal 
 #lintr::lint_package()
 #styler::style_pkg()
 
+usethis::use_tidy_description()
 
 # TODO solve minmax cubic eq

@@ -155,6 +155,12 @@ create_exampleplot <- function(data,
                                plot_textsize,
                                filename) {
 
+  data <- data[
+    , ("ymin") := get("CpG") - get("sd")
+  ][
+    , ("ymax") := get("CpG") + get("sd")
+  ]
+
   lb1 <- c(paste0("  R\u00B2: \n  Hyperbolic = ",
                   round(coef_hyper$R2, 2),
                   "\n  Cubic = ",
@@ -181,6 +187,12 @@ create_exampleplot <- function(data,
                    hjust = 0, vjust = 1),
       label = lb1,
       parse = F
+    ) + ggplot2::geom_errorbar(
+      ggplot2::aes_string(
+        ymin = "ymin",
+        ymax = "ymax"
+      ),
+      width = 0.2
     )
 
   # create plot

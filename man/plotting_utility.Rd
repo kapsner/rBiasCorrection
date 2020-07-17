@@ -12,7 +12,6 @@ plotting_utility(
   locus_id = NULL,
   rv,
   mode = NULL,
-  headless = FALSE,
   plotdir,
   logfilename,
   minmax,
@@ -43,10 +42,6 @@ for the algorithms.}
 
 \item{mode}{A character string. Default: NULL. Used to indicate "corrected"
 calibration data.}
-
-\item{headless}{A logical (default: FALSE). Indicates, if the function is
-called from within a shiny app (default) or just from the console without
-a graphical user interface.}
 
 \item{plotdir}{A character string. Path to the folder,
 where plots are saved.}

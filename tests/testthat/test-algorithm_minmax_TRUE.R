@@ -17,6 +17,8 @@ test_that(
   desc = "algorithm test, type 1, minmax = TRUE",
   code = {
 
+    suppressWarnings(future::plan("multiprocess"))
+
     #"skip_on_cran()
 
     rv$minmax <- TRUE
@@ -47,7 +49,6 @@ test_that(
                                              locus_id = NULL,
                                              rv = rv,
                                              mode = NULL,
-                                             headless = TRUE,
                                              logfilename,
                                              minmax = rv$minmax,
                                              seed = rv$seed)
@@ -197,7 +198,6 @@ test_that(
       samplelocusname = rv$sample_locus_name,
       rv = rv,
       mode = "corrected",
-      headless = TRUE,
       logfilename = logfilename,
       minmax = rv$minmax,
       seed = rv$seed
@@ -278,7 +278,6 @@ test_that(
       samplelocusname = rv$sample_locus_name,
       rv = rv,
       mode = "corrected",
-      headless = TRUE,
       logfilename = logfilename,
       minmax = rv$minmax,
       seed = rv$seed
@@ -315,6 +314,8 @@ test_that(
   desc = "algorithm test, type 1, minmax = TRUE selection_method = RelError",
   code = {
 
+    suppressWarnings(future::plan("multiprocess"))
+
     #"skip_on_cran()
 
     rv$minmax <- TRUE
@@ -341,7 +342,6 @@ test_that(
                                              locus_id = NULL,
                                              rv = rv,
                                              mode = NULL,
-                                             headless = TRUE,
                                              logfilename,
                                              minmax = rv$minmax,
                                              seed = rv$seed)
@@ -386,7 +386,6 @@ test_that(
       samplelocusname = rv$sample_locus_name,
       rv = rv,
       mode = "corrected",
-      headless = TRUE,
       logfilename = logfilename,
       minmax = rv$minmax,
       seed = rv$seed
@@ -423,7 +422,6 @@ test_that(
       samplelocusname = rv$sample_locus_name,
       rv = rv,
       mode = "corrected",
-      headless = TRUE,
       logfilename = logfilename,
       minmax = rv$minmax,
       seed = rv$seed

@@ -10,7 +10,6 @@ createbarerrorplots(
   rv,
   type,
   locus_id = NULL,
-  headless = FALSE,
   plotdir,
   logfilename,
   mode = NULL,
@@ -37,10 +36,6 @@ in one sample, e.g. next-generation sequencing data or microarray data).}
 
 \item{locus_id}{A character string. Default: NULL. ID of the respective
 locus (only used in type 2 correction).}
-
-\item{headless}{A logical (default: FALSE). Indicates, if the function is
-called from within a shiny app (default) or just from the console without
-a graphical user interface.}
 
 \item{plotdir}{A character string. Path to the folder,
 where plots are saved.}

@@ -34,7 +34,6 @@ plotting_utility <- function(data,
                              locus_id = NULL,
                              rv,
                              mode = NULL,
-                             headless = FALSE,
                              plotdir,
                              logfilename,
                              minmax,
@@ -58,9 +57,20 @@ plotting_utility <- function(data,
   # get number of CpG-sites
   length_vector <- length(rv$vec_cal)
 
+  # get result_list
+  if (is.null(mode)) {
+    result_list <- rv$result_list
+  } else if (mode == "corrected_h") {
+    result_list <- rv$result_list_hyperbolic
+  } else if (mode == "corrected_c") {
+    result_list <- rv$result_list_cubic
+  }
+
+  vec_cal <- rv$vec_cal
+
   future.apply::future_Map(function(f) {
     local({
-      plotname <- paste0(gsub("[[:punct:]]", "", rv$vec_cal[f]))
+      plotname <- paste0(gsub("[[:punct:]]", "", vec_cal[f]))
 
       # filename-suffix
       fn_suffix <- ifelse(is.null(mode), "", paste0("_", mode))
@@ -105,26 +115,11 @@ plotting_utility <- function(data,
         logfilename = logfilename
       )
 
-      # workaround to hide shiny-stuff, when going headless
-      if (isFALSE(headless)) {
-        # Create a Progress object
-        progress <- shiny::Progress$new()
-        # Make sure it closes when we exit this reactive,
-        # even if there's an error
-        on.exit(progress$close())
-        progress$set(message = plotmessage, value = 0)
-
-        # Increment the progress bar, and update the detail text.
-        progress$inc(1 / 1, detail = paste("... working hard on plot",
-                                           f,
-                                           "of",
-                                           length_vector))
-      }
-
       # store plots to local temporary file
       create_plots(plotlist = plotlist_reg[[f]],
                    f = f,
-                   rv = rv,
+                   vec_cal = vec_cal,
+                   result_list = result_list,
                    filename = filename,
                    logfilename = logfilename,
                    mode = mode,
@@ -138,7 +133,8 @@ plotting_utility <- function(data,
 
 create_plots <- function(plotlist,
                          f,
-                         rv,
+                         vec_cal,
+                         result_list,
                          filename,
                          logfilename,
                          mode = NULL,
@@ -147,28 +143,15 @@ create_plots <- function(plotlist,
                          plot_width = 7.5,
                          plot_textsize = 16) {
 
-  # get coefficients
-  if (is.null(mode)) {
-    # hyperbolic parameters
-    coef_h <- rv$result_list[[rv$vec_cal[f]]][["Coef_hyper"]]
-    # cubic parameters
-    coef_c <- rv$result_list[[rv$vec_cal[f]]][["Coef_cubic"]]
-  } else if (mode == "corrected_h") {
-    # hyperbolic parameters
-    coef_h <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_hyper"]]
-    # cubic parameters
-    coef_c <- rv$result_list_hyperbolic[[rv$vec_cal[f]]][["Coef_cubic"]]
-  } else if (mode == "corrected_c") {
-    # hyperbolic parameters
-    coef_h <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_hyper"]]
-    # cubic parameters
-    coef_c <- rv$result_list_cubic[[rv$vec_cal[f]]][["Coef_cubic"]]
-  }
+  # hyperbolic parameters
+  coef_h <- result_list[[vec_cal[f]]][["Coef_hyper"]]
+  # cubic parameters
+  coef_c <- result_list[[vec_cal[f]]][["Coef_cubic"]]
 
   if (isFALSE(minmax)) {
 
     # create messages
-    message <- paste0("# CpG-site: ", rv$vec_cal[f])
+    message <- paste0("# CpG-site: ", vec_cal[f])
     msg2 <- paste("Hyperbolic: Using bias_weight =", coef_h$b,
                   ", a =", coef_h$a,
                   ", b =", coef_h$b,
@@ -176,7 +159,7 @@ create_plots <- function(plotlist,
     write_log(message = paste(message, msg2, sep = "\n"),
               logfilename = logfilename)
 
-    message <- paste0("# CpG-site: ", rv$vec_cal[f])
+    message <- paste0("# CpG-site: ", vec_cal[f])
     msg2 <- paste("Cubic: Using a =", coef_c$a,
                   ", b =", coef_c$b,
                   ", c =", coef_c$c,
@@ -194,7 +177,7 @@ create_plots <- function(plotlist,
 
   } else if (isTRUE(minmax)) {
     # create messages
-    message <- paste0("# CpG-site: ", rv$vec_cal[f])
+    message <- paste0("# CpG-site: ", vec_cal[f])
     msg2 <- paste("Hyperbolic: Using bias_weight =", coef_h$b,
                   ", y0 =", coef_h$y0,
                   ", y1 =", coef_h$y1,
@@ -203,7 +186,7 @@ create_plots <- function(plotlist,
     write_log(message = paste(message, msg2, sep = "\n"),
               logfilename = logfilename)
 
-    message <- paste0("# CpG-site: ", rv$vec_cal[f])
+    message <- paste0("# CpG-site: ", vec_cal[f])
     msg2 <- paste("Cubic: Using a =", coef_c$a,
                   ", b =", coef_c$b,
                   ", y0 =", coef_c$y0,
@@ -260,7 +243,6 @@ createbarerrorplots <- function(statstable_pre,
                                 rv,
                                 type,
                                 locus_id = NULL,
-                                headless = FALSE,
                                 plotdir,
                                 logfilename,
                                 mode = NULL,
@@ -303,13 +285,15 @@ createbarerrorplots <- function(statstable_pre,
     vec_cal <- stats_pre[, get("Name")]
     length_vector <- length(vec_cal)
 
+    sample_locus_name <- rv$sample_locus_name
+
     future.apply::future_Map(function(i) {
       local({
         plotname <- paste0(gsub("[[:punct:]]", "", vec_cal[i]))
 
         if (type == 1) {
           filename <- paste0(plotdir,
-                             rv$sample_locus_name,
+                             sample_locus_name,
                              "_",
                              "error_",
                              plotname,
@@ -320,7 +304,7 @@ createbarerrorplots <- function(statstable_pre,
           filename <- paste0(plotdir,
                              paste0(gsub("[[:punct:]]", "", locus_id)),
                              "-",
-                             rv$sample_locus_name,
+                             sample_locus_name,
                              "_",
                              "error_",
                              plotname,
@@ -338,24 +322,6 @@ createbarerrorplots <- function(statstable_pre,
           "value" = numeric(0),
           "regressiontype" = character(0)
         )
-
-        if (isFALSE(headless)) {
-          # Create a Progress object
-          progress <- shiny::Progress$new()
-          # Make sure it closes when we exit this reactive,
-          # even if there's an error
-          on.exit(progress$close())
-          progress$set(message = plotmessage, value = 0)
-
-          # Increment the progress bar, and update the detail text.
-          progress$inc(
-            1 / 1,
-            detail = paste("... working hard on barplot",
-                           i,
-                           "of",
-                           length_vector)
-          )
-        }
 
         # add relative error of corrected hyperbolic curve
 

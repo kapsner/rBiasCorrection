@@ -25,9 +25,6 @@
 #'   locus (only used in type 2 correction).
 #' @param rv A list object. A list that contains additional objects needed
 #'   for the algorithms.
-#' @param headless A logical (default: FALSE). Indicates, if the function is
-#'   called from within a shiny app (default) or just from the console without
-#'   a graphical user interface.
 #' @param mode A character string. Default: NULL. Used to indicate "corrected"
 #'   calibration data.
 #'
@@ -38,7 +35,6 @@ regression_utility <- function(data,
                                locus_id = NULL,
                                rv,
                                mode = NULL,
-                               headless = FALSE,
                                logfilename,
                                minmax,
                                seed = 1234) {
@@ -55,42 +51,16 @@ regression_utility <- function(data,
       logfilename = logfilename)
   }
 
-
-  # workaround to hide shiny-stuff, when going headless
-  if (isFALSE(headless)) {
-    # for plotting: basic idea and some code snippets from:
-    # https://gist.github.com/wch/5436415/
-    regression <- shiny::reactive({
-      regression_type1(datatable = data,
-                       vec_cal = rv$vec_cal,
-                       mode = mode,
-                       logfilename = logfilename,
-                       minmax = minmax,
-                       locus_id,
-                       locusname = rv$sample_locus_name,
-                       seed = seed)
-    })
-
-    shiny::withProgress(
-      message = "Calculating calibration curves",
-      value = 0,
-      expr = {
-        shiny::incProgress(1 / 1,
-                           detail = "... working on calculations ...")
-        # calculate results (if this is run here, j must be resetted)
-        regression_results <- regression()
-      }
-    )
-  } else {
-    regression_results <- regression_type1(datatable = data,
-                                           vec_cal = rv$vec_cal,
-                                           mode = mode,
-                                           logfilename = logfilename,
-                                           minmax = minmax,
-                                           locus_id,
-                                           locusname = rv$sample_locus_name,
-                                           seed = seed)
-  }
+  regression_results <- regression_type1(
+    datatable = data,
+    vec_cal = rv$vec_cal,
+    mode = mode,
+    logfilename = logfilename,
+    minmax = minmax,
+    locus_id,
+    locusname = rv$sample_locus_name,
+    seed = seed
+  )
 
   return(regression_results)
 }
