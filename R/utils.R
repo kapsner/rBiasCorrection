@@ -44,9 +44,17 @@ on_start <- function(plotdir,
   # initialize logfile here
   suppressMessages(suppressWarnings(file.create(logfilename)))
 
-  if (isTRUE(parallel)) {
+  if (isTRUE(parallel) && future::availableCores() > 1) {
+    write_log(
+      message = "on_start: using future::plan(\"multiprocess\")",
+      logfilename = logfilename
+    )
     suppressWarnings(future::plan("multiprocess"))
   } else {
+    write_log(
+      message = "on_start: using future::plan(\"sequential\")",
+      logfilename = logfilename
+    )
     suppressWarnings(future::plan("sequential"))
   }
 }

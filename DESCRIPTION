@@ -34,6 +34,7 @@ Suggests:
     testthat
 VignetteBuilder: 
     knitr
-Date/Publication: 2020-07-17 11:51:47 UTC
+Date/Publication: 2020-07-17 20:01:18 UTC
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.1.0

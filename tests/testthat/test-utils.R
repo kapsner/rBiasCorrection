@@ -9,11 +9,12 @@ test_that(
   desc = "correct functioning app utils",
   code = {
 
-    expect_silent(
+    expect_type(
       on_start(plotdir = paste0(prefix, "plotdir"),
                csvdir = paste0(prefix, "csvdir"),
                logfilename = paste0(prefix, "log.txt"),
-               parallel = TRUE)
+               parallel = TRUE),
+      type = "list"
     )
 
 
