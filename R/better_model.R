@@ -62,7 +62,6 @@
 #'   locus_id = NULL,
 #'   rv = rv,
 #'   mode = NULL,
-#'   headless = TRUE,
 #'   logfilename,
 #'   minmax = rv$minmax,
 #'   seed = rv$seed
