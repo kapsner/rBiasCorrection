@@ -5,7 +5,7 @@ output:
   rmarkdown::html_vignette:
     keep_md: true
 vignette: >
-  %\VignetteIndexEntry{rBiasCorrection_benchmarking}
+  %\VignetteIndexEntry{rBiasCorrection: Benchmarking}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
