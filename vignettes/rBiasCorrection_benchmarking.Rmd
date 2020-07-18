@@ -1,5 +1,5 @@
 ---
-title: "rBiasCorrection: Benchnmarking"
+title: "rBiasCorrection: Benchmarking"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
