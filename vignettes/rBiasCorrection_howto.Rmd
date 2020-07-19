@@ -74,7 +74,8 @@ rBiasCorrection::biascorrection(
   samplelocusname = samplelocusname,
   plotdir = plotdir,
   csvdir = csvdir,
-  seed = seed
+  seed = seed,
+  parallel = FALSE
 )
 ```
 
