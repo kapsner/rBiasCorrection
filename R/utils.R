@@ -35,7 +35,7 @@
 #' plotdir <- paste0(tempdir(), "/plots/")
 #' csvdir <- paste0(tempdir(), "/csv/")
 #' logfilename <- "log.txt"
-#' parallel <- TRUE
+#' parallel <- FALSE
 #'
 #' on_start(plotdir, csvdir, logfilename, parallel)
 #'
