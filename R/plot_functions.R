@@ -157,9 +157,9 @@ calibration_plot <- function(plotlist,
 #'   data = gdat,
 #'   coef_hyper = coef_h,
 #'   coef_cubic = coef_c,
-#'   plot_height = 10,
-#'   plot_width = 10,
-#'   plot_textsize = 20,
+#'   plot_height = 5,
+#'   plot_width = 7.5,
+#'   plot_textsize = 1,
 #'   filename = paste0(tempdir(), "/exampleplot.png")
 #' )
 #'
