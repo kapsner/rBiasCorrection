@@ -143,6 +143,25 @@ calibration_plot <- function(plotlist,
 #' @inheritParams calibration_plot
 #' @inheritParams regression_utility
 #' @inheritParams createbarerrorplots
+#' 
+#' @return The function creates an example plot and stores
+#'   on the local filesystem.
+#'
+#' @examples
+#  gdat <- rBiasCorrection::example._plot.df_agg
+#'
+#' coef_h <- rBiasCorrection::example._plot_coef_h
+#' coef_c <- rBiasCorrection::example._plot_coef_c
+#'
+#' create_exampleplot(
+#'   data = gdat,
+#'   coef_hyper = coef_h,
+#'   coef_cubic = coef_c,
+#'   plot_height = 10,
+#'   plot_width = 10,
+#'   plot_textsize = 20,
+#'   filename = paste0(tempdir(), "/exampleplot.png")
+#' )
 #'
 #' @export
 #'
