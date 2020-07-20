@@ -19,7 +19,25 @@ messages.}
 \item{parallel}{A boolean. If TRUE (default), initializing
 `future::plan("multiprocess")` before running the code.}
 }
+\value{
+This function silently creates the directories`plotdir` and `csvdir`
+  on the local filesystem and initializes the logfile, specified with
+  `logfilename`. Furthermore, if `parallel = TRUE`, the `future`-backend is
+  initialized.
+}
 \description{
 Internal function, that initializes plotdir,
   csvdir and logfilename.
+}
+\examples{
+plotdir <- paste0(tempdir(), "/plots/")
+csvdir <- paste0(tempdir(), "/csv/")
+logfilename <- "log.txt"
+parallel <- TRUE
+
+on_start(plotdir, csvdir, logfilename, parallel)
+
+}
+\seealso{
+\link[future]{plan}
 }

@@ -12,7 +12,18 @@ write_log(message, logfilename)
 \item{logfilename}{A character string. Path to the logfile to save the log
 messages.}
 }
+\value{
+The function prints the loggin message to the console and writes it
+  to the local logfile, specified with `logfilename`.
+}
 \description{
 Internal function to write log-messages to the file
   specified in logfilename.
+}
+\examples{
+message <- "This is a logmessage"
+logfilename <- "log.txt"
+
+write_log(message, logfilename)
+
 }

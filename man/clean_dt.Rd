@@ -20,8 +20,24 @@ in one sample, e.g. next-generation sequencing data or microarray data).}
 \item{logfilename}{A character string. Path to the logfile to save the log
 messages.}
 }
+\value{
+If a valid file is provided, the function returns a cleaned
+  data.table, suited for BiasCorrection.
+}
 \description{
 Internal function, that checks the formatting of imported
   files and prepares them to be applicable for the following pcr-bias
   correction steps.
+}
+\examples{
+logfilename <- "log.txt"
+cleaned_experimental <- clean_dt(
+  datatable = rBiasCorrection::example.data_experimental$dat,
+  description = "experimental",
+  type = 1,
+  logfilename = logfilename
+)
+dim(cleaned_experimental)
+class(cleaned_experimental)
+
 }

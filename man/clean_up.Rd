@@ -13,6 +13,21 @@ where plots are saved.}
 \item{csvdir}{A character string. Path to the folder,
 where resulting tables are saved.}
 }
+\value{
+This function silently cleans up the current session and removes
+  both, the `plotdir`- and the `csvdir`-folders. It furthermore resets
+  the `future`-backend to plan = "sequential".
+}
 \description{
 Internal function to clean up directories.
+}
+\examples{
+plotdir <- paste0(tempdir(), "/plots/")
+csvdir <- paste0(tempdir(), "/csv/")
+
+clean_up(plotdir, csvdir)
+
+}
+\seealso{
+\link[future]{plan}
 }

@@ -44,7 +44,6 @@ Internal function to select the better model between
   hyperbolic regression and cubic regression.
 }
 \examples{
-\donttest{
 # define list object to save all data
 rv <- list()
 rv$minmax <- TRUE
@@ -57,12 +56,12 @@ logfilename <- "log.txt"
 
 # import experimental file
 exp_type_1 <- rBiasCorrection::example.data_experimental
-rv$fileimport_experimental <- exp_type_1[["dat"]]
+rv$fileimport_experimental <- exp_type_1$dat
 
 # import calibration file
 cal_type_1 <- rBiasCorrection::example.data_calibration
-rv$fileimport_calibration <- cal_type_1[["dat"]]
-rv$vec_cal <- cal_type_1[["vec_cal"]]
+rv$fileimport_calibration <- cal_type_1$dat
+rv$vec_cal <- cal_type_1$vec_cal
 
 
 # perform regression
@@ -78,7 +77,7 @@ regression_results <- regression_utility(
 )
 
 # extract regression results
-rv$result_list <- regression_results[["result_list"]]
+rv$result_list <- regression_results$result_list
 
 # get regression statistics
 rv$reg_stats <- statistics_list(
@@ -90,6 +89,6 @@ rv$reg_stats <- statistics_list(
 rv$choices_list <- better_model(
   statstable_pre = rv$reg_stats,
   selection_method = "SSE"
-)}
+)
 
 }

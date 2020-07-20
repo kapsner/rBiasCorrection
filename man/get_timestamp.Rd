@@ -6,7 +6,18 @@
 \usage{
 get_timestamp()
 }
+\value{
+This function takes no argument and returns a formatted timestamp
+  of the current system time, which can be integrated e.g. into a filename.
+}
 \description{
 Internal function to get the current timestamp to
   write it to filenames.
+}
+\examples{
+get_timestamp()
+
+}
+\seealso{
+\link{Sys.time}
 }

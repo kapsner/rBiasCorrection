@@ -23,6 +23,9 @@ resulting plots (default: 16).}
 BiasCorrection (default: FALSE). If TRUE, equations are used that include
 the respective minima and maxima of the provided data.}
 }
+\value{
+The function returns a list containing calibration plots.
+}
 \description{
 Internal function to carry out the plotting of the
   calibrations curves.

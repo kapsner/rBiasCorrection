@@ -3,7 +3,6 @@
 export(aggregated_input)
 export(better_model)
 export(biascorrection)
-export(calibration_plot)
 export(clean_dt)
 export(clean_up)
 export(create_exampleplot)

@@ -11,6 +11,21 @@ write_csv(table, filename)
 
 \item{filename}{The file name (including the path) to store \code{table}.}
 }
+\value{
+This function silently writes a `data.table` object to a CSV file.
+}
 \description{
 Internal function to store the created tables in csv files.
+}
+\examples{
+table <- data.table::data.table(
+  a = stats::runif(1000),
+  b = stats::runif(1000)
+)
+
+write_csv(table, paste0(tempdir(), "/example.csv"))
+
+}
+\seealso{
+\link[data.table]{fwrite}
 }

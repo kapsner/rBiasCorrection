@@ -29,3 +29,27 @@ Internal function to present aggregated input data on which
   calculations are performed. This function does only have an effect, if
   repeated measurements are used for calibration a/o experimental data.
 }
+\examples{
+experimental <- rBiasCorrection::example.data_experimental
+calibration <- rBiasCorrection::example.data_calibration
+
+vec_cal <- calibration$vec_cal
+
+experimental_aggregated <- aggregated_input(
+  datatable = experimental$dat,
+  description = "experimental",
+  vec_cal = vec_cal,
+  type = 1
+)
+dim(experimental_aggregated)
+class(experimental_aggregated)
+
+calibration_aggregated <- aggregated_input(
+  datatable = calibration$dat,
+  description = "calibration",
+  vec_cal = vec_cal
+)
+dim(calibration_aggregated)
+class(calibration_aggregated)#'
+
+}

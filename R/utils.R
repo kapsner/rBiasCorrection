@@ -26,6 +26,21 @@
 #' @inheritParams clean_dt
 #' @inheritParams biascorrection
 #'
+#' @return This function silently creates the directories`plotdir` and `csvdir`
+#'   on the local filesystem and initializes the logfile, specified with
+#'   `logfilename`. Furthermore, if `parallel = TRUE`, the `future`-backend is
+#'   initialized.
+#'
+#' @examples
+#' plotdir <- paste0(tempdir(), "/plots/")
+#' csvdir <- paste0(tempdir(), "/csv/")
+#' logfilename <- "log.txt"
+#' parallel <- TRUE
+#'
+#' on_start(plotdir, csvdir, logfilename, parallel)
+#'
+#' @seealso \link[future]{plan}
+#'
 #' @export
 #'
 on_start <- function(plotdir,
@@ -64,6 +79,18 @@ on_start <- function(plotdir,
 #' @description Internal function to clean up directories.
 #' @inheritParams on_start
 #'
+#' @return This function silently cleans up the current session and removes
+#'   both, the `plotdir`- and the `csvdir`-folders. It furthermore resets
+#'   the `future`-backend to plan = "sequential".
+#'
+#' @examples
+#' plotdir <- paste0(tempdir(), "/plots/")
+#' csvdir <- paste0(tempdir(), "/csv/")
+#'
+#' clean_up(plotdir, csvdir)
+#'
+#' @seealso \link[future]{plan}
+#'
 #' @export
 #'
 clean_up <- function(plotdir,
@@ -87,6 +114,15 @@ clean_up <- function(plotdir,
 #' @param message A character string containing the log message.
 #' @inheritParams clean_dt
 #'
+#' @return The function prints the loggin message to the console and writes it
+#'   to the local logfile, specified with `logfilename`.
+#'
+#' @examples
+#' message <- "This is a logmessage"
+#' logfilename <- "log.txt"
+#'
+#' write_log(message, logfilename)
+#'
 #' @export
 #'
 # write log messages
@@ -106,6 +142,18 @@ write_log <- function(message, logfilename) {
 #' @param table A data.table object to store on the local file system
 #' @param filename The file name (including the path) to store \code{table}.
 #'
+#' @return This function silently writes a `data.table` object to a CSV file.
+#'
+#' @examples
+#' table <- data.table::data.table(
+#'   a = stats::runif(1000),
+#'   b = stats::runif(1000)
+#' )
+#'
+#' write_csv(table, paste0(tempdir(), "/example.csv"))
+#'
+#' @seealso \link[data.table]{fwrite}
+#'
 #' @export
 #'
 # write csv files
@@ -123,9 +171,16 @@ write_csv <- function(table, filename) {
 #' @description Internal function to get the current timestamp to
 #'   write it to filenames.
 #'
-#' @export
+#' @return This function takes no argument and returns a formatted timestamp
+#'   of the current system time, which can be integrated e.g. into a filename.
 #'
-# get timestamp
+#' @examples
+#' get_timestamp()
+#'
+#' @seealso \link{Sys.time}
+#'
+#' @export
+# get_timestamp
 get_timestamp <- function() {
   return(
     paste(gsub("\\-", "", substr(Sys.time(), 1, 10)),
@@ -150,6 +205,14 @@ sdm <- function(vector) {
 #' @description Internal function to initialize a data.table object
 #'   to store the substitutions.
 #'
+#' @return This function takes no argument and initializes an empty
+#'   `data.table` to hold the substituted values, if substitutions occur during
+#'   BiasCorrection.
+#'
+#' @examples
+#' substitutions <- substitutions_create()
+#' class(substitutions)
+#'
 #' @export
 #'
 # create substitutions dataframe
@@ -169,6 +232,13 @@ substitutions_create <- function() {
 #'
 #' @param textinput A character string with the textinput to perform these
 #'   predefined regular expressions on.
+#'
+#' @return This function returns a cleaned up character string, limited to a
+#'   maximum of 15 chars.
+#'
+#' @examples
+#' textinput <- "This is a dirty! text."
+#' handle_text_input(textinput)
 #'
 #' @export
 #'
