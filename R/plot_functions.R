@@ -27,8 +27,8 @@
 #'   the cubic regression equation.
 #' @inheritParams regression_utility
 #' @inheritParams createbarerrorplots
-#'
-#' @export
+#' 
+#' @return The function returns a list containing calibration plots.
 #'
 # calibration_plot
 calibration_plot <- function(plotlist,
