@@ -30,6 +30,18 @@
 #'   in one sample, e.g. next-generation sequencing data or microarray data).
 #' @param logfilename A character string. Path to the logfile to save the log
 #'   messages.
+#' 
+#' @return If a valid file is provided, the function returns a cleaned
+#'   data.table, suited for BiasCorrection.
+#' 
+#' @examples
+#' logfilename <- "log.txt"
+#' clean_dt(
+#'   datatable = rBiasCorrection::example.data_experimental$dat,
+#'   description = "experimental",
+#'   type = 1,
+#'   logfilename = logfilename
+#' )
 #'
 #' @export
 clean_dt <- function(datatable, description, type, logfilename) {
