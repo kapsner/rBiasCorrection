@@ -90,6 +90,71 @@ create_agg_df_exp <- function(datatable,
 #' @inheritParams clean_dt
 #' @inheritParams regression_utility
 #'
+#' @return This function solves the equations of the hyperbolic and the
+#'   cubic regression and returns the respectively interpolated values of the
+#'   provided `datatable`.
+#'
+#' @examples
+#' # define list object to save all data
+#' rv <- list()
+#' rv$minmax <- TRUE
+#' rv$selection_method <- "RelError"
+#' rv$sample_locus_name <- "Test"
+#' rv$seed <- 1234
+#'
+#' # define logfilename
+#' logfilename <- "log.txt"
+#'
+#' # import experimental file
+#' exp_type_1 <- rBiasCorrection::example.data_experimental
+#' rv$fileimport_experimental <- exp_type_1$dat
+#'
+#' # import calibration file
+#' cal_type_1 <- rBiasCorrection::example.data_calibration
+#' rv$fileimport_calibration <- cal_type_1$dat
+#' rv$vec_cal <- cal_type_1$vec_cal
+#'
+#'
+#' # perform regression
+#' regression_results <- regression_utility(
+#'   rv$fileimport_calibration,
+#'   "Testlocus",
+#'   locus_id = NULL,
+#'   rv = rv,
+#'   mode = NULL,
+#'   logfilename,
+#'   minmax = rv$minmax,
+#'   seed = rv$seed
+#' )
+#'
+#' # extract regression results
+#' rv$result_list <- regression_results$result_list
+#'
+#' # get regression statistics
+#' rv$reg_stats <- statistics_list(
+#'   rv$result_list,
+#'   minmax = TRUE
+#' )
+#'
+#' # select the better model based on the sum of squared errrors ("SSE")
+#' rv$choices_list <- better_model(
+#'   statstable_pre = rv$reg_stats,
+#'   selection_method = "SSE"
+#' )
+#'
+#' # correct calibration data (to show corrected calibration curves)
+#' solved_eq_h <- solving_equations(datatable = rv$fileimport_calibration,
+#'                                  regmethod = rv$choices_list,
+#'                                  type = 1,
+#'                                  rv = rv,
+#'                                  mode = "corrected",
+#'                                  logfilename = logfilename,
+#'                                  minmax = rv$minmax)
+#' rv$fileimport_cal_corrected_h <- solved_eq_h$results
+#' colnames(rv$fileimport_cal_corrected_h) <- colnames(
+#'   rv$fileimport_calibration
+#' )
+#'
 #' @export
 #'
 # perform fitting of regressions to experimental data
