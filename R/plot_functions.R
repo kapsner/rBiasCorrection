@@ -27,7 +27,7 @@
 #'   the cubic regression equation.
 #' @inheritParams regression_utility
 #' @inheritParams createbarerrorplots
-#' 
+#'
 #' @return The function returns a list containing calibration plots.
 #'
 # calibration_plot
@@ -143,12 +143,12 @@ calibration_plot <- function(plotlist,
 #' @inheritParams calibration_plot
 #' @inheritParams regression_utility
 #' @inheritParams createbarerrorplots
-#' 
+#'
 #' @return The function creates an example plot and stores
 #'   on the local filesystem.
 #'
 #' @examples
-#  gdat <- rBiasCorrection::example._plot.df_agg
+#' gdat <- rBiasCorrection::example._plot.df_agg
 #'
 #' coef_h <- rBiasCorrection::example._plot_coef_h
 #' coef_c <- rBiasCorrection::example._plot_coef_c
@@ -215,7 +215,7 @@ create_exampleplot <- function(data,
     )
 
   # create plot
-  outplot <- rBiasCorrection::calibration_plot(
+  outplot <- calibration_plot(
     plotlist = p,
     coef_hyper = coef_hyper,
     coef_cubic = coef_cubic,

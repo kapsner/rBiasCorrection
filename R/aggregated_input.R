@@ -33,7 +33,7 @@
 #'   vec_cal = vec_cal
 #' )
 #' dim(calibration_aggregated)
-#' class(calibration_aggregated)#'
+#' class(calibration_aggregated)
 #'
 #' @export
 #'

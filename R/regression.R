@@ -28,6 +28,43 @@
 #' @param mode A character string. Default: NULL. Used to indicate "corrected"
 #'   calibration data.
 #'
+#' @return The function performs the regression calculations and returns
+#'   the results in a list.
+#'
+#' @examples
+#' # define list object to save all data
+#' rv <- list()
+#' rv$minmax <- TRUE
+#' rv$selection_method <- "RelError"
+#' rv$sample_locus_name <- "Test"
+#' rv$seed <- 1234
+#'
+#' # define logfilename
+#' logfilename <- "log.txt"
+#'
+#' # import experimental file
+#' exp_type_1 <- rBiasCorrection::example.data_experimental
+#' rv$fileimport_experimental <- exp_type_1$dat
+#'
+#' # import calibration file
+#' cal_type_1 <- rBiasCorrection::example.data_calibration
+#' rv$fileimport_calibration <- cal_type_1$dat
+#' rv$vec_cal <- cal_type_1$vec_cal
+#'
+#' # perform regression
+#' regression_results <- regression_utility(
+#'   rv$fileimport_calibration,
+#'   "Testlocus",
+#'   locus_id = NULL,
+#'   rv = rv,
+#'   mode = NULL,
+#'   logfilename,
+#'   minmax = rv$minmax,
+#'   seed = rv$seed
+#' )
+#' length(regression_results)
+#' class(regression_results)
+#'
 #' @export
 #'
 regression_utility <- function(data,

@@ -50,6 +50,6 @@ calibration_aggregated <- aggregated_input(
   vec_cal = vec_cal
 )
 dim(calibration_aggregated)
-class(calibration_aggregated)#'
+class(calibration_aggregated)
 
 }

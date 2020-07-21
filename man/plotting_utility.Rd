@@ -62,7 +62,68 @@ resulting plots (default: 7.5).}
 \item{plot_textsize}{A integer value. The textsize of the
 resulting plots (default: 16).}
 }
+\value{
+This function creates calibration plots and writes them to the
+  local filesystem.
+}
 \description{
 Internal function to carry out the plotting of the
   calibrations curves.
+}
+\examples{
+# define list object to save all data
+rv <- list()
+rv$minmax <- TRUE
+rv$selection_method <- "RelError"
+rv$sample_locus_name <- "Test"
+rv$seed <- 1234
+
+# define logfilename
+logfilename <- "log.txt"
+
+# define plotdir
+rv$plotdir <- paste0(tempdir(), "/plots/")
+dir.create(rv$plotdir)
+
+# import experimental file
+exp_type_1 <- rBiasCorrection::example.data_experimental
+rv$fileimport_experimental <- exp_type_1$dat
+
+# import calibration file
+cal_type_1 <- rBiasCorrection::example.data_calibration
+rv$fileimport_calibration <- cal_type_1$dat
+rv$vec_cal <- cal_type_1$vec_cal
+
+
+# perform regression
+regression_results <- regression_utility(
+  rv$fileimport_calibration,
+  "Testlocus",
+  locus_id = NULL,
+  rv = rv,
+  mode = NULL,
+  logfilename,
+  minmax = rv$minmax,
+  seed = rv$seed
+)
+
+# extract the plotlist
+plotlist_reg <- regression_results$plot_list
+
+plotting_utility(
+  data = rv$fileimport_calibration,
+  plotlist_reg = plotlist_reg,
+  type = 1,
+  samplelocusname = rv$sample_locus_name,
+  locus_id = NULL,
+  rv = rv,
+  mode = NULL,
+  plotdir = rv$plotdir,
+  logfilename = logfilename,
+  minmax = rv$minmax,
+  plot_height = 5,
+  plot_width = 7.5,
+  plot_textsize = 1
+)
+
 }

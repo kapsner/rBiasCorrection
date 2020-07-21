@@ -17,11 +17,56 @@
 #' @title statistics_list helper function
 #'
 #' @description Internal function that converts the results_list (output of
-#'   \code{regressionUtility_()}) into a data.table object.
+#'   \code{regression_utility()}) into a data.table object.
 #'
 #' @param resultlist A list object. The results_list output of
-#'   \code{regressionUtility_()}.
+#'   \code{regression_utility()}.
 #' @inheritParams biascorrection
+#'
+#' @return The function takes the `resultslist` and converts it to a
+#'   statistics list, which is basically a `data.table` with the results
+#'   of the hyperbolic and the cubic regression.
+#'
+#' @examples
+#' # define list object to save all data
+#' rv <- list()
+#' rv$minmax <- TRUE
+#' rv$selection_method <- "RelError"
+#' rv$sample_locus_name <- "Test"
+#' rv$seed <- 1234
+#'
+#' # define logfilename
+#' logfilename <- "log.txt"
+#'
+#' # import experimental file
+#' exp_type_1 <- rBiasCorrection::example.data_experimental
+#' rv$fileimport_experimental <- exp_type_1$dat
+#'
+#' # import calibration file
+#' cal_type_1 <- rBiasCorrection::example.data_calibration
+#' rv$fileimport_calibration <- cal_type_1$dat
+#' rv$vec_cal <- cal_type_1$vec_cal
+#'
+#' # perform regression
+#' regression_results <- regression_utility(
+#'   rv$fileimport_calibration,
+#'   "Testlocus",
+#'   locus_id = NULL,
+#'   rv = rv,
+#'   mode = NULL,
+#'   logfilename,
+#'   minmax = rv$minmax,
+#'   seed = rv$seed
+#' )
+#'
+#' # extract regression results
+#' rv$result_list <- regression_results$result_list
+#'
+#' # get regression statistics
+#' rv$reg_stats <- statistics_list(
+#'   rv$result_list,
+#'   minmax = TRUE
+#' )
 #'
 #' @export
 #'

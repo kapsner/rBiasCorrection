@@ -36,6 +36,27 @@ resulting plots (default: 16).}
 \item{filename}{A character. The filename, where to
 store the resulting example plot.}
 }
+\value{
+The function creates an example plot and stores
+  on the local filesystem.
+}
 \description{
 Internal function to create an example plot.
+}
+\examples{
+gdat <- rBiasCorrection::example._plot.df_agg
+
+coef_h <- rBiasCorrection::example._plot_coef_h
+coef_c <- rBiasCorrection::example._plot_coef_c
+
+create_exampleplot(
+  data = gdat,
+  coef_hyper = coef_h,
+  coef_cubic = coef_c,
+  plot_height = 5,
+  plot_width = 7.5,
+  plot_textsize = 1,
+  filename = paste0(tempdir(), "/exampleplot.png")
+)
+
 }
