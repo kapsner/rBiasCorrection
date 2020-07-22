@@ -481,4 +481,6 @@ test_that(
       expect_known_hash(rv$fileimport_cal_corrected, "ff0a502640")
       expect_known_hash(rv$fileimport_cal_corrected, "248f22f000")
     }, class = "error", regexp = "ff0a502640|248f22f000") # 248f22f000
+
+    expect_true(file.remove(paste0(prefix, "log.txt")))
   })

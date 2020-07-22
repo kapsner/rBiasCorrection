@@ -64,6 +64,7 @@ This function creates error bar-plots to visualize the realitve
 Internal function to create relative-error bar plots.
 }
 \examples{
+\dontrun{
 # define list object to save all data
 rv <- list()
 rv$minmax <- TRUE
@@ -160,5 +161,6 @@ createbarerrorplots(
   plot_width = 7.5,
   plot_textsize = 1
 )
+}
 
 }

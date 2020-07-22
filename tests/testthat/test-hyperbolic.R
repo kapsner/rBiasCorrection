@@ -29,4 +29,6 @@ test_that(
       expect_known_hash(h1, "3578c7d484")
       expect_known_hash(h1, "bce2d004e7")
     }, class = "error", regexp = "3578c7d484|bce2d004e7") # bce2d004e7
+
+    expect_true(file.remove(paste0(prefix, "log.txt")))
   })

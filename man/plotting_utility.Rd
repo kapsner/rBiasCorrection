@@ -71,6 +71,7 @@ Internal function to carry out the plotting of the
   calibrations curves.
 }
 \examples{
+\dontrun{
 # define list object to save all data
 rv <- list()
 rv$minmax <- TRUE
@@ -125,5 +126,6 @@ plotting_utility(
   plot_width = 7.5,
   plot_textsize = 1
 )
+}
 
 }

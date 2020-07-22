@@ -15,3 +15,7 @@
 ^\.lintr$
 ^tic\.R$
 ^\.github$
+^.*\.txt$
+^cran-comments\.md$
+^vignettes/log\.txt$
+^tests/testthat/log\.txt$

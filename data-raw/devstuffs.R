@@ -21,7 +21,7 @@ my_desc$set(Title = "A Package to Correct Bias in DNA Methylation Analyses")
 my_desc$set(Description = paste0(
   "R implementation with minor modifications of the algorithms to correct ",
   "bias in quantitative DNA methylation analyses as described by ",
-  "Moskalev et. al (2011) <doi:10.1093/nar/gkr213>."
+  "Moskalev et al. (2011) <doi:10.1093/nar/gkr213>."
 ))
 # The description of your package
 my_desc$set("Date/Publication" = paste(as.character(Sys.time()), "UTC"))
@@ -60,6 +60,7 @@ usethis::use_package("future", type = "Imports")
 usethis::use_package("testthat", type = "Suggests")
 usethis::use_package("lintr", type = "Suggests")
 usethis::use_package("knitr", type = "Suggests")
+usethis::use_package("knitr", type = "rmarkdown")
 usethis::use_package("microbenchmark", type = "Suggests")
 
 
@@ -102,11 +103,14 @@ usethis::use_git_ignore("!/tic.R")
 usethis::use_build_ignore("csvdir")
 usethis::use_build_ignore("plotdir")
 usethis::use_build_ignore("log.txt")
+usethis::use_build_ignore("vignettes/log.txt")
+usethis::use_build_ignore("cran-comments.md")
 usethis::use_build_ignore("revdep")
 usethis::use_build_ignore("FAQ.md")
 usethis::use_build_ignore("FAQ.html")
 usethis::use_build_ignore("tests/testthat/csvdir")
 usethis::use_build_ignore("tests/testthat/plotdir")
+usethis::use_build_ignore("tests/testthat/log.txt")
 usethis::use_build_ignore(".vscode")
 usethis::use_build_ignore(".lintr")
 usethis::use_build_ignore("tic.R")

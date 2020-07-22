@@ -28,4 +28,7 @@ test_that(
   exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
   df_agg <- create_agg_df_exp(exp_type_2, colnames(exp_type_2)[2], type = 2)
   expect_known_hash(df_agg, "d042a19f13") # a98d2e8771
+
+
+  expect_true(file.remove(paste0(prefix, "log.txt")))
 })
