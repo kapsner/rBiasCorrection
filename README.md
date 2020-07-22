@@ -41,7 +41,7 @@ biascorrection(
 )
 ```
 
-More detailed information on how to use the package `rBiasCorrection` can be found in the [package vignette](vignettes/) and the [FAQs](FAQ.md).
+More detailed information on how to use the package `rBiasCorrection` can be found in the [package vignette](vignettes/) and the [FAQs](https://github.com/kapsner/rBiasCorrection/blob/master/FAQ.md).
 
 # BiasCorrector
 
