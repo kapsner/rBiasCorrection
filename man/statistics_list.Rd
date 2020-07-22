@@ -61,7 +61,7 @@ rv$result_list <- regression_results$result_list
 # get regression statistics
 rv$reg_stats <- statistics_list(
   rv$result_list,
-  minmax = TRUE
+  minmax = rv$minmax
 )
 
 }
