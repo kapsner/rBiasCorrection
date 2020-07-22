@@ -136,6 +136,10 @@
 #'   plot_width = 7.5,
 #'   plot_textsize = 1
 #' )
+#'
+#' # cleanup
+#' file.remove(logfilename)
+#'
 #' }
 #'
 #' @export
