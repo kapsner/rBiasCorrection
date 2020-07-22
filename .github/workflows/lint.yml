@@ -46,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - uses: r-lib/actions/setup-r@main
+      - uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
           Ncpus: 4
@@ -55,10 +55,10 @@ jobs:
       # Linux: ~ 1 min
       # macOS: ~ 1 min 30s
       # Windows: never finishes
-      - uses: r-lib/actions/setup-tinytex@main
+      - uses: r-lib/actions/setup-tinytex@master
         if: matrix.config.latex == 'true'
 
-      - uses: r-lib/actions/setup-pandoc@main
+      - uses: r-lib/actions/setup-pandoc@master
         if: matrix.config.latex == 'true'
 
       - uses: actions/setup-java@main
