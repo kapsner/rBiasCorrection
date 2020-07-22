@@ -40,4 +40,6 @@ cleaned_experimental <- clean_dt(
 dim(cleaned_experimental)
 class(cleaned_experimental)
 
+# cleanup
+file.remove(logfilename)
 }
