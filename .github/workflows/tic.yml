@@ -46,9 +46,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
 
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@main
         with:
           r-version: ${{ matrix.config.r }}
           Ncpus: 4
@@ -57,13 +57,13 @@ jobs:
       # Linux: ~ 1 min
       # macOS: ~ 1 min 30s
       # Windows: never finishes
-      - uses: r-lib/actions/setup-tinytex@master
+      - uses: r-lib/actions/setup-tinytex@main
         if: matrix.config.latex == 'true'
 
-      - uses: r-lib/actions/setup-pandoc@master
+      - uses: r-lib/actions/setup-pandoc@main
         if: matrix.config.latex == 'true'
 
-      - uses: actions/setup-java@master
+      - uses: actions/setup-java@main
         if: matrix.config.java == 'true'
         with:
           java-version: '8'
