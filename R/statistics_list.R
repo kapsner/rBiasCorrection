@@ -68,6 +68,9 @@
 #'   minmax = rv$minmax
 #' )
 #'
+#' # cleanup
+#' file.remove(logfilename)
+#'
 #' @export
 #'
 statistics_list <- function(resultlist,
