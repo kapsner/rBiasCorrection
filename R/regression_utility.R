@@ -65,6 +65,9 @@
 #' length(regression_results)
 #' class(regression_results)
 #'
+#' # cleanup
+#' file.remove(logfilename)
+#'
 #' @export
 #'
 regression_utility <- function(data,
