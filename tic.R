@@ -2,6 +2,5 @@
 do_package_checks()
 
 get_stage("install") %>%
-    add_code_step(remotes::update_packages(packages = "rmarkdown", upgrade = "always")) %>%
     add_code_step(devtools::install(".", upgrade = "always"))
 
