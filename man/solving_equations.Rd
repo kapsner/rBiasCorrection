@@ -110,4 +110,7 @@ colnames(rv$fileimport_cal_corrected_h) <- colnames(
   rv$fileimport_calibration
 )
 
+# cleanup
+file.remove(logfilename)
+
 }
