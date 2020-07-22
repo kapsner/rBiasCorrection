@@ -60,7 +60,7 @@ usethis::use_package("future", type = "Imports")
 usethis::use_package("testthat", type = "Suggests")
 usethis::use_package("lintr", type = "Suggests")
 usethis::use_package("knitr", type = "Suggests")
-usethis::use_package("knitr", type = "rmarkdown")
+usethis::use_package("rmarkdown", type = "Suggests")
 usethis::use_package("microbenchmark", type = "Suggests")
 
 

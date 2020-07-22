@@ -36,7 +36,7 @@
 #' rv$seed <- 1234
 #'
 #' # define logfilename
-#' logfilename <- "log.txt"
+#' logfilename <- paste0(tempdir(), "/log.txt")
 #'
 #' # import experimental file
 #' exp_type_1 <- rBiasCorrection::example.data_experimental
@@ -67,9 +67,6 @@
 #'   rv$result_list,
 #'   minmax = rv$minmax
 #' )
-#'
-#' # cleanup
-#' file.remove(logfilename)
 #'
 #' @export
 #'

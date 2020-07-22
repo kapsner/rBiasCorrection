@@ -32,7 +32,7 @@ rv$sample_locus_name <- "Test"
 rv$seed <- 1234
 
 # define logfilename
-logfilename <- "log.txt"
+logfilename <- paste0(tempdir(), "/log.txt")
 
 # import experimental file
 exp_type_1 <- rBiasCorrection::example.data_experimental

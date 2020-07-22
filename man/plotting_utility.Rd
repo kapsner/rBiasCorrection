@@ -80,7 +80,7 @@ rv$sample_locus_name <- "Test"
 rv$seed <- 1234
 
 # define logfilename
-logfilename <- "log.txt"
+logfilename <- paste0(tempdir(), "/log.txt")
 
 # define plotdir
 rv$plotdir <- paste0(tempdir(), "/plots/")
@@ -126,6 +126,7 @@ plotting_utility(
   plot_width = 7.5,
   plot_textsize = 1
 )
+
 }
 
 }

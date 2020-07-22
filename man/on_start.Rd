@@ -32,7 +32,7 @@ Internal function, that initializes plotdir,
 \examples{
 plotdir <- paste0(tempdir(), "/plots/")
 csvdir <- paste0(tempdir(), "/csv/")
-logfilename <- "log.txt"
+logfilename <- paste0(tempdir(), "/log.txt")
 parallel <- FALSE
 
 on_start(plotdir, csvdir, logfilename, parallel)

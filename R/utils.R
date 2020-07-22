@@ -34,7 +34,7 @@
 #' @examples
 #' plotdir <- paste0(tempdir(), "/plots/")
 #' csvdir <- paste0(tempdir(), "/csv/")
-#' logfilename <- "log.txt"
+#' logfilename <- paste0(tempdir(), "/log.txt")
 #' parallel <- FALSE
 #'
 #' on_start(plotdir, csvdir, logfilename, parallel)
@@ -119,7 +119,7 @@ clean_up <- function(plotdir,
 #'
 #' @examples
 #' message <- "This is a logmessage"
-#' logfilename <- "log.txt"
+#' logfilename <- paste0(tempdir(), "/log.txt")
 #'
 #' write_log(message, logfilename)
 #'

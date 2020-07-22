@@ -37,7 +37,7 @@
 #' rv$seed <- 1234
 #'
 #' # define logfilename
-#' logfilename <- "log.txt"
+#' logfilename <- paste0(tempdir(), "/log.txt")
 #'
 #' # define plotdir
 #' rv$plotdir <- paste0(tempdir(), "/plots/")
@@ -83,9 +83,6 @@
 #'   plot_width = 7.5,
 #'   plot_textsize = 1
 #' )
-#'
-#' # cleanup
-#' file.remove(logfilename)
 #'
 #' }
 #'

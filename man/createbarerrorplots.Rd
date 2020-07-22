@@ -77,7 +77,7 @@ rv$plotdir <- paste0(tempdir(), "/plots/")
 dir.create(rv$plotdir)
 
 # define logfilename
-logfilename <- "log.txt"
+logfilename <- paste0(tempdir(), "/log.txt")
 
 # import experimental file
 exp_type_1 <- rBiasCorrection::example.data_experimental
@@ -161,6 +161,7 @@ createbarerrorplots(
   plot_width = 7.5,
   plot_textsize = 1
 )
+
 }
 
 }

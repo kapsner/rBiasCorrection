@@ -35,7 +35,7 @@
 #'   data.table, suited for BiasCorrection.
 #'
 #' @examples
-#' logfilename <- "log.txt"
+#' logfilename <- paste0(tempdir(), "/log.txt")
 #' cleaned_experimental <- clean_dt(
 #'   datatable = rBiasCorrection::example.data_experimental$dat,
 #'   description = "experimental",
@@ -45,10 +45,8 @@
 #' dim(cleaned_experimental)
 #' class(cleaned_experimental)
 #'
-#' # cleanup
-#' file.remove(logfilename)
-#'
 #' @export
+#'
 clean_dt <- function(datatable, description, type, logfilename) {
   write_log(message = "Entered 'clean_dt'-Function",
             logfilename = logfilename)

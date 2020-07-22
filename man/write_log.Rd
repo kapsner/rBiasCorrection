@@ -22,7 +22,7 @@ Internal function to write log-messages to the file
 }
 \examples{
 message <- "This is a logmessage"
-logfilename <- "log.txt"
+logfilename <- paste0(tempdir(), "/log.txt")
 
 write_log(message, logfilename)
 

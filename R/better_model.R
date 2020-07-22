@@ -42,7 +42,7 @@
 #' rv$seed <- 1234
 #'
 #' # define logfilename
-#' logfilename <- "log.txt"
+#' logfilename <- paste0(tempdir(), "/log.txt")
 #'
 #' # import experimental file
 #' exp_type_1 <- rBiasCorrection::example.data_experimental
@@ -80,9 +80,6 @@
 #'   statstable_pre = rv$reg_stats,
 #'   selection_method = "SSE"
 #' )
-#'
-#' # cleanup
-#' file.remove(logfilename)
 #'
 #' @export
 #'

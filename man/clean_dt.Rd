@@ -30,7 +30,7 @@ Internal function, that checks the formatting of imported
   correction steps.
 }
 \examples{
-logfilename <- "log.txt"
+logfilename <- paste0(tempdir(), "/log.txt")
 cleaned_experimental <- clean_dt(
   datatable = rBiasCorrection::example.data_experimental$dat,
   description = "experimental",
@@ -40,6 +40,4 @@ cleaned_experimental <- clean_dt(
 dim(cleaned_experimental)
 class(cleaned_experimental)
 
-# cleanup
-file.remove(logfilename)
 }
