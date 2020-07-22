@@ -45,6 +45,9 @@
 #' dim(cleaned_experimental)
 #' class(cleaned_experimental)
 #'
+#' # cleanup
+#' file.remove(logfilename)
+#'
 #' @export
 clean_dt <- function(datatable, description, type, logfilename) {
   write_log(message = "Entered 'clean_dt'-Function",
