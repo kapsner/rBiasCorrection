@@ -83,4 +83,6 @@ regression_results <- regression_utility(
 length(regression_results)
 class(regression_results)
 
+# cleanup
+file.remove(logfilename)
 }
