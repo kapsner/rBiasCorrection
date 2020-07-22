@@ -81,6 +81,9 @@
 #'   selection_method = "SSE"
 #' )
 #'
+#' # cleanup
+#' file.remove(logfilename)
+#'
 #' @export
 #'
 better_model <- function(statstable_pre,
