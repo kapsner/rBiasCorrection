@@ -91,4 +91,6 @@ rv$choices_list <- better_model(
   selection_method = "SSE"
 )
 
+# cleanup
+file.remove(logfilename)
 }
