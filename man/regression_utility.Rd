@@ -32,7 +32,7 @@ for the algorithms.}
 calibration data.}
 
 \item{logfilename}{A character string. Path to a file to save the log
-messages. Default = "./log.txt"}
+messages (default = paste0(tempdir(), "/log.txt")).}
 
 \item{minmax}{A logical, indicating which equations are used for
 BiasCorrection (default: FALSE). If TRUE, equations are used that include

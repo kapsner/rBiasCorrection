@@ -12,9 +12,9 @@ biascorrection(
   correct_method = "best",
   selection_method = "SSE",
   type = 1,
-  csvdir = "./csvdir",
-  plotdir = "./plotdir",
-  logfilename = "./log.txt",
+  csvdir = paste0(tempdir(), "/csvdir/"),
+  plotdir = paste0(tempdir(), "/plotdir/"),
+  logfilename = paste0(tempdir(), "/log.txt"),
   plot_height = 5,
   plot_width = 7.5,
   plot_textsize = 16,
@@ -71,17 +71,17 @@ locus in many samples, e.g. pyrosequencing data) or "2" (many loci in one
 sample, e.g. next-generation sequencing data or microarray data).}
 
 \item{csvdir}{A character string. Directory to store the resulting tables.
-Default = "./csvdir". CAUTION: This directory will be newly created on
-every call of the function. Any preexisting files will be deleted without
-a warning.}
+(default = paste0(tempdir(), "/plotdir/")). CAUTION: This directory will
+be newly created on every call of the function - any preexisting files will
+be deleted without a warning.}
 
-\item{plotdir}{A character string. Directory to store the resulting plots.
-Default = "./plotdir". CAUTION: This directory will be newly created on
-every call of the function. Any preexisting files will be deleted without
-a warning.}
+\item{plotdir}{A character string. Directory to store the resulting plots
+(default = paste0(tempdir(), "/plotdir/")). CAUTION: This directory will
+be newly created on every call of the function - any preexisting files will
+be deleted without a warning.}
 
 \item{logfilename}{A character string. Path to a file to save the log
-messages. Default = "./log.txt"}
+messages (default = paste0(tempdir(), "/log.txt")).}
 
 \item{plot_height}{A integer value. The height (unit: inch) of the
 resulting plots (default: 5).}
@@ -96,7 +96,7 @@ resulting plots (default: 16).}
 hyperbolic regression equation and the cubic regression equation.
 Important for reproducibility (default: 1234).}
 
-\item{parallel}{A boolean. If TRUE (default), initializing
+\item{parallel}{A boolean. If TRUE (the default value), initializing
 `future::plan("multiprocess")` before running the code.}
 }
 \value{

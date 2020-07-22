@@ -16,7 +16,7 @@ where resulting tables are saved.}
 \item{logfilename}{A character string. Path to the logfile to save the log
 messages.}
 
-\item{parallel}{A boolean. If TRUE (default), initializing
+\item{parallel}{A boolean. If TRUE (the default value), initializing
 `future::plan("multiprocess")` before running the code.}
 }
 \value{
