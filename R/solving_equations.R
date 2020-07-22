@@ -91,6 +91,10 @@
 #'   rv$fileimport_calibration
 #' )
 #'
+#' # cleanup
+#' file.remove(logfilename)
+#'
+#'
 #' @export
 #'
 # perform fitting of regressions to experimental data
