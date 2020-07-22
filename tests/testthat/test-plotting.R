@@ -197,5 +197,49 @@ test_that(
     # cleanup
     expect_silent(clean_up(plotdir = plotdir,
                            csvdir = csvdir))
+  })
+
+
+test_that(
+  desc = "create_exampleplot",
+  code = {
+
+    #"skip_on_cran()
+
+    rv$minmax <- FALSE
+    rv$sample_locus_name <- "Test"
+    rv$seed <- 1234
+
+    # create plotdir
+    plotdir <- paste0(prefix, "plotdir/")
+    csvdir <- paste0(prefix, "csvdir/")
+
+    on_start(plotdir = plotdir,
+             csvdir = csvdir,
+             logfilename = paste0(prefix, "log.txt"),
+             parallel = FALSE)
+
+    gdat <- rBiasCorrection::example._plot.df_agg
+
+    coef_h <- rBiasCorrection::example._plot_coef_h
+    coef_c <- rBiasCorrection::example._plot_coef_c
+
+    virtual_list <- create_exampleplot(
+      data = gdat,
+      coef_hyper = coef_h,
+      coef_cubic = coef_c,
+      plot_height = 5,
+      plot_width = 7.5,
+      plot_textsize = 1,
+      filename = paste0(plotdir, "/exampleplot.png")
+    )
+    expect_null(virtual_list)
+
+
+    expect_length(list.files(plotdir), 1)
+
+    # cleanup
+    expect_silent(clean_up(plotdir = plotdir,
+                           csvdir = csvdir))
     expect_true(file.remove(paste0(prefix, "log.txt")))
   })
