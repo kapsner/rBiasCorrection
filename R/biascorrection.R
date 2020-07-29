@@ -108,7 +108,8 @@
 #' results <- biascorrection(
 #'   experimental = experimental,
 #'   calibration = calibration,
-#'   samplelocusname = "BRAF"
+#'   samplelocusname = "BRAF",
+#'   parallel = FALSE
 #' )
 #' }
 #'
