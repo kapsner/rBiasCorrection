@@ -128,10 +128,11 @@ data.table::fwrite(
 experimental <- paste0(tempdir(), "/experimental_data.csv")
 calibration <- paste0(tempdir(), "/calibration_data.csv")
 
-biascorrection(
+results <- biascorrection(
   experimental = experimental,
   calibration = calibration,
-  samplelocusname = "BRAF"
+  samplelocusname = "BRAF",
+  parallel = FALSE
 )
 }
 
