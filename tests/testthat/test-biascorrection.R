@@ -1,6 +1,6 @@
 context("test BiasCorrection function")
 
-prefix <- "./"
+prefix <- tempdir()
 # prefix <- "tests/testthat/" # nolint
 
 library(data.table)
@@ -9,13 +9,13 @@ test_that(
   desc = "correct functioning of BiasCorrection, data type 1",
   code = {
 
-  plotdir <- paste0(prefix, "plotdir")
-  csvdir <- paste0(prefix, "csvdir")
+  plotdir <- paste0(prefix, "/plotdir/")
+  csvdir <- paste0(prefix, "/csvdir/")
 
-  expect_true(
+  expect_type(
     biascorrection(
-      experimental = paste0(prefix, "testdata/exp_type_1.csv"),
-      calibration = paste0(prefix, "testdata/cal_type_1.csv"),
+      experimental = "./testdata/exp_type_1.csv",
+      calibration = "./testdata/cal_type_1.csv",
       samplelocusname = "Testlocus",
       minmax = FALSE,
       correct_method = "best",
@@ -23,9 +23,10 @@ test_that(
       type = 1,
       plotdir = plotdir,
       csvdir = csvdir,
-      logfilename = paste0(prefix, "log.txt"),
+      logfilename = paste0(prefix, "/log.txt"),
       seed = 1234
-    )
+    ),
+    "list"
   )
   expect_length(list.files(plotdir), 50)
   expect_length(list.files(csvdir), 13)
@@ -34,5 +35,5 @@ test_that(
   # cleanup
   expect_silent(clean_up(plotdir = plotdir,
                          csvdir = csvdir))
-  expect_true(file.remove(paste0(prefix, "log.txt")))
+  expect_true(file.remove(paste0(prefix, "/log.txt")))
 })

@@ -17,8 +17,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-dir.create("./png/")
-dir.create("./csv/")
 ```
 
 ```{r setup}
@@ -41,8 +39,11 @@ First of all, some variables need to be defined. These include:
 - `csvdir`: a folder, where the resulting tables should be stored  
 
 ```{r}
-plotdir <- "./png/"
-csvdir <- "./csv/"
+plotdir <- paste0(tempdir(), "/png/")
+csvdir <- paste0(tempdir(), "/csv/")
+dir.create(plotdir)
+dir.create(csvdir)
+
 samplelocusname <- "CDH1"
 seed <- 1234
 ```
@@ -52,15 +53,15 @@ For demonstration purposes, we will here correct experimental biases in only one
 ```{r include=FALSE}
 cols <- c("sample_id", "CpG#1")
 temp_file <- rBiasCorrection::example.data_experimental$dat[, cols, with = F]
-data.table::fwrite(temp_file, "./experimental_data.csv")
+data.table::fwrite(temp_file, paste0(tempdir(), "/experimental_data.csv"))
 cols <- c("true_methylation", "CpG#1")
 temp_file <- rBiasCorrection::example.data_calibration$dat[, cols, with = F]
-data.table::fwrite(temp_file, "./calibration_data.csv")
+data.table::fwrite(temp_file, paste0(tempdir(), "/calibration_data.csv"))
 ```
 
 ```{r}
-experimental <- "./experimental_data.csv"
-calibration <- "./calibration_data.csv"
+experimental <- paste0(tempdir(), "/experimental_data.csv")
+calibration <- paste0(tempdir(), "/calibration_data.csv")
 ```
 
 # Conduct the correction of experimental biases  
@@ -181,5 +182,5 @@ knitr::include_graphics(paste0(plotdir, "CDH1_CpG1.png"))
 
 Furthermore, corrected calibration plots and error plots are drawn. The corrected calibration plots show the theoretical regression curve after bias correction. There is one plot for each regression method and CpG site. Additionally, error plots show the efficiency of the bias correction by presenting the relative errors before and after correction.  
 
-![](./png/CDH1_CpG1_corrected_c.png){width=40%} ![](./png/CDH1_CpG1_corrected_h.png){width=40%}
-![](./png/CDH1_error_CpG1_corrected_c.png){width=40%} ![](./png/CDH1_error_CpG1_corrected_h.png){width=40%}
+![](`r tempdir()`/png/CDH1_CpG1_corrected_c.png){width=40%} ![](`r tempdir()`/png/CDH1_CpG1_corrected_h.png){width=40%}
+![](`r tempdir()`/png/CDH1_error_CpG1_corrected_c.png){width=40%} ![](`r tempdir()`/png/CDH1_error_CpG1_corrected_h.png){width=40%}

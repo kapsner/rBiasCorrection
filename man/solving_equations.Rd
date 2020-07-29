@@ -50,6 +50,7 @@ This function solves the equations of the hyperbolic and the
 Internal function to solve the hyperbolic and cubic regression.
 }
 \examples{
+\donttest{
 # define list object to save all data
 rv <- list()
 rv$minmax <- TRUE
@@ -109,5 +110,6 @@ rv$fileimport_cal_corrected_h <- solved_eq_h$results
 colnames(rv$fileimport_cal_corrected_h) <- colnames(
   rv$fileimport_calibration
 )
+}
 
 }

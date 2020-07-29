@@ -1,10 +1,10 @@
 context("test plotting")
 
-prefix <- "./"
+prefix <- tempdir()
 # prefix <- "tests/testthat/" # nolint
 
 # the writeLog-function needs the logfilename
-logfilename <- paste0(prefix, "log.txt")
+logfilename <- paste0(prefix, "/log.txt")
 
 # initialize our list for reactive values
 rv <- list()
@@ -24,23 +24,23 @@ test_that(
     rv$seed <- 1234
 
     # create plotdir
-    plotdir <- paste0(prefix, "plotdir/")
-    csvdir <- paste0(prefix, "csvdir/")
+    plotdir <- paste0(prefix, "/plotdir/")
+    csvdir <- paste0(prefix, "/csvdir/")
 
     on_start(plotdir = plotdir,
              csvdir = csvdir,
-             logfilename = paste0(prefix, "log.txt"),
+             logfilename = paste0(prefix, "/log.txt"),
              parallel = FALSE)
 
     # experimental data
-    exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
+    exp_type_1 <- rBiasCorrection::example.data_experimental$dat
     rv$fileimport_experimental <- clean_dt(exp_type_1,
                                            "experimental",
                                            1,
                                            logfilename)[["dat"]]
 
     # calibration data
-    cal_type_1 <- fread(paste0(prefix, "testdata/cal_type_1.csv"))
+    cal_type_1 <- rBiasCorrection::example.data_calibration$dat
     cal_type_1 <- clean_dt(cal_type_1, "calibration", 1, logfilename)
     rv$fileimport_calibration <- cal_type_1[["dat"]]
     rv$vec_cal <- cal_type_1[["vec_cal"]]
@@ -97,23 +97,23 @@ test_that(
     rv$seed <- 1234
 
     # create plotdir
-    plotdir <- paste0(prefix, "plotdir/")
-    csvdir <- paste0(prefix, "csvdir/")
+    plotdir <- paste0(prefix, "/plotdir/")
+    csvdir <- paste0(prefix, "/csvdir/")
 
     on_start(plotdir = plotdir,
              csvdir = csvdir,
-             logfilename = paste0(prefix, "log.txt"),
+             logfilename = paste0(prefix, "/log.txt"),
              parallel = FALSE)
 
     # experimental data
-    exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
+    exp_type_1 <- rBiasCorrection::example.data_experimental$dat
     rv$fileimport_experimental <- clean_dt(exp_type_1,
                                            "experimental",
                                            1,
                                            logfilename)[["dat"]]
 
     # calibration data
-    cal_type_1 <- fread(paste0(prefix, "testdata/cal_type_1.csv"))
+    cal_type_1 <- rBiasCorrection::example.data_calibration$dat
     cal_type_1 <- clean_dt(cal_type_1, "calibration", 1, logfilename)
     rv$fileimport_calibration <- cal_type_1[["dat"]]
     rv$vec_cal <- cal_type_1[["vec_cal"]]
@@ -211,12 +211,12 @@ test_that(
     rv$seed <- 1234
 
     # create plotdir
-    plotdir <- paste0(prefix, "plotdir/")
-    csvdir <- paste0(prefix, "csvdir/")
+    plotdir <- paste0(prefix, "/plotdir/")
+    csvdir <- paste0(prefix, "/csvdir/")
 
     on_start(plotdir = plotdir,
              csvdir = csvdir,
-             logfilename = paste0(prefix, "log.txt"),
+             logfilename = paste0(prefix, "/log.txt"),
              parallel = FALSE)
 
     gdat <- rBiasCorrection::example._plot.df_agg
@@ -241,5 +241,5 @@ test_that(
     # cleanup
     expect_silent(clean_up(plotdir = plotdir,
                            csvdir = csvdir))
-    expect_true(file.remove(paste0(prefix, "log.txt")))
+    expect_true(file.remove(paste0(prefix, "/log.txt")))
   })

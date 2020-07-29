@@ -28,16 +28,22 @@ This is a basic example which shows you how to correct PCR-bias in quantitative 
 
 ```r
 library(rBiasCorrection)
+data.table::fwrite(
+  rBiasCorrection::example.data_experimental$dat,
+  paste0(tempdir(), "/experimental_data.csv")
+)
+data.table::fwrite(
+  rBiasCorrection::example.data_calibration$dat,
+  paste0(tempdir(), "/calibration_data.csv")
+)
+experimental <- paste0(tempdir(), "/experimental_data.csv")
+calibration <- paste0(tempdir(), "/calibration_data.csv")
+
+
 biascorrection(
-    experimental = system.file(
-        "tests/testthat/testdata/exp_type_1.csv",
-        package = "rBiasCorrection"
-    ),
-    calibration = system.file(
-        "tests/testthat/testdata/cal_type_1.csv",
-        package = "rBiasCorrection"
-    ),
-    samplelocusname = "BRAF"
+  experimental = experimental,
+  calibration = calibration,
+  samplelocusname = "BRAF"
 )
 ```
 

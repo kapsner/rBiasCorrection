@@ -137,7 +137,7 @@ regression_type1 <- function(datatable,
           index = i
         )
 
-        print(df_agg)
+        message(df_agg)
         write_log(
           message = paste("Logging df_agg:", i),
           logfilename = logfilename

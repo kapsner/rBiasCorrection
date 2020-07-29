@@ -127,7 +127,7 @@ clean_up <- function(plotdir,
 #'
 # write log messages
 write_log <- function(message, logfilename) {
-  print(paste0("[", get_timestamp(), "]: ", message))
+  message(paste0("[", get_timestamp(), "]: ", message))
   message_out <- paste0("===========================================  \n",
                         "[Timestamp: ", get_timestamp(), "]  \n  \n",
                         message, "  \n  \n")

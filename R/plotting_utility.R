@@ -28,7 +28,7 @@
 #'   local filesystem.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # define list object to save all data
 #' rv <- list()
 #' rv$minmax <- TRUE
@@ -83,7 +83,6 @@
 #'   plot_width = 7.5,
 #'   plot_textsize = 1
 #' )
-#'
 #' }
 #'
 #' @export

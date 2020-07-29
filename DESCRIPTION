@@ -1,18 +1,19 @@
 Package: rBiasCorrection
-Title: A Package to Correct Bias in DNA Methylation Analyses
+Title: Correct Bias in DNA Methylation Analyses
 Version: 0.2.1
 Authors@R: 
     c(person(given = "Lorenz A.",
              family = "Kapsner",
-             role = c("cre", "aut"),
+             role = c("cre", "aut", "cph"),
              email = "lorenz.kapsner@gmail.com",
              comment = c(ORCID = "0000-0003-1866-860X")),
       person(given = "Evgeny A.",
              family = "Moskalev",
              role = "aut"))
-Description: R implementation with minor modifications of the
-    algorithms to correct bias in quantitative DNA methylation analyses as
-    described by Moskalev et al. (2011) <doi:10.1093/nar/gkr213>.
+Description: Implementation of the algorithms (with minor
+    modifications) to correct bias in quantitative DNA methylation
+    analyses as described by Moskalev et al. (2011)
+    <doi:10.1093/nar/gkr213>.
 License: GPL-3
 URL: https://github.com/kapsner/rBiasCorrection
 BugReports: https://github.com/kapsner/rBiasCorrection/issues
@@ -36,7 +37,7 @@ Suggests:
     testthat
 VignetteBuilder: 
     knitr
-Date/Publication: 2020-07-22 20:24:24 UTC
+Date/Publication: 2020-07-29 20:04:02 UTC
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

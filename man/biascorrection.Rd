@@ -116,10 +116,23 @@ This function implements the algorithms described by
   (\url{https://doi.org/10.1093/nar/gkr213}).
 }
 \examples{
-\dontrun{
-biascorrection("type1_experimentaldata.csv",
-               "type1_calibrationdata.csv",
-               samplelocusname = "BRAF")
+\donttest{
+data.table::fwrite(
+  rBiasCorrection::example.data_experimental$dat,
+  paste0(tempdir(), "/experimental_data.csv")
+)
+data.table::fwrite(
+  rBiasCorrection::example.data_calibration$dat,
+  paste0(tempdir(), "/calibration_data.csv")
+)
+experimental <- paste0(tempdir(), "/experimental_data.csv")
+calibration <- paste0(tempdir(), "/calibration_data.csv")
+
+biascorrection(
+  experimental = experimental,
+  calibration = calibration,
+  samplelocusname = "BRAF"
+)
 }
 
 }

@@ -8,7 +8,7 @@ my_desc <- desc::description$new("!new")
 my_desc$set("Package", packagename)
 #Set your name
 my_desc$set_authors(c(
-  person("Lorenz A.", "Kapsner", email = "lorenz.kapsner@gmail.com", role = c('cre', 'aut'),
+  person("Lorenz A.", "Kapsner", email = "lorenz.kapsner@gmail.com", role = c('cre', 'aut', 'cph'),
          comment = c(ORCID = "0000-0003-1866-860X")),
   person("Evgeny A.", "Moskalev", role = "aut")))
 # Remove some author fields
@@ -16,10 +16,10 @@ my_desc$del("Maintainer")
 # Set the version
 my_desc$set_version("0.2.1")
 # The title of your package
-my_desc$set(Title = "A Package to Correct Bias in DNA Methylation Analyses")
+my_desc$set(Title = "Correct Bias in DNA Methylation Analyses")
 # The description of your package
 my_desc$set(Description = paste0(
-  "R implementation with minor modifications of the algorithms to correct ",
+  "Implementation of the algorithms (with minor modifications) to correct ",
   "bias in quantitative DNA methylation analyses as described by ",
   "Moskalev et al. (2011) <doi:10.1093/nar/gkr213>."
 ))

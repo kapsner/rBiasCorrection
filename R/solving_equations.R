@@ -31,6 +31,7 @@
 #'   provided `datatable`.
 #'
 #' @examples
+#' \donttest{
 #' # define list object to save all data
 #' rv <- list()
 #' rv$minmax <- TRUE
@@ -90,6 +91,7 @@
 #' colnames(rv$fileimport_cal_corrected_h) <- colnames(
 #'   rv$fileimport_calibration
 #' )
+#' }
 #'
 #' @export
 #'
@@ -170,7 +172,7 @@ solving_equations <- function(datatable,
                    a)
         }
 
-        print(coe)
+        message(paste0("Coefficients: ", coe))
 
         x_vec <- solve(polynom::polynomial(coe))               # polynom
         #% x_vec <- cubic(rev(coe))                    # RConics
@@ -370,7 +372,7 @@ solving_equations <- function(datatable,
                 m0 = m0,
                 m1 = m1)))
         }
-        print(h_solv)
+        message(paste0("Hyperbolic solved: ", h_solv))
 
         if (h_solv >= 0 & h_solv <= 100) {
           msg2 <- "Root in between the borders! Added to results."

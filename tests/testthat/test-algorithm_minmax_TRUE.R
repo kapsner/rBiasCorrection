@@ -1,10 +1,10 @@
 context("test functioning of algorithm, type 1")
 
-prefix <- "./"
+prefix <- tempdir()
 #" prefix <- "tests/testthat/"
 
 # the writeLog-function needs the logfilename
-logfilename <- paste0(prefix, "log.txt")
+logfilename <- paste0(prefix, "/log.txt")
 
 # initialize our list for reactive values
 rv <- list()
@@ -26,14 +26,14 @@ test_that(
     rv$seed <- 1234
 
     # experimental data
-    exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
+    exp_type_1 <- rBiasCorrection::example.data_experimental$dat
     rv$fileimport_experimental <- clean_dt(exp_type_1,
                                            "experimental",
                                            1,
                                            logfilename)[["dat"]]
 
     # calibration data
-    cal_type_1 <- fread(paste0(prefix, "testdata/cal_type_1.csv"))
+    cal_type_1 <- rBiasCorrection::example.data_calibration$dat
     cal_type_1 <- clean_dt(cal_type_1, "calibration", 1, logfilename)
     rv$fileimport_calibration <- cal_type_1[["dat"]]
     rv$vec_cal <- cal_type_1[["vec_cal"]]
@@ -324,14 +324,14 @@ test_that(
     rv$seed <- 1234
 
     # experimental data
-    exp_type_1 <- fread(paste0(prefix, "testdata/exp_type_1.csv"))
+    exp_type_1 <- rBiasCorrection::example.data_experimental$dat
     rv$fileimport_experimental <- clean_dt(exp_type_1,
                                            "experimental",
                                            1,
                                            logfilename)[["dat"]]
 
     # calibration data
-    cal_type_1 <- fread(paste0(prefix, "testdata/cal_type_1.csv"))
+    cal_type_1 <- rBiasCorrection::example.data_calibration$dat
     cal_type_1 <- clean_dt(cal_type_1, "calibration", 1, logfilename)
     rv$fileimport_calibration <- cal_type_1[["dat"]]
     rv$vec_cal <- cal_type_1[["vec_cal"]]
@@ -496,5 +496,5 @@ test_that(
     }, class = "error", regexp = "341a01cdf9|0347a748fe") # 0347a748fe,
     # 5b8a8f6887
 
-    expect_true(file.remove(paste0(prefix, "log.txt")))
+    expect_true(file.remove(paste0(prefix, "/log.txt")))
   })
