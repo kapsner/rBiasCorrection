@@ -34,6 +34,7 @@
 #'   (better_model = 1) result in a 'better' `SSE` or `RelError` respectively.
 #'
 #' @examples
+#' \donttest{
 #' # define list object to save all data
 #' rv <- list()
 #' rv$minmax <- TRUE
@@ -80,6 +81,7 @@
 #'   statstable_pre = rv$reg_stats,
 #'   selection_method = "SSE"
 #' )
+#' }
 #'
 #' @export
 #'

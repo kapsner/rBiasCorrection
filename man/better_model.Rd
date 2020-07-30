@@ -44,6 +44,7 @@ Internal function to select the better model between
   hyperbolic regression and cubic regression.
 }
 \examples{
+\donttest{
 # define list object to save all data
 rv <- list()
 rv$minmax <- TRUE
@@ -90,5 +91,6 @@ rv$choices_list <- better_model(
   statstable_pre = rv$reg_stats,
   selection_method = "SSE"
 )
+}
 
 }
