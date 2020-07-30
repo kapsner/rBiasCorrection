@@ -106,7 +106,8 @@ cubic_regression <- function(df_agg,
       control = stats::nls.control(maxiter = 50))
     }, error = function(e) {
       # if convergence fails
-      warning(e)
+      write_log(message = e,
+                logfilename = logfilename)
       suppressWarnings(RNGkind(sample.kind = "Rounding"))
       set.seed(seed)
       mod <- nls2::nls2(CpG ~ cubic_eq_minmax(

@@ -98,7 +98,8 @@ hyperbolic_regression <- function(df_agg,
 
     }, error = function(e) {
       # if convergence fails
-      warning(e)
+      write_log(message = e,
+                logfilename = logfilename)
       suppressWarnings(RNGkind(sample.kind = "Rounding"))
       set.seed(seed)
       mod <- nls2::nls2(CpG ~ hyperbolic_eq(
@@ -207,7 +208,8 @@ hyperbolic_regression <- function(df_agg,
 
     }, error = function(e) {
       # if convergence fails
-      warning(e)
+      write_log(message = e,
+                logfilename = logfilename)
       st <- data.frame(b = c(-1000, 1000))
 
       suppressWarnings(RNGkind(sample.kind = "Rounding"))
