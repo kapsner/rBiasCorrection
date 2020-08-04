@@ -1,4 +1,4 @@
-# rBiasCorrection (!!!under development!!!)
+# rBiasCorrection
 
 <!-- badges: start -->
 [![R CMD Check via {tic}](https://github.com/kapsner/rBiasCorrection/workflows/R%20CMD%20Check%20via%20{tic}/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)
@@ -13,9 +13,20 @@
 
 `rBiasCorrection` is the R implementation with minor modifications of the algorithms described by Moskalev et al. in their research article *'Correction of PCR-bias in quantitative DNA methylation studies by means of cubic polynomial regression'*, published 2011 in *Nucleic acids research, Oxford University Press* (DOI: [https://doi.org/10.1093/nar/gkr213](https://doi.org/10.1093/nar/gkr213)).  
 
+
 # Installation
 
-You can install the development version of `rBiasCorrection` with:
+## CRAN version
+
+You can install `rBiasCorrection` simply with via R's `install.packages` interface:
+
+```r
+install.packages("rBiasCorrection")
+```
+
+## development version
+
+If you want to use the latest development version, you can install the github version of `rBiasCorrection` with:
 
 ```r
 install.packages("devtools")
