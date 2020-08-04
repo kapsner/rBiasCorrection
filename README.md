@@ -33,7 +33,7 @@ install.packages("devtools")
 devtools::install_github("kapsner/rBiasCorrection")
 ```
 
-## Example
+# Example
 
 This is a basic example which shows you how to correct PCR-bias in quantitative DNA methylation data:
 
