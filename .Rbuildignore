@@ -19,3 +19,4 @@
 ^cran-comments\.md$
 ^vignettes/log\.txt$
 ^tests/testthat/log\.txt$
+^CRAN-RELEASE$
