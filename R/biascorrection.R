@@ -32,7 +32,7 @@
 #'   In type 2 data (many loci in one sample, e.g. next-generationsequencing
 #'   data or microarray data):
 #'   Path to the folder that contains at least 4 calibration files (one file
-#'   per calibration step). Please refere to the FAQ for more detailed
+#'   per calibration step). Please refer to the FAQ for more detailed
 #'   information on the specific file requirements (\url{
 #'   https://raw.githubusercontent.com/kapsner/PCRBiasCorrection/master/FAQ.md
 #'   }).

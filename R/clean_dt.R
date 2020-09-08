@@ -83,7 +83,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
       names(datatable)[1] <- "sample_id"
 
     } else {
-      warning("### ERROR 18: wrong description ###")
+      message("### ERROR 18: wrong description ###")
       return(NULL)
     }
 
@@ -105,11 +105,11 @@ clean_dt <- function(datatable, description, type, logfilename) {
       names(datatable)[1] <- "locus_id"
 
     } else {
-      warning("### ERROR 36: wrong description ###")
+      message("### ERROR 36: wrong description ###")
       return(NULL)
     }
   } else {
-    warning("### ERROR 40: wrong type ###")
+    message("### ERROR 40: wrong type ###")
     return(NULL)
   }
 
@@ -129,8 +129,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
         as.numeric(as.character(get(vec[1])))
       )]
     }, warning = function(w) {
-      warning(w)
-      warning("### ERROR 54: first column cannot be parsed to numeric ###")
+      message("### ERROR 54: first column cannot be parsed to numeric ###")
       return(NULL)
     })
 

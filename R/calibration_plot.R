@@ -19,7 +19,7 @@
 #' @description Internal function to carry out the plotting of the
 #'   calibrations curves.
 #'
-#' @param plotlist A ggplot object contating a regression plot without
+#' @param plotlist A ggplot object containing a regression plot without
 #'   regression curves (output of \code{regression_utility()}).
 #' @param coef_hyper A list containing the regression parameters of
 #'   the hyperbolic regression equation.

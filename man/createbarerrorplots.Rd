@@ -56,7 +56,7 @@ resulting plots (default: 7.5).}
 resulting plots (default: 16).}
 }
 \value{
-This function creates error bar-plots to visualize the realitve
+This function creates error bar-plots to visualize the relative
   error before and after bias correction and writes these plots to the
   local filesystem.
 }

@@ -22,7 +22,7 @@ in one sample, e.g. next-generation sequencing data or microarray data).}
 }
 \value{
 A data.table in the long format with aggregated means for each CpG
-  site of each sample and the correponding standard deviation.
+  site of each sample and the corresponding standard deviation.
 }
 \description{
 Internal function to present aggregated input data on which

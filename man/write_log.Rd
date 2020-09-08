@@ -13,7 +13,7 @@ write_log(message, logfilename)
 messages.}
 }
 \value{
-The function prints the loggin message to the console and writes it
+The function prints the logging message to the console and writes it
   to the local logfile, specified with `logfilename`.
 }
 \description{

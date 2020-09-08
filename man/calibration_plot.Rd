@@ -7,7 +7,7 @@
 calibration_plot(plotlist, coef_hyper, coef_cubic, plot_textsize, minmax)
 }
 \arguments{
-\item{plotlist}{A ggplot object contating a regression plot without
+\item{plotlist}{A ggplot object containing a regression plot without
 regression curves (output of \code{regression_utility()}).}
 
 \item{coef_hyper}{A list containing the regression parameters of

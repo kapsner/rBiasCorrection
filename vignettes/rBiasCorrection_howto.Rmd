@@ -34,7 +34,7 @@ First of all, some variables need to be defined. These include:
 - the path to the `experimental` file, including its filename  
 - the path to the `calibration` file, including its filename  
 - `samplelocusname`: the name of the sample or locus under investigation  
-- the `seed` argument shoud be set for reproducibility  
+- the `seed` argument should be set for reproducibility  
 - `plotdir`: a folder, where the resulting plots should be stored  
 - `csvdir`: a folder, where the resulting tables should be stored  
 
@@ -143,7 +143,7 @@ All file names are prefixed with the name, specified in `samplelocusname`. The t
 
 The following tables are stored:  
 
--  **[name]_corrected_values_[timestamp].csv**: the bias corrected experimental data (this is the final results table of the samples under investigaion)  
+-  **[name]_corrected_values_[timestamp].csv**: the bias corrected experimental data (this is the final results table of the samples under investigation)  
 -  [name]_regression_stats_[timestamp].csv: the regression parameters calculated for each CpG site, including goodness-of-fit metrics  
 -  [name]_corrected_calibrations_h_[timestamp].csv: the calibration data, which has been bias corrected using the hyperbolic regression parameters for all CpG sites of an interrogated locus  
 -  [name]_corrected_calibrations_c_[timestamp].csv: the calibration data, which has been bias corrected using the cubic regression parameters for all CpG sites of an interrogated locus  
@@ -158,8 +158,8 @@ The regression statistics table shows the regression parameters of the hyperboli
 -  Column 1 presents the CpG site's ID. 
 -  Column 2 contains the mean of the relative absolute errors for every interrogated CpG site. 
 -  Columns 3-9 comprise the sum of squared errors of the hyperbolic regression ('SSE [h]') and the coefficients of the hyperbolic equation that describes the hyperbolic regression curves for the respective CpG sites. 
--  Columns 10-15 summarise the sum of squared errors of the cubic polynomial regression ('SSE [c]') and the coefficients of the cubic polynomial equations. 
--  The rows highlighted with a green background colour indicate the regression method (hyperbolic or cubic polynomial) that is suggested by BiasCorrector for correcting data. This automatic choice of the regression method relies on either minimising the value of SSE (the default setting) or minimising the average relative error as selected by the user in the Settings tab.  
+-  Columns 10-15 summarize the sum of squared errors of the cubic polynomial regression ('SSE [c]') and the coefficients of the cubic polynomial equations. 
+-  The rows highlighted with a green background color indicate the regression method (hyperbolic or cubic polynomial) that is suggested by BiasCorrector for correcting data. This automatic choice of the regression method relies on either minimizing the value of SSE (the default setting) or minimizing the average relative error as selected by the user in the Settings tab.  
 
 ```{r}
 filename <- list.files(csvdir)[grepl("regression_stats_[[:digit:]]", list.files(csvdir))]

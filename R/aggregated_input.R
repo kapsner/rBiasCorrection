@@ -24,7 +24,7 @@
 #'   with description = "calibration").
 #'
 #' @return A data.table in the long format with aggregated means for each CpG
-#'   site of each sample and the correponding standard deviation.
+#'   site of each sample and the corresponding standard deviation.
 #'
 #' @inheritParams clean_dt
 #'

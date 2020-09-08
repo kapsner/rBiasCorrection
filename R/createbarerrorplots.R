@@ -34,7 +34,7 @@
 #' @inheritParams clean_dt
 #' @inheritParams on_start
 #'
-#' @return This function creates error bar-plots to visualize the realitve
+#' @return This function creates error bar-plots to visualize the relative
 #'   error before and after bias correction and writes these plots to the
 #'   local filesystem.
 #'

@@ -114,7 +114,7 @@ clean_up <- function(plotdir,
 #' @param message A character string containing the log message.
 #' @inheritParams clean_dt
 #'
-#' @return The function prints the loggin message to the console and writes it
+#' @return The function prints the logging message to the console and writes it
 #'   to the local logfile, specified with `logfilename`.
 #'
 #' @examples
