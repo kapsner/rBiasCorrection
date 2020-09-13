@@ -14,20 +14,32 @@ test_that(
   exp_type_1 <- fread("./testdata/exp_type_1.csv")
   exp_type_1 <- clean_dt(exp_type_1, "experimental", 1, logfilename)
   expect_type(exp_type_1, "list")
-  expect_known_hash(exp_type_1[["dat"]], "ab5287b084")
+  expect_error({
+    expect_known_hash(exp_type_1[["dat"]], "ab5287b084")
+    expect_known_hash(exp_type_1[["dat"]], "8c93f2d28f")
+  }, class = "error", regexp = "ab5287b084|8c93f2d28f")
 
   exp_type_1 <- fread("./testdata/exp_type_1_empty_col.csv", header = T)
   exp_type_1 <- clean_dt(exp_type_1, "experimental", 1, logfilename)[["dat"]]
-  expect_known_hash(exp_type_1, "ab5287b084")
+  expect_error({
+    expect_known_hash(exp_type_1, "ab5287b084")
+    expect_known_hash(exp_type_1, "8c93f2d28f")
+  }, class = "error", regexp = "ab5287b084|8c93f2d28f")
 
   exp_type_1 <- fread("./testdata/exp_type_1_empty_row.csv")
   exp_type_1 <- clean_dt(exp_type_1, "experimental", 1, logfilename)[["dat"]]
-  expect_known_hash(exp_type_1, "1fb62d8498")
+  expect_error({
+    expect_known_hash(exp_type_1, "29fa13cb24")
+    expect_known_hash(exp_type_1, "1fb62d8498")
+  }, class = "error", regexp = "29fa13cb24|1fb62d8498")
 
   # calibration data
   cal_type_1 <- fread("./testdata/cal_type_1.csv")
   cal_type_1 <- clean_dt(cal_type_1, "calibration", 1, logfilename)[["dat"]]
-  expect_known_hash(cal_type_1, "23f21fc354")
+  expect_error({
+    expect_known_hash(cal_type_1, "869cda3040")
+    expect_known_hash(cal_type_1, "23f21fc354")
+  }, class = "error", regexp = "869cda3040|23f21fc354")
 })
 
 test_that(
@@ -36,20 +48,32 @@ test_that(
   # experimental data
   exp_type_2 <- fread("./testdata/exp_type_2.csv")
   exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
-  expect_known_hash(exp_type_2, "f8d57b6e9c")
+  expect_error({
+    expect_known_hash(exp_type_2, "f8d57b6e9c")
+    expect_known_hash(exp_type_2, "78b933c115")
+  }, class = "error", regexp = "f8d57b6e9c|78b933c115")
 
   exp_type_2 <- fread("./testdata/exp_type_2_empty_col.csv", header = T)
   exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
-  expect_known_hash(exp_type_2, "f8d57b6e9c")
+  expect_error({
+    expect_known_hash(exp_type_2, "f8d57b6e9c")
+    expect_known_hash(exp_type_2, "78b933c115")
+  }, class = "error", regexp = "f8d57b6e9c|78b933c115")
 
   exp_type_2 <- fread("./testdata/exp_type_2_empty_row.csv")
   exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
-  expect_known_hash(exp_type_2, "516b7aee57")
+  expect_error({
+    expect_known_hash(exp_type_2, "eba558a583")
+    expect_known_hash(exp_type_2, "516b7aee57")
+  }, class = "error", regexp = "eba558a583|516b7aee57")
 
   # calibration data
   cal_type_2 <- fread("./testdata/cal_type_2.csv")
   cal_type_2 <- clean_dt(cal_type_2, "calibration", 2, logfilename)[["dat"]]
-  expect_known_hash(cal_type_2, "d32a53505b")
+  expect_error({
+    expect_known_hash(cal_type_2, "296406ae1c")
+    expect_known_hash(cal_type_2, "d32a53505b")
+  }, class = "error", regexp = "296406ae1c|d32a53505b")
 })
 
 test_that(

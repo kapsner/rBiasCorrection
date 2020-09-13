@@ -16,7 +16,10 @@ test_that(
   cal_type_1 <- rBiasCorrection::example.data_calibration$dat
   cal_type_1 <- clean_dt(cal_type_1, "calibration", 1, logfilename)[["dat"]]
   df_agg <- create_agg_df(cal_type_1, colnames(cal_type_1)[2])
-  expect_known_hash(df_agg, "c16660dcd8") # 6aa2d6fc51
+  expect_error({
+    expect_known_hash(df_agg, "34d2e049fb")
+    expect_known_hash(df_agg, "c16660dcd8")
+  }, class = "error", regexp = "34d2e049fb|c16660dcd8")  # 6aa2d6fc51
 
   # experimental data
   exp_type_1 <- rBiasCorrection::example.data_experimental$dat
