@@ -14,7 +14,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.2.2")
+my_desc$set_version("0.2.3")
 # The title of your package
 my_desc$set(Title = "Correct Bias in DNA Methylation Analyses")
 # The description of your package
@@ -79,6 +79,7 @@ usethis::use_git_ignore("!/data-raw/devstuffs.R")
 usethis::use_git_ignore("!/DESCRIPTION")
 usethis::use_git_ignore("!/FAQ.md")
 usethis::use_git_ignore("!/LICENSE.md")
+usethis::use_git_ignore("!/cran-comments.md")
 usethis::use_git_ignore("!/man/")
 usethis::use_git_ignore("!NAMESPACE")
 usethis::use_git_ignore("!/R/")
