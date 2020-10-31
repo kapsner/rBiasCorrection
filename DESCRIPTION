@@ -1,6 +1,6 @@
 Package: rBiasCorrection
 Title: Correct Bias in DNA Methylation Analyses
-Version: 0.2.3.9002
+Version: 0.2.3.9003
 Authors@R: 
     c(person(given = "Lorenz A.",
              family = "Kapsner",
@@ -37,7 +37,7 @@ Suggests:
     testthat
 VignetteBuilder: 
     knitr
-Date/Publication: 2020-10-31 14:13:51 UTC
+Date/Publication: 2020-10-31 19:34:48 UTC
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
