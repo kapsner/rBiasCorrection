@@ -34,3 +34,4 @@ inst/doc
 !/.lintr
 !/.github/
 !/tic.R
+!/cran-comments.md

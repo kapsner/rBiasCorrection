@@ -25,13 +25,18 @@ test_that(
   exp_type_1 <- rBiasCorrection::example.data_experimental$dat
   exp_type_1 <- clean_dt(exp_type_1, "experimental", 1, logfilename)[["dat"]]
   df_agg <- create_agg_df_exp(exp_type_1, colnames(exp_type_1)[2], type = 1)
-  expect_known_hash(df_agg, "5a885b7e0a") # eed63df625
+  expect_error({
+    expect_known_hash(df_agg, "5a885b7e0a")
+    expect_known_hash(df_agg, "4a4ed97b38")
+  }, class = "error", regexp = "5a885b7e0a|4a4ed97b38")
 
   exp_type_2 <- fread("./testdata/exp_type_2.csv")
   exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
   df_agg <- create_agg_df_exp(exp_type_2, colnames(exp_type_2)[2], type = 2)
-  expect_known_hash(df_agg, "d042a19f13") # a98d2e8771
-
+  expect_error({
+    expect_known_hash(df_agg, "d042a19f13")
+    expect_known_hash(df_agg, "46d527e146")
+  }, class = "error", regexp = "d042a19f13|46d527e146")
 
   expect_true(file.remove(paste0(prefix, "/log.txt")))
 })

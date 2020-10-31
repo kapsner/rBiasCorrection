@@ -270,7 +270,8 @@ createbarerrorplots <- function(statstable_pre,
 
           if ("Corrected [Cubic]" %in% dt[, get("regressiontype")]) {
             values <- c("#8491B4FF", "#E64B35FF")
-          } else if ("Corrected [Hyperbolic]" %in% dt[, get("regressiontype")]) {
+          } else if ("Corrected [Hyperbolic]" %in%
+                     dt[, get("regressiontype")]) {
             values <- c("#8491B4FF", "#4DBBD5FF")
           }
 

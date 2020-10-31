@@ -65,6 +65,9 @@ on_start <- function(plotdir,
       logfilename = logfilename
     )
     suppressWarnings(future::plan("multisession"))
+    on.exit(
+      suppressWarnings(future::plan("sequential"))
+    )
   } else {
     write_log(
       message = "on_start: using future::plan(\"sequential\")",

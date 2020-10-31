@@ -191,7 +191,7 @@ plotting_utility <- function(data,
                      plot_textsize = plot_textsize)
       })
     },
-    1:length_vector,,
+    1:length_vector,
     future.seed = TRUE
   )
 }
