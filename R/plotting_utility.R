@@ -129,65 +129,69 @@ plotting_utility <- function(data,
 
   vec_cal <- rv$vec_cal
 
-  future.apply::future_Map(function(f) {
-    local({
-      plotname <- paste0(gsub("[[:punct:]]", "", vec_cal[f]))
+  future.apply::future_Map(
+    f = function(f) {
+      local({
+        plotname <- paste0(gsub("[[:punct:]]", "", vec_cal[f]))
 
-      # filename-suffix
-      fn_suffix <- ifelse(is.null(mode), "", paste0("_", mode))
-      # message-suffix
-      msg_suffix <- ifelse(is.null(mode), "", ifelse(
-        mode == "corrected_h",
-        "BiasCorrected (hyperbolic)",
-        "BiasCorrected (cubic)")
-      )
+        # filename-suffix
+        fn_suffix <- ifelse(is.null(mode), "", paste0("_", mode))
+        # message-suffix
+        msg_suffix <- ifelse(is.null(mode), "", ifelse(
+          mode == "corrected_h",
+          "BiasCorrected (hyperbolic)",
+          "BiasCorrected (cubic)")
+        )
 
-      # filname of temporary plot
-      if (type == 1) {
-        filename <- paste0(plotdir,
-                           samplelocusname,
-                           "_",
-                           plotname,
-                           fn_suffix,
-                           ".png")
-        plotmessage <- paste0("Creating ",
-                              msg_suffix,
-                              " plot No. ",
-                              f)
-      } else if (type == 2) {
-        filename <- paste0(plotdir,
-                           locus_id,
-                           "-",
-                           samplelocusname,
-                           "_",
-                           plotname,
-                           fn_suffix,
-                           ".png")
-        plotmessage <- paste0("Locus ID: ",
-                              locus_id,
-                              " --> Creating ",
-                              msg_suffix,
-                              " plot No. ",
-                              f)
-      }
+        # filname of temporary plot
+        if (type == 1) {
+          filename <- paste0(plotdir,
+                             samplelocusname,
+                             "_",
+                             plotname,
+                             fn_suffix,
+                             ".png")
+          plotmessage <- paste0("Creating ",
+                                msg_suffix,
+                                " plot No. ",
+                                f)
+        } else if (type == 2) {
+          filename <- paste0(plotdir,
+                             locus_id,
+                             "-",
+                             samplelocusname,
+                             "_",
+                             plotname,
+                             fn_suffix,
+                             ".png")
+          plotmessage <- paste0("Locus ID: ",
+                                locus_id,
+                                " --> Creating ",
+                                msg_suffix,
+                                " plot No. ",
+                                f)
+        }
 
-      write_log(
-        message = paste(plotmessage, "- filename:", filename),
-        logfilename = logfilename
-      )
+        write_log(
+          message = paste(plotmessage, "- filename:", filename),
+          logfilename = logfilename
+        )
 
-      # store plots to local temporary file
-      create_plots(plotlist = plotlist_reg[[f]],
-                   f = f,
-                   vec_cal = vec_cal,
-                   result_list = result_list,
-                   filename = filename,
-                   logfilename = logfilename,
-                   mode = mode,
-                   minmax = minmax,
-                   plot_height = plot_height,
-                   plot_width = plot_width,
-                   plot_textsize = plot_textsize)
-    })
-  }, 1:length_vector)
+        # store plots to local temporary file
+        create_plots(plotlist = plotlist_reg[[f]],
+                     f = f,
+                     vec_cal = vec_cal,
+                     result_list = result_list,
+                     filename = filename,
+                     logfilename = logfilename,
+                     mode = mode,
+                     minmax = minmax,
+                     plot_height = plot_height,
+                     plot_width = plot_width,
+                     plot_textsize = plot_textsize)
+      })
+    },
+    1:length_vector,,
+    future.seed = TRUE
+  )
 }

@@ -189,137 +189,141 @@ createbarerrorplots <- function(statstable_pre,
 
     sample_locus_name <- rv$sample_locus_name
 
-    future.apply::future_Map(function(i) {
-      local({
-        plotname <- paste0(gsub("[[:punct:]]", "", vec_cal[i]))
+    future.apply::future_Map(
+      f = function(i) {
+        local({
+          plotname <- paste0(gsub("[[:punct:]]", "", vec_cal[i]))
 
-        if (type == 1) {
-          filename <- paste0(plotdir,
-                             sample_locus_name,
-                             "_",
-                             "error_",
-                             plotname,
-                             "_",
-                             mode,
-                             ".png")
-        } else if (type == 2) {
-          filename <- paste0(plotdir,
-                             paste0(gsub("[[:punct:]]", "", locus_id)),
-                             "-",
-                             sample_locus_name,
-                             "_",
-                             "error_",
-                             plotname,
-                             "_",
-                             mode,
-                             ".png")
-        }
+          if (type == 1) {
+            filename <- paste0(plotdir,
+                               sample_locus_name,
+                               "_",
+                               "error_",
+                               plotname,
+                               "_",
+                               mode,
+                               ".png")
+          } else if (type == 2) {
+            filename <- paste0(plotdir,
+                               paste0(gsub("[[:punct:]]", "", locus_id)),
+                               "-",
+                               sample_locus_name,
+                               "_",
+                               "error_",
+                               plotname,
+                               "_",
+                               mode,
+                               ".png")
+          }
 
-        plotmessage <- paste("Creating barplot No.", i)
-        write_log(message = paste(plotmessage, "- filename:", filename),
-                  logfilename = logfilename)
+          plotmessage <- paste("Creating barplot No.", i)
+          write_log(message = paste(plotmessage, "- filename:", filename),
+                    logfilename = logfilename)
 
-        dt <- data.table::data.table(
-          "timepoint" = character(0),
-          "value" = numeric(0),
-          "regressiontype" = character(0)
-        )
-
-        # add relative error of corrected hyperbolic curve
-
-        dt <- rbind(
-          dt,
-          cbind("timepoint" = "biased",
-                "value" = round(
-                  error_data[
-                    get("Name") == vec_cal[i], get("relative_error_pre")
-                  ],
-                  3),
-                "regressiontype" = "Raw")
-        )
-        dt <- rbind(
-          dt,
-          cbind("timepoint" = "corrected",
-                "value" = round(
-                  error_data[
-                    get("Name") == vec_cal[i], get("relative_error")
-                  ],
-                  3),
-                "regressiontype" = ifelse(
-                  mode == "corrected_c",
-                  "Corrected [Cubic]",
-                  ifelse(
-                    mode == "corrected_h",
-                    "Corrected [Hyperbolic]",
-                    "NA"))
+          dt <- data.table::data.table(
+            "timepoint" = character(0),
+            "value" = numeric(0),
+            "regressiontype" = character(0)
           )
-        )
 
-        # set "Raw" as first level, to show corresponding bar
-        # on the left of the plot
-        dt[
-          , ("regressiontype") := factor(get("regressiontype"),
-                                         levels = c("Raw",
-                                                    "Corrected [Cubic]",
-                                                    "Corrected [Hyperbolic]")
+          # add relative error of corrected hyperbolic curve
+
+          dt <- rbind(
+            dt,
+            cbind("timepoint" = "biased",
+                  "value" = round(
+                    error_data[
+                      get("Name") == vec_cal[i], get("relative_error_pre")
+                    ],
+                    3),
+                  "regressiontype" = "Raw")
           )
-        ][
-          , ("value") := round(as.numeric(as.character(get("value"))), 1)
-        ]
+          dt <- rbind(
+            dt,
+            cbind("timepoint" = "corrected",
+                  "value" = round(
+                    error_data[
+                      get("Name") == vec_cal[i], get("relative_error")
+                    ],
+                    3),
+                  "regressiontype" = ifelse(
+                    mode == "corrected_c",
+                    "Corrected [Cubic]",
+                    ifelse(
+                      mode == "corrected_h",
+                      "Corrected [Hyperbolic]",
+                      "NA"))
+            )
+          )
 
-        if ("Corrected [Cubic]" %in% dt[, get("regressiontype")]) {
-          values <- c("#8491B4FF", "#E64B35FF")
-        } else if ("Corrected [Hyperbolic]" %in% dt[, get("regressiontype")]) {
-          values <- c("#8491B4FF", "#4DBBD5FF")
-        }
+          # set "Raw" as first level, to show corresponding bar
+          # on the left of the plot
+          dt[
+            , ("regressiontype") := factor(get("regressiontype"),
+                                           levels = c("Raw",
+                                                      "Corrected [Cubic]",
+                                                      "Corrected [Hyperbolic]")
+            )
+          ][
+            , ("value") := round(as.numeric(as.character(get("value"))), 1)
+          ]
+
+          if ("Corrected [Cubic]" %in% dt[, get("regressiontype")]) {
+            values <- c("#8491B4FF", "#E64B35FF")
+          } else if ("Corrected [Hyperbolic]" %in% dt[, get("regressiontype")]) {
+            values <- c("#8491B4FF", "#4DBBD5FF")
+          }
 
 
-        outplot <- ggplot2::ggplot(dt, ggplot2::aes_string(
-          x = "regressiontype",
-          y = "value",
-          fill = "regressiontype")) +
-          #% scale_fill_manual(
-          #%   values = c("Cubic Regression" = "indianred1",
-          #%              "Hyperbolic Regression" = "mediumspringgreen")) +
-          ggplot2::geom_col() +
-          ggplot2::geom_text(
-            ggplot2::aes_string(
-              label = "value",
-              y = "value"),
-            vjust = -1
-          ) +
-          ggplot2::ylab("% average relative error") +
-          ggplot2::labs(
-            title = paste0("Quantification Error: ", locus),
-            subtitle = paste("CpG:", vec_cal[i]),
-            fill = ggplot2::element_blank()
-          ) +
-          ggplot2::ylim(0, ylim_max) +
-          ggplot2::scale_fill_manual(
-            values = values
-          ) +
-          ggpubr::theme_pubr() +
-          ggplot2::theme(
-            axis.title.x = ggplot2::element_blank(),
-            legend.position = "none",
-            plot.title = ggplot2::element_text(hjust = 0.5),
-            plot.subtitle = ggplot2::element_text(hjust = 0.5),
-            text = ggplot2::element_text(size = plot_textsize)
-          ) #,
-        #% axis.ticks.x = element_blank(),
-        #% axis.text.x = element_blank())
-        #% print whole plot in return, otherwise it will fail
+          outplot <- ggplot2::ggplot(dt, ggplot2::aes_string(
+            x = "regressiontype",
+            y = "value",
+            fill = "regressiontype")) +
+            #% scale_fill_manual(
+            #%   values = c("Cubic Regression" = "indianred1",
+            #%              "Hyperbolic Regression" = "mediumspringgreen")) +
+            ggplot2::geom_col() +
+            ggplot2::geom_text(
+              ggplot2::aes_string(
+                label = "value",
+                y = "value"),
+              vjust = -1
+            ) +
+            ggplot2::ylab("% average relative error") +
+            ggplot2::labs(
+              title = paste0("Quantification Error: ", locus),
+              subtitle = paste("CpG:", vec_cal[i]),
+              fill = ggplot2::element_blank()
+            ) +
+            ggplot2::ylim(0, ylim_max) +
+            ggplot2::scale_fill_manual(
+              values = values
+            ) +
+            ggpubr::theme_pubr() +
+            ggplot2::theme(
+              axis.title.x = ggplot2::element_blank(),
+              legend.position = "none",
+              plot.title = ggplot2::element_text(hjust = 0.5),
+              plot.subtitle = ggplot2::element_text(hjust = 0.5),
+              text = ggplot2::element_text(size = plot_textsize)
+            ) #,
+          #% axis.ticks.x = element_blank(),
+          #% axis.text.x = element_blank())
+          #% print whole plot in return, otherwise it will fail
 
-        ggplot2::ggsave(
-          filename = filename,
-          plot = outplot,
-          device = "png",
-          height = plot_height,
-          width = plot_width,
-          dpi = 600
-        )
-      })
-    }, 1:length_vector)
+          ggplot2::ggsave(
+            filename = filename,
+            plot = outplot,
+            device = "png",
+            height = plot_height,
+            width = plot_width,
+            dpi = 600
+          )
+        })
+      },
+      1:length_vector,
+      future.seed = TRUE
+    )
   } else {
     write_log(
       message = "Error during creating bar plot; Names are not identical.",

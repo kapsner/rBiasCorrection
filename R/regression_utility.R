@@ -126,7 +126,7 @@ regression_type1 <- function(datatable,
 
   # result_list
   result_list <- future.apply::future_sapply(
-    vec_cal,
+    X = vec_cal,
     FUN = function(i) {
       local({
         message <- paste0("# CpG-site: ", i)
@@ -164,12 +164,13 @@ regression_type1 <- function(datatable,
       })
     },
     USE.NAMES = TRUE,
-    simplify = FALSE
+    simplify = FALSE,
+    future.seed = TRUE
   )
 
 
   plot.listR <- future.apply::future_lapply(
-    seq_len(length(vec_cal)),
+    X = seq_len(length(vec_cal)),
     FUN = function(i) {
       local({
 
@@ -204,17 +205,19 @@ regression_type1 <- function(datatable,
         ]
 
         if (is.null(mode)) {
-          gdat <- gdat[
-            , ("sd") := as.numeric(
-              as.character(
-                get("sd")
+          if ("sd" %in% colnames(gdat)) {
+            gdat <- gdat[
+              , ("sd") := as.numeric(
+                as.character(
+                  get("sd")
+                )
               )
-            )
-          ][
-            , ("ymin") := get("CpG") - get("sd")
-          ][
-            , ("ymax") := get("CpG") + get("sd")
-          ]
+            ][
+              , ("ymin") := get("CpG") - get("sd")
+            ][
+              , ("ymax") := get("CpG") + get("sd")
+            ]
+          }
         }
 
         p <- ggplot2::ggplot(data = gdat,
@@ -236,8 +239,9 @@ regression_type1 <- function(datatable,
                                0.95 * max(gdat$true_methylation)),
                          hjust = 0, vjust = 1),
             label = lb1,
-            parse = F
+            parse = FALSE
           )
+
         if (is.null(mode)) {
           p <- p + ggplot2::geom_errorbar(
             ggplot2::aes_string(
@@ -249,7 +253,9 @@ regression_type1 <- function(datatable,
         }
         return(p)
       })
-    })
+    },
+    future.seed = TRUE
+  )
   return(
     list("plot_list" = plot.listR,
          "result_list" = result_list)
