@@ -243,13 +243,16 @@ regression_type1 <- function(datatable,
           )
 
         if (is.null(mode)) {
-          p <- p + ggplot2::geom_errorbar(
-            ggplot2::aes_string(
-              ymin = "ymin",
-              ymax = "ymax"
-            ),
-            width = 0.2
-          )
+          if ("ymin" %in% colnames(gdat) &&
+              "ymax" %in% colnames(gdat)) {
+            p <- p + ggplot2::geom_errorbar(
+              ggplot2::aes_string(
+                ymin = "ymin",
+                ymax = "ymax"
+              ),
+              width = 0.2
+            )
+          }
         }
         return(p)
       })
