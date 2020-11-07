@@ -66,20 +66,20 @@ on_start <- function(plotdir,
         message = "on_start: using future::plan(\"multicore\")",
         logfilename = logfilename
       )
-      suppressWarnings(future::plan("multicore"))
+      future::plan("multicore")
     } else {
       write_log(
         message = "on_start: using future::plan(\"multisession\")",
         logfilename = logfilename
       )
-      suppressWarnings(future::plan("multisession"))
+      future::plan("multisession")
     }
   } else {
     write_log(
       message = "on_start: using future::plan(\"sequential\")",
       logfilename = logfilename
     )
-    suppressWarnings(future::plan("sequential"))
+    future::plan("sequential")
   }
 }
 
