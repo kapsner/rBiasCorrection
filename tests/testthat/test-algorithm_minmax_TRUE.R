@@ -260,7 +260,7 @@ test_that(
     )
     # nolint start
     # expect_known_hash(rv$substitutions_corrected_h, "33afa269a4")
-    # nolint stop
+    # nolint end
 
     # calculate new calibration curves from corrected calibration data
     regression_results <- regression_utility(
