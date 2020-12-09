@@ -90,11 +90,24 @@ test_that(
       expect_known_hash(rv$reg_stats, "d2e883e81d")
     }, class = "error", regexp = "3603e3abcb|d2e883e81d") # d2e883e81d
     #a27d84167e, b88f6a9fcf, 057c7d0a13, 33e1d855be
-    expect_equal(regression_results, regression_results2)
-    expect_equal(regression_results[["plot_list"]],
-                 regression_results2[["plot_list"]])
-    expect_equal(regression_results[["result_list"]],
-                 regression_results2[["result_list"]])
+    expect_equal(
+      regression_results,
+      regression_results2,
+      ignore_function_env = TRUE,
+      ignore_formula_env = TRUE
+    )
+    expect_equal(
+      regression_results[["plot_list"]],
+      regression_results2[["plot_list"]],
+      ignore_function_env = TRUE,
+      ignore_formula_env = TRUE
+    )
+    expect_equal(
+      regression_results[["result_list"]],
+      regression_results2[["result_list"]],
+      ignore_function_env = TRUE,
+      ignore_formula_env = TRUE
+    )
 
     # calculate final results
     rv$choices_list <- better_model(statstable_pre = rv$reg_stats,
