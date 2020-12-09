@@ -14,7 +14,7 @@ test_that(
   code = {
 
     local_edition(3)
-    skip_on_cran()
+    #"skip_on_cran()
 
     # calibration data
     cal_type_1 <- fread("./testdata/cal_type_1.csv")
@@ -29,7 +29,8 @@ test_that(
     expect_snapshot_value(
       x = h1,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
