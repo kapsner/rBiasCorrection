@@ -82,7 +82,8 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -98,7 +99,8 @@ test_that(
     expect_snapshot_value(
       x = rv$reg_stats,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -143,7 +145,8 @@ test_that(
     expect_snapshot_value(
       x = solved_eq,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -156,7 +159,8 @@ test_that(
     expect_snapshot_value(
       x = rv$final_results,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -169,7 +173,8 @@ test_that(
     expect_snapshot_value(
       x = rv$substitutions,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -181,7 +186,8 @@ test_that(
     expect_snapshot_value(
       x = solved_eq2,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -194,7 +200,8 @@ test_that(
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -229,7 +236,8 @@ test_that(
     expect_snapshot_value(
       x = solved_eq_h,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -242,7 +250,8 @@ test_that(
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected_h,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -255,7 +264,8 @@ test_that(
     expect_snapshot_value(
       x = rv$substitutions_corrected_h,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -290,7 +300,8 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list_hyperbolic,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -304,7 +315,8 @@ test_that(
     expect_snapshot_value(
       x = rv$reg_stats_corrected_h,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -339,7 +351,8 @@ test_that(
     expect_snapshot_value(
       x = solved_eq_c,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -352,7 +365,8 @@ test_that(
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected_c,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -365,7 +379,8 @@ test_that(
     expect_snapshot_value(
       x = rv$substitutions_corrected_c,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_known_hash(rv$substitutions_corrected_c, "5e15c67e45")
@@ -397,7 +412,8 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list_cubic,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -412,7 +428,8 @@ test_that(
     expect_snapshot_value(
       x = rv$reg_stats_corrected_c,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -581,7 +598,8 @@ test_that(
     expect_snapshot_value(
       x = solved_eq,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -594,7 +612,8 @@ test_that(
     expect_snapshot_value(
       x = rv$final_results,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -607,7 +626,8 @@ test_that(
     expect_snapshot_value(
       x = rv$substitutions,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -619,7 +639,8 @@ test_that(
     expect_snapshot_value(
       x = solved_eq2,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
@@ -632,7 +653,8 @@ test_that(
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3
     )
     # nolint start
     # expect_error({
