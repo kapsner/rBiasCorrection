@@ -35,3 +35,7 @@ inst/doc
 !/.github/
 !/tic.R
 !/cran-comments.md
+/tests/testthat/_snaps/*.md
+!/tests/testthat/_snaps/
+/tests/testthat/_snaps/*
+!/tests/testthat/_snaps/*.md
