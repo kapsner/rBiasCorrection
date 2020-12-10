@@ -81,7 +81,7 @@ test_that(
 
     expect_snapshot_value(
       x = rv$result_list,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
       tolerance = 10e-3
     )
