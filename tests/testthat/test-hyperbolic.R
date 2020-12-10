@@ -28,9 +28,10 @@ test_that(
                                 seed = 1234)
     expect_snapshot_value(
       x = h1,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
