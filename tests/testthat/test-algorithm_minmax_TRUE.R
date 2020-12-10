@@ -78,9 +78,10 @@ test_that(
     expect_type(rv$result_list, "list")
     expect_snapshot_value(
       x = rv$result_list,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -94,9 +95,10 @@ test_that(
     expect_s3_class(rv$reg_stats, "data.table")
     expect_snapshot_value(
       x = rv$reg_stats,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -154,9 +156,10 @@ test_that(
     expect_type(solved_eq, "list")
     expect_snapshot_value(
       x = solved_eq,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -169,9 +172,10 @@ test_that(
     expect_s3_class(rv$final_results, "data.table")
     expect_snapshot_value(
       x = rv$final_results,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -184,9 +188,10 @@ test_that(
     expect_s3_class(rv$substitutions, "data.table")
     expect_snapshot_value(
       x = rv$substitutions,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -198,9 +203,10 @@ test_that(
     expect_type(solved_eq2, "list")
     expect_snapshot_value(
       x = solved_eq2,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -213,9 +219,10 @@ test_that(
     expect_s3_class(rv$fileimport_cal_corrected, "data.table")
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -248,9 +255,10 @@ test_that(
     expect_type(solved_eq_h, "list")
     expect_snapshot_value(
       x = solved_eq_h,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -263,9 +271,10 @@ test_that(
     expect_s3_class(rv$fileimport_cal_corrected_h, "data.table")
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected_h,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -278,9 +287,10 @@ test_that(
     expect_s3_class(rv$substitutions_corrected_h, "data.table")
     expect_snapshot_value(
       x = rv$substitutions_corrected_h,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_known_hash(rv$substitutions_corrected_h, "33afa269a4")
@@ -311,9 +321,10 @@ test_that(
     expect_type(rv$result_list_hyperbolic, "list")
     expect_snapshot_value(
       x = rv$result_list_hyperbolic,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -327,9 +338,10 @@ test_that(
     expect_s3_class(rv$reg_stats_corrected_h, "data.table")
     expect_snapshot_value(
       x = rv$reg_stats_corrected_h,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -362,9 +374,10 @@ test_that(
     expect_type(solved_eq_c, "list")
     expect_snapshot_value(
       x = solved_eq_c,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -377,9 +390,10 @@ test_that(
     expect_s3_class(rv$fileimport_cal_corrected_c, "data.table")
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected_c,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -392,9 +406,10 @@ test_that(
     expect_s3_class(rv$substitutions_corrected_c, "data.table")
     expect_snapshot_value(
       x = rv$substitutions_corrected_c,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -429,9 +444,10 @@ test_that(
     expect_type(rv$result_list_cubic, "list")
     expect_snapshot_value(
       x = rv$result_list_cubic,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -445,9 +461,10 @@ test_that(
     expect_s3_class(rv$reg_stats_corrected_c, "data.table")
     expect_snapshot_value(
       x = rv$reg_stats_corrected_c,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -614,9 +631,10 @@ test_that(
     expect_type(solved_eq, "list")
     expect_snapshot_value(
       x = solved_eq,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -629,9 +647,10 @@ test_that(
     expect_s3_class(rv$final_results, "data.table")
     expect_snapshot_value(
       x = rv$final_results,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -644,9 +663,10 @@ test_that(
     expect_s3_class(rv$substitutions, "data.table")
     expect_snapshot_value(
       x = rv$substitutions,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -658,9 +678,10 @@ test_that(
     expect_type(solved_eq2, "list")
     expect_snapshot_value(
       x = solved_eq2,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -673,9 +694,10 @@ test_that(
     expect_s3_class(rv$fileimport_cal_corrected, "data.table")
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected,
-      style = "serialize",
+      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
