@@ -105,6 +105,20 @@ test_that(
     # }, class = "error", regexp = "261933672d|79c54720c8") # 79c54720c8
     # #f20afd797f, 8d9e9c577f, 3b8a2c9335, a416f49f04
     # nolint end
+    expect_true(
+      all.equal(
+        regression_results,
+        regression_results2,
+        check.environment = FALSE
+      )
+    )
+    expect_true(
+      all.equal(
+        regression_results[["plot_list"]],
+        regression_results2[["plot_list"]],
+        check.environment = FALSE
+      )
+    )
     expect_equal(
       regression_results[["result_list"]],
       regression_results2[["result_list"]],
