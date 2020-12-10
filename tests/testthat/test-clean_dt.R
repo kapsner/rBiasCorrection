@@ -18,8 +18,10 @@ test_that(
     expect_type(exp_type_1, "list")
     expect_snapshot_value(
       x = exp_type_1[["dat"]],
-      style = "serialize",
-      cran = FALSE
+      style = "json2",
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -32,8 +34,10 @@ test_that(
     exp_type_1 <- clean_dt(exp_type_1, "experimental", 1, logfilename)[["dat"]]
     expect_snapshot_value(
       x = exp_type_1,
-      style = "serialize",
-      cran = FALSE
+      style = "json2",
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -46,8 +50,10 @@ test_that(
     exp_type_1 <- clean_dt(exp_type_1, "experimental", 1, logfilename)[["dat"]]
     expect_snapshot_value(
       x = exp_type_1,
-      style = "serialize",
-      cran = FALSE
+      style = "json2",
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -61,8 +67,10 @@ test_that(
     cal_type_1 <- clean_dt(cal_type_1, "calibration", 1, logfilename)[["dat"]]
     expect_snapshot_value(
       x = cal_type_1,
-      style = "serialize",
-      cran = FALSE
+      style = "json2",
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -82,8 +90,10 @@ test_that(
     exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
     expect_snapshot_value(
       x = exp_type_2,
-      style = "serialize",
-      cran = FALSE
+      style = "json2",
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -96,8 +106,10 @@ test_that(
     exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
     expect_snapshot_value(
       x = exp_type_2,
-      style = "serialize",
-      cran = FALSE
+      style = "json2",
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -110,8 +122,10 @@ test_that(
     exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
     expect_snapshot_value(
       x = exp_type_2,
-      style = "serialize",
-      cran = FALSE
+      style = "json2",
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
@@ -125,8 +139,10 @@ test_that(
     cal_type_2 <- clean_dt(cal_type_2, "calibration", 2, logfilename)[["dat"]]
     expect_snapshot_value(
       x = cal_type_2,
-      style = "serialize",
-      cran = FALSE
+      style = "json2",
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     # nolint start
     # expect_error({
