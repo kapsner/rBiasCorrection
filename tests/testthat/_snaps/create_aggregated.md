@@ -1,48 +1,125 @@
 # test functioning of aggregated function
 
-    WAoAAAACAAQAAgACAwAAAAMTAAAAAwAAAA4AAAAJAAAAAAAAAABAKQAAAAAAAEA5AAAAAAAA
-    QELAAAAAAABASQAAAAAAAEBPQAAAAAAAQFLAAAAAAABAVeAAAAAAAEBZAAAAAAAAAAAADgAA
-    AAlAB752yLQ5WEAki/JYvyWMQDFR64UeuFJAOjZFocrAg0BCao9cKPXDQEgkm6XjU/hATOmZ
-    mZmZmkBQQeuFHrhSQFc+l41P3zwAAAAOAAAACT/pF6Vcje50QAhVOz0JHK8//DlKZFy+sEAM
-    qAjv+KxMQAX9kEe16jFABTucDxefqEASFV/xoeC7QAAWq4lTias/5vj6NzkHbgAABAIAAAAB
-    AAQACQAAAAlyb3cubmFtZXMAAAANAAAAAoAAAAD////3AAAEAgAAAAEABAAJAAAABWNsYXNz
-    AAAAEAAAAAIABAAJAAAACmRhdGEudGFibGUABAAJAAAACmRhdGEuZnJhbWUAAAQCAAAAAQAE
-    AAkAAAARLmludGVybmFsLnNlbGZyZWYAAAAWAAAAFgAAAP4AAAD+AAAAEAAAAAMABAAJAAAA
-    EHRydWVfbWV0aHlsYXRpb24ABAAJAAAAA0NwRwAEAAkAAAACc2QAAAQCAAAAAQAEAAkAAAAF
-    bmFtZXMAAAAQAAAAAwAEAAkAAAAQdHJ1ZV9tZXRoeWxhdGlvbgAEAAkAAAADQ3BHAAQACQAA
-    AAJzZAAAAP4=
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["true_methylation", "CpG", "sd"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["data.table", "data.frame"]
+        },
+        ".internal.selfref": {
+          "type": "externalptr",
+          "attributes": {},
+          "value": {}
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0, 12.5, 25, 37.5, 50, 62.5, 75, 87.5, 100]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.968, 10.2733, 17.32, 26.212, 36.8325, 48.286, 57.825, 65.03, 92.978]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.7841, 3.0416, 1.764, 3.582, 2.7488, 2.6541, 4.5209, 2.0111, 0.7179]
+        }
+      ]
+    }
 
 ---
 
-    WAoAAAACAAQAAgACAwAAAAMTAAAAAwAAAw0AAAAKAAAAAQAAAAIAAAADAAAABAAAAAUAAAAG
-    AAAABwAAAAgAAAAJAAAACgAABAIAAAABAAQACQAAAAZsZXZlbHMAAAAQAAAACgAEAAkAAAAI
-    U2FtcGxlIzEABAAJAAAACVNhbXBsZSMxMAAEAAkAAAAIU2FtcGxlIzIABAAJAAAACFNhbXBs
-    ZSMzAAQACQAAAAhTYW1wbGUjNAAEAAkAAAAIU2FtcGxlIzUABAAJAAAACFNhbXBsZSM2AAQA
-    CQAAAAhTYW1wbGUjNwAEAAkAAAAIU2FtcGxlIzgABAAJAAAACFNhbXBsZSM5AAAEAgAAAAEA
-    BAAJAAAABWNsYXNzAAAAEAAAAAEABAAJAAAABmZhY3RvcgAAAP4AAAAOAAAACkBPkX5LF+Sy
-    QDSgQYk3S8ZAPKzMzMzMzUBEjXCj1wo9QCFhR64UeuFAL3Cj1wo9cEAweuFHrhR7QD+CDEm6
-    XjZAUX6XjU/fPEACUeuFHrhSAAAADgAAAApASX6OuDK40UAbhTzSEez/QDF9WfOL+jhAOmNo
-    XHUi9n/wAAAAAAeiQCTYczTTS0B/8AAAAAAHokAers1fo5nPQCuJGj2W7XZ/8AAAAAAHogAA
-    BAIAAAABAAQACQAAAAlyb3cubmFtZXMAAAANAAAAAoAAAAD////2AAAEAgAAAv8AAAAQAAAA
-    AgAEAAkAAAAKZGF0YS50YWJsZQAEAAkAAAAKZGF0YS5mcmFtZQAABAIAAAABAAQACQAAABEu
-    aW50ZXJuYWwuc2VsZnJlZgAAABYAAAAWAAAA/gAAAP4AAAAQAAAAAwAEAAkAAAAJc2FtcGxl
-    X2lkAAQACQAAAANDcEcABAAJAAAAAnNkAAAEAgAAAAEABAAJAAAABW5hbWVzAAAAEAAAAAMA
-    BAAJAAAACXNhbXBsZV9pZAAEAAkAAAADQ3BHAAQACQAAAAJzZAAAAP4=
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["CpG", "sd"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["data.table", "data.frame"]
+        },
+        ".internal.selfref": {
+          "type": "externalptr",
+          "attributes": {},
+          "value": {}
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [63.1367, 20.626, 28.675, 41.105, 8.69, 15.72, 16.48, 31.508, 69.978, 2.29]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [50.9887, 6.8801, 17.4897, 26.3883, "NA", 10.4228, "NA", 7.6707, 13.7678, "NA"]
+        }
+      ]
+    }
 
 ---
 
-    WAoAAAACAAQAAgACAwAAAAMTAAAAAwAAAw0AAAAKAAAAAgAAAAkAAAAHAAAAAQAAAAMAAAAK
-    AAAACAAAAAQAAAAFAAAABgAABAIAAAABAAQACQAAAAZsZXZlbHMAAAAQAAAACgAEAAkAAAAG
-    R2VuZSMxAAQACQAAAAdHZW5lIzEwAAQACQAAAAZHZW5lIzIABAAJAAAABkdlbmUjMwAEAAkA
-    AAAGR2VuZSM0AAQACQAAAAZHZW5lIzUABAAJAAAABkdlbmUjNgAEAAkAAAAGR2VuZSM3AAQA
-    CQAAAAZHZW5lIzgABAAJAAAABkdlbmUjOQAABAIAAAABAAQACQAAAAVjbGFzcwAAABAAAAAB
-    AAQACQAAAAZmYWN0b3IAAAD+AAAADgAAAApANKBBiTdLxkBRfpeNT988QDB64UeuFHtAT5F+
-    SxfkskA9m8tWTv6KQAJR64UeuFJAP4IMSbpeNkBEjXCj1wo9QCFhR64UeuFAL3Cj1wo9cAAA
-    AA4AAAAKQBuFPNIR7P9AK4kaPZbtdn/wAAAAAAeiQEl+jrgyuNFAMCfdyoFyJH/wAAAAAAei
-    QB6uzV+jmc9AOmNoXHUi9n/wAAAAAAeiQCTYczTTS0AAAAQCAAAAAQAEAAkAAAAJcm93Lm5h
-    bWVzAAAADQAAAAKAAAAA////9gAABAIAAAL/AAAAEAAAAAIABAAJAAAACmRhdGEudGFibGUA
-    BAAJAAAACmRhdGEuZnJhbWUAAAQCAAAAAQAEAAkAAAARLmludGVybmFsLnNlbGZyZWYAAAAW
-    AAAAFgAAAP4AAAD+AAAAEAAAAAMABAAJAAAACGxvY3VzX2lkAAQACQAAAANDcEcABAAJAAAA
-    AnNkAAAEAgAAAAEABAAJAAAABW5hbWVzAAAAEAAAAAMABAAJAAAACGxvY3VzX2lkAAQACQAA
-    AANDcEcABAAJAAAAAnNkAAAA/g==
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["CpG", "sd"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["data.table", "data.frame"]
+        },
+        ".internal.selfref": {
+          "type": "externalptr",
+          "attributes": {},
+          "value": {}
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [20.626, 69.978, 16.48, 63.1367, 29.6086, 2.29, 31.508, 41.105, 8.69, 15.72]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [6.8801, 13.7678, "NA", 50.9887, 16.1557, "NA", 7.6707, 26.3883, "NA", 10.4228]
+        }
+      ]
+    }
 

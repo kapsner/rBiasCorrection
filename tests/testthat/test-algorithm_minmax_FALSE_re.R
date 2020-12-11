@@ -167,24 +167,11 @@ test_that(
 
     # some tests
     expect_type(solved_eq, "list")
-    expect_snapshot_value(
-      x = solved_eq,
-      style = "serialize",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
-    )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(solved_eq, "d9350cb0b2")
-    #   expect_known_hash(solved_eq, "fe0adc367e")
-    # }, class = "error", regexp = "d9350cb0b2|fe0adc367e") # fe0adc367e
-    # nolint end
     expect_type(rv$final_results, "list")
     expect_s3_class(rv$final_results, "data.table")
     expect_snapshot_value(
-      x = rv$final_results,
-      style = "serialize",
+      x = table_prep(rv$final_results),
+      style = "json2",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -198,8 +185,8 @@ test_that(
     expect_type(rv$substitutions, "list")
     expect_s3_class(rv$substitutions, "data.table")
     expect_snapshot_value(
-      x = rv$substitutions,
-      style = "serialize",
+      x = table_prep(rv$substitutions),
+      style = "json2",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -211,24 +198,11 @@ test_that(
     # }, class = "error", regexp = "ca18ba24a0|7e1aaead80") # 7e1aaead80
     # nolint end
     expect_type(solved_eq2, "list")
-    expect_snapshot_value(
-      x = solved_eq2,
-      style = "serialize",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
-    )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(solved_eq2, "3e2fa23575")
-    #   expect_known_hash(solved_eq2, "df59cd9f96")
-    # }, class = "error", regexp = "3e2fa23575|df59cd9f96") # df59cd9f96
-    # nolint end
     expect_type(rv$fileimport_cal_corrected, "list")
     expect_s3_class(rv$fileimport_cal_corrected, "data.table")
     expect_snapshot_value(
-      x = rv$fileimport_cal_corrected,
-      style = "serialize",
+      x = table_prep(rv$fileimport_cal_corrected),
+      style = "json2",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE

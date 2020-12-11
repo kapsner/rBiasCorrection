@@ -22,7 +22,6 @@ jobs:
           #- { os: windows-latest, r: "release", java: "false" }
           #- { os: macOS-latest, r: "release", java: "false" }
           - { os: ubuntu-latest, r: "release", java: "false" }
-          - { os: ubuntu-latest, r: "devel", java: "false" }
 
     env:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries

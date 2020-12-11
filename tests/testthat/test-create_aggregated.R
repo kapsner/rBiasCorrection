@@ -19,8 +19,8 @@ test_that(
     cal_type_1 <- clean_dt(cal_type_1, "calibration", 1, logfilename)[["dat"]]
     df_agg <- create_agg_df(cal_type_1, colnames(cal_type_1)[2])
     expect_snapshot_value(
-      x = df_agg,
-      style = "serialize",
+      x = table_prep(df_agg),
+      style = "json2",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -37,8 +37,8 @@ test_that(
     exp_type_1 <- clean_dt(exp_type_1, "experimental", 1, logfilename)[["dat"]]
     df_agg <- create_agg_df_exp(exp_type_1, colnames(exp_type_1)[2], type = 1)
     expect_snapshot_value(
-      x = df_agg,
-      style = "serialize",
+      x = table_prep(df_agg),
+      style = "json2",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -54,8 +54,8 @@ test_that(
     exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
     df_agg <- create_agg_df_exp(exp_type_2, colnames(exp_type_2)[2], type = 2)
     expect_snapshot_value(
-      x = df_agg,
-      style = "serialize",
+      x = table_prep(df_agg),
+      style = "json2",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
