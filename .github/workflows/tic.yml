@@ -96,6 +96,10 @@ jobs:
         if: runner.os == 'Linux'
         run: sudo apt install libcurl4-openssl-dev
 
+      - name: "[Stage] [Linux] Install gert dependencies"
+        if: runner.os == 'Linux'
+        run: sudo apt install libgit2-dev
+
       - name: "[Stage] Configure R Java"
         if: runner.os != 'Windows' && matrix.config.java == 'true'
         run: sudo R CMD javareconf
