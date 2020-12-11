@@ -28,7 +28,7 @@ test_that(
                                 seed = 1234)
     expect_snapshot_value(
       x = h1,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE

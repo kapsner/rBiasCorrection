@@ -78,7 +78,7 @@ test_that(
     expect_type(rv$result_list, "list")
     expect_snapshot_value(
       x = rv$result_list,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -95,7 +95,7 @@ test_that(
     expect_s3_class(rv$reg_stats, "data.table")
     expect_snapshot_value(
       x = rv$reg_stats,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -156,7 +156,7 @@ test_that(
     expect_type(solved_eq, "list")
     expect_snapshot_value(
       x = solved_eq,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -172,7 +172,7 @@ test_that(
     expect_s3_class(rv$final_results, "data.table")
     expect_snapshot_value(
       x = rv$final_results,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -188,7 +188,7 @@ test_that(
     expect_s3_class(rv$substitutions, "data.table")
     expect_snapshot_value(
       x = rv$substitutions,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -203,7 +203,7 @@ test_that(
     expect_type(solved_eq2, "list")
     expect_snapshot_value(
       x = solved_eq2,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -219,7 +219,7 @@ test_that(
     expect_s3_class(rv$fileimport_cal_corrected, "data.table")
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -255,7 +255,7 @@ test_that(
     expect_type(solved_eq_h, "list")
     expect_snapshot_value(
       x = solved_eq_h,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -271,7 +271,7 @@ test_that(
     expect_s3_class(rv$fileimport_cal_corrected_h, "data.table")
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected_h,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -287,7 +287,7 @@ test_that(
     expect_s3_class(rv$substitutions_corrected_h, "data.table")
     expect_snapshot_value(
       x = rv$substitutions_corrected_h,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -321,7 +321,7 @@ test_that(
     expect_type(rv$result_list_hyperbolic, "list")
     expect_snapshot_value(
       x = rv$result_list_hyperbolic,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -338,7 +338,7 @@ test_that(
     expect_s3_class(rv$reg_stats_corrected_h, "data.table")
     expect_snapshot_value(
       x = rv$reg_stats_corrected_h,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -374,7 +374,7 @@ test_that(
     expect_type(solved_eq_c, "list")
     expect_snapshot_value(
       x = solved_eq_c,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -390,7 +390,7 @@ test_that(
     expect_s3_class(rv$fileimport_cal_corrected_c, "data.table")
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected_c,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -406,7 +406,7 @@ test_that(
     expect_s3_class(rv$substitutions_corrected_c, "data.table")
     expect_snapshot_value(
       x = rv$substitutions_corrected_c,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -444,7 +444,7 @@ test_that(
     expect_type(rv$result_list_cubic, "list")
     expect_snapshot_value(
       x = rv$result_list_cubic,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -461,7 +461,7 @@ test_that(
     expect_s3_class(rv$reg_stats_corrected_c, "data.table")
     expect_snapshot_value(
       x = rv$reg_stats_corrected_c,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -631,7 +631,7 @@ test_that(
     expect_type(solved_eq, "list")
     expect_snapshot_value(
       x = solved_eq,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -647,7 +647,7 @@ test_that(
     expect_s3_class(rv$final_results, "data.table")
     expect_snapshot_value(
       x = rv$final_results,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -663,7 +663,7 @@ test_that(
     expect_s3_class(rv$substitutions, "data.table")
     expect_snapshot_value(
       x = rv$substitutions,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -678,7 +678,7 @@ test_that(
     expect_type(solved_eq2, "list")
     expect_snapshot_value(
       x = solved_eq2,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
@@ -694,7 +694,7 @@ test_that(
     expect_s3_class(rv$fileimport_cal_corrected, "data.table")
     expect_snapshot_value(
       x = rv$fileimport_cal_corrected,
-      style = "json2",
+      style = "serialize",
       cran = FALSE,
       tolerance = 10e-3,
       ignore_function_env = TRUE
