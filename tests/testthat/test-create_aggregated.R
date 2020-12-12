@@ -21,14 +21,10 @@ test_that(
     expect_snapshot_value(
       x = table_prep(df_agg),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(df_agg, "34d2e049fb")
-    #   expect_known_hash(df_agg, "c16660dcd8")
-    # }, class = "error", regexp = "34d2e049fb|c16660dcd8")  # 6aa2d6fc51
-    # nolint end
 
     # experimental data
     exp_type_1 <- rBiasCorrection::example.data_experimental$dat
@@ -37,14 +33,10 @@ test_that(
     expect_snapshot_value(
       x = table_prep(df_agg),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(df_agg, "5a885b7e0a")
-    #   expect_known_hash(df_agg, "4a4ed97b38")
-    # }, class = "error", regexp = "5a885b7e0a|4a4ed97b38")
-    # nolint end
 
     exp_type_2 <- fread("./testdata/exp_type_2.csv")
     exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
@@ -52,14 +44,10 @@ test_that(
     expect_snapshot_value(
       x = table_prep(df_agg),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(df_agg, "d042a19f13")
-    #   expect_known_hash(df_agg, "46d527e146")
-    # }, class = "error", regexp = "d042a19f13|46d527e146")
-    # nolint end
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))
   })

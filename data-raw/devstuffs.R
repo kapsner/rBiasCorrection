@@ -14,7 +14,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.2.4.9003")
+my_desc$set_version("0.2.4.9004")
 # The title of your package
 my_desc$set(Title = "Correct Bias in DNA Methylation Analyses")
 # The description of your package
@@ -65,10 +65,10 @@ usethis::use_package("microbenchmark", type = "Suggests")
 
 
 # dev packages
-# tag <- "master"
-# devtools::install_github(repo = "r-lib/testthat", ref = tag, upgrade = "always")
-# # https://cran.r-project.org/web/packages/devtools/vignettes/dependencies.html
-# desc::desc_set_remotes(paste0("github::r-lib/testthat@", tag), file = usethis::proj_get())
+tag <- "master"
+devtools::install_github(repo = "r-lib/testthat", ref = tag, upgrade = "always")
+# https://cran.r-project.org/web/packages/devtools/vignettes/dependencies.html
+desc::desc_set_remotes(paste0("github::r-lib/testthat@", tag), file = usethis::proj_get())
 
 
 # gitignore

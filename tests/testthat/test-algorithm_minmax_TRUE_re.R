@@ -172,14 +172,18 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$final_results),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     expect_type(rv$substitutions, "list")
     expect_s3_class(rv$substitutions, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     expect_type(solved_eq2, "list")
     expect_type(rv$fileimport_cal_corrected, "list")
@@ -187,7 +191,9 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))

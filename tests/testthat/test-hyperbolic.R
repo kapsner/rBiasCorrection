@@ -29,14 +29,10 @@ test_that(
     expect_snapshot_value(
       x = h1,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(h1, "3578c7d484")
-    #   expect_known_hash(h1, "bce2d004e7")
-    # }, class = "error", regexp = "3578c7d484|bce2d004e7") # bce2d004e7
-    # nolint end
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))
   })

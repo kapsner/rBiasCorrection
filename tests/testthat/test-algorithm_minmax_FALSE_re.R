@@ -69,9 +69,9 @@ test_that(
 
     # hyperbolic correction
     rv$choices_list <- rv$reg_stats[, c("Name"), with = F
-                                    ][
-                                      , ("better_model") := 0
-                                      ]
+    ][
+      , ("better_model") := 0
+    ]
 
     # correct calibration data (to show corrected calibration curves)
     solved_eq_h <- solving_equations(rv$fileimport_calibration,
@@ -104,9 +104,9 @@ test_that(
 
     # cubic correction
     rv$choices_list <- rv$reg_stats[, c("Name"), with = F
-                                    ][
-                                      , ("better_model") := 1
-                                      ]
+    ][
+      , ("better_model") := 1
+    ]
 
     # correct calibration data (to show corrected calibration curves)
     solved_eq_c <- solving_equations(rv$fileimport_calibration,
@@ -172,41 +172,31 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$final_results),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$final_results, "3189653abe")
-    #   expect_known_hash(rv$final_results, "b25fab0cf3")
-    # }, class = "error", regexp = "3189653abe|b25fab0cf3") # b25fab0cf3
-    # nolint end
+
     expect_type(rv$substitutions, "list")
     expect_s3_class(rv$substitutions, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$substitutions, "ca18ba24a0")
-    #   expect_known_hash(rv$substitutions, "7e1aaead80")
-    # }, class = "error", regexp = "ca18ba24a0|7e1aaead80") # 7e1aaead80
-    # nolint end
+
     expect_type(solved_eq2, "list")
     expect_type(rv$fileimport_cal_corrected, "list")
     expect_s3_class(rv$fileimport_cal_corrected, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$fileimport_cal_corrected, "ff0a502640")
-    #   expect_known_hash(rv$fileimport_cal_corrected, "248f22f000")
-    # }, class = "error", regexp = "ff0a502640|248f22f000") # 248f22f000
-    # nolint end
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))
   })

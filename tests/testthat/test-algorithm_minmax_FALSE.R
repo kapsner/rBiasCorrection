@@ -82,15 +82,10 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$result_list, "66dbae3141")
-    #   expect_known_hash(rv$result_list, "70c4aa7531")
-    # }, class = "error", regexp = "66dbae3141|70c4aa7531")
-    # # 70c4aa7531, d7f426a1a8, 2eb93a74d3
-    # nolint end
 
     expect_type(rv$reg_stats, "list")
     expect_s3_class(rv$reg_stats, "data.table")
@@ -98,15 +93,11 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$reg_stats),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$reg_stats, "3603e3abcb")
-    #   expect_known_hash(rv$reg_stats, "d2e883e81d")
-    # }, class = "error", regexp = "3603e3abcb|d2e883e81d") # d2e883e81d
-    # #a27d84167e, b88f6a9fcf, 057c7d0a13, 33e1d855be
-    # nolint end
+
     expect_true(
       all.equal(
         regression_results,
@@ -157,65 +148,53 @@ test_that(
     expect_s3_class(rv$final_results, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$final_results),
-      style = "json2"
+      style = "json2",
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$final_results, "16edb2d3ca")
-    #   expect_known_hash(rv$final_results, "c28704311f")
-    # }, class = "error", regexp = "16edb2d3ca|c28704311f") # c28704311f
-    # nolint end
+
     expect_type(rv$substitutions, "list")
     expect_s3_class(rv$substitutions, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$substitutions, "c67561996f")
-    #   expect_known_hash(rv$substitutions, "6ca563f935")
-    # }, class = "error", regexp = "c67561996f|6ca563f935") # 6ca563f935
-    # nolint end
+
     expect_type(solved_eq2, "list")
     expect_snapshot_value(
       x = table_prep(solved_eq2[["results"]]),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
     expect_snapshot_value(
       x = table_prep(solved_eq2[["substitutions"]]),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(solved_eq2, "9ea9e3d04d")
-    #   expect_known_hash(solved_eq2, "b4605bb70f")
-    # }, class = "error", regexp = "9ea9e3d04d|b4605bb70f") # b4605bb70f
-    # nolint end
+
     expect_type(rv$fileimport_cal_corrected, "list")
     expect_s3_class(rv$fileimport_cal_corrected, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$fileimport_cal_corrected, "947a883caa")
-    #   expect_known_hash(rv$fileimport_cal_corrected, "fd7708da93")
-    # }, class = "error", regexp = "947a883caa|fd7708da93") # fd7708da93
-    # nolint end
-
-
 
     # hyperbolic correction
     rv$choices_list <- rv$reg_stats[, c("Name"), with = F
-                                    ][
-                                      , ("better_model") := 0
-                                      ]
+    ][
+      , ("better_model") := 0
+    ]
 
     # correct calibration data (to show corrected calibration curves)
     solved_eq_h <- solving_equations(rv$fileimport_calibration,
@@ -237,27 +216,20 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected_h),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$fileimport_cal_corrected_h, "0592bdf33f")
-    #   expect_known_hash(rv$fileimport_cal_corrected_h, "652ac3a81f")
-    # }, class = "error", regexp = "0592bdf33f|652ac3a81f") # 652ac3a81f
-    # nolint end
+
     expect_type(rv$substitutions_corrected_h, "list")
     expect_s3_class(rv$substitutions_corrected_h, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions_corrected_h),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$substitutions_corrected_h, "d1b7a8b151")
-    #   expect_known_hash(rv$substitutions_corrected_h, "16c7efb563")
-    # }, class = "error", regexp = "d1b7a8b151|16c7efb563") # 16c7efb563
-    # nolint end
 
     # calculate new calibration curves from corrected calibration data
     regression_results <- regression_utility(
@@ -285,36 +257,26 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list_hyperbolic,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$result_list_hyperbolic, "b39e4cbca1")
-    #   expect_known_hash(rv$result_list_hyperbolic, "f49cd1b17c")
-    # }, class = "error", regexp = "b39e4cbca1|f49cd1b17c") # f49cd1b17c
-    # 3d50611917, ccbe9ff93a
-    # nolint end
+
     expect_type(rv$reg_stats_corrected_h, "list")
     expect_s3_class(rv$reg_stats_corrected_h, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$reg_stats_corrected_h),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$reg_stats_corrected_h, "f8ac0ddffd")
-    #   expect_known_hash(rv$reg_stats_corrected_h, "9b4f5b4dcb")
-    # }, class = "error", regexp = "f8ac0ddffd|9b4f5b4dcb") # 9b4f5b4dcb
-    # #a27d84167e, 5205aae446, 81e6bcb79b, 5c8f64e551
-    # nolint end
-
 
     # cubic correction
     rv$choices_list <- rv$reg_stats[, c("Name"), with = F
-                                    ][
-                                      , ("better_model") := 1
-                                      ]
+    ][
+      , ("better_model") := 1
+    ]
 
     # correct calibration data (to show corrected calibration curves)
     solved_eq_c <- solving_equations(rv$fileimport_calibration,
@@ -336,24 +298,20 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected_c),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$fileimport_cal_corrected_c, "a99f550089")
-    #   expect_known_hash(rv$fileimport_cal_corrected_c, "9c02bbabfd")
-    # }, class = "error", regexp = "a99f550089|9c02bbabfd") # 9c02bbabfd
-    # nolint end
+
     expect_type(rv$substitutions_corrected_c, "list")
     expect_s3_class(rv$substitutions_corrected_c, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions_corrected_c),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_known_hash(rv$substitutions_corrected_c, "5e15c67e45")
-    # nolint end
 
     # calculate new calibration curves from corrected calibration data
     regression_results <- regression_utility(
@@ -381,30 +339,20 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list_cubic,
       style = "serialize",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$result_list_cubic, "77dda04aba")
-    #   expect_known_hash(rv$result_list_cubic, "36e27655ea")
-    # }, class = "error", regexp = "77dda04aba|36e27655ea") # 36e27655ea
-    # # 7214d93552, 9bc037ad08
-    # nolint end
 
     expect_type(rv$reg_stats_corrected_c, "list")
     expect_s3_class(rv$reg_stats_corrected_c, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$reg_stats_corrected_c),
       style = "json2",
-      cran = FALSE
+      cran = FALSE,
+      tolerance = 10e-3,
+      ignore_function_env = TRUE
     )
-    # nolint start
-    # expect_error({
-    #   expect_known_hash(rv$reg_stats_corrected_c, "446af74c7a")
-    #   expect_known_hash(rv$reg_stats_corrected_c, "88bb1a0300")
-    # }, class = "error", regexp = "446af74c7a|88bb1a0300") # 88bb1a0300
-    # #a27d84167e, 1d48c373f6, 90a3a2cb09, e79434dab7
-    # nolint end
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))
   })
