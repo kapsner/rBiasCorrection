@@ -21,9 +21,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(df_agg),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -39,9 +37,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(df_agg),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -56,9 +52,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(df_agg),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({

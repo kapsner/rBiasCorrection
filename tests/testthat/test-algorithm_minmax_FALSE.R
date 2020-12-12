@@ -82,9 +82,7 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list,
       style = "serialize",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -100,9 +98,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$reg_stats),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -161,9 +157,7 @@ test_that(
     expect_s3_class(rv$final_results, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$final_results),
-      style = "json2",
-      cran = FALSE,
-      ignore_function_env = TRUE
+      style = "json2"
     )
     # nolint start
     # expect_error({
@@ -176,9 +170,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$substitutions),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -190,16 +182,12 @@ test_that(
     expect_snapshot_value(
       x = table_prep(solved_eq2[["results"]]),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     expect_snapshot_value(
       x = table_prep(solved_eq2[["substitutions"]]),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -212,9 +200,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -251,9 +237,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected_h),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -266,9 +250,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$substitutions_corrected_h),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -303,9 +285,7 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list_hyperbolic,
       style = "serialize",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -319,9 +299,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$reg_stats_corrected_h),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -358,9 +336,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected_c),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -373,9 +349,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$substitutions_corrected_c),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_known_hash(rv$substitutions_corrected_c, "5e15c67e45")
@@ -407,9 +381,7 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list_cubic,
       style = "serialize",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -424,9 +396,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$reg_stats_corrected_c),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({

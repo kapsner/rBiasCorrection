@@ -29,9 +29,7 @@ test_that(
     expect_snapshot_value(
       x = h1,
       style = "serialize",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({

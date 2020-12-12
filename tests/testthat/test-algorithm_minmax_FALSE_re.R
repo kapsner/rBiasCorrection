@@ -172,9 +172,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$final_results),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -187,9 +185,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$substitutions),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({
@@ -203,9 +199,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     # nolint start
     # expect_error({

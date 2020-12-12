@@ -78,9 +78,7 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list,
       style = "serialize",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
 
     expect_type(rv$reg_stats, "list")
@@ -89,9 +87,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$reg_stats),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     expect_true(
       all.equal(
@@ -144,41 +140,32 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$final_results),
       style = "json2",
-      cran = FALSE,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     expect_type(rv$substitutions, "list")
     expect_s3_class(rv$substitutions, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     expect_type(solved_eq2, "list")
     expect_snapshot_value(
       x = table_prep(solved_eq2[["results"]]),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     expect_snapshot_value(
       x = table_prep(solved_eq2[["substitutions"]]),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     expect_type(rv$fileimport_cal_corrected, "list")
     expect_s3_class(rv$fileimport_cal_corrected, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
 
 
@@ -209,18 +196,14 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected_h),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     expect_type(rv$substitutions_corrected_h, "list")
     expect_s3_class(rv$substitutions_corrected_h, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions_corrected_h),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
 
     # calculate new calibration curves from corrected calibration data
@@ -245,18 +228,14 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list_hyperbolic,
       style = "serialize",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     expect_type(rv$reg_stats_corrected_h, "list")
     expect_s3_class(rv$reg_stats_corrected_h, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$reg_stats_corrected_h),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
 
 
@@ -286,18 +265,14 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected_c),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
     expect_type(rv$substitutions_corrected_c, "list")
     expect_s3_class(rv$substitutions_corrected_c, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions_corrected_c),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
 
     # calculate new calibration curves from corrected calibration data
@@ -322,9 +297,7 @@ test_that(
     expect_snapshot_value(
       x = rv$result_list_cubic,
       style = "serialize",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
 
     expect_type(rv$reg_stats_corrected_c, "list")
@@ -332,9 +305,7 @@ test_that(
     expect_snapshot_value(
       x = table_prep(rv$reg_stats_corrected_c),
       style = "json2",
-      cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      cran = FALSE
     )
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))
