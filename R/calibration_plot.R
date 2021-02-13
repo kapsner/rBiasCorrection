@@ -120,12 +120,15 @@ calibration_plot <- function(plotlist,
     #%                     values = c(Cubic = "indianred1",
     #%                                Hyperbolic = "mediumspringgreen",
     #%                                unbiased = "lightblue")) +
-    ggpubr::theme_pubr() +
     ggplot2::theme(
       plot.title = ggplot2::element_text(hjust = 0.5),
       plot.subtitle = ggplot2::element_text(hjust = 0.5),
       text = ggplot2::element_text(size = plot_textsize)
     )
+
+  if ("ggpubr" %in% installed.packages()[, "Package"]) {
+    outplot <- outplot + ggpubr::theme_pubr()
+  }
 
   return(outplot)
 }

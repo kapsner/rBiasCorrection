@@ -300,7 +300,6 @@ createbarerrorplots <- function(statstable_pre,
             ggplot2::scale_fill_manual(
               values = values
             ) +
-            ggpubr::theme_pubr() +
             ggplot2::theme(
               axis.title.x = ggplot2::element_blank(),
               legend.position = "none",
@@ -311,6 +310,10 @@ createbarerrorplots <- function(statstable_pre,
           #% axis.ticks.x = element_blank(),
           #% axis.text.x = element_blank())
           #% print whole plot in return, otherwise it will fail
+
+          if ("ggpubr" %in% installed.packages()[, "Package"]) {
+            outplot <- outplot + ggpubr::theme_pubr()
+          }
 
           ggplot2::ggsave(
             filename = filename,

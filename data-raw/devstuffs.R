@@ -14,7 +14,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.2.5")
+my_desc$set_version("0.2.6")
 # The title of your package
 my_desc$set(Title = "Correct Bias in DNA Methylation Analyses")
 # The description of your package
@@ -51,7 +51,6 @@ usethis::use_package("ggplot2", type="Imports")
 usethis::use_package("magrittr", type="Imports")
 usethis::use_package("polynom", type="Imports")
 usethis::use_package("nls2", type="Imports")
-usethis::use_package("ggpubr", type="Imports")
 usethis::use_package("stats", type="Imports")
 usethis::use_package("future.apply", type="Imports")
 usethis::use_package("future", type = "Imports")
@@ -62,6 +61,7 @@ usethis::use_package("lintr", type = "Suggests")
 usethis::use_package("knitr", type = "Suggests")
 usethis::use_package("rmarkdown", type = "Suggests")
 usethis::use_package("microbenchmark", type = "Suggests")
+usethis::use_package("ggpubr", type="Suggests")
 
 
 # dev packages

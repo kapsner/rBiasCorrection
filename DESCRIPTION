@@ -1,6 +1,6 @@
 Package: rBiasCorrection
 Title: Correct Bias in DNA Methylation Analyses
-Version: 0.2.5
+Version: 0.2.6
 Authors@R: 
     c(person(given = "Lorenz A.",
              family = "Kapsner",
@@ -24,12 +24,12 @@ Imports:
     future,
     future.apply,
     ggplot2,
-    ggpubr,
     magrittr,
     nls2,
     polynom,
     stats
 Suggests: 
+    ggpubr,
     knitr,
     lintr,
     microbenchmark,
@@ -37,6 +37,7 @@ Suggests:
     testthat (>= 3.0.1)
 VignetteBuilder: 
     knitr
-Date/Publication: 2020-12-17 16:14:38 UTC
+Date/Publication: 2021-02-13 11:08:58 UTC
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.1.1
