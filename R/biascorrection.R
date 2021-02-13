@@ -1,5 +1,5 @@
 # rBiasCorrection: Correct Bias in Quantitative DNA Methylation Analyses.
-# Copyright (C) 2019-2020 Lorenz Kapsner
+# Copyright (C) 2019-2021 Lorenz Kapsner
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 #'   Moskalev et. al in their article 'Correction of PCR-bias in quantitative
 #'   DNA methylation studies by means of cubic polynomial regression',
 #'   published 2011 in Nucleic acids research, Oxford University Press
-#'   (\url{https://doi.org/10.1093/nar/gkr213}).
+#'   (\doi{10.1093/nar/gkr213}).
 #'
 #' @param experimental A character string. Path to the file containing the raw
 #'   methylation values of the samples under investigation.

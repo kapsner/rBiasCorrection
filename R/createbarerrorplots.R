@@ -1,5 +1,5 @@
 # rBiasCorrection: Correct Bias in Quantitative DNA Methylation Analyses.
-# Copyright (C) 2019-2020 Lorenz Kapsner
+# Copyright (C) 2019-2021 Lorenz Kapsner
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -311,7 +311,7 @@ createbarerrorplots <- function(statstable_pre,
           #% axis.text.x = element_blank())
           #% print whole plot in return, otherwise it will fail
 
-          if ("ggpubr" %in% installed.packages()[, "Package"]) {
+          if ("ggpubr" %in% utils::installed.packages()[, "Package"]) {
             outplot <- outplot + ggpubr::theme_pubr()
           }
 

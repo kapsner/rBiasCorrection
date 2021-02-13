@@ -54,6 +54,7 @@ usethis::use_package("nls2", type="Imports")
 usethis::use_package("stats", type="Imports")
 usethis::use_package("future.apply", type="Imports")
 usethis::use_package("future", type = "Imports")
+usethis::use_package("utils", type = "Imports")
 
 # Suggests
 usethis::use_package("testthat", type = "Suggests", min_version = "3.0.1")
