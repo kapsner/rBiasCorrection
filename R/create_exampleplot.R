@@ -89,12 +89,11 @@ create_exampleplot <- function(data,
                    hjust = 0, vjust = 1),
       label = lb1,
       parse = F
-    ) + ggplot2::geom_errorbar(
+    ) + ggplot2::geom_pointrange(
       ggplot2::aes_string(
         ymin = "ymin",
         ymax = "ymax"
-      ),
-      width = 0.2
+      )
     )
 
   # create plot

@@ -116,10 +116,10 @@ regression_type1 <- function(datatable,
   )
 
   if (is.null(locus_id)) {
-    plot_title <- bquote(italic(.(locusname)))
+    plot_title <- bquote(italic(.(locusname))) # nolint
   } else {
     plot_title <- bquote("Locus: " ~
-                           italic(.(locus_id)) ~
+                           italic(.(locus_id)) ~ # nolint
                            " - Sample: " ~
                            .(locusname))
   }
@@ -245,12 +245,11 @@ regression_type1 <- function(datatable,
         if (is.null(mode)) {
           if ("ymin" %in% colnames(gdat) &&
               "ymax" %in% colnames(gdat)) {
-            p <- p + ggplot2::geom_errorbar(
+            p <- p + ggplot2::geom_pointrange(
               ggplot2::aes_string(
                 ymin = "ymin",
                 ymax = "ymax"
-              ),
-              width = 0.2
+              )
             )
           }
         }
