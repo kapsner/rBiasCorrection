@@ -116,12 +116,12 @@ regression_type1 <- function(datatable,
   )
 
   if (is.null(locus_id)) {
-    plot_title <- bquote(italic(.(locusname))) # nolint
+    plot_title <- "bquote(italic(.(locusname)))"
   } else {
-    plot_title <- bquote("Locus: " ~
-                           italic(.(locus_id)) ~ # nolint
-                           " - Sample: " ~
-                           .(locusname))
+    plot_title <- paste0(
+      "bquote('Locus: ' ~ italic(.(locus_id)) ~",
+      "' - Sample: ' ~ .(locusname))"
+    )
   }
 
   # result_list
@@ -229,7 +229,7 @@ regression_type1 <- function(datatable,
           ggplot2::ylab(custom_ylab) +
           ggplot2::xlab("actual methylation (%)") +
           ggplot2::labs(
-            title = plot_title,
+            title = eval(parse(text = plot_title)),
             subtitle = paste("CpG:", vec_cal[i])
           ) +
           ggplot2::geom_text(
