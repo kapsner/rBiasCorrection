@@ -249,7 +249,8 @@ regression_type1 <- function(datatable,
               ggplot2::aes_string(
                 ymin = "ymin",
                 ymax = "ymax"
-              )
+              ),
+              flatten = 0.5
             )
           }
         }

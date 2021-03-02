@@ -93,7 +93,8 @@ create_exampleplot <- function(data,
       ggplot2::aes_string(
         ymin = "ymin",
         ymax = "ymax"
-      )
+      ),
+      flatten = 0.5
     )
 
   # create plot
