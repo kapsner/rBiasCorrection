@@ -59,6 +59,10 @@ on_start <- function(plotdir,
   # initialize logfile here
   suppressMessages(suppressWarnings(file.create(logfilename)))
 
+  if ("ggpubr" %in% utils::installed.packages()[, "Package"]) {
+    Sys.setenv("GGPUBR_EXISTS" = "TRUE")
+  }
+
   if (isTRUE(parallel) && future::availableCores() > 1) {
 
     if (.Platform$OS.type == "unix") {

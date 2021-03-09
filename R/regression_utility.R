@@ -220,6 +220,12 @@ regression_type1 <- function(datatable,
           }
         }
 
+        x_max <- ifelse(
+          max(gdat$true_methylation) <= 1,
+          1,
+          100
+        )
+
         p <- ggplot2::ggplot(data = gdat,
                              ggplot2::aes_string(
                                x = "true_methylation",
@@ -240,7 +246,9 @@ regression_type1 <- function(datatable,
                          hjust = 0, vjust = 1),
             label = lb1,
             parse = FALSE
-          )
+          ) +
+          ggplot2::xlim(0, x_max) +
+          ggplot2::ylim(0, x_max)
 
         if (is.null(mode)) {
           if ("ymin" %in% colnames(gdat) &&

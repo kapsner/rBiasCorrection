@@ -96,14 +96,15 @@ calibration_plot <- function(plotlist,
   }
 
   outplot <- p +
-    ggplot2::geom_line(
-      ggplot2::aes(
-        x = plotlist$data$true_methylation,
-        y = plotlist$data$true_methylation,
+    ggplot2::geom_abline(
+      mapping = ggplot2::aes(
+        intercept = 0,
+        slope = 1,
         color = "unbiased"
       ),
       linetype = "dashed",
-      size = 1.08
+      size = 1.08,
+      show.legend = FALSE
     ) +
     ggplot2::labs(
       color = ggplot2::element_blank()
@@ -111,7 +112,8 @@ calibration_plot <- function(plotlist,
     ggplot2::scale_color_manual(
       values = c("#E64B35FF",
                  "#4DBBD5FF",
-                 "grey47"),
+                 "grey47"
+                 ),
       labels = c("cubic",
                  "hyperbolic",
                  "unbiased")
@@ -126,7 +128,7 @@ calibration_plot <- function(plotlist,
       text = ggplot2::element_text(size = plot_textsize)
     )
 
-  if ("ggpubr" %in% utils::installed.packages()[, "Package"]) {
+  if (Sys.getenv("GGPUBR_EXISTS") == "TRUE") {
     outplot <- outplot + ggpubr::theme_pubr()
   }
 
