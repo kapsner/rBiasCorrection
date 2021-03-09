@@ -241,8 +241,7 @@ regression_type1 <- function(datatable,
           ggplot2::geom_text(
             data = data.frame(),
             ggplot2::aes(x = -Inf,
-                         y = c(max(gdat$true_methylation),
-                               0.95 * max(gdat$true_methylation)),
+                         y = c(x_max, 0.95 * x_max),
                          hjust = 0, vjust = 1),
             label = lb1,
             parse = FALSE

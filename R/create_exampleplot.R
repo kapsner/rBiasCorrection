@@ -84,8 +84,7 @@ create_exampleplot <- function(data,
     ggplot2::geom_text(
       data = data.frame(),
       ggplot2::aes(x = -Inf,
-                   y = c(max(data$CpG),
-                         0.95 * max(data$CpG)),
+                   y = c(100, 0.95 * 100),
                    hjust = 0, vjust = 1),
       label = lb1,
       parse = F
