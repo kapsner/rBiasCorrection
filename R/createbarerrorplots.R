@@ -311,7 +311,7 @@ createbarerrorplots <- function(statstable_pre,
           #% axis.text.x = element_blank())
           #% print whole plot in return, otherwise it will fail
 
-          if (Sys.getenv("GGPUBR_EXISTS") == "TRUE") {
+          if (isTRUE(getOption("ggpubr.exists"))) {
             outplot <- outplot + ggpubr::theme_pubr()
           }
 

@@ -128,7 +128,7 @@ calibration_plot <- function(plotlist,
       text = ggplot2::element_text(size = plot_textsize)
     )
 
-  if (Sys.getenv("GGPUBR_EXISTS") == "TRUE") {
+  if (isTRUE(getOption("ggpubr.exists"))) {
     outplot <- outplot + ggpubr::theme_pubr()
   }
 

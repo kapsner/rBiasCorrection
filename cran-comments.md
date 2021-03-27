@@ -1,5 +1,5 @@
 ## R CMD check results
 There were no ERRORs or WARNINGs.
 
-Latest submit updates appearance of errorbars in plots.
+Latest submit fixes errors when plotting data with calibration values 0 < x < 100.
 
