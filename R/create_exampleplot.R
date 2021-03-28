@@ -93,7 +93,7 @@ create_exampleplot <- function(data,
         ymin = "ymin",
         ymax = "ymax"
       ),
-      flatten = 0.5
+      fatten = 0.5
     )
 
   # create plot

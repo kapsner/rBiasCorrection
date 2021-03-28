@@ -257,7 +257,7 @@ regression_type1 <- function(datatable,
                 ymin = "ymin",
                 ymax = "ymax"
               ),
-              flatten = 0.5
+              fatten = 1
             )
           }
         }
