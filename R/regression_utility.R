@@ -170,7 +170,7 @@ regression_type1 <- function(datatable,
 
   plot.listR <- future.apply::future_lapply(
     X = seq_len(length(vec_cal)),
-    FUN = function(i) {
+    FUN = function(i, datatable, vec_cal, result_list, mode) {
       local({
 
         df_agg <- create_agg_df(
@@ -264,7 +264,10 @@ regression_type1 <- function(datatable,
       })
     },
     future.seed = TRUE,
-    result_list = result_list
+    result_list = result_list,
+    datatable = datatable,
+    vec_cal = vec_cal,
+    mode = mode
   )
   return(
     list("plot_list" = plot.listR,
