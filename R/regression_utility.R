@@ -170,104 +170,97 @@ regression_type1 <- function(datatable,
 
   plot.listR <- future.apply::future_lapply(
     X = seq_len(length(vec_cal)),
-    FUN = function(i, datatable, vec_cal, result_list, mode) {
-      local({
+    FUN = function(i) {
+      df_agg <- create_agg_df(
+        datatable = datatable,
+        index = vec_cal[i]
+      )
+      if (is.null(mode)) {
+        custom_ylab <- "methylation (%)\napparent after quantification"
+      } else if (mode == "corrected") {
+        custom_ylab <- "methylation (%)\nafter BiasCorrection"
+      }
 
-        df_agg <- create_agg_df(
-          datatable = datatable,
-          index = vec_cal[i]
+      lb1 <- c(paste0("  R\u00B2: \n  Hyperbolic = ",
+                      round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2),
+                      "\n  Cubic = ",
+                      round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)), "")
+
+
+      gdat <- df_agg[
+        , ("true_methylation") := as.numeric(
+          as.character(
+            get("true_methylation")
+          )
         )
-        if (is.null(mode)) {
-          custom_ylab <- "methylation (%)\napparent after quantification"
-        } else if (mode == "corrected") {
-          custom_ylab <- "methylation (%)\nafter BiasCorrection"
-        }
-
-        lb1 <- c(paste0("  R\u00B2: \n  Hyperbolic = ",
-                        round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2),
-                        "\n  Cubic = ",
-                        round(result_list[[vec_cal[i]]]$Coef_cubic$R2, 2)), "")
-
-
-        gdat <- df_agg[
-          , ("true_methylation") := as.numeric(
-            as.character(
-              get("true_methylation")
-            )
+      ][
+        , ("CpG") := as.numeric(
+          as.character(
+            get("CpG")
           )
-        ][
-          , ("CpG") := as.numeric(
-            as.character(
-              get("CpG")
-            )
-          )
-        ]
+        )
+      ]
 
-        if (is.null(mode)) {
-          if ("sd" %in% colnames(gdat)) {
-            gdat <- gdat[
-              , ("sd") := as.numeric(
-                as.character(
-                  get("sd")
-                )
+      if (is.null(mode)) {
+        if ("sd" %in% colnames(gdat)) {
+          gdat <- gdat[
+            , ("sd") := as.numeric(
+              as.character(
+                get("sd")
               )
-            ][
-              , ("ymin") := get("CpG") - get("sd")
-            ][
-              , ("ymax") := get("CpG") + get("sd")
-            ]
-          }
-        }
-
-        x_max <- ifelse(
-          max(gdat$true_methylation) <= 1,
-          1,
-          100
-        )
-
-        p <- ggplot2::ggplot(data = gdat,
-                             ggplot2::aes_string(
-                               x = "true_methylation",
-                               y = "CpG")
-        ) +
-          ggplot2::geom_point() +
-          ggplot2::ylab(custom_ylab) +
-          ggplot2::xlab("actual methylation (%)") +
-          ggplot2::labs(
-            title = eval(parse(text = plot_title)),
-            subtitle = paste("CpG:", vec_cal[i])
-          ) +
-          ggplot2::geom_text(
-            data = data.frame(),
-            ggplot2::aes(x = -Inf,
-                         y = c(x_max, 0.95 * x_max),
-                         hjust = 0, vjust = 1),
-            label = lb1,
-            parse = FALSE
-          ) +
-          ggplot2::xlim(0, x_max) +
-          ggplot2::ylim(0, x_max)
-
-        if (is.null(mode)) {
-          if ("ymin" %in% colnames(gdat) &&
-              "ymax" %in% colnames(gdat)) {
-            p <- p + ggplot2::geom_pointrange(
-              ggplot2::aes_string(
-                ymin = "ymin",
-                ymax = "ymax"
-              ),
-              fatten = 1
             )
-          }
+          ][
+            , ("ymin") := get("CpG") - get("sd")
+          ][
+            , ("ymax") := get("CpG") + get("sd")
+          ]
         }
-        return(p)
-      })
+      }
+
+      x_max <- ifelse(
+        max(gdat$true_methylation) <= 1,
+        1,
+        100
+      )
+
+      p <- ggplot2::ggplot(data = gdat,
+                           ggplot2::aes_string(
+                             x = "true_methylation",
+                             y = "CpG")
+      ) +
+        ggplot2::geom_point() +
+        ggplot2::ylab(custom_ylab) +
+        ggplot2::xlab("actual methylation (%)") +
+        ggplot2::labs(
+          title = eval(parse(text = plot_title)),
+          subtitle = paste("CpG:", vec_cal[i])
+        ) +
+        ggplot2::geom_text(
+          data = data.frame(),
+          ggplot2::aes(x = -Inf,
+                       y = c(x_max, 0.95 * x_max),
+                       hjust = 0, vjust = 1),
+          label = lb1,
+          parse = FALSE
+        ) +
+        ggplot2::xlim(0, x_max) +
+        ggplot2::ylim(0, x_max)
+
+      if (is.null(mode)) {
+        if ("ymin" %in% colnames(gdat) &&
+            "ymax" %in% colnames(gdat)) {
+          p <- p + ggplot2::geom_pointrange(
+            ggplot2::aes_string(
+              ymin = "ymin",
+              ymax = "ymax"
+            ),
+            fatten = 1
+          )
+        }
+      }
+      return(p)
     },
-    future.seed = TRUE,
-    result_list = result_list,
-    datatable = datatable,
-    vec_cal = vec_cal,
-    mode = mode
+    future.seed = TRUE
   )
   return(
     list("plot_list" = plot.listR,
