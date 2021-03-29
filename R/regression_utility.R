@@ -166,13 +166,17 @@ regression_type1 <- function(datatable,
 
 
         if (is.null(locus_id)) {
+          # nolint start
           # plot_title <- eval(parse(text = "bquote(italic(.(locusname)))"))
+          # nolint end
           plot_title <- locusname
         } else {
+          # nolint start
           # plot_title <- eval(parse(text = paste0(
           #   "bquote('Locus: ' ~ italic(.(locus_id)) ~",
           #   "' - Sample: ' ~ .(locusname))"
           # )))
+          # nolint end
           plot_title <- paste0(
             "Locus: ", locus_id, " - Sample: ", locusname
           )
