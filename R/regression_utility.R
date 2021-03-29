@@ -115,15 +115,6 @@ regression_type1 <- function(datatable,
     logfilename = logfilename
   )
 
-  if (is.null(locus_id)) {
-    plot_title <- "bquote(italic(.(locusname)))"
-  } else {
-    plot_title <- paste0(
-      "bquote('Locus: ' ~ italic(.(locus_id)) ~",
-      "' - Sample: ' ~ .(locusname))"
-    )
-  }
-
   # result_list
   result_list <- future.apply::future_sapply(
     X = vec_cal,
@@ -172,6 +163,17 @@ regression_type1 <- function(datatable,
     X = seq_len(length(vec_cal)),
     FUN = function(i) {
       local({
+
+
+        if (is.null(locus_id)) {
+          plot_title <- "bquote(italic(.(locusname)))"
+        } else {
+          plot_title <- paste0(
+            "bquote('Locus: ' ~ italic(.(locus_id)) ~",
+            "' - Sample: ' ~ .(locusname))"
+          )
+        }
+
         df_agg <- create_agg_df(
           datatable = datatable,
           index = vec_cal[i]
