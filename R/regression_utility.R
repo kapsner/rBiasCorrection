@@ -166,12 +166,16 @@ regression_type1 <- function(datatable,
 
 
         if (is.null(locus_id)) {
-          plot_title <- eval(parse(text = "bquote(italic(.(locusname)))"))
+          # plot_title <- eval(parse(text = "bquote(italic(.(locusname)))"))
+          plot_title <- locusname
         } else {
-          plot_title <- eval(parse(text = paste0(
-            "bquote('Locus: ' ~ italic(.(locus_id)) ~",
-            "' - Sample: ' ~ .(locusname))"
-          )))
+          # plot_title <- eval(parse(text = paste0(
+          #   "bquote('Locus: ' ~ italic(.(locus_id)) ~",
+          #   "' - Sample: ' ~ .(locusname))"
+          # )))
+          plot_title <- paste0(
+            "Locus: ", locus_id, " - Sample: ", locusname
+          )
         }
 
         df_agg <- create_agg_df(
