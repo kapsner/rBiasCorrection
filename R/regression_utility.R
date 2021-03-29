@@ -174,6 +174,8 @@ regression_type1 <- function(datatable,
           )
         }
 
+        message("arrived here 177")
+
         df_agg <- create_agg_df(
           datatable = datatable,
           index = vec_cal[i]
@@ -183,6 +185,9 @@ regression_type1 <- function(datatable,
         } else if (mode == "corrected") {
           custom_ylab <- "methylation (%)\nafter BiasCorrection"
         }
+
+
+        message("arrived here 190")
 
         lb1 <- c(paste0("  R\u00B2: \n  Hyperbolic = ",
                         round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2),
@@ -226,6 +231,8 @@ regression_type1 <- function(datatable,
           100
         )
 
+        message("arrived here 234")
+
         p <- ggplot2::ggplot(data = gdat,
                              ggplot2::aes_string(
                                x = "true_methylation",
@@ -263,6 +270,7 @@ regression_type1 <- function(datatable,
         }
         return(p)
       })
+      message("arrived here 273")
     },
     future.seed = TRUE
   )
