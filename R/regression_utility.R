@@ -166,15 +166,13 @@ regression_type1 <- function(datatable,
 
 
         if (is.null(locus_id)) {
-          plot_title <- "bquote(italic(.(locusname)))"
+          plot_title <- eval(parse(text = "bquote(italic(.(locusname)))"))
         } else {
-          plot_title <- paste0(
+          plot_title <- eval(parse(text = paste0(
             "bquote('Locus: ' ~ italic(.(locus_id)) ~",
             "' - Sample: ' ~ .(locusname))"
-          )
+          )))
         }
-
-        message("arrived here 177")
 
         df_agg <- create_agg_df(
           datatable = datatable,
@@ -186,8 +184,6 @@ regression_type1 <- function(datatable,
           custom_ylab <- "methylation (%)\nafter BiasCorrection"
         }
 
-
-        message("arrived here 190")
 
         lb1 <- c(paste0("  R\u00B2: \n  Hyperbolic = ",
                         round(result_list[[vec_cal[i]]]$Coef_hyper$R2, 2),
@@ -231,8 +227,6 @@ regression_type1 <- function(datatable,
           100
         )
 
-        message("arrived here 234")
-
         p <- ggplot2::ggplot(data = gdat,
                              ggplot2::aes_string(
                                x = "true_methylation",
@@ -242,7 +236,7 @@ regression_type1 <- function(datatable,
           ggplot2::ylab(custom_ylab) +
           ggplot2::xlab("actual methylation (%)") +
           ggplot2::labs(
-            title = eval(parse(text = plot_title)),
+            title = plot_title,
             subtitle = paste("CpG:", vec_cal[i])
           ) +
           ggplot2::geom_text(
@@ -270,7 +264,6 @@ regression_type1 <- function(datatable,
         }
         return(p)
       })
-      message("arrived here 273")
     },
     future.seed = TRUE
   )
