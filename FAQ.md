@@ -66,6 +66,8 @@ All uploaded files must
   + a minimum of four distinct calibration steps are required  
   + the other columns contain the calibration sample's results of the methylation analysis with one column for each CpG site  
   + calibration steps may occur more than once, indicating repeated measurements of the same calibration sample (in this case, the mean values of the repeated measurements will be used for calculation of the calibration curve)   
+  
+(As the BiasCorrector software currently requires the data to be in the format "one experiment per Locus, multiple samples per experiment", results of high-throughput analyses that might be of different shape (e.g. one CSV file per calibration step) need to be formatted as described above in order to apply BiasCorrector to this type of data, i.e. one file CSV with the experiment results and one CSV file holding the calibration results with both files having equal column names.)
 
 ### Example files  
 
