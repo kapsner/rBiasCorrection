@@ -167,8 +167,6 @@ regression_type1 <- function(datatable,
     simplify = FALSE,
     future.seed = TRUE
   )
-  message("debugging # 123")
-
 
   plot.listR <- future.apply::future_lapply(
     X = seq_len(length(vec_cal)),
@@ -265,9 +263,9 @@ regression_type1 <- function(datatable,
         return(p)
       })
     },
-    future.seed = TRUE
+    future.seed = TRUE,
+    result_list = result_list
   )
-  message("debugging # 234")
   return(
     list("plot_list" = plot.listR,
          "result_list" = result_list)
