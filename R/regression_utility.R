@@ -167,7 +167,7 @@ regression_type1 <- function(datatable,
     simplify = FALSE,
     future.seed = TRUE
   )
-  print("debugging # 123")
+  message("debugging # 123")
 
 
   plot.listR <- future.apply::future_lapply(
@@ -267,7 +267,7 @@ regression_type1 <- function(datatable,
     },
     future.seed = TRUE
   )
-  print("debugging # 234")
+  message("debugging # 234")
   return(
     list("plot_list" = plot.listR,
          "result_list" = result_list)
