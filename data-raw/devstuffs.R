@@ -14,14 +14,15 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.2.9")
+my_desc$set_version("0.3.0")
 # The title of your package
 my_desc$set(Title = "Correct Bias in DNA Methylation Analyses")
 # The description of your package
 my_desc$set(Description = paste0(
   "Implementation of the algorithms (with minor modifications) to correct ",
   "bias in quantitative DNA methylation analyses as described by ",
-  "Moskalev et al. (2011) <doi:10.1093/nar/gkr213>."
+  "Moskalev et al. (2011) <doi:10.1093/nar/gkr213>. ",
+  "Publication: Kapsner et al. (2021) <doi:10.1002/ijc.33681>."
 ))
 # The description of your package
 my_desc$set("Date/Publication" = paste(as.character(Sys.time()), "UTC"))
