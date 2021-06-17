@@ -233,7 +233,7 @@ test_that(
       plot_textsize = 1,
       filename = paste0(plotdir, "/exampleplot.png")
     )
-    expect_null(virtual_list)
+    expect_type(virtual_list, "character")
 
 
     expect_length(list.files(plotdir), 1)
