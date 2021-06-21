@@ -38,7 +38,7 @@ Suggests:
     testthat (>= 3.0.1)
 VignetteBuilder: 
     knitr
-Date/Publication: 2021-06-21 12:48:34 UTC
+Date/Publication: 2021-06-21 13:23:27 UTC
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

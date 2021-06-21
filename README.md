@@ -5,7 +5,7 @@
 [![linting](https://github.com/kapsner/rBiasCorrection/workflows/lint/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)
 [![test-coverage](https://github.com/kapsner/rBiasCorrection/workflows/test-coverage/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)
 [![codecov](https://codecov.io/gh/kapsner/rBiasCorrection/branch/master/graph/badge.svg)](https://codecov.io/gh/kapsner/rBiasCorrection)
-[![pipeline status](https://gitlab.com/kapsner/rBiasCorrection/badges/master/pipeline.svg)](https://gitlab.com/kapsner/rBiasCorrection/commits/master)
+[![pipeline status](https://gitlab.com/kapsner/rBiasCorrection/badges/master/pipeline.svg)](https://gitlab.com/kapsner/rBiasCorrection/-/commits/master)
 [![coverage report](https://gitlab.com/kapsner/rBiasCorrection/badges/master/coverage.svg)](https://gitlab.com/kapsner/rBiasCorrection/-/commits/master)
 [![CRAN Status Badge](https://www.r-pkg.org/badges/version-ago/rBiasCorrection)](https://cran.r-project.org/package=rBiasCorrection)
 [![CRAN Checks](https://cranchecks.info/badges/worst/rBiasCorrection)](https://cran.r-project.org/web/checks/check_results_rBiasCorrection.html)
