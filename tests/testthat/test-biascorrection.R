@@ -24,7 +24,12 @@ test_that(
       plotdir = plotdir,
       csvdir = csvdir,
       logfilename = paste0(prefix, "/log.txt"),
-      seed = 1234
+      seed = 1234,
+      parallel = ifelse(
+        tolower(Sys.info()['sysname']) == "darwin",
+        FALSE,
+        TRUE
+      ) 
     ),
     "list"
   )
