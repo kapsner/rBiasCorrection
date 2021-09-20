@@ -34,7 +34,7 @@ install.packages("devtools")
 devtools::install_github("kapsner/rBiasCorrection")
 ```
 
-# Example
+## Example
 
 This is a basic example which shows you how to correct PCR-bias in quantitative DNA methylation data:
 
@@ -61,15 +61,15 @@ biascorrection(
 
 More detailed information on how to use the package `rBiasCorrection` can be found in the [package vignette](vignettes/) and the [FAQs](https://github.com/kapsner/rBiasCorrection/blob/master/FAQ.md).
 
-# BiasCorrector
+## BiasCorrector
 
 The GUI `BiasCorrector` provides the functionality implemented in `rBiasCorrection` in a web application. For further information please visit [https://github.com/kapsner/BiasCorrector](https://github.com/kapsner/BiasCorrector).
 
-# FAQ 
+## FAQ 
 
 For further information, please refer to the [frequently asked questions](https://github.com/kapsner/rBiasCorrection/blob/master/FAQ.md).
 
-# Citation 
+## Citation 
 
 
 L.A. Kapsner, M.G. Zavgorodnij, S.P. Majorova, A. Hotz‐Wagenblatt, O.V. Kolychev, I.N. Lebedev, J.D. Hoheisel, A. Hartmann, A. Bauer, S. Mate, H. Prokosch, F. Haller, and E.A. Moskalev, BiasCorrector: fast and accurate correction of all types of experimental biases in quantitative DNA methylation data derived by different technologies, Int. J. Cancer. (2021) ijc.33681. doi:[10.1002/ijc.33681](https://onlinelibrary.wiley.com/doi/10.1002/ijc.33681).
@@ -88,6 +88,6 @@ L.A. Kapsner, M.G. Zavgorodnij, S.P. Majorova, A. Hotz‐Wagenblatt, O.V. Kolych
 }
 ```
 
-# More Infos
+## More Infos
 
 - Original work by Moskalev et al.: https://doi.org/10.1093/nar/gkr213
