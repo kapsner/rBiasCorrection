@@ -4,7 +4,7 @@
 [![R CMD Check via {tic}](https://github.com/kapsner/rBiasCorrection/workflows/R%20CMD%20Check%20via%20{tic}/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)
 [![linting](https://github.com/kapsner/rBiasCorrection/workflows/lint/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)
 [![test-coverage](https://github.com/kapsner/rBiasCorrection/workflows/test-coverage/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)
-[![codecov](https://codecov.io/gh/kapsner/rBiasCorrection/branch/master/graph/badge.svg)](https://codecov.io/gh/kapsner/rBiasCorrection)
+[![codecov](https://codecov.io/gh/kapsner/rBiasCorrection/branch/master/graph/badge.svg)](https://app.codecov.io/gh/kapsner/rBiasCorrection)
 [![pipeline status](https://gitlab.com/kapsner/rBiasCorrection/badges/master/pipeline.svg)](https://gitlab.com/kapsner/rBiasCorrection/-/commits/master)
 [![coverage report](https://gitlab.com/kapsner/rBiasCorrection/badges/master/coverage.svg)](https://gitlab.com/kapsner/rBiasCorrection/-/commits/master)
 [![CRAN Status Badge](https://www.r-pkg.org/badges/version-ago/rBiasCorrection)](https://cran.r-project.org/package=rBiasCorrection)
@@ -30,8 +30,8 @@ install.packages("rBiasCorrection")
 If you want to use the latest development version, you can install the github version of `rBiasCorrection` with:
 
 ```r
-install.packages("devtools")
-devtools::install_github("kapsner/rBiasCorrection")
+install.packages("remotes")
+remotes::install_github("kapsner/rBiasCorrection")
 ```
 
 ## Example
