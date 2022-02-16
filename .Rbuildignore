@@ -20,3 +20,4 @@
 ^vignettes/log\.txt$
 ^tests/testthat/log\.txt$
 ^CRAN-RELEASE$
+^CRAN-SUBMISSION$
