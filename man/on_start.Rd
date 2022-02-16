@@ -30,12 +30,14 @@ Internal function, that initializes plotdir,
   csvdir and logfilename.
 }
 \examples{
+\donttest{ # runtime > 5 sec.
 plotdir <- paste0(tempdir(), "/plots/")
 csvdir <- paste0(tempdir(), "/csv/")
 logfilename <- paste0(tempdir(), "/log.txt")
 parallel <- FALSE
 
 on_start(plotdir, csvdir, logfilename, parallel)
+}
 
 }
 \seealso{
