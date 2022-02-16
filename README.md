@@ -40,18 +40,22 @@ This is a basic example which shows you how to correct PCR-bias in quantitative 
 
 ```r
 library(rBiasCorrection)
+
+# define input file paths
+experimental <- file.path(tempdir(), "/experimental_data.csv")
+calibration <- file.path(tempdir(), "/calibration_data.csv")
+
+# create example files from provided example dataset
 data.table::fwrite(
   rBiasCorrection::example.data_experimental$dat,
-  paste0(tempdir(), "/experimental_data.csv")
+  experimental
 )
 data.table::fwrite(
   rBiasCorrection::example.data_calibration$dat,
-  paste0(tempdir(), "/calibration_data.csv")
+  calibration
 )
-experimental <- paste0(tempdir(), "/experimental_data.csv")
-calibration <- paste0(tempdir(), "/calibration_data.csv")
 
-
+# run bias correction algorithm
 biascorrection(
   experimental = experimental,
   calibration = calibration,
