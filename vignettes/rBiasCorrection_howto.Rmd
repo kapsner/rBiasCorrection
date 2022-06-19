@@ -50,7 +50,10 @@ seed <- 1234
 
 For demonstration purposes, we will here correct experimental biases in only one CpG site. The example data is included in this R package. 
 
-```{r include=FALSE}
+```{r}
+# First of all, the example-data have to be saved as CSV-files as
+# `rBiasCorrection` expects CSV-files as input data.
+
 cols <- c("sample_id", "CpG#1")
 temp_file <- rBiasCorrection::example.data_experimental$dat[
   , cols, with = FALSE
@@ -80,7 +83,7 @@ rBiasCorrection::biascorrection(
   plotdir = plotdir,
   csvdir = csvdir,
   seed = seed,
-  parallel = FALSE
+  parallel = TRUE
 )
 ```
 
