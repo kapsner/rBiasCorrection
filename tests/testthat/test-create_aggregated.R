@@ -1,5 +1,3 @@
-context("create df_agg")
-
 prefix <- tempdir()
 # prefix <- "tests/testthat/" # nolint
 

@@ -115,9 +115,9 @@ clean_up <- function(plotdir,
 
   # on session end, remove plots and and all other files from tempdir
   do.call(file.remove, list(list.files(plotdir, full.names = TRUE)))
-  unlink(plotdir, recursive = T)
+  unlink(plotdir, recursive = TRUE)
   do.call(file.remove, list(list.files(csvdir, full.names = TRUE)))
-  unlink(csvdir, recursive = T)
+  unlink(csvdir, recursive = TRUE)
 }
 
 
@@ -146,7 +146,7 @@ write_log <- function(message, logfilename) {
   message_out <- paste0("===========================================  \n",
                         "[Timestamp: ", get_timestamp(), "]  \n  \n",
                         message, "  \n  \n")
-  write(message_out, file = logfilename, append = T)
+  write(message_out, file = logfilename, append = TRUE)
 }
 
 
@@ -175,7 +175,7 @@ write_log <- function(message, logfilename) {
 write_csv <- function(table, filename) {
   return(data.table::fwrite(x = table,
                             file = filename,
-                            row.names = F,
+                            row.names = FALSE,
                             sep = ",",
                             dec = ".",
                             eol = "\n"))

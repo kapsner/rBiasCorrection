@@ -101,22 +101,34 @@ better_model <- function(statstable_pre,
   )
 
   if (selection_method == "SSE") {
-    outdat <- statstable_pre[, c("Name",
-                                "SSE_hyperbolic",
-                                "SSE_cubic"), with = F]
+    outdat <- statstable_pre[
+      ,
+      c("Name",
+        "SSE_hyperbolic",
+        "SSE_cubic"),
+      with = FALSE
+    ]
     # mark the better model: 1 = cubic, 0 = hyperbolic
     outdat[, ("better_model") := ifelse(
       get("SSE_cubic") <= get("SSE_hyperbolic"),
       1,
       0)]
   } else if (selection_method == "RelError") {
-    x_dat <- statstable_post_hyperbolic[, c("Name", "relative_error"), with = F]
+    x_dat <- statstable_post_hyperbolic[
+      ,
+      c("Name", "relative_error"),
+      with = FALSE
+    ]
     colnames(x_dat) <- c("Name", "relative_error_h")
-    y_dat <- statstable_post_cubic[, c("Name", "relative_error"), with = F]
+    y_dat <- statstable_post_cubic[
+      ,
+      c("Name", "relative_error"),
+      with = FALSE
+    ]
     outdat <- merge(x = x_dat,
                     y = y_dat,
                     by = "Name",
-                    all = T,
+                    all = TRUE,
                     suffixes = c("", "_c"))
     colnames(outdat) <- c("Name", "relative_error_h", "relative_error_c")
     outdat[, ("better_model") := ifelse(

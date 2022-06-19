@@ -1,5 +1,3 @@
-context("test plotting")
-
 prefix <- tempdir()
 # prefix <- "tests/testthat/" # nolint
 

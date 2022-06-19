@@ -1,5 +1,3 @@
-context("test functioning of algorithm, type 1")
-
 prefix <- tempdir()
 # prefix <- "tests/testthat/" # nolint
 
@@ -185,7 +183,7 @@ test_that(
 
 
     # hyperbolic correction
-    rv$choices_list <- rv$reg_stats[, c("Name"), with = F
+    rv$choices_list <- rv$reg_stats[, c("Name"), with = FALSE
     ][
       , ("better_model") := 0
     ]
@@ -262,7 +260,7 @@ test_that(
 
 
     # cubic correction
-    rv$choices_list <- rv$reg_stats[, c("Name"), with = F
+    rv$choices_list <- rv$reg_stats[, c("Name"), with = FALSE
     ][
       , ("better_model") := 1
     ]

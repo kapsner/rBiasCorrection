@@ -1,5 +1,3 @@
-context("dataimport filechecks")
-
 prefix <- tempdir()
 
 # the writeLog-function needs the logfilename
@@ -24,7 +22,7 @@ test_that(
       ignore_function_env = TRUE
     )
 
-    exp_type_1 <- fread("./testdata/exp_type_1_empty_col.csv", header = T)
+    exp_type_1 <- fread("./testdata/exp_type_1_empty_col.csv", header = TRUE)
     exp_type_1 <- clean_dt(exp_type_1, "experimental", 1, logfilename)[["dat"]]
     expect_snapshot_value(
       x = table_prep(exp_type_1),
@@ -72,7 +70,7 @@ test_that(
       ignore_function_env = TRUE
     )
 
-    exp_type_2 <- fread("./testdata/exp_type_2_empty_col.csv", header = T)
+    exp_type_2 <- fread("./testdata/exp_type_2_empty_col.csv", header = TRUE)
     exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
     expect_snapshot_value(
       x = table_prep(exp_type_2),

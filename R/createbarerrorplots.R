@@ -152,8 +152,8 @@ createbarerrorplots <- function(statstable_pre,
                                 plot_width = 7.5,
                                 plot_textsize = 16) {
 
-  stats_pre <- statstable_pre[, c("Name", "relative_error"), with = F]
-  stats_post <- statstable_post[, c("Name", "relative_error"), with = F]
+  stats_pre <- statstable_pre[, c("Name", "relative_error"), with = FALSE]
+  stats_post <- statstable_post[, c("Name", "relative_error"), with = FALSE]
 
   # calc ylim based on observed relative error
   max_err <- ifelse(max(stats_pre$relative_error) >
@@ -167,7 +167,7 @@ createbarerrorplots <- function(statstable_pre,
     x = stats_post,
     y = stats_pre,
     by = "Name",
-    sort = F,
+    sort = FALSE,
     suffixes = c("", "_pre")
   )
 

@@ -17,7 +17,7 @@
 # create aggregated datatable for calibration data
 create_agg_df <- function(datatable,
                           index) {
-  df <- datatable[, c("true_methylation", index), with = F]
+  df <- datatable[, c("true_methylation", index), with = FALSE]
   colnames(df)[2] <- "CpG"
 
   df_out <- df[, ("true_methylation") := as.numeric(
@@ -29,8 +29,8 @@ create_agg_df <- function(datatable,
   df_out <- df[
     ,
     list(
-      "CpG" = mean(get("CpG"), na.rm = T),
-      "sd" = stats::sd(get("CpG"), na.rm = T)
+      "CpG" = mean(get("CpG"), na.rm = TRUE),
+      "sd" = stats::sd(get("CpG"), na.rm = TRUE)
     ),
     by = "true_methylation"
   ]
@@ -47,25 +47,25 @@ create_agg_df_exp <- function(datatable,
                               index,
                               type) {
   if (type == 1) {
-    df <- datatable[, c("sample_id", index), with = F]
+    df <- datatable[, c("sample_id", index), with = FALSE]
     colnames(df)[2] <- "CpG"
 
     df_out <- df[
       ,
       list(
-        "CpG" = mean(get("CpG"), na.rm = T),
-        "sd" = stats::sd(get("CpG"), na.rm = T)
+        "CpG" = mean(get("CpG"), na.rm = TRUE),
+        "sd" = stats::sd(get("CpG"), na.rm = TRUE)
       ),
       by = "sample_id"
     ]
   } else if (type == 2) {
-    df <- datatable[, c("locus_id", index), with = F]
+    df <- datatable[, c("locus_id", index), with = FALSE]
     colnames(df)[2] <- "CpG"
     df_out <- df[
       ,
       list(
-        "CpG" = mean(get("CpG"), na.rm = T),
-        "sd" = stats::sd(get("CpG"), na.rm = T)
+        "CpG" = mean(get("CpG"), na.rm = TRUE),
+        "sd" = stats::sd(get("CpG"), na.rm = TRUE)
       ),
       by = "locus_id"
     ]

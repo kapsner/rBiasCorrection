@@ -1,5 +1,3 @@
-context("test app utils")
-
 prefix <- tempdir()
 
 library(data.table)

@@ -1,5 +1,3 @@
-context("test BiasCorrection function")
-
 prefix <- tempdir()
 # prefix <- "tests/testthat/" # nolint
 
@@ -26,10 +24,10 @@ test_that(
       logfilename = paste0(prefix, "/log.txt"),
       seed = 1234,
       parallel = ifelse(
-        tolower(Sys.info()['sysname']) == "darwin",
+        tolower(Sys.info()["sysname"]) == "darwin",
         FALSE,
         TRUE
-      ) 
+      )
     ),
     "list"
   )

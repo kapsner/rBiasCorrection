@@ -52,10 +52,14 @@ For demonstration purposes, we will here correct experimental biases in only one
 
 ```{r include=FALSE}
 cols <- c("sample_id", "CpG#1")
-temp_file <- rBiasCorrection::example.data_experimental$dat[, cols, with = F]
+temp_file <- rBiasCorrection::example.data_experimental$dat[
+  , cols, with = FALSE
+]
 data.table::fwrite(temp_file, paste0(tempdir(), "/experimental_data.csv"))
 cols <- c("true_methylation", "CpG#1")
-temp_file <- rBiasCorrection::example.data_calibration$dat[, cols, with = F]
+temp_file <- rBiasCorrection::example.data_calibration$dat[
+  , cols, with = FALSE
+]
 data.table::fwrite(temp_file, paste0(tempdir(), "/calibration_data.csv"))
 ```
 
@@ -162,10 +166,12 @@ The regression statistics table shows the regression parameters of the hyperboli
 -  The rows highlighted with a green background color indicate the regression method (hyperbolic or cubic polynomial) that is suggested by BiasCorrector for correcting data. This automatic choice of the regression method relies on either minimizing the value of SSE (the default setting) or minimizing the average relative error as selected by the user in the Settings tab.  
 
 ```{r}
-filename <- list.files(csvdir)[grepl("regression_stats_[[:digit:]]", list.files(csvdir))]
+filename <- list.files(csvdir)[
+  grepl("regression_stats_[[:digit:]]", list.files(csvdir))
+]
 reg_stats <- data.table::fread(paste0(csvdir, filename))
-knitr::kable(reg_stats[,1:9])
-knitr::kable(reg_stats[,11:16])
+knitr::kable(reg_stats[, 1:9])
+knitr::kable(reg_stats[, 11:16])
 ```
 
 # Regression plots 

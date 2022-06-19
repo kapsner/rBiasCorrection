@@ -205,7 +205,7 @@ solving_equations <- function(datatable,
 
         for (k in seq_len(length.out = length(find_x))) {
           if (inherits(x = find_x[[k]], what = "numeric")) {
-            if (find_x[[k]] >= 0 & find_x[[k]] <= 100) {
+            if (find_x[[k]] >= 0 && find_x[[k]] <= 100) {
               # valid values must be 0 <= x <= 100
               msg2 <- "Root in between the borders! Added to results."
               vector <- c(vector, find_x[[k]])
@@ -374,7 +374,7 @@ solving_equations <- function(datatable,
         }
         message(paste0("Hyperbolic solved: ", h_solv))
 
-        if (h_solv >= 0 & h_solv <= 100) {
+        if (h_solv >= 0 && h_solv <= 100) {
           msg2 <- "Root in between the borders! Added to results."
           vector <- c(vector, h_solv)
           write_log(
@@ -389,7 +389,7 @@ solving_equations <- function(datatable,
         } else {
           msg2 <- "## WARNING ##\nNo fitting root within the borders found."
 
-          if (h_solv < 0 & h_solv > -10) {
+          if (h_solv < 0 && h_solv > -10) {
             msg3 <- paste0("Negative numeric root found:  \nRoot: ",
                            round(h_solv, 3),
                            "  \n--> '-10 < root < 0' --> substitute 0")
@@ -399,7 +399,7 @@ solving_equations <- function(datatable,
             original <- as.character(h_solv)
             replacement <- "0"
 
-          } else if (h_solv > 100 & h_solv < 110) {
+          } else if (h_solv > 100 && h_solv < 110) {
             msg3 <- paste0("Positive numeric root found:  \nRoot: ",
                            round(h_solv, 3),
                            "  \n--> '100 < root < 110' --> substitute 100")

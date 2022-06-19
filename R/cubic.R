@@ -139,6 +139,7 @@ cubic_regression <- function(df_agg,
       start = mod,
       algorithm = "brute-force",
       control = stats::nls.control(maxiter = 1e3))
+      ret
     }, finally = function(f) {
       return(ret)
     })
@@ -168,13 +169,13 @@ cubic_regression <- function(df_agg,
   dat[, ("squared_error") := I((get("CpG_fitted_diff"))^2)]
 
   # sum of squared errors = residual sum of squares
-  sse <- as.numeric(dat[, sum(get("squared_error"), na.rm = T)])
+  sse <- as.numeric(dat[, sum(get("squared_error"), na.rm = TRUE)])
 
   # squared dist to mean
   dat[, ("squared_dist_mean") := sdm(get("fitted"))]
 
   # total sum of squares
-  tss <- as.numeric(dat[, sum(get("squared_dist_mean"), na.rm = T)])
+  tss <- as.numeric(dat[, sum(get("squared_dist_mean"), na.rm = TRUE)])
 
 
   # sum of squared errors

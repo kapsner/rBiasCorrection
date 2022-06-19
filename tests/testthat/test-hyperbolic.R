@@ -1,5 +1,3 @@
-context("test hyperbolic")
-
 prefix <- tempdir()
 #" prefix <- "tests/testthat/"
 

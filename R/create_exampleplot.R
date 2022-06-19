@@ -87,7 +87,7 @@ create_exampleplot <- function(data,
                    y = c(100, 0.95 * 100),
                    hjust = 0, vjust = 1),
       label = lb1,
-      parse = F
+      parse = FALSE
     ) +
     ggplot2::geom_pointrange(
       ggplot2::aes_string(

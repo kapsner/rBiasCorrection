@@ -122,7 +122,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
   }), .SDcols = vec]
 
   # fist column is factor
-  if (description == "calibration" & type == "1") {
+  if (description == "calibration" && type == "1") {
     # this is needed, because values here must be numeric
     result <- tryCatch({
       datatable[, (vec[1]) := factor(
@@ -150,7 +150,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
   datatable <- datatable[order(datatable[[vec[1]]])]
 
   # remove empty rows
-  datatable <- datatable[rowSums(datatable[, -1], na.rm = T) != 0, ]
+  datatable <- datatable[rowSums(datatable[, -1], na.rm = TRUE) != 0, ]
 
   # some more dataprepration
   vec_cal <- names(datatable)[-1]
@@ -158,7 +158,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
   # rowmeans are already in type 2 calibration data table
   # (from fileMerger-application!)
   datatable[, ("row_means") := rowMeans(
-    datatable[, vec_cal, with = F], na.rm = T
+    datatable[, vec_cal, with = FALSE], na.rm = TRUE
     )]
 
   # make vec_cal global for type 1 data (many operations of
@@ -170,7 +170,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
   # count number of CpGs in type 2 data
   if (type == "2") {
     datatable[, ("CpG_count") := rowSums(
-      !is.na(datatable[, vec[-1], with = F])
+      !is.na(datatable[, vec[-1], with = FALSE])
       )]
 
     # requirements-check: does every repeated measurement of each locus id have
@@ -190,7 +190,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
 
     if (description == "experimental") {
       # order experimental data by CpG-Count in decreasing order
-      datatable <- datatable[order(get("CpG_count"), decreasing = T)]
+      datatable <- datatable[order(get("CpG_count"), decreasing = TRUE)]
     }
   }
 
