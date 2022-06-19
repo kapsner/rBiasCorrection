@@ -7,9 +7,10 @@
 * updated url to cran hosted vignette
 #### Others
 
+* added news.md
 * updating package code, badges, gha
 
-Full set of changes: [`v0.3.3...2d4c2f3`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.3...2d4c2f3)
+Full set of changes: [`v0.3.3...d843819`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.3...d843819)
 
 ## v0.3.3 (2022-02-16)
 

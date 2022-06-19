@@ -17,7 +17,9 @@ where resulting tables are saved.}
 messages.}
 
 \item{parallel}{A boolean. If TRUE (the default value), initializing
-`future::plan("multiprocess")` before running the code.}
+`future::plan("multicore")` (on unix systems) or
+`future::plan("multisession")` (on non-unix systems) before running the
+code.}
 }
 \value{
 This function silently creates the directories`plotdir` and `csvdir`

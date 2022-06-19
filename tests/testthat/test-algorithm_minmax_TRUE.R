@@ -19,7 +19,7 @@ test_that(
 
     local_edition(3)
 
-    suppressWarnings(future::plan("multiprocess"))
+    suppressWarnings(future::plan("multisession"))
 
     #"skip_on_cran()
 

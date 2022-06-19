@@ -77,7 +77,9 @@
 #'   hyperbolic regression equation and the cubic regression equation.
 #'   Important for reproducibility (default: 1234).
 #' @param parallel A boolean. If TRUE (the default value), initializing
-#'   `future::plan("multiprocess")` before running the code.
+#'   `future::plan("multicore")` (on unix systems) or
+#'   `future::plan("multisession")` (on non-unix systems) before running the
+#'   code.
 #'
 #' @inheritParams createbarerrorplots
 #'
