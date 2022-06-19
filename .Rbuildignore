@@ -21,3 +21,4 @@
 ^tests/testthat/log\.txt$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
+^README\.md$

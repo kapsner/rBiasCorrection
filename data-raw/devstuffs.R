@@ -14,7 +14,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.3.3")
+my_desc$set_version("0.3.4")
 # The title of your package
 my_desc$set(Title = "Correct Bias in DNA Methylation Analyses")
 # The description of your package
@@ -128,6 +128,7 @@ usethis::use_build_ignore(".vscode")
 usethis::use_build_ignore(".lintr")
 usethis::use_build_ignore("tic.R")
 usethis::use_build_ignore(".github")
+usethis::use_build_ignore("README.md")
 
 
 # experimental = "../19_PCR-bias/data/example_data/type1/example_data_type1_experimentaldata.csv"
@@ -180,3 +181,6 @@ usethis::use_data(example.data_experimental, example.data_calibration,
 usethis::use_tidy_description()
 
 # eventually move to nloptr for non linear optimization
+badger::badge_doi("10.1002/ijc.33681", "yellow")
+badger::badge_cran_download("rBiasCorrection", "grand-total", "blue")
+badger::badge_cran_download("rBiasCorrection", "last-month", "blue")

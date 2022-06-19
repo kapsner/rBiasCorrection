@@ -1,14 +1,15 @@
 # rBiasCorrection
 
 <!-- badges: start -->
+[![](https://img.shields.io/badge/doi-10.1002/ijc.33681-yellow.svg)](https://doi.org/10.1002/ijc.33681)
+[![CRAN Status Badge](https://www.r-pkg.org/badges/version-ago/rBiasCorrection)](https://cran.r-project.org/package=rBiasCorrection)
+[![CRAN Checks](https://cranchecks.info/badges/worst/rBiasCorrection)](https://cran.r-project.org/web/checks/check_results_rBiasCorrection.html)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/rBiasCorrection?color=blue)](https://cran.r-project.org/package=rBiasCorrection)
+[![](http://cranlogs.r-pkg.org/badges/last-month/rBiasCorrection?color=blue)](https://cran.r-project.org/package=rBiasCorrection)
 [![R CMD Check via {tic}](https://github.com/kapsner/rBiasCorrection/workflows/R%20CMD%20Check%20via%20{tic}/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)
 [![linting](https://github.com/kapsner/rBiasCorrection/workflows/lint/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)
 [![test-coverage](https://github.com/kapsner/rBiasCorrection/workflows/test-coverage/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)
 [![codecov](https://codecov.io/gh/kapsner/rBiasCorrection/branch/master/graph/badge.svg)](https://app.codecov.io/gh/kapsner/rBiasCorrection)
-[![pipeline status](https://gitlab.com/kapsner/rBiasCorrection/badges/master/pipeline.svg)](https://gitlab.com/kapsner/rBiasCorrection/-/commits/master)
-[![coverage report](https://gitlab.com/kapsner/rBiasCorrection/badges/master/coverage.svg)](https://gitlab.com/kapsner/rBiasCorrection/-/commits/master)
-[![CRAN Status Badge](https://www.r-pkg.org/badges/version-ago/rBiasCorrection)](https://cran.r-project.org/package=rBiasCorrection)
-[![CRAN Checks](https://cranchecks.info/badges/worst/rBiasCorrection)](https://cran.r-project.org/web/checks/check_results_rBiasCorrection.html)
 <!-- badges: end -->
 
 `rBiasCorrection` is published in *'BiasCorrector: fast and accurate correction of all types of experimental biases in quantitative DNA methylation data derived by different technologies' (2021)* in the *International Journal of Cancer* (DOI: [https://onlinelibrary.wiley.com/doi/10.1002/ijc.33681](https://doi.org/10.1002/ijc.33681)).

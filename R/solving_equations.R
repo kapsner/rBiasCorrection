@@ -204,7 +204,7 @@ solving_equations <- function(datatable,
         nonfitting <- numeric()
 
         for (k in seq_len(length.out = length(find_x))) {
-          if (class(find_x[[k]]) == "numeric") {
+          if (inherits(x = find_x[[k]], what = "numeric")) {
             if (find_x[[k]] >= 0 & find_x[[k]] <= 100) {
               # valid values must be 0 <= x <= 100
               msg2 <- "Root in between the borders! Added to results."
