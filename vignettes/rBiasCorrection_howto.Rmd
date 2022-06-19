@@ -83,7 +83,7 @@ rBiasCorrection::biascorrection(
   plotdir = plotdir,
   csvdir = csvdir,
   seed = seed,
-  parallel = TRUE
+  parallel = FALSE
 )
 ```
 
