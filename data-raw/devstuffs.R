@@ -87,6 +87,7 @@ usethis::use_git_ignore("/data-raw/*")
 usethis::use_git_ignore("!/data-raw/devstuffs.R")
 usethis::use_git_ignore("!/DESCRIPTION")
 usethis::use_git_ignore("!/FAQ.md")
+usethis::use_git_ignore("!/NEWS.md")
 usethis::use_git_ignore("!/LICENSE.md")
 usethis::use_git_ignore("!/cran-comments.md")
 usethis::use_git_ignore("!/man/")
@@ -129,6 +130,7 @@ usethis::use_build_ignore(".lintr")
 usethis::use_build_ignore("tic.R")
 usethis::use_build_ignore(".github")
 usethis::use_build_ignore("README.md")
+usethis::use_build_ignore("NEWS.md")
 
 
 # experimental = "../19_PCR-bias/data/example_data/type1/example_data_type1_experimentaldata.csv"
@@ -179,6 +181,18 @@ usethis::use_data(example.data_experimental, example.data_calibration,
 #styler::style_pkg()
 
 usethis::use_tidy_description()
+
+# create NEWS.md using the python-package "auto-changelog" (must be installed)
+# https://www.conventionalcommits.org/en/v1.0.0/
+# build|ci|docs|feat|fix|perf|refactor|test
+
+# https://github.com/gitpython-developers/GitPython/issues/1016#issuecomment-1104114129
+system(
+  command = paste0("git config --global --add safe.directory ", getwd())
+)
+system(
+  command = 'auto-changelog -u -t "rBiasCorrection NEWS" --tag-prefix "v" -o "NEWS.md"'
+)
 
 # eventually move to nloptr for non linear optimization
 badger::badge_doi("10.1002/ijc.33681", "yellow")
