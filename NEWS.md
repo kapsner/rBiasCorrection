@@ -1,16 +1,23 @@
 # rBiasCorrection NEWS
 
-## Unreleased (2022-06-19)
+## Unreleased (2022-06-20)
 
+#### Refactorings
+
+* removing deprecated future-multiprocess
 #### Docs
 
+* updated vignette
 * updated url to cran hosted vignette
 #### Others
 
+* added dependencies badge
+* updated lintr
 * added news.md
 * updating package code, badges, gha
+* fixed test errors (linting errors)
 
-Full set of changes: [`v0.3.3...d843819`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.3...d843819)
+Full set of changes: [`v0.3.3...faa1eb7`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.3...faa1eb7)
 
 ## v0.3.3 (2022-02-16)
 
