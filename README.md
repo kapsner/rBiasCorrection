@@ -6,6 +6,7 @@
 [![CRAN Checks](https://cranchecks.info/badges/worst/rBiasCorrection)](https://cran.r-project.org/web/checks/check_results_rBiasCorrection.html)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/rBiasCorrection?color=blue)](https://cran.r-project.org/package=rBiasCorrection)
 [![](http://cranlogs.r-pkg.org/badges/last-month/rBiasCorrection?color=blue)](https://cran.r-project.org/package=rBiasCorrection)
+[![Dependencies](https://tinyverse.netlify.com/badge/rBiasCorrection)](https://cran.r-project.org/package=rBiasCorrection)
 [![R CMD Check via {tic}](https://github.com/kapsner/rBiasCorrection/workflows/R%20CMD%20Check%20via%20{tic}/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)
 [![linting](https://github.com/kapsner/rBiasCorrection/workflows/lint/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)
 [![test-coverage](https://github.com/kapsner/rBiasCorrection/workflows/test-coverage/badge.svg?branch=master)](https://github.com/kapsner/rBiasCorrection/actions)

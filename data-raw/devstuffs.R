@@ -200,5 +200,6 @@ system(
 badger::badge_doi("10.1002/ijc.33681", "yellow")
 badger::badge_cran_download("rBiasCorrection", "grand-total", "blue")
 badger::badge_cran_download("rBiasCorrection", "last-month", "blue")
+badger::badge_dependencies("rBiasCorrection")
 
 # nolint end
