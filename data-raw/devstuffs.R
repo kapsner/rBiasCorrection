@@ -16,7 +16,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.3.4")
+my_desc$set_version("0.3.4.9001")
 # The title of your package
 my_desc$set(Title = "Correct Bias in DNA Methylation Analyses")
 # The description of your package
@@ -187,14 +187,9 @@ usethis::use_tidy_description()
 # create NEWS.md using the python-package "auto-changelog" (must be installed)
 # https://www.conventionalcommits.org/en/v1.0.0/
 # build|ci|docs|feat|fix|perf|refactor|test
-
-# https://github.com/gitpython-developers/GitPython/issues/1016#issuecomment-1104114129
-system(
-  command = paste0("git config --global --add safe.directory ", getwd())
-)
-system(
-  command = 'auto-changelog -u -t "rBiasCorrection NEWS" --tag-prefix "v" -o "NEWS.md"'
-)
+an <- autonewsmd::autonewsmd$new(repo_name = packagename)
+an$generate()
+an$write(force = TRUE)
 
 # eventually move to nloptr for non linear optimization
 badger::badge_doi("10.1002/ijc.33681", "yellow")
