@@ -3,20 +3,37 @@ nls_solver <- function(
     target_levels,
     start,
     type = c("hyperbolic_eq", "hyperbolic_eq_minmax"),
+    logfilename,
     seed,
     ...) {
 
   type <- match.arg(type)
 
+  if (type == "hyperbolic_eq_minmax") {
+    required_dot_args <- c("y0", "y1", "m0", "m1")
+    kwargs <- list(...)
+    kwargs_names <- names(kwargs)
+    for (da in required_dot_args) {
+      if (da %in% kwargs_names) {
+        assign(
+          x = da,
+          value = kwargs[[da]]
+        )
+      } else {
+        stop(paste0("'", da, "' is missing in dot-args ..."))
+      }
+    }
+  }
+
   formula_common <- "target_levels ~ FUN(x = true_levels, b = b, "
 
-  FUN <- switch(
+  FUN <- switch( # nolint
     EXPR = type,
     "hyperbolic_eq" = hyperbolic_eq,
     "hyperbolic_eq_minmax" = hyperbolic_eq_minmax
   )
 
-  FUN_formula <- switch(
+  FUN_formula <- switch( # nolint
     EXPR = type,
     "hyperbolic_eq" = as.formula(
       paste0(formula_common, "a = a, d = d)")
@@ -44,7 +61,7 @@ nls_solver <- function(
     set.seed(seed)
     mod <- nls2::nls2(
       formula = FUN_formula,
-      start = st,
+      start = start,
       algorithm = "brute-force",
       control = stats::nls.control(maxiter = 1e5)
     )
@@ -53,7 +70,6 @@ nls_solver <- function(
     set.seed(seed)
     ret <- nls2::nls2(
       formula = FUN_formula,
-      data = dat,
       start = mod,
       algorithm = "brute-force",
       control = stats::nls.control(maxiter = 1e3)

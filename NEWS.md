@@ -1,6 +1,13 @@
 # rBiasCorrection NEWS
 
-## Unreleased (2023-01-21)
+## Unreleased (2023-05-13)
+
+#### Refactorings
+
+-   common nls2-code to nls\_solver fun
+    ([2b2f862](https://github.com/kapsner/rBiasCorrection/tree/2b2f8620d4047a3658fd6303f98841485df6871b))
+-   stopifnot with understandable msgs
+    ([4fa38fe](https://github.com/kapsner/rBiasCorrection/tree/4fa38fe3e9ad38b9bb2a4ae8111f59525a929efb))
 
 #### CI
 
@@ -17,7 +24,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...3873d8f`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...3873d8f)
+[`v0.3.4...2b2f862`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...2b2f862)
 
 ## v0.3.4 (2022-06-20)
 

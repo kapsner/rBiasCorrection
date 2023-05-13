@@ -15,7 +15,7 @@ test_that(
     #"skip_on_cran()
 
     # calibration data
-    cal_type_1 <- fread("./testdata/cal_type_1.csv")
+    cal_type_1 <- data.table::fread("./testdata/cal_type_1.csv")
     cal_type_1 <- clean_dt(cal_type_1, "calibration", 1, logfilename)[["dat"]]
     df_agg <- create_agg_df(cal_type_1, colnames(cal_type_1)[2])
 
