@@ -1,6 +1,6 @@
 # rBiasCorrection NEWS
 
-## Unreleased (2022-08-04)
+## Unreleased (2023-01-21)
 
 #### CI
 
@@ -11,11 +11,13 @@
 
 #### Other changes
 
+-   fixed cran errors url
+    ([3873d8f](https://github.com/kapsner/rBiasCorrection/tree/3873d8f363859990468eee41b94a192d28fda92f))
 -   updated cran-comments
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...1039547`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...1039547)
+[`v0.3.4...3873d8f`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...3873d8f)
 
 ## v0.3.4 (2022-06-20)
 

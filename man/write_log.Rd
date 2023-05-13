@@ -9,8 +9,8 @@ write_log(message, logfilename)
 \arguments{
 \item{message}{A character string containing the log message.}
 
-\item{logfilename}{A character string. Path to the logfile to save the log
-messages.}
+\item{logfilename}{A character string. Path to a file to save the log
+messages (default = paste0(tempdir(), "/log.txt")).}
 }
 \value{
 The function prints the logging message to the console and writes it

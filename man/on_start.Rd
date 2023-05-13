@@ -13,8 +13,8 @@ where plots are saved.}
 \item{csvdir}{A character string. Path to the folder,
 where resulting tables are saved.}
 
-\item{logfilename}{A character string. Path to the logfile to save the log
-messages.}
+\item{logfilename}{A character string. Path to a file to save the log
+messages (default = paste0(tempdir(), "/log.txt")).}
 
 \item{parallel}{A boolean. If TRUE (the default value), initializing
 `future::plan("multicore")` (on unix systems) or

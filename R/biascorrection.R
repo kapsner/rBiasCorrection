@@ -60,8 +60,8 @@
 #'   the calibration data with both the hyperbolic regression and the cubic
 #'   regression and using them again as input data to calculate the 'goodness
 #'   of fit'-metrics.
-#' @param type A single integer. Type of data to be corrected: either "1" (one
-#'   locus in many samples, e.g. pyrosequencing data) or "2" (many loci in one
+#' @param type A single integer. Type of data to be corrected: either `1L` (one
+#'   locus in many samples, e.g. pyrosequencing data) or `2L` (many loci in one
 #'   sample, e.g. next-generation sequencing data or microarray data).
 #' @param csvdir A character string. Directory to store the resulting tables.
 #'   (default = paste0(tempdir(), "/plotdir/")). CAUTION: This directory will
@@ -121,9 +121,9 @@ biascorrection <- function(experimental,
                            calibration,
                            samplelocusname,
                            minmax = FALSE,
-                           correct_method = "best",
-                           selection_method = "SSE",
-                           type = 1,
+                           correct_method = c("best", "hyperbolic", "cubic"),
+                           selection_method = c("SSE", "RelError"),
+                           type = 1L,
                            csvdir = paste0(tempdir(), "/csvdir/"),
                            plotdir = paste0(tempdir(), "/plotdir/"),
                            logfilename = paste0(tempdir(), "/log.txt"),
@@ -133,25 +133,26 @@ biascorrection <- function(experimental,
                            seed = 1234,
                            parallel = TRUE) {
 
+  correct_method <- match.arg(correct_method)
+  selection_method <- match.arg(selection_method)
+  type <- as.integer(type)
+
   stopifnot(
-    is.character(experimental),
-    is.character(calibration),
-    is.character(samplelocusname),
-    is.logical(minmax),
-    is.numeric(type),
-    type == 1 || type == 2,
-    is.character(correct_method),
-    correct_method %in% c("best", "hyperbolic", "cubic", "b", "h", "c"),
-    is.character(selection_method),
-    selection_method %in% c("SSE", "RelError"),
-    is.character(csvdir),
-    is.character(plotdir),
-    is.character(logfilename),
-    is.numeric(plot_height),
-    is.numeric(plot_width),
-    is.numeric(plot_textsize),
-    is.numeric(seed),
-    is.logical(parallel)
+    "`experimental` must be of type character" = is.character(experimental),
+    "`calibration` must be of type character" = is.character(calibration),
+    "`samplelocusname` must be of type character" =
+      is.character(samplelocusname),
+    "`type` must be an integer of `1L` or `2L`" = is.integer(type) &&
+      type == 1L || type == 2L,
+    "`minmax` must be a boolean" = is.logical(minmax),
+    "`csvdir` must be of type character" = is.character(csvdir),
+    "`plotdir` must be of type character" = is.character(plotdir),
+    "`logfilename` must be of type character" = is.character(logfilename),
+    "`plot_height` must be of type numeric" = is.numeric(plot_height),
+    "`plot_width` must be of type numeric" = is.numeric(plot_width),
+    "`plot_textsize` must be of type numeric" = is.numeric(plot_textsize),
+    "`seed` must be of type numeric" = is.numeric(seed),
+    "`parallel` must be a boolean" = is.logical(parallel)
   )
 
   # fix directories to work with all functions

@@ -30,10 +30,6 @@ the corrected calibration data.}
 \item{rv}{A list object. A list that contains additional objects needed
 for the algorithms.}
 
-\item{type}{A single integer. Type of data to be corrected: either "1"
-(one locus in many samples, e.g. pyrosequencing data) or "2" (many loci
-in one sample, e.g. next-generation sequencing data or microarray data).}
-
 \item{locus_id}{A character string. Default: NULL. ID of the respective
 locus (only used in type 2 correction).}
 

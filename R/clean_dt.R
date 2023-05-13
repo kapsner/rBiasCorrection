@@ -25,14 +25,11 @@
 #'   data or the calibration data.
 #' @param description A character string, indicating if \code{datatable}
 #'   contains either \emph{"calibration"} data or \emph{"experimental"} data.
-#' @param type A single integer. Type of data to be corrected: either "1"
-#'   (one locus in many samples, e.g. pyrosequencing data) or "2" (many loci
-#'   in one sample, e.g. next-generation sequencing data or microarray data).
-#' @param logfilename A character string. Path to the logfile to save the log
-#'   messages.
 #'
 #' @return If a valid file is provided, the function returns a cleaned
 #'   data.table, suited for BiasCorrection.
+#'
+#' @inheritParams biascorrection
 #'
 #' @examples
 #' logfilename <- paste0(tempdir(), "/log.txt")
@@ -47,14 +44,24 @@
 #'
 #' @export
 #'
-clean_dt <- function(datatable, description, type, logfilename) {
+clean_dt <- function(
+    datatable,
+    description = c("calibration", "experimental"),
+    type = 1L,
+    logfilename
+  ) {
+
+  description <- match.arg(description)
+  type <- as.integer(type)
+
   write_log(message = "Entered 'clean_dt'-Function",
             logfilename = logfilename)
 
   stopifnot(
-    data.table::is.data.table(datatable),
-    is.character(description),
-    description %in% c("calibration", "experimental")
+    "`datatable` must be of class data.table" =
+      data.table::is.data.table(datatable),
+    "`type` must be an integer of `1L` or `2L`" = is.integer(type) &&
+      type == 1L || type == 2L
   )
 
   # workaround for vec_cal
@@ -66,7 +73,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
   datatable <- Filter(function(x) !(all(is.na(x))), datatable)
 
   # load type 1 data
-  if (type == "1") {
+  if (type == 1L) {
     message <- paste0("Importing data of type 1: One locus in many ",
                       "samples (e.g., pyrosequencing data)")
     write_log(message, logfilename)
@@ -88,7 +95,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
     }
 
     # load type 2 data
-  } else if (type == "2") {
+  } else if (type == 2L) {
     message <- paste0("Importing data of type 2: Many loci in one sample ",
                       "(e.g., next-gen seq or microarray data)")
     write_log(message, logfilename)
@@ -108,9 +115,6 @@ clean_dt <- function(datatable, description, type, logfilename) {
       message("### ERROR 36: wrong description ###")
       return(NULL)
     }
-  } else {
-    message("### ERROR 40: wrong type ###")
-    return(NULL)
   }
 
   #% print(is.data.table(datatable))
@@ -122,7 +126,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
   }), .SDcols = vec]
 
   # fist column is factor
-  if (description == "calibration" && type == "1") {
+  if (description == "calibration" && type == 1L) {
     # this is needed, because values here must be numeric
     result <- tryCatch({
       datatable[, (vec[1]) := factor(
@@ -163,12 +167,12 @@ clean_dt <- function(datatable, description, type, logfilename) {
 
   # make vec_cal global for type 1 data (many operations of
   # the app rely on vec_cal)
-  if (type == "1") {
+  if (type == 1L) {
     vec_cal <- names(datatable)[-1]
   }
 
   # count number of CpGs in type 2 data
-  if (type == "2") {
+  if (type == 2L) {
     datatable[, ("CpG_count") := rowSums(
       !is.na(datatable[, vec[-1], with = FALSE])
       )]
@@ -196,7 +200,7 @@ clean_dt <- function(datatable, description, type, logfilename) {
 
   # check file requirements: missing values and remove rows
   # containing missing values
-  if (type == "1") {
+  if (type == 1L) {
     #% if (isTRUE(any(is.na(datatable)))) {
     #%   before <- nrow(datatable)
     #%   datatable <- na.omit(datatable)

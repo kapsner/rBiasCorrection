@@ -126,21 +126,21 @@ test_that(
   code = {
     # type 1 data
     cal_type_1 <- fread("./testdata/cal_type_1.csv")
-    expect_null(clean_dt(cal_type_1, "calibration", 3, logfilename))
-    expect_null(clean_dt(cal_type_1, "calibration", "a", logfilename))
+    expect_error(clean_dt(cal_type_1, "calibration", 3L, logfilename))
+    expect_error(clean_dt(cal_type_1, "calibration", "a", logfilename))
 
     exp_type_1 <- fread("./testdata/exp_type_1.csv")
-    expect_null(clean_dt(exp_type_1, "experimental", 65, logfilename))
-    expect_null(clean_dt(exp_type_1, "experimental", "tre", logfilename))
+    expect_error(clean_dt(exp_type_1, "experimental", 65L, logfilename))
+    expect_error(clean_dt(exp_type_1, "experimental", "tre", logfilename))
 
     # type 2 data
     cal_type_2 <- fread("./testdata/cal_type_2.csv")
-    expect_null(clean_dt(cal_type_2, "calibration", 3, logfilename))
-    expect_null(clean_dt(cal_type_2, "calibration", "a", logfilename))
+    expect_error(clean_dt(cal_type_2, "calibration", 3L, logfilename))
+    expect_error(clean_dt(cal_type_2, "calibration", "a", logfilename))
 
     exp_type_2 <- fread("./testdata/exp_type_2.csv")
-    expect_null(clean_dt(exp_type_2, "experimental", 65, logfilename))
-    expect_null(clean_dt(exp_type_2, "experimental", "tre", logfilename))
+    expect_error(clean_dt(exp_type_2, "experimental", 65L, logfilename))
+    expect_error(clean_dt(exp_type_2, "experimental", "tre", logfilename))
   })
 
 # wrong first col

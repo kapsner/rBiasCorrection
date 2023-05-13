@@ -9,9 +9,9 @@ biascorrection(
   calibration,
   samplelocusname,
   minmax = FALSE,
-  correct_method = "best",
-  selection_method = "SSE",
-  type = 1,
+  correct_method = c("best", "hyperbolic", "cubic"),
+  selection_method = c("SSE", "RelError"),
+  type = 1L,
   csvdir = paste0(tempdir(), "/csvdir/"),
   plotdir = paste0(tempdir(), "/plotdir/"),
   logfilename = paste0(tempdir(), "/log.txt"),
@@ -66,8 +66,8 @@ the calibration data with both the hyperbolic regression and the cubic
 regression and using them again as input data to calculate the 'goodness
 of fit'-metrics.}
 
-\item{type}{A single integer. Type of data to be corrected: either "1" (one
-locus in many samples, e.g. pyrosequencing data) or "2" (many loci in one
+\item{type}{A single integer. Type of data to be corrected: either `1L` (one
+locus in many samples, e.g. pyrosequencing data) or `2L` (many loci in one
 sample, e.g. next-generation sequencing data or microarray data).}
 
 \item{csvdir}{A character string. Directory to store the resulting tables.

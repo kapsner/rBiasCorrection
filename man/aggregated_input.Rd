@@ -4,7 +4,12 @@
 \alias{aggregated_input}
 \title{aggregated_input helper function}
 \usage{
-aggregated_input(datatable, description, vec_cal, type = NULL)
+aggregated_input(
+  datatable,
+  description = c("experimental", "calibration"),
+  vec_cal,
+  type = NULL
+)
 }
 \arguments{
 \item{datatable}{A data.table object that contains either the experimental
@@ -16,9 +21,9 @@ contains either \emph{"calibration"} data or \emph{"experimental"} data.}
 \item{vec_cal}{The vector containing the CpG columns (output of `clean_dt`
 with description = "calibration").}
 
-\item{type}{A single integer. Type of data to be corrected: either "1"
-(one locus in many samples, e.g. pyrosequencing data) or "2" (many loci
-in one sample, e.g. next-generation sequencing data or microarray data).}
+\item{type}{A single integer. Type of data to be corrected: either `1L` (one
+locus in many samples, e.g. pyrosequencing data) or `2L` (many loci in one
+sample, e.g. next-generation sequencing data or microarray data).}
 }
 \value{
 A data.table in the long format with aggregated means for each CpG

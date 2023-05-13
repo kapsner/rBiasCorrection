@@ -8,7 +8,7 @@ better_model(
   statstable_pre,
   statstable_post_hyperbolic = NULL,
   statstable_post_cubic = NULL,
-  selection_method = "SSE"
+  selection_method = c("SSE", "RelError")
 )
 }
 \arguments{

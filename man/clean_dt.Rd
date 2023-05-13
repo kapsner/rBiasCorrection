@@ -4,7 +4,12 @@
 \alias{clean_dt}
 \title{clean_dt helper function}
 \usage{
-clean_dt(datatable, description, type, logfilename)
+clean_dt(
+  datatable,
+  description = c("calibration", "experimental"),
+  type = 1L,
+  logfilename
+)
 }
 \arguments{
 \item{datatable}{A data.table object that contains either the experimental
@@ -13,12 +18,12 @@ data or the calibration data.}
 \item{description}{A character string, indicating if \code{datatable}
 contains either \emph{"calibration"} data or \emph{"experimental"} data.}
 
-\item{type}{A single integer. Type of data to be corrected: either "1"
-(one locus in many samples, e.g. pyrosequencing data) or "2" (many loci
-in one sample, e.g. next-generation sequencing data or microarray data).}
+\item{type}{A single integer. Type of data to be corrected: either `1L` (one
+locus in many samples, e.g. pyrosequencing data) or `2L` (many loci in one
+sample, e.g. next-generation sequencing data or microarray data).}
 
-\item{logfilename}{A character string. Path to the logfile to save the log
-messages.}
+\item{logfilename}{A character string. Path to a file to save the log
+messages (default = paste0(tempdir(), "/log.txt")).}
 }
 \value{
 If a valid file is provided, the function returns a cleaned

@@ -24,9 +24,9 @@ of the samples to correct (columns 1) and a binary variable
 the hyperbolic regression parameters (better_model = 0) or with the
 cubic regression parameters (better_model = 1).}
 
-\item{type}{A single integer. Type of data to be corrected: either "1"
-(one locus in many samples, e.g. pyrosequencing data) or "2" (many loci
-in one sample, e.g. next-generation sequencing data or microarray data).}
+\item{type}{A single integer. Type of data to be corrected: either `1L` (one
+locus in many samples, e.g. pyrosequencing data) or `2L` (many loci in one
+sample, e.g. next-generation sequencing data or microarray data).}
 
 \item{rv}{A list object. A list that contains additional objects needed
 for the algorithms.}
@@ -34,8 +34,8 @@ for the algorithms.}
 \item{mode}{A character string. Default: NULL. Used to indicate "corrected"
 calibration data.}
 
-\item{logfilename}{A character string. Path to the logfile to save the log
-messages.}
+\item{logfilename}{A character string. Path to a file to save the log
+messages (default = paste0(tempdir(), "/log.txt")).}
 
 \item{minmax}{A logical, indicating which equations are used for
 BiasCorrection (default: FALSE). If TRUE, equations are used that include
