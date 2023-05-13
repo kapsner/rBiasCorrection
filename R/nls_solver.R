@@ -35,6 +35,7 @@ nls_solver <- function(
   )
 
   # starting values
+  # TODO implement logic to better guess of initial starting values
   start <- switch( # nolint
     EXPR = type,
     "hyperbolic_eq" = data.frame(a = c(-1000, 1000),
@@ -101,7 +102,20 @@ nls_solver <- function(
       return(ret)
     })
   } else if (nls_switch == "minpack.lm") {
-    stop("Not implemented.")
+    st <- sapply(
+      X = colnames(start),
+      FUN = function(x) {
+        start[1, x]
+      },
+      simplify = FALSE,
+      USE.NAMES = TRUE
+    )
+    c <- minpack.lm::nlsLM(
+      formula = FUN_formula,
+      start = st,
+      algorithm = "LM",
+      control = stats::nls.control(maxiter = 50)
+    )
   } else {
     stop("Not implemented.")
   }

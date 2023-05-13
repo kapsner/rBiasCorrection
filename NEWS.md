@@ -9,6 +9,10 @@
 
 #### Refactorings
 
+-   cubic-minmax also using nls\_solver
+    ([b3a5a93](https://github.com/kapsner/rBiasCorrection/tree/b3a5a93e8a82d1c32ebc7ee6c32b63bc0a3f9385))
+-   added zzz.r and option to select nls algo
+    ([45dd674](https://github.com/kapsner/rBiasCorrection/tree/45dd674ee2064b3e694aaadda01c1d751f57d634))
 -   common nls2-code to nls\_solver fun
     ([2b2f862](https://github.com/kapsner/rBiasCorrection/tree/2b2f8620d4047a3658fd6303f98841485df6871b))
 -   stopifnot with understandable msgs
@@ -29,7 +33,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...d35ab8b`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...d35ab8b)
+[`v0.3.4...b3a5a93`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...b3a5a93)
 
 ## v0.3.4 (2022-06-20)
 

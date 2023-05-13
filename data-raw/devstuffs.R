@@ -65,7 +65,8 @@ usethis::use_package("lintr", type = "Suggests")
 usethis::use_package("knitr", type = "Suggests")
 usethis::use_package("rmarkdown", type = "Suggests")
 usethis::use_package("microbenchmark", type = "Suggests")
-usethis::use_package("ggpubr", type="Suggests")
+usethis::use_package("ggpubr", type = "Suggests")
+usethis::use_package("minpack.lm", type = "Suggests")
 
 
 # dev packages
