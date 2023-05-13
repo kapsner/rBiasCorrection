@@ -91,9 +91,6 @@
 #'   correction of PCR measurement biases succeeds. If the correction fails,
 #'   an error message is returned.
 #'
-#' @import data.table
-#' @importFrom magrittr "%>%"
-#'
 #' @examples
 #' \donttest{
 #' data.table::fwrite(
