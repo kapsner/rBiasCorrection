@@ -33,6 +33,7 @@
 #' @inheritParams regression_utility
 #' @inheritParams clean_dt
 #' @inheritParams on_start
+#' @inheritParams biascorrection
 #'
 #' @return This function creates error bar-plots to visualize the relative
 #'   error before and after bias correction and writes these plots to the

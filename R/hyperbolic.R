@@ -62,6 +62,8 @@ hyperbolic_regression <- function(df_agg,
   # true y-values
   true_levels <- dat[, get("true_methylation")]
 
+  target_levels <- dat[, get("CpG")]
+
   # calculate relative error
   dat[, ("CpG_true_diff") := abs(get("CpG") - get("true_methylation"))]
   dat[, ("relative_error") := ifelse(
@@ -83,54 +85,13 @@ hyperbolic_regression <- function(df_agg,
                      b = c(-1000, 1000),
                      d = c(-1000, 1000))
 
-    c <- tryCatch({
-      suppressWarnings(RNGkind(sample.kind = "Rounding"))
-      set.seed(seed)
-      ret <- nls2::nls2(CpG ~ hyperbolic_eq(
-        x = true_levels,
-        a = a,
-        b = b,
-        d = d
-      ),
-      data = dat,
+    c <- nls_solver(
+      true_levels = true_levels,
+      target_levels = target_levels,
       start = st,
-      control = stats::nls.control(maxiter = 50))
-
-    }, error = function(e) {
-      # if convergence fails
-      write_log(message = e,
-                logfilename = logfilename)
-      suppressWarnings(RNGkind(sample.kind = "Rounding"))
-      set.seed(seed)
-      mod <- nls2::nls2(CpG ~ hyperbolic_eq(
-        x = true_levels,
-        a = a,
-        b = b,
-        d = d
-      ),
-      data = dat,
-      start = st,
-      algorithm = "brute-force",
-      control = stats::nls.control(maxiter = 1e5))
-
-      suppressWarnings(RNGkind(sample.kind = "Rounding"))
-      set.seed(seed)
-      ret <- nls2::nls2(CpG ~ hyperbolic_eq(
-        x = true_levels,
-        a = a,
-        b = b,
-        d = d
-      ),
-      data = dat,
-      start = mod,
-      algorithm = "brute-force",
-      control = stats::nls.control(maxiter = 1e3))
-      ret
-
-    }, finally = function(f) {
-      return(ret)
-    })
-
+      type = "hyperbolic_eq",
+      seed = seed
+    )
 
     # get coefficients
     coe <- stats::coef(c)
@@ -193,58 +154,17 @@ hyperbolic_regression <- function(df_agg,
     # starting values
     st <- data.frame(b = c(-1000, 1000))
 
-    c <- tryCatch({
-      suppressWarnings(RNGkind(sample.kind = "Rounding"))
-      set.seed(seed)
-      ret <- nls2::nls2(CpG ~ hyperbolic_eq_minmax(
-        x = true_levels,
-        b = b,
-        y0 = y0,
-        y1 = y1,
-        m0 = m0,
-        m1 = m1),
-        data = dat,
-        start = st,
-        control = stats::nls.control(maxiter = 50))
-
-    }, error = function(e) {
-      # if convergence fails
-      write_log(message = e,
-                logfilename = logfilename)
-      st <- data.frame(b = c(-1000, 1000))
-
-      suppressWarnings(RNGkind(sample.kind = "Rounding"))
-      set.seed(seed)
-      mod <- nls2::nls2(CpG ~ hyperbolic_eq_minmax(
-        x = true_levels,
-        b = b,
-        y0 = y0,
-        y1 = y1,
-        m0 = m0,
-        m1 = m1),
-        data = dat,
-        start = st,
-        algorithm = "brute-force",
-        control = stats::nls.control(maxiter = 1e5))
-
-      suppressWarnings(RNGkind(sample.kind = "Rounding"))
-      set.seed(seed)
-      ret <- nls2::nls2(CpG ~ hyperbolic_eq_minmax(
-        x = true_levels,
-        b = b,
-        y0 = y0,
-        y1 = y1,
-        m0 = m0,
-        m1 = m1),
-        data = dat,
-        start = mod,
-        algorithm = "brute-force",
-        control = stats::nls.control(maxiter = 1e3))
-      ret
-
-    }, finally = function(f) {
-      return(ret)
-    })
+    c <- nls_solver(
+      true_levels = true_levels,
+      target_levels = target_levels,
+      start = st,
+      type = "hyperbolic_eq_minmax",
+      seed = seed,
+      y0 = y0,
+      y1 = y1,
+      m0 = m0,
+      m1 = m1
+    )
 
     # get coefficients
     coe <- stats::coef(c)
