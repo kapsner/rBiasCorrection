@@ -2,6 +2,11 @@
 
 ## Unreleased (2023-05-13)
 
+#### Bug fixes
+
+-   fixed implementation of nls\_solver
+    ([d35ab8b](https://github.com/kapsner/rBiasCorrection/tree/d35ab8bcb3b82c097dc9abb528e0a15299e7246a))
+
 #### Refactorings
 
 -   common nls2-code to nls\_solver fun
@@ -24,7 +29,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...2b2f862`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...2b2f862)
+[`v0.3.4...d35ab8b`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...d35ab8b)
 
 ## v0.3.4 (2022-06-20)
 

@@ -61,7 +61,6 @@ hyperbolic_regression <- function(df_agg,
 
   # true y-values
   true_levels <- dat[, get("true_methylation")]
-
   target_levels <- dat[, get("CpG")]
 
   # calculate relative error
@@ -80,15 +79,9 @@ hyperbolic_regression <- function(df_agg,
     # https://cran.r-project.org/web/packages/nls2/nls2.pdf
     # calculate optimal starting values: (longer runtime; same results?)
 
-    # starting values
-    st <- data.frame(a = c(-1000, 1000),
-                     b = c(-1000, 1000),
-                     d = c(-1000, 1000))
-
     c <- nls_solver(
       true_levels = true_levels,
       target_levels = target_levels,
-      start = st,
       type = "hyperbolic_eq",
       seed = seed
     )
@@ -151,13 +144,9 @@ hyperbolic_regression <- function(df_agg,
     #%                   lower = 0,
     #%                   upper = 50)$par # due to error with Nelder-Mead
 
-    # starting values
-    st <- data.frame(b = c(-1000, 1000))
-
     c <- nls_solver(
       true_levels = true_levels,
       target_levels = target_levels,
-      start = st,
       type = "hyperbolic_eq_minmax",
       seed = seed,
       y0 = y0,
@@ -177,7 +166,8 @@ hyperbolic_regression <- function(df_agg,
       y0 = y0,
       y1 = y1,
       m0 = m0,
-      m1 = m1)
+      m1 = m1
+    )
   }
 
   # the next part is equal for minmax = FALSE and minmax = TRUE

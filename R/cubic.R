@@ -45,6 +45,7 @@ cubic_regression <- function(df_agg,
 
   # true y-values
   true_levels <- dat[, get("true_methylation")]
+  target_levels <- dat[, get("CpG")]
 
   if (isFALSE(minmax)) {
     write_log(message = "'cubic_regression': minmax = FALSE",
@@ -85,64 +86,16 @@ cubic_regression <- function(df_agg,
     m0 <- dat[, min(get("true_methylation"))]
     m1 <- dat[, max(get("true_methylation"))]
 
-    # starting values
-    st <- data.frame(a = c(-1000, 1000),
-                     b = c(-1000, 1000))
-
-    c <- tryCatch({
-      suppressWarnings(RNGkind(sample.kind = "Rounding"))
-      set.seed(seed)
-      ret <- nls2::nls2(CpG ~ cubic_eq_minmax(
-        x = true_levels,
-        a = a,
-        b = b,
-        y0 = y0,
-        y1 = y1,
-        m0 = m0,
-        m1 = m1
-      ),
-      data = dat,
-      start = st,
-      control = stats::nls.control(maxiter = 50))
-    }, error = function(e) {
-      # if convergence fails
-      write_log(message = e,
-                logfilename = logfilename)
-      suppressWarnings(RNGkind(sample.kind = "Rounding"))
-      set.seed(seed)
-      mod <- nls2::nls2(CpG ~ cubic_eq_minmax(
-        x = true_levels,
-        a = a,
-        b = b,
-        y0 = y0,
-        y1 = y1,
-        m0 = m0,
-        m1 = m1
-      ),
-      data = dat,
-      start = st,
-      algorithm = "brute-force",
-      control = stats::nls.control(maxiter = 1e5))
-
-      suppressWarnings(RNGkind(sample.kind = "Rounding"))
-      set.seed(seed)
-      ret <- nls2::nls2(CpG ~ cubic_eq_minmax(
-        x = true_levels,
-        a = a,
-        b = b,
-        y0 = y0,
-        y1 = y1,
-        m0 = m0,
-        m1 = m1
-      ),
-      data = dat,
-      start = mod,
-      algorithm = "brute-force",
-      control = stats::nls.control(maxiter = 1e3))
-      ret
-    }, finally = function(f) {
-      return(ret)
-    })
+    c <- nls_solver(
+      true_levels = true_levels,
+      target_levels = target_levels,
+      type = "cubic_eq_minmax",
+      seed = seed,
+      y0 = y0,
+      y1 = y1,
+      m0 = m0,
+      m1 = m1
+    )
 
     # get coefficients
     coe <- stats::coef(c)
