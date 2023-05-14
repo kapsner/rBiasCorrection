@@ -34,18 +34,6 @@ nls_solver <- function(
     "cubic_eq_minmax" = cubic_eq_minmax
   )
 
-  # starting values
-  # TODO implement logic to better guess of initial starting values
-  start <- switch( # nolint
-    EXPR = type,
-    "hyperbolic_eq" = data.frame(a = c(-1000, 1000),
-                                 b = c(-1000, 1000),
-                                 d = c(-1000, 1000)),
-    "hyperbolic_eq_minmax" = data.frame(b = c(-1000, 1000)),
-    "cubic_eq_minmax" = data.frame(a = c(-1000, 1000),
-                                   b = c(-1000, 1000))
-  )
-
   FUN_formula <- switch( # nolint
     EXPR = type,
     "hyperbolic_eq" = as.formula(
@@ -65,6 +53,17 @@ nls_solver <- function(
   }
 
   if (nls_switch == "nls2") {
+
+    # starting values
+    start <- switch( # nolint
+      EXPR = type,
+      "hyperbolic_eq" = data.frame(a = c(-1000, 1000),
+                                   b = c(-1000, 1000),
+                                   d = c(-1000, 1000)),
+      "hyperbolic_eq_minmax" = data.frame(b = c(-1000, 1000)),
+      "cubic_eq_minmax" = data.frame(a = c(-1000, 1000),
+                                     b = c(-1000, 1000))
+    )
 
     c <- tryCatch({
       suppressWarnings(RNGkind(sample.kind = "Rounding"))
@@ -101,18 +100,24 @@ nls_solver <- function(
     }, finally = function(f) {
       return(ret)
     })
+
   } else if (nls_switch == "minpack.lm") {
-    st <- sapply(
-      X = colnames(start),
-      FUN = function(x) {
-        start[1, x]
-      },
-      simplify = FALSE,
-      USE.NAMES = TRUE
+
+    lin_mod <- lm(target_levels ~ true_levels)
+    lin_mod_coef <- stats::coef(lin_mod)
+    coef_df <- c(lin_mod_coef[2], lin_mod_coef[1], 0.001)
+    names(coef_df) <- c("a", "b", "d")
+
+    start <- switch( # nolint
+      EXPR = type,
+      "hyperbolic_eq" = coef_df,
+      "hyperbolic_eq_minmax" = coef_df["b"],
+      "cubic_eq_minmax" = coef_df[c("a", "b")]
     )
+
     c <- minpack.lm::nlsLM(
       formula = FUN_formula,
-      start = st,
+      start = start,
       algorithm = "LM",
       control = stats::nls.control(maxiter = 50)
     )

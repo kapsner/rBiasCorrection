@@ -2,6 +2,11 @@
 
 ## Unreleased (2023-05-13)
 
+#### New features
+
+-   preparing implementation of alternative algorithm using minpack.lm
+    ([426f0b9](https://github.com/kapsner/rBiasCorrection/tree/426f0b95881e24bdabdcbd080aaabc0192df076f))
+
 #### Bug fixes
 
 -   fixed implementation of nls\_solver
@@ -33,7 +38,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...b3a5a93`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...b3a5a93)
+[`v0.3.4...426f0b9`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...426f0b9)
 
 ## v0.3.4 (2022-06-20)
 

@@ -16,7 +16,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.3.4.9004")
+my_desc$set_version("0.3.4.9005")
 # The title of your package
 my_desc$set(Title = "Correct Bias in DNA Methylation Analyses")
 # The description of your package
@@ -35,6 +35,8 @@ my_desc$set("BugReports",
 
 # Vignette Builder
 my_desc$set("VignetteBuilder" = "knitr")
+
+my_desc$set("Config/testthat/parallel" = "false")
 
 # License
 my_desc$set("License", "GPL-3")

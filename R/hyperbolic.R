@@ -83,6 +83,7 @@ hyperbolic_regression <- function(df_agg,
       true_levels = true_levels,
       target_levels = target_levels,
       type = "hyperbolic_eq",
+      logfilename = logfilename,
       seed = seed
     )
 
@@ -148,6 +149,7 @@ hyperbolic_regression <- function(df_agg,
       true_levels = true_levels,
       target_levels = target_levels,
       type = "hyperbolic_eq_minmax",
+      logfilename = logfilename,
       seed = seed,
       y0 = y0,
       y1 = y1,
