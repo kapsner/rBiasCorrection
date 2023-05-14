@@ -1,3 +1,19 @@
+# rBiasCorrection: Correct Bias in Quantitative DNA Methylation Analyses.
+# Copyright (C) 2019-2023 Lorenz Kapsner
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 nls_solver <- function(
     true_levels,
     target_levels,
@@ -36,41 +52,63 @@ nls_solver <- function(
 
   FUN_formula <- switch( # nolint
     EXPR = type,
-    "hyperbolic_eq" = as.formula(
-      paste0(formula_common, "a = a, d = d)")
-    ),
-    "hyperbolic_eq_minmax" = as.formula(
-      paste0(formula_common, minmax_common)
-    ),
-    "cubic_eq_minmax" = as.formula(
-      paste0(formula_common, "a = a, ", minmax_common)
-    )
+    "hyperbolic_eq" = paste0(formula_common, "a = a, d = d)"),
+    "hyperbolic_eq_minmax" = paste0(formula_common, minmax_common),
+    "cubic_eq_minmax" = paste0(formula_common, "a = a, ", minmax_common)
+  )
+  FUN_formula <- stats::as.formula( # nolint
+    object = FUN_formula
   )
 
   nls_switch <- getOption("rBiasCorrection.nls_implementation")
-  if (is.null(nls_switch) || nls_switch == "") {
-    nls_switch <- "nls2"
+  nls_options <- c("nls2_paper", "nls2_fast", "minpack.lm")
+  if (is.null(nls_switch) || !(nls_switch %in% nls_options)) {
+    nls_switch <- "nls2_paper"
   }
 
-  if (nls_switch == "nls2") {
+  if (nls_switch %in% grep("nls", nls_options, value = TRUE)) {
 
     # starting values
-    start <- switch( # nolint
-      EXPR = type,
-      "hyperbolic_eq" = data.frame(a = c(-1000, 1000),
-                                   b = c(-1000, 1000),
-                                   d = c(-1000, 1000)),
-      "hyperbolic_eq_minmax" = data.frame(b = c(-1000, 1000)),
-      "cubic_eq_minmax" = data.frame(a = c(-1000, 1000),
-                                     b = c(-1000, 1000))
-    )
+    if (nls_switch == "nls2_paper") {
+      start_vals <- switch( # nolint
+        EXPR = type,
+        "hyperbolic_eq" = data.frame(a = c(-1000, 1000),
+                                     b = c(-1000, 1000),
+                                     d = c(-1000, 1000)),
+        "hyperbolic_eq_minmax" = data.frame(b = c(-1000, 1000)),
+        "cubic_eq_minmax" = data.frame(a = c(-1000, 1000),
+                                       b = c(-1000, 1000))
+      )
+    } else if (nls_switch == "nls2_fast") {
+      coef_df <- guess_nls_start_linear(
+        target_levels = target_levels,
+        true_levels = true_levels
+      )
+      names(coef_df) <- c("b", "a", "d")
+
+      start_vals <- switch( # nolint
+        EXPR = type,
+        "hyperbolic_eq" = data.frame(
+          a = c(coef_df[["a"]] * -1, coef_df[["a"]]),
+          b = c(coef_df[["b"]] * -1, coef_df[["b"]]),
+          d = c(coef_df[["d"]] * -1, coef_df[["d"]])
+        ),
+        "hyperbolic_eq_minmax" = data.frame(
+          b = c(coef_df[["b"]] * -1, coef_df[["b"]])
+        ),
+        "cubic_eq_minmax" = data.frame(
+          a = c(coef_df[["a"]] * -1, coef_df[["a"]]),
+          b = c(coef_df[["b"]] * -1, coef_df[["b"]])
+        )
+      )
+    }
 
     c <- tryCatch({
       suppressWarnings(RNGkind(sample.kind = "Rounding"))
       set.seed(seed)
       ret <- nls2::nls2(
         formula = FUN_formula,
-        start = start,
+        start = start_vals,
         control = stats::nls.control(maxiter = 50)
       )
       ret
@@ -83,7 +121,7 @@ nls_solver <- function(
       set.seed(seed)
       mod <- nls2::nls2(
         formula = FUN_formula,
-        start = start,
+        start = start_vals,
         algorithm = "brute-force",
         control = stats::nls.control(maxiter = 1e5)
       )
@@ -103,12 +141,13 @@ nls_solver <- function(
 
   } else if (nls_switch == "minpack.lm") {
 
-    lin_mod <- lm(target_levels ~ true_levels)
-    lin_mod_coef <- stats::coef(lin_mod)
-    coef_df <- c(lin_mod_coef[2], lin_mod_coef[1], 0.001)
-    names(coef_df) <- c("a", "b", "d")
+    coef_df <- guess_nls_start_linear(
+      target_levels = target_levels,
+      true_levels = true_levels
+    )
+    names(coef_df) <- c("b", "a", "d")
 
-    start <- switch( # nolint
+    start_vals <- switch( # nolint
       EXPR = type,
       "hyperbolic_eq" = coef_df,
       "hyperbolic_eq_minmax" = coef_df["b"],
@@ -117,7 +156,7 @@ nls_solver <- function(
 
     c <- minpack.lm::nlsLM(
       formula = FUN_formula,
-      start = start,
+      start = start_vals,
       algorithm = "LM",
       control = stats::nls.control(maxiter = 50)
     )
@@ -126,4 +165,11 @@ nls_solver <- function(
   }
 
   return(c)
+}
+
+guess_nls_start_linear <- function(target_levels, true_levels, d = 0.001) {
+  lin_mod <- stats::lm(target_levels ~ true_levels)
+  lin_mod_coef <- stats::coef(lin_mod)
+  coef_df <- c(lin_mod_coef[1], lin_mod_coef[2], d)
+  return(coef_df)
 }

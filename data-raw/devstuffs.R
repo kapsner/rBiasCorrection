@@ -60,6 +60,7 @@ usethis::use_package("stats", type="Imports")
 usethis::use_package("future.apply", type="Imports")
 usethis::use_package("future", type = "Imports")
 usethis::use_package("utils", type = "Imports")
+usethis::use_package("minpack.lm", type = "Imports")
 
 # Suggests
 usethis::use_package("testthat", type = "Suggests", min_version = "3.0.1")
@@ -68,7 +69,6 @@ usethis::use_package("knitr", type = "Suggests")
 usethis::use_package("rmarkdown", type = "Suggests")
 usethis::use_package("microbenchmark", type = "Suggests")
 usethis::use_package("ggpubr", type = "Suggests")
-usethis::use_package("minpack.lm", type = "Suggests")
 
 
 # dev packages

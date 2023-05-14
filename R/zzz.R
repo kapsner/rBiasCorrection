@@ -3,7 +3,7 @@
 NULL
 
 rBiasCorrection_default_options <- list( # nolint
-  rBiasCorrection.nls_implementation = "nls2" # nolint
+  rBiasCorrection.nls_implementation = "nls2_paper" # nolint
 )
 
 .onLoad <- function(libname, pkgname) {

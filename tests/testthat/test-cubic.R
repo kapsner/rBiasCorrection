@@ -55,7 +55,7 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-    options(rBiasCorrection.nls_implementation = "nls2")
+    options(rBiasCorrection.nls_implementation = "nls2_paper")
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))
   })
