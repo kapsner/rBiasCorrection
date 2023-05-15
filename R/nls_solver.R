@@ -80,11 +80,11 @@ nls_solver <- function(
                                        b = c(-1000, 1000))
       )
     } else if (nls_switch == "nls2_fast") {
-      coef_df <- guess_nls_start_linear(
+      coef_df <- fast_guess(
+        type = type,
         target_levels = target_levels,
         true_levels = true_levels
       )
-      names(coef_df) <- c("b", "a", "d")
 
       start_vals <- switch( # nolint
         EXPR = type,
@@ -141,17 +141,10 @@ nls_solver <- function(
 
   } else if (nls_switch == "minpack.lm") {
 
-    coef_df <- guess_nls_start_linear(
+    start_vals <- fast_guess(
+      type = type,
       target_levels = target_levels,
       true_levels = true_levels
-    )
-    names(coef_df) <- c("b", "a", "d")
-
-    start_vals <- switch( # nolint
-      EXPR = type,
-      "hyperbolic_eq" = coef_df,
-      "hyperbolic_eq_minmax" = coef_df["b"],
-      "cubic_eq_minmax" = coef_df[c("a", "b")]
     )
 
     c <- minpack.lm::nlsLM(
@@ -167,9 +160,40 @@ nls_solver <- function(
   return(c)
 }
 
-guess_nls_start_linear <- function(target_levels, true_levels, d = 0.001) {
+fast_guess <- function(type, target_levels, true_levels) {
+  if (grepl("hyperbolic", type)) {
+    d <- 0.001
+    guess_mod <- guess_nls_start_linear(
+      target_levels = target_levels,
+      true_levels = true_levels
+    )
+  } else if (type == "cubic_eq_minmax") {
+    guess_mod <- cubic_fitter(
+      target_levels = target_levels,
+      true_levels = true_levels
+    )
+  }
+
+  mod_coef <- stats::coef(guess_mod)
+
+  if (type == "hyperbolic_eq") {
+    # a, b, d
+    # b is intercept in hyperbolic_eq
+    coef_ret <- c(mod_coef[2], mod_coef[1], d)
+    names(coef_ret) <- c("a", "b", "d")
+  } else if (type == "hyperbolic_eq_minmax") {
+    # b is beta
+    coef_ret <- mod_coef[2]
+    names(coef_ret) <- "b"
+  } else if (type == "cubic_eq_minmax") {
+    # a = x3, b = x2
+    coef_ret <- c(mod_coef[4], mod_coef[3])
+    names(coef_ret) <- c("a", "b")
+  }
+  return(coef_ret)
+}
+
+guess_nls_start_linear <- function(target_levels, true_levels) {
   lin_mod <- stats::lm(target_levels ~ true_levels)
-  lin_mod_coef <- stats::coef(lin_mod)
-  coef_df <- c(lin_mod_coef[1], lin_mod_coef[2], d)
-  return(coef_df)
+  return(lin_mod)
 }

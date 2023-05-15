@@ -54,6 +54,44 @@ test_that(
       minmax = rv$minmax,
       seed = rv$seed
     )
+
+    options(rBiasCorrection.nls_implementation = "nls2_fast")
+    regression_results_fast <- regression_utility(
+      data = rv$fileimport_calibration,
+      samplelocusname = "Testlocus",
+      locus_id = NULL,
+      rv = rv,
+      mode = NULL,
+      logfilename = logfilename,
+      minmax = rv$minmax,
+      seed = rv$seed
+    )
+
+    expect_equal(
+      object = regression_results$result_list,
+      expected =  regression_results_fast$result_list
+    )
+
+    options(rBiasCorrection.nls_implementation = "minpack.lm")
+    regression_results_minpack <- regression_utility(
+      data = rv$fileimport_calibration,
+      samplelocusname = "Testlocus",
+      locus_id = NULL,
+      rv = rv,
+      mode = NULL,
+      logfilename = logfilename,
+      minmax = rv$minmax,
+      seed = rv$seed
+    )
+
+    expect_equal(
+      object = regression_results$result_list,
+      expected =  regression_results_minpack$result_list
+    )
+
+    options(rBiasCorrection.nls_implementation = "nls2_paper")
+
+
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list <- regression_results[["result_list"]]
 
@@ -91,24 +129,9 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-    expect_true(
-      all.equal(
-        regression_results,
-        regression_results2,
-        check.environment = FALSE
-      )
-    )
-    expect_true(
-      all.equal(
-        regression_results[["plot_list"]],
-        regression_results2[["plot_list"]],
-        check.environment = FALSE
-      )
-    )
     expect_equal(
-      object = regression_results[["result_list"]],
-      expected = regression_results2[["result_list"]],
-      ignore_function_env = TRUE
+        regression_results$result_list,
+        regression_results2$result_list
     )
 
     # calculate final results

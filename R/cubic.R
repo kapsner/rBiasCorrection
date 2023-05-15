@@ -32,6 +32,15 @@ cubic_eq_minmax <- function(x, a, b, y0, y1, m0, m1) {
   )
 }
 
+cubic_fitter <- function(target_levels, true_levels) {
+  pol_reg <- stats::lm(
+    target_levels ~ true_levels +
+      I(true_levels^2) +
+      I(true_levels^3)
+  )
+  return(pol_reg)
+}
+
 # find best parameters for cubic regression
 cubic_regression <- function(df_agg,
                              vec,
@@ -51,10 +60,8 @@ cubic_regression <- function(df_agg,
     write_log(message = "'cubic_regression': minmax = FALSE",
               logfilename = logfilename)
 
-    pol_reg <- stats::lm(CpG ~ true_methylation +
-                           I(true_methylation^2) +
-                           I(true_methylation^3),
-                         data = dat)
+    pol_reg <- cubic_fitter(target_levels = target_levels,
+                            true_levels = true_levels)
     cof <- stats::coefficients(pol_reg)
 
     # correct values
