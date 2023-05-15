@@ -78,13 +78,13 @@ regression_utility <- function(data,
 
   if (!is.null(locus_id)) {
     write_log(
-      message = paste0("### Starting with regression ",
+      message = paste0("\n### Starting with regression ",
                        "calculations ###\n\nLocus ID: ",
                        locus_id),
       logfilename = logfilename)
   } else {
     write_log(
-      message = paste0("### Starting with regression calculations ###"),
+      message = paste0("\n### Starting with regression calculations ###"),
       logfilename = logfilename)
   }
 

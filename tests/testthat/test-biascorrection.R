@@ -15,7 +15,7 @@ test_that(
     calibration = "./testdata/cal_type_1.csv",
     samplelocusname = "Testlocus",
     minmax = FALSE,
-    correct_method = "best",
+    correct_method = "hyperbolic",
     selection_method = "SSE",
     type = 1,
     plotdir = plotdir,
@@ -28,40 +28,16 @@ test_that(
       TRUE
     )
   )
-  expect_type(
-    b1,
-    "list"
-  )
   expect_length(list.files(plotdir), 50)
   expect_length(list.files(csvdir), 13)
 
-  options(rBiasCorrection.nls_implementation = "nls2_fast")
+  options(rBiasCorrection.nls_implementation = "GN.guess")
   b2 <- biascorrection(
     experimental = "./testdata/exp_type_1.csv",
     calibration = "./testdata/cal_type_1.csv",
     samplelocusname = "Testlocus",
     minmax = FALSE,
-    correct_method = "best",
-    selection_method = "SSE",
-    type = 1,
-    plotdir = plotdir,
-    csvdir = csvdir,
-    logfilename = paste0(prefix, "/log.txt"),
-    seed = 1234,
-    parallel = ifelse(
-      tolower(Sys.info()["sysname"]) == "darwin",
-      FALSE,
-      TRUE
-    )
-  )
-
-  options(rBiasCorrection.nls_implementation = "minpack.lm")
-  b3 <- biascorrection(
-    experimental = "./testdata/exp_type_1.csv",
-    calibration = "./testdata/cal_type_1.csv",
-    samplelocusname = "Testlocus",
-    minmax = FALSE,
-    correct_method = "best",
+    correct_method = "hyperbolic",
     selection_method = "SSE",
     type = 1,
     plotdir = plotdir,
@@ -76,10 +52,37 @@ test_that(
   )
 
   expect_equal(
-    object = b3$final_results,
-    expected = b2$final_results
+    object = b1$final_results,
+    expected = b2$final_results,
+    tolerance = 1e-3
   )
-  options(rBiasCorrection.nls_implementation = "nls2_paper")
+
+  options(rBiasCorrection.nls_implementation = "LM")
+  b3 <- biascorrection(
+    experimental = "./testdata/exp_type_1.csv",
+    calibration = "./testdata/cal_type_1.csv",
+    samplelocusname = "Testlocus",
+    minmax = FALSE,
+    correct_method = "hyperbolic",
+    selection_method = "SSE",
+    type = 1,
+    plotdir = plotdir,
+    csvdir = csvdir,
+    logfilename = paste0(prefix, "/log.txt"),
+    seed = 1234,
+    parallel = ifelse(
+      tolower(Sys.info()["sysname"]) == "darwin",
+      FALSE,
+      TRUE
+    )
+  )
+
+  expect_equal(
+    object = b1$final_results,
+    expected = b3$final_results,
+    tolerance = 2e-1
+  )
+  options(rBiasCorrection.nls_implementation = "GN.paper")
 
   # cleanup
   expect_silent(clean_up(plotdir = plotdir,

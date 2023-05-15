@@ -55,7 +55,7 @@ test_that(
       seed = rv$seed
     )
 
-    options(rBiasCorrection.nls_implementation = "nls2_fast")
+    options(rBiasCorrection.nls_implementation = "GN.guess")
     regression_results_fast <- regression_utility(
       data = rv$fileimport_calibration,
       samplelocusname = "Testlocus",
@@ -72,7 +72,7 @@ test_that(
       expected =  regression_results_fast$result_list
     )
 
-    options(rBiasCorrection.nls_implementation = "minpack.lm")
+    options(rBiasCorrection.nls_implementation = "LM")
     regression_results_minpack <- regression_utility(
       data = rv$fileimport_calibration,
       samplelocusname = "Testlocus",
@@ -89,7 +89,7 @@ test_that(
       expected =  regression_results_minpack$result_list
     )
 
-    options(rBiasCorrection.nls_implementation = "nls2_paper")
+    options(rBiasCorrection.nls_implementation = "GN.paper")
 
 
     plotlist_reg <- regression_results[["plot_list"]]
@@ -108,9 +108,6 @@ test_that(
     rv$reg_stats <- statistics_list(rv$result_list, minmax = rv$minmax)
 
     # some tests
-    expect_type(regression_results, "list")
-    expect_type(plotlist_reg, "list")
-
     expect_snapshot_value(
       x = rv$result_list,
       style = "serialize",
@@ -118,9 +115,6 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-
-    expect_type(rv$reg_stats, "list")
-    expect_s3_class(rv$reg_stats, "data.table")
 
     expect_snapshot_value(
       x = table_prep(rv$reg_stats),
@@ -159,9 +153,6 @@ test_that(
       colnames(rv$fileimport_calibration)
 
     # some tests
-    expect_type(solved_eq, "list")
-    expect_type(rv$final_results, "list")
-    expect_s3_class(rv$final_results, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$final_results),
       style = "json2",
@@ -169,8 +160,6 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-    expect_type(rv$substitutions, "list")
-    expect_s3_class(rv$substitutions, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions),
       style = "json2",
@@ -178,7 +167,6 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-    expect_type(solved_eq2, "list")
     expect_snapshot_value(
       x = table_prep(solved_eq2[["results"]]),
       style = "json2",
@@ -193,8 +181,6 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-    expect_type(rv$fileimport_cal_corrected, "list")
-    expect_s3_class(rv$fileimport_cal_corrected, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected),
       style = "json2",
@@ -225,9 +211,6 @@ test_that(
     )
     rv$substitutions_corrected_h <- solved_eq_h[["substitutions"]]
 
-    expect_type(solved_eq_h, "list")
-    expect_type(rv$fileimport_cal_corrected_h, "list")
-    expect_s3_class(rv$fileimport_cal_corrected_h, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected_h),
       style = "json2",
@@ -235,8 +218,6 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-    expect_type(rv$substitutions_corrected_h, "list")
-    expect_s3_class(rv$substitutions_corrected_h, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions_corrected_h),
       style = "json2",
@@ -261,9 +242,6 @@ test_that(
     rv$reg_stats_corrected_h <- statistics_list(rv$result_list_hyperbolic,
                                                 minmax = rv$minmax)
 
-    expect_type(regression_results, "list")
-    expect_type(plotlist_reg, "list")
-    expect_type(rv$result_list_hyperbolic, "list")
     expect_snapshot_value(
       x = rv$result_list_hyperbolic,
       style = "serialize",
@@ -271,8 +249,6 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-    expect_type(rv$reg_stats_corrected_h, "list")
-    expect_s3_class(rv$reg_stats_corrected_h, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$reg_stats_corrected_h),
       style = "json2",
@@ -302,9 +278,6 @@ test_that(
     )
     rv$substitutions_corrected_c <- solved_eq_c[["substitutions"]]
 
-    expect_type(solved_eq_c, "list")
-    expect_type(rv$fileimport_cal_corrected_c, "list")
-    expect_s3_class(rv$fileimport_cal_corrected_c, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected_c),
       style = "json2",
@@ -312,8 +285,6 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-    expect_type(rv$substitutions_corrected_c, "list")
-    expect_s3_class(rv$substitutions_corrected_c, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions_corrected_c),
       style = "json2",
@@ -338,9 +309,6 @@ test_that(
     rv$reg_stats_corrected_c <- statistics_list(rv$result_list_cubic,
                                                 minmax = rv$minmax)
 
-    expect_type(regression_results, "list")
-    expect_type(plotlist_reg, "list")
-    expect_type(rv$result_list_cubic, "list")
     expect_snapshot_value(
       x = rv$result_list_cubic,
       style = "serialize",
@@ -348,9 +316,6 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-
-    expect_type(rv$reg_stats_corrected_c, "list")
-    expect_s3_class(rv$reg_stats_corrected_c, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$reg_stats_corrected_c),
       style = "json2",

@@ -61,15 +61,15 @@ nls_solver <- function(
   )
 
   nls_switch <- getOption("rBiasCorrection.nls_implementation")
-  nls_options <- c("nls2_paper", "nls2_fast", "minpack.lm")
+  nls_options <- c("GN.paper", "GN.guess", "LM")
   if (is.null(nls_switch) || !(nls_switch %in% nls_options)) {
-    nls_switch <- "nls2_paper"
+    nls_switch <- "GN.paper"
   }
 
-  if (nls_switch %in% grep("nls", nls_options, value = TRUE)) {
+  if (nls_switch %in% grep("GN", nls_options, value = TRUE)) {
 
     # starting values
-    if (nls_switch == "nls2_paper") {
+    if (nls_switch == "GN.paper") {
       start_vals <- switch( # nolint
         EXPR = type,
         "hyperbolic_eq" = data.frame(a = c(-1000, 1000),
@@ -79,7 +79,7 @@ nls_solver <- function(
         "cubic_eq_minmax" = data.frame(a = c(-1000, 1000),
                                        b = c(-1000, 1000))
       )
-    } else if (nls_switch == "nls2_fast") {
+    } else if (nls_switch == "GN.guess") {
       coef_df <- fast_guess(
         type = type,
         target_levels = target_levels,
@@ -139,7 +139,7 @@ nls_solver <- function(
       return(ret)
     })
 
-  } else if (nls_switch == "minpack.lm") {
+  } else if (nls_switch == "LM") {
 
     start_vals <- fast_guess(
       type = type,
@@ -162,7 +162,7 @@ nls_solver <- function(
 
 fast_guess <- function(type, target_levels, true_levels) {
   if (grepl("hyperbolic", type)) {
-    d <- 0.001
+    d <- 1000
     guess_mod <- guess_nls_start_linear(
       target_levels = target_levels,
       true_levels = true_levels

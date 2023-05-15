@@ -42,7 +42,7 @@ test_that(
     local_edition(3)
     #"skip_on_cran()
 
-    options(rBiasCorrection.nls_implementation = "minpack.lm")
+    options(rBiasCorrection.nls_implementation = "LM")
     h2 <- cubic_regression(df_agg = df_agg,
                            vec = colnames(cal_type_1)[2],
                            logfilename,
@@ -55,7 +55,7 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-    options(rBiasCorrection.nls_implementation = "nls2_paper")
+    options(rBiasCorrection.nls_implementation = "GN.paper")
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))
   })

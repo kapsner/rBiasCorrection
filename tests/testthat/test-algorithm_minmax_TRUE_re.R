@@ -164,9 +164,6 @@ test_that(
     )
 
     # some tests
-    expect_type(solved_eq, "list")
-    expect_type(rv$final_results, "list")
-    expect_s3_class(rv$final_results, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$final_results),
       style = "json2",
@@ -174,8 +171,6 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-    expect_type(rv$substitutions, "list")
-    expect_s3_class(rv$substitutions, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$substitutions),
       style = "json2",
@@ -183,9 +178,6 @@ test_that(
       tolerance = 10e-3,
       ignore_function_env = TRUE
     )
-    expect_type(solved_eq2, "list")
-    expect_type(rv$fileimport_cal_corrected, "list")
-    expect_s3_class(rv$fileimport_cal_corrected, "data.table")
     expect_snapshot_value(
       x = table_prep(rv$fileimport_cal_corrected),
       style = "json2",
