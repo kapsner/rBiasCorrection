@@ -67,6 +67,50 @@ biascorrection(
 
 More detailed information on how to use the package `rBiasCorrection` can be found in the [vignette](https://cran.r-project.org/web/packages/rBiasCorrection/vignettes/rBiasCorrection_howto.html) and the [FAQs](https://github.com/kapsner/rBiasCorrection/blob/master/FAQ.md).
 
+## Available Fitting Options (TODO)
+
+There are three fitting options available for fitting the non-linear least squares (nls) algorithm with `rBiasCorrection`. The default method (used in the publication) is to fit nls with the Gauss-Newton algorithm and define for each parameter that should be optimized a random grid between -1000 and 1000 for initializing the starting estimates (`options(rBiasCorrection.nls_implementation = "GN.paper")`.  
+For making a better guess on the starting estimates when fitting nls with the Gauss-Newton algorithm (`options(rBiasCorrection.nls_implementation = "GN.guess")`), the estimates of a linear model (for both hyperbolic corrections) and of a cubic model (for the cubic correction with defined minimum- and maximum values (`minmax = TRUE`)) are computed for initializing the nls (see details below).  
+The third option is to fit nls with the Levenberg-Marquardt algorithm (using the implementation from the `minpack.lm` R package). In this case, the start estimates of the nls model are also guessed using either a linear or a cubic model (as previously described).
+
+### `GN.paper`
+
+Algorithm: Gauss-Newton
+
+Parameterizing `nls2::nls2()` with starting values:
+
+- hyperbolic equation: a = b = d = c(-1000, 1000)
+- hyperbolic equation (minmax): b = c(-1000, 1000)
+- cubic equation (minmax): a, b = c(-1000, 1000)
+
+```{r}
+options(rBiasCorrection.nls_implementation = "GN.paper")
+```
+
+### `GN.guess`
+
+Algorithm: Gauss-Newton
+
+Parameterizing `nls2::nls2()` with starting values:
+
+- hyperbolic equation: fitting a linear regression and taking the intercept and the beta as starting values and defaulting `d` to `1000`
+- hyperbolic equation (minmax): fitting a linear regression and taking the beta as starting value
+- cubic equation (minmax): fitting a cubic regression and taking the betas for the cubic and the quadratic term as starting values
+
+```{r}
+options(rBiasCorrection.nls_implementation = "GN.guess")
+```
+
+### `LM`
+
+Algorithm: Levenberg-Marquardt
+
+Parameterizing `minpack.lm::nlsLM()` with starting values: same as guessing starting values for option `GN.guess`
+
+```{r}
+options(rBiasCorrection.nls_implementation = "LM")
+```
+
 ## BiasCorrector
 
 The GUI `BiasCorrector` provides the functionality implemented in `rBiasCorrection` in a web application. For further information please visit [https://github.com/kapsner/BiasCorrector](https://github.com/kapsner/BiasCorrector).
