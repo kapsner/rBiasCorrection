@@ -147,12 +147,14 @@ nls_solver <- function(
       true_levels = true_levels
     )
 
+    set.seed(seed)
     c <- minpack.lm::nlsLM(
       formula = FUN_formula,
       start = start_vals,
       algorithm = "LM",
       control = stats::nls.control(maxiter = 50)
     )
+
   } else {
     stop("Not implemented.")
   }

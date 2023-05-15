@@ -21,6 +21,8 @@ test_that(
     rv$sample_locus_name <- "Test"
     rv$seed <- 1234
 
+    options(rBiasCorrection.nls_implementation = "LM")
+
     # create plotdir
     plotdir <- paste0(prefix, "/plotdir/")
     csvdir <- paste0(prefix, "/csvdir/")
@@ -79,6 +81,8 @@ test_that(
 
     expect_length(list.files(plotdir), 10)
 
+    options(rBiasCorrection.nls_implementation = "GN.paper")
+
     # cleanup
     expect_silent(clean_up(plotdir = plotdir,
                            csvdir = csvdir))
@@ -93,6 +97,8 @@ test_that(
     rv$minmax <- FALSE
     rv$sample_locus_name <- "Test"
     rv$seed <- 1234
+
+    options(rBiasCorrection.nls_implementation = "LM")
 
     # create plotdir
     plotdir <- paste0(prefix, "/plotdir/")
@@ -192,6 +198,8 @@ test_that(
 
     expect_length(list.files(plotdir), 10)
 
+    options(rBiasCorrection.nls_implementation = "GN.paper")
+
     # cleanup
     expect_silent(clean_up(plotdir = plotdir,
                            csvdir = csvdir))
@@ -207,6 +215,8 @@ test_that(
     rv$minmax <- FALSE
     rv$sample_locus_name <- "Test"
     rv$seed <- 1234
+
+    options(rBiasCorrection.nls_implementation = "LM")
 
     # create plotdir
     plotdir <- paste0(prefix, "/plotdir/")
@@ -235,6 +245,8 @@ test_that(
 
 
     expect_length(list.files(plotdir), 1)
+
+    options(rBiasCorrection.nls_implementation = "GN.paper")
 
     # cleanup
     expect_silent(clean_up(plotdir = plotdir,
