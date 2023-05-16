@@ -214,6 +214,31 @@ sdm <- function(vector) {
   I((vector - mean(vector))^2)
 }
 
+sse_tss <- function(datatable, fitted_values) {
+  dat <- data.table::copy(datatable)
+
+  # fitted values
+  dat[, ("fitted") := fitted_values]
+
+  # sum of squares between fitted and measured values
+  dat[, ("CpG_fitted_diff") := get("CpG") - get("fitted")]
+  dat[, ("squared_error") := I((get("CpG_fitted_diff"))^2)]
+
+  # sum of squared errors = residual sum of squares
+  sse <- as.numeric(dat[, sum(get("squared_error"), na.rm = TRUE)])
+
+  # squared dist to mean
+  dat[, ("squared_dist_mean") := sdm(get("fitted"))]
+
+  # total sum of squares
+  tss <- as.numeric(dat[, sum(get("squared_dist_mean"), na.rm = TRUE)])
+
+  return(list(
+    "sse" = sse,
+    "tss" = tss
+  ))
+}
+
 
 #' @title substitutions_create helper function
 #'

@@ -39,6 +39,14 @@ create_agg_df <- function(datatable,
     df_out[, ("sd") := NULL]
   }
 
+  # calculate relative error
+  df_out[, ("CpG_true_diff") := abs(get("CpG") - get("true_methylation"))]
+  df_out[, ("relative_error") := ifelse(
+    get("true_methylation") != 0,
+    (get("CpG_true_diff") / get("true_methylation")) * 100,
+    NA
+  )]
+
   return(df_out[!is.na(get("CpG")), ])
 }
 

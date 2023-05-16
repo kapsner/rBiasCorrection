@@ -14,6 +14,8 @@
 
 #### Bug fixes
 
+-   added seed before call to minpack.lm
+    ([a7a9319](https://github.com/kapsner/rBiasCorrection/tree/a7a93193e08e6948c11e047d9342135443dfbf40))
 -   fixed implementation of nls\_solver
     ([d35ab8b](https://github.com/kapsner/rBiasCorrection/tree/d35ab8bcb3b82c097dc9abb528e0a15299e7246a))
 
@@ -30,6 +32,8 @@
 
 #### Tests
 
+-   enhanced unit tests
+    ([ab66b88](https://github.com/kapsner/rBiasCorrection/tree/ab66b884e14120d1e6833612b7a244d2e77e39c6))
 -   added unit tests for new computation options
     ([c482deb](https://github.com/kapsner/rBiasCorrection/tree/c482deb40047330e1a641180ad982e0d3f5b9c00))
 
@@ -40,6 +44,11 @@
 -   updated gha
     ([1504faa](https://github.com/kapsner/rBiasCorrection/tree/1504faa78692a6ff3450748dcbe78d070c90cde3))
 
+#### Docs
+
+-   beginning with documentation of new nls options
+    ([cc6f7e5](https://github.com/kapsner/rBiasCorrection/tree/cc6f7e5584f5ef95f9cddea7f500338c5a924079))
+
 #### Other changes
 
 -   fixed cran errors url
@@ -48,7 +57,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...c482deb`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...c482deb)
+[`v0.3.4...a7a9319`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...a7a9319)
 
 ## v0.3.4 (2022-06-20)
 

@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["true_methylation", "CpG", "sd"]
+          "value": ["true_methylation", "CpG", "sd", "CpG_true_diff", "relative_error"]
         },
         "row.names": {
           "type": "integer",
@@ -39,6 +39,16 @@
           "type": "double",
           "attributes": {},
           "value": [0.7841, 3.0416, 1.764, 3.582, 2.7488, 2.6541, 4.5209, 2.0111, 0.7179]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.968, 2.2267, 7.68, 11.288, 13.1675, 14.214, 17.175, 22.47, 7.022]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", 17.8133, 30.72, 30.1013, 26.335, 22.7424, 22.9, 25.68, 7.022]
         }
       ]
     }

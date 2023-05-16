@@ -50,7 +50,7 @@ cubic_regression <- function(df_agg,
   write_log(message = "Entered 'cubic_regression'-Function",
             logfilename = logfilename)
 
-  dat <- df_agg
+  dat <- data.table::copy(df_agg)
 
   # true y-values
   true_levels <- dat[, get("true_methylation")]
@@ -122,32 +122,18 @@ cubic_regression <- function(df_agg,
 
   }
 
-  # fitted values
-  dat[, ("fitted") := fitted_values]
-
-  # sum of squares between fitted and measuerd values
-  dat[, ("CpG_fitted_diff") := get("CpG") - get("fitted")]
-  dat[, ("squared_error") := I((get("CpG_fitted_diff"))^2)]
-
-  # sum of squared errors = residual sum of squares
-  sse <- as.numeric(dat[, sum(get("squared_error"), na.rm = TRUE)])
-
-  # squared dist to mean
-  dat[, ("squared_dist_mean") := sdm(get("fitted"))]
-
-  # total sum of squares
-  tss <- as.numeric(dat[, sum(get("squared_dist_mean"), na.rm = TRUE)])
-
+  sse_tss_list <- sse_tss(datatable = dat, fitted_values = fitted_values)
 
   # sum of squared errors
-  outlist <- list("SSE_cubic" = sse)
+  outlist <- list("SSE_cubic" = sse_tss_list$sse)
 
   if (isFALSE(minmax)) {
     outlist[["Coef_cubic"]] <- list("a" = unname(cof[4]),
                                     "b" = unname(cof[3]),
                                     "c" = unname(cof[2]),
                                     "d" = unname(cof[1]),
-                                    "R2" = 1 - (sse / tss))
+                                    "R2" = 1 - (sse_tss_list$sse /
+                                                  sse_tss_list$tss))
   } else if (isTRUE(minmax)) {
 
     outlist[["Coef_cubic"]] <- list("y0" = y0,
@@ -156,7 +142,8 @@ cubic_regression <- function(df_agg,
                                     "b" = b,
                                     "m0" = m0,
                                     "m1" = m1,
-                                    "R2" = 1 - (sse / tss))
+                                    "R2" = 1 - (sse_tss_list$sse /
+                                                  sse_tss_list$tss))
   }
   return(outlist)
 }
