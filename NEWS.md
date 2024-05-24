@@ -1,7 +1,6 @@
-
 # rBiasCorrection NEWS
 
-## Unreleased (2023-05-16)
+## Unreleased (2024-05-17)
 
 #### New features
 
@@ -17,18 +16,18 @@
 
 -   added seed before call to minpack.lm
     ([a7a9319](https://github.com/kapsner/PCRBiasCorrection/tree/a7a93193e08e6948c11e047d9342135443dfbf40))
--   fixed implementation of nls_solver
+-   fixed implementation of nls\_solver
     ([d35ab8b](https://github.com/kapsner/PCRBiasCorrection/tree/d35ab8bcb3b82c097dc9abb528e0a15299e7246a))
 
 #### Refactorings
 
 -   enhanced code, removed redundancies
     ([c3466e4](https://github.com/kapsner/PCRBiasCorrection/tree/c3466e4e1c150c22cfac31dd55c0eaae686621ab))
--   cubic-minmax also using nls_solver
+-   cubic-minmax also using nls\_solver
     ([b3a5a93](https://github.com/kapsner/PCRBiasCorrection/tree/b3a5a93e8a82d1c32ebc7ee6c32b63bc0a3f9385))
 -   added zzz.r and option to select nls algo
     ([45dd674](https://github.com/kapsner/PCRBiasCorrection/tree/45dd674ee2064b3e694aaadda01c1d751f57d634))
--   common nls2-code to nls_solver fun
+-   common nls2-code to nls\_solver fun
     ([2b2f862](https://github.com/kapsner/PCRBiasCorrection/tree/2b2f8620d4047a3658fd6303f98841485df6871b))
 -   stopifnot with understandable msgs
     ([4fa38fe](https://github.com/kapsner/PCRBiasCorrection/tree/4fa38fe3e9ad38b9bb2a4ae8111f59525a929efb))
@@ -46,6 +45,8 @@
 
 #### CI
 
+-   updated gha
+    ([1e2a366](https://github.com/kapsner/PCRBiasCorrection/tree/1e2a366a2ec564ebe92303656bd501ad19ff550d))
 -   updated lint-stage
     ([7740e79](https://github.com/kapsner/PCRBiasCorrection/tree/7740e79b75167dfb4f9d2d81e3113eaaada516a9))
 -   updated gha
@@ -78,7 +79,7 @@
     ([cfac06c](https://github.com/kapsner/PCRBiasCorrection/tree/cfac06c04e58ff91c09f81066dc4f02aaf288015))
 
 Full set of changes:
-[`v0.3.2...c3466e4`](https://github.com/kapsner/PCRBiasCorrection/compare/v0.3.2...c3466e4)
+[`v0.3.2...1e2a366`](https://github.com/kapsner/PCRBiasCorrection/compare/v0.3.2...1e2a366)
 
 ## v0.3.2 (2021-08-03)
 

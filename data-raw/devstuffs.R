@@ -99,6 +99,7 @@ usethis::use_git_ignore("!/man/")
 usethis::use_git_ignore("!NAMESPACE")
 usethis::use_git_ignore("!/R/")
 usethis::use_git_ignore("!/README.md")
+usethis::use_git_ignore("!/README.qmd")
 usethis::use_git_ignore("!/vignettes/")
 usethis::use_git_ignore("!/tests/")
 usethis::use_git_ignore("/tests/*")
@@ -135,6 +136,7 @@ usethis::use_build_ignore(".lintr")
 usethis::use_build_ignore("tic.R")
 usethis::use_build_ignore(".github")
 usethis::use_build_ignore("README.md")
+usethis::use_build_ignore("README.qmd")
 usethis::use_build_ignore("NEWS.md")
 
 
@@ -187,19 +189,13 @@ usethis::use_data(example.data_experimental, example.data_calibration,
 
 usethis::use_tidy_description()
 
+quarto::quarto_render(input = "README.qmd")
+
 # create NEWS.md using the python-package "auto-changelog" (must be installed)
 # https://www.conventionalcommits.org/en/v1.0.0/
 # build|ci|docs|feat|fix|perf|refactor|test
 an <- autonewsmd::autonewsmd$new(repo_name = packagename)
 an$generate()
 an$write(force = TRUE)
-
-
-
-# eventually move to nloptr for non linear optimization
-badger::badge_doi("10.1002/ijc.33681", "yellow")
-badger::badge_cran_download("rBiasCorrection", "grand-total", "blue")
-badger::badge_cran_download("rBiasCorrection", "last-month", "blue")
-badger::badge_dependencies("rBiasCorrection")
 
 # nolint end

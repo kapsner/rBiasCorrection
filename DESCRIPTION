@@ -36,7 +36,5 @@ Suggests:
 VignetteBuilder: 
     knitr
 Config/testthat/parallel: false
-Date/Publication: 2024-05-17 13:11:39.203857 UTC
+Date/Publication: 2024-05-24 12:49:01.539803 UTC
 Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.3.1
