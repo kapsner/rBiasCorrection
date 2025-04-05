@@ -38,6 +38,8 @@ my_desc$set("VignetteBuilder" = "knitr")
 
 my_desc$set("Config/testthat/parallel" = "false")
 
+my_desc$set("LazyData" = "true")
+
 # License
 my_desc$set("License", "GPL-3")
 # Save everyting

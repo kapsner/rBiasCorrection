@@ -16,6 +16,8 @@
 
 #### Bug fixes
 
+-   fixed example data
+    ([b5dc1f5](https://github.com/kapsner/rBiasCorrection/tree/b5dc1f567fd92f863d7050154c59cb7b464dd314))
 -   fix issue with deprecated aes_string from ggplot2
     ([1a5d4f0](https://github.com/kapsner/rBiasCorrection/tree/1a5d4f01b17f99fb40b2e68c35d4ad16b9f393ae))
 -   removing snapshot-value tests due to cran issues
@@ -71,7 +73,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...d00ec13`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...d00ec13)
+[`v0.3.4...b5dc1f5`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...b5dc1f5)
 
 ## v0.3.4 (2022-06-20)
 
