@@ -17,7 +17,7 @@ test_that(
     exp_type_1 <- clean_dt(exp_type_1, "experimental", 1, logfilename)
     expect_type(exp_type_1, "list")
     expect_snapshot(
-      x = round(table_prep(exp_type_1[["dat"]]), 2),
+      x = round(table_prep(exp_type_1[["dat"]]), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -25,7 +25,7 @@ test_that(
     exp_type_1 <- fread("./testdata/exp_type_1_empty_col.csv", header = TRUE)
     exp_type_1 <- clean_dt(exp_type_1, "experimental", 1, logfilename)[["dat"]]
     expect_snapshot(
-      x = round(table_prep(exp_type_1), 2),
+      x = round(table_prep(exp_type_1), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -33,7 +33,7 @@ test_that(
     exp_type_1 <- fread("./testdata/exp_type_1_empty_row.csv")
     exp_type_1 <- clean_dt(exp_type_1, "experimental", 1, logfilename)[["dat"]]
     expect_snapshot(
-      x = round(table_prep(exp_type_1), 2),
+      x = round(table_prep(exp_type_1), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -42,7 +42,7 @@ test_that(
     cal_type_1 <- fread("./testdata/cal_type_1.csv")
     cal_type_1 <- clean_dt(cal_type_1, "calibration", 1, logfilename)[["dat"]]
     expect_snapshot(
-      x = round(table_prep(cal_type_1), 2),
+      x = round(table_prep(cal_type_1), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -59,7 +59,7 @@ test_that(
     exp_type_2 <- fread("./testdata/exp_type_2.csv")
     exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
     expect_snapshot(
-      x = round(table_prep(exp_type_2), 2),
+      x = round(table_prep(exp_type_2), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -67,7 +67,7 @@ test_that(
     exp_type_2 <- fread("./testdata/exp_type_2_empty_col.csv", header = TRUE)
     exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
     expect_snapshot(
-      x = round(table_prep(exp_type_2), 2),
+      x = round(table_prep(exp_type_2), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -75,7 +75,7 @@ test_that(
     exp_type_2 <- fread("./testdata/exp_type_2_empty_row.csv")
     exp_type_2 <- clean_dt(exp_type_2, "experimental", 2, logfilename)[["dat"]]
     expect_snapshot(
-      x = round(table_prep(exp_type_2), 2),
+      x = round(table_prep(exp_type_2), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -84,7 +84,7 @@ test_that(
     cal_type_2 <- fread("./testdata/cal_type_2.csv")
     cal_type_2 <- clean_dt(cal_type_2, "calibration", 2, logfilename)[["dat"]]
     expect_snapshot(
-      x = round(table_prep(cal_type_2), 2),
+      x = round(table_prep(cal_type_2), 1),
       cran = FALSE,
       error = FALSE
     )

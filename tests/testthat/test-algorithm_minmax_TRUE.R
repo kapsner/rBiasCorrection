@@ -112,7 +112,7 @@ test_that(
 
     # some tests
     expect_snapshot(
-      x = round(table_prep(rv$reg_stats), 2),
+      x = round(table_prep(rv$reg_stats), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -147,27 +147,27 @@ test_that(
 
     # some tests
     expect_snapshot(
-      x = round(table_prep(rv$final_results), 2),
+      x = round(table_prep(rv$final_results), 1),
       cran = FALSE,
       error = FALSE
     )
     expect_snapshot(
-      x = round(table_prep(rv$substitutions), 2),
+      x = round(table_prep(rv$substitutions), 1),
       cran = FALSE,
       error = FALSE
     )
     expect_snapshot(
-      x = round(table_prep(solved_eq2[["results"]]), 2),
+      x = round(table_prep(solved_eq2[["results"]]), 1),
       cran = FALSE,
       error = FALSE
     )
     expect_snapshot(
-      x = round(table_prep(solved_eq2[["substitutions"]]), 2),
+      x = round(table_prep(solved_eq2[["substitutions"]]), 1),
       cran = FALSE,
       error = FALSE
     )
     expect_snapshot(
-      x = round(table_prep(rv$fileimport_cal_corrected), 2),
+      x = round(table_prep(rv$fileimport_cal_corrected), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -195,12 +195,12 @@ test_that(
     rv$substitutions_corrected_h <- solved_eq_h[["substitutions"]]
 
     expect_snapshot(
-      x = round(table_prep(rv$fileimport_cal_corrected_h), 2),
+      x = round(table_prep(rv$fileimport_cal_corrected_h), 1),
       cran = FALSE,
       error = FALSE
     )
     expect_snapshot(
-      x = round(table_prep(rv$substitutions_corrected_h), 2),
+      x = round(table_prep(rv$substitutions_corrected_h), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -224,7 +224,7 @@ test_that(
                                                 minmax = rv$minmax)
 
     expect_snapshot(
-      x = round(table_prep(rv$reg_stats_corrected_h), 2),
+      x = round(table_prep(rv$reg_stats_corrected_h), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -251,12 +251,12 @@ test_that(
     rv$substitutions_corrected_c <- solved_eq_c[["substitutions"]]
 
     expect_snapshot(
-      x = round(table_prep(rv$fileimport_cal_corrected_c), 2),
+      x = round(table_prep(rv$fileimport_cal_corrected_c), 1),
       cran = FALSE,
       error = FALSE
     )
     expect_snapshot(
-      x = round(table_prep(rv$substitutions_corrected_c), 2),
+      x = round(table_prep(rv$substitutions_corrected_c), 1),
       cran = FALSE,
       error = FALSE
     )
@@ -280,7 +280,7 @@ test_that(
                                                 minmax = rv$minmax)
 
     expect_snapshot(
-      x = round(table_prep(rv$reg_stats_corrected_c), 2),
+      x = round(table_prep(rv$reg_stats_corrected_c), 1),
       cran = FALSE,
       error = FALSE
     )

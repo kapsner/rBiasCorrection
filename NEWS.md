@@ -18,6 +18,10 @@
 
 #### Bug fixes
 
+-   fixed further deprecation warnings from ggplot2
+    ([18a12c9](https://github.com/kapsner/rBiasCorrection/tree/18a12c98d6d9a36a06e8b2996ac6c2a77f82350a))
+-   adding importfrom ggplot2 .data to fix rcmdcheck error
+    ([ee3b755](https://github.com/kapsner/rBiasCorrection/tree/ee3b755cf04127258b18166072a9be58ab285d3f))
 -   fix equation presentation in quarto vignette
     ([99b3730](https://github.com/kapsner/rBiasCorrection/tree/99b37308cfd4c0208da09ff662b8c8f36ca18621))
 -   added lazydata:true to description
@@ -48,6 +52,9 @@
 
 #### Tests
 
+-   further rounding results_list to ensure more robustness of snapshot
+    tests
+    ([b23a8c5](https://github.com/kapsner/rBiasCorrection/tree/b23a8c58a192e9e2003cd3c46f476bb8948d0d7c))
 -   making snapshot tests more robust by rounding to 2 digits
     ([30b87e5](https://github.com/kapsner/rBiasCorrection/tree/30b87e525095943bb2d0917541eb32467193c694))
 -   added snapshots again
@@ -85,7 +92,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...384d343`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...384d343)
+[`v0.3.4...18a12c9`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...18a12c9)
 
 ## v0.3.4 (2022-06-20)
 

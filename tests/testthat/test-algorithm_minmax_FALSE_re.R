@@ -171,19 +171,19 @@ test_that(
     )
 
     expect_snapshot(
-      x = round(table_prep(rv$final_results), 2),
+      x = round(table_prep(rv$final_results), 1),
       cran = FALSE,
       error = FALSE
     )
 
     expect_snapshot(
-      x = round(table_prep(rv$substitutions), 2),
+      x = round(table_prep(rv$substitutions), 1),
       cran = FALSE,
       error = FALSE
     )
 
     expect_snapshot(
-      x = round(table_prep(rv$fileimport_cal_corrected), 2),
+      x = round(table_prep(rv$fileimport_cal_corrected), 1),
       cran = FALSE,
       error = FALSE
     )

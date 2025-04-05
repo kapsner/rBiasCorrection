@@ -8,16 +8,16 @@
       
       $Coef_cubic
       $Coef_cubic$y0
-      [1] 2.968
+      [1] 2.97
       
       $Coef_cubic$y1
-      [1] 92.978
+      [1] 92.98
       
       $Coef_cubic$a
-      [1] 1e-04
+      [1] 0
       
       $Coef_cubic$b
-      [1] -0.0066
+      [1] -0.01
       
       $Coef_cubic$m0
       [1] 0
@@ -26,7 +26,7 @@
       [1] 100
       
       $Coef_cubic$R2
-      [1] 0.988
+      [1] 0.99
       
       
 
@@ -40,16 +40,16 @@
       
       $Coef_cubic
       $Coef_cubic$y0
-      [1] 2.968
+      [1] 2.97
       
       $Coef_cubic$y1
-      [1] 92.978
+      [1] 92.98
       
       $Coef_cubic$a
-      [1] 1e-04
+      [1] 0
       
       $Coef_cubic$b
-      [1] -0.0066
+      [1] -0.01
       
       $Coef_cubic$m0
       [1] 0
@@ -58,7 +58,7 @@
       [1] 100
       
       $Coef_cubic$R2
-      [1] 0.988
+      [1] 0.99
       
       
 

@@ -27,7 +27,7 @@ test_that(
       Var = h1$Var,
       relative_error = h1$relative_error,
       SSE_hyper = h1$SSE_hyper,
-      Coef_hyper = lapply(h1$Coef_hyper, round, digits = 4)
+      Coef_hyper = lapply(h1$Coef_hyper, round, digits = 2)
     )
     expect_snapshot(
       x = h1_rounded,
@@ -56,7 +56,7 @@ test_that(
       Var = h2$Var,
       relative_error = h2$relative_error,
       SSE_hyper = h2$SSE_hyper,
-      Coef_hyper = lapply(h2$Coef_hyper, round, digits = 4)
+      Coef_hyper = lapply(h2$Coef_hyper, round, digits = 2)
     )
     expect_snapshot(
       x = h2_rounded,

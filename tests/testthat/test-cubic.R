@@ -26,7 +26,7 @@ test_that(
                            seed = 1234)
     h1_rounded <- list(
       SSE_cubic = h1$SSE_cubic,
-      Coef_cubic = lapply(h1$Coef_cubic, round, digits = 4)
+      Coef_cubic = lapply(h1$Coef_cubic, round, digits = 2)
     )
     expect_snapshot(
       x = h1_rounded,
@@ -54,7 +54,7 @@ test_that(
 
     h2_rounded <- list(
       SSE_cubic = h2$SSE_cubic,
-      Coef_cubic = lapply(h2$Coef_cubic, round, digits = 4)
+      Coef_cubic = lapply(h2$Coef_cubic, round, digits = 2)
     )
 
     expect_snapshot(

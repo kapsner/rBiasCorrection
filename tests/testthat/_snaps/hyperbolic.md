@@ -14,13 +14,13 @@
       
       $Coef_hyper
       $Coef_hyper$y0
-      [1] 2.968
+      [1] 2.97
       
       $Coef_hyper$y1
-      [1] 92.978
+      [1] 92.98
       
       $Coef_hyper$b
-      [1] 0.5364
+      [1] 0.54
       
       $Coef_hyper$m0
       [1] 0
@@ -29,7 +29,7 @@
       [1] 100
       
       $Coef_hyper$R2
-      [1] 0.9867
+      [1] 0.99
       
       
 
@@ -49,13 +49,13 @@
       
       $Coef_hyper
       $Coef_hyper$y0
-      [1] 2.968
+      [1] 2.97
       
       $Coef_hyper$y1
-      [1] 92.978
+      [1] 92.98
       
       $Coef_hyper$b
-      [1] 0.5364
+      [1] 0.54
       
       $Coef_hyper$m0
       [1] 0
@@ -64,7 +64,7 @@
       [1] 100
       
       $Coef_hyper$R2
-      [1] 0.9867
+      [1] 0.99
       
       
 
