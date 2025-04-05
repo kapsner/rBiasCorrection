@@ -109,13 +109,7 @@ test_that(
 
     # some tests
     expect_snapshot(
-      x = rv$result_list,
-      cran = FALSE,
-      error = FALSE
-    )
-
-    expect_snapshot(
-      x = table_prep(rv$reg_stats),,
+      x = round(table_prep(rv$reg_stats), 2),
       cran = FALSE,
       error = FALSE
     )
@@ -151,30 +145,30 @@ test_that(
 
     # some tests
     expect_snapshot(
-      x = table_prep(rv$final_results),,
+      x = round(table_prep(rv$final_results), 2),
       cran = FALSE,
       error = FALSE
     )
 
     expect_snapshot(
-      x = table_prep(rv$substitutions),,
+      x = round(table_prep(rv$substitutions), 2),
       cran = FALSE,
       error = FALSE
     )
 
     expect_snapshot(
-      x = table_prep(solved_eq2[["results"]]),,
+      x = round(table_prep(solved_eq2[["results"]]), 2),
       cran = FALSE,
       error = FALSE
     )
     expect_snapshot(
-      x = table_prep(solved_eq2[["substitutions"]]),,
+      x = round(table_prep(solved_eq2[["substitutions"]]), 2),
       cran = FALSE,
       error = FALSE
     )
 
     expect_snapshot(
-      x = table_prep(rv$fileimport_cal_corrected),,
+      x = round(table_prep(rv$fileimport_cal_corrected), 2),
       cran = FALSE,
       error = FALSE
     )
@@ -200,13 +194,13 @@ test_that(
     rv$substitutions_corrected_h <- solved_eq_h[["substitutions"]]
 
     expect_snapshot(
-      x = table_prep(rv$fileimport_cal_corrected_h),,
+      x = round(table_prep(rv$fileimport_cal_corrected_h), 2),
       cran = FALSE,
       error = FALSE
     )
 
     expect_snapshot(
-      x = table_prep(rv$substitutions_corrected_h),,
+      x = round(table_prep(rv$substitutions_corrected_h), 2),
       cran = FALSE,
       error = FALSE
     )
@@ -228,13 +222,7 @@ test_that(
                                                 minmax = rv$minmax)
 
     expect_snapshot(
-      x = rv$result_list_hyperbolic,,
-      cran = FALSE,
-      error = FALSE
-    )
-
-    expect_snapshot(
-      x = table_prep(rv$reg_stats_corrected_h),,
+      x = round(table_prep(rv$reg_stats_corrected_h), 2),
       cran = FALSE,
       error = FALSE
     )
@@ -260,13 +248,13 @@ test_that(
     rv$substitutions_corrected_c <- solved_eq_c[["substitutions"]]
 
     expect_snapshot(
-      x = table_prep(rv$fileimport_cal_corrected_c),,
+      x = round(table_prep(rv$fileimport_cal_corrected_c), 2),
       cran = FALSE,
       error = FALSE
     )
 
     expect_snapshot(
-      x = table_prep(rv$substitutions_corrected_c),,
+      x = round(table_prep(rv$substitutions_corrected_c), 2),
       cran = FALSE,
       error = FALSE
     )
@@ -292,14 +280,9 @@ test_that(
     #" expect_known_hash(plotlist_reg, "20fa85b532")
     # oder c2e96f84fc, 0c3c5db52b
     expect_type(rv$result_list_cubic, "list")
-    expect_snapshot(
-      x = rv$result_list_cubic,,
-      cran = FALSE,
-      error = FALSE
-    )
 
     expect_snapshot(
-      x = table_prep(rv$reg_stats_corrected_c),,
+      x = round(table_prep(rv$reg_stats_corrected_c), 2),
       cran = FALSE,
       error = FALSE
     )

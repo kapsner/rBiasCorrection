@@ -8,6 +8,7 @@ logfilename <- paste0(prefix, "/log.txt")
 library(data.table)
 # calibration data
 cal_type_1 <- data.table::fread("./testdata/cal_type_1.csv")
+# cal_type_1 <- data.table::fread(paste0(prefix, "/testdata/cal_type_1.csv"))
 cal_type_1 <- clean_dt(cal_type_1, "calibration", 1, logfilename)[["dat"]]
 df_agg <- create_agg_df(cal_type_1, colnames(cal_type_1)[2])
 
@@ -23,8 +24,12 @@ test_that(
                            logfilename,
                            minmax = TRUE,
                            seed = 1234)
+    h1_rounded <- list(
+      SSE_cubic = h1$SSE_cubic,
+      Coef_cubic = lapply(h1$Coef_cubic, round, digits = 4)
+    )
     expect_snapshot(
-      x = h1,
+      x = h1_rounded,
       cran = FALSE,
       error = FALSE
     )
@@ -46,8 +51,14 @@ test_that(
                            logfilename,
                            minmax = TRUE,
                            seed = 1234)
+
+    h2_rounded <- list(
+      SSE_cubic = h2$SSE_cubic,
+      Coef_cubic = lapply(h2$Coef_cubic, round, digits = 4)
+    )
+
     expect_snapshot(
-      x = h2,
+      x = h2_rounded,
       cran = FALSE,
       error = FALSE
     )

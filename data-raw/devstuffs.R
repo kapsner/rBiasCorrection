@@ -45,7 +45,7 @@ my_desc$set("Roxygen" = "list(markdown = TRUE)")
 my_desc$set("LazyData" = "true")
 
 # License
-usethis::use_gpl3_license()
+my_desc$set("License" = "GPL (>= 3)")
 
 # Save everyting
 my_desc$write(file = "DESCRIPTION")

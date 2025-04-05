@@ -6,6 +6,8 @@
 
 #### New features
 
+-   migrating to quarto vignette engine
+    ([2e0b309](https://github.com/kapsner/rBiasCorrection/tree/2e0b3095aa712a36218634e5e2d365f7026fc349))
 -   working on implementing better guess for nls gauss-newton method
     ([522bce3](https://github.com/kapsner/rBiasCorrection/tree/522bce3b4d47b649929c91d4902d9b7b1117f8fc))
 -   added implementation of minpack.lm nls solving with good guess of
@@ -16,6 +18,8 @@
 
 #### Bug fixes
 
+-   fix equation presentation in quarto vignette
+    ([99b3730](https://github.com/kapsner/rBiasCorrection/tree/99b37308cfd4c0208da09ff662b8c8f36ca18621))
 -   added lazydata:true to description
     ([ce12868](https://github.com/kapsner/rBiasCorrection/tree/ce12868790cb87436ef8ab805c671fd452657e8a))
 -   fixed example data
@@ -75,7 +79,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...ce12868`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...ce12868)
+[`v0.3.4...99b3730`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...99b3730)
 
 ## v0.3.4 (2022-06-20)
 

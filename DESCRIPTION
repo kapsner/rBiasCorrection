@@ -7,11 +7,11 @@ Authors@R: c(
     person("Evgeny A.", "Moskalev", role = "aut")
   )
 Description: Implementation of the algorithms (with minor modifications) to correct bias in quantitative DNA methylation analyses as described by Moskalev et al. (2011) <doi:10.1093/nar/gkr213>. Publication: Kapsner et al. (2021) <doi:10.1002/ijc.33681>.
-License: {{ License }}
+License: GPL (>= 3)
 URL: https://github.com/kapsner/rBiasCorrection
 BugReports: https://github.com/kapsner/rBiasCorrection/issues
 Encoding: UTF-8
-Date/Publication: 2025-04-05 08:58:27.321391 UTC
+Date/Publication: 2025-04-05 09:14:14.053315 UTC
 VignetteBuilder: quarto
 Config/testthat/parallel: false
 Config/testthat/edition: 3

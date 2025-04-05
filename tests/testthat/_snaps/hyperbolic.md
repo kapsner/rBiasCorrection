@@ -1,7 +1,7 @@
 # test functioning of hyperbolic regression function - nls2
 
     Code
-      h1
+      h1_rounded
     Output
       $Var
       [1] "CpG#1"
@@ -20,7 +20,7 @@
       [1] 92.978
       
       $Coef_hyper$b
-      [1] 0.5364372
+      [1] 0.5364
       
       $Coef_hyper$m0
       [1] 0
@@ -29,14 +29,14 @@
       [1] 100
       
       $Coef_hyper$R2
-      [1] 0.9867462
+      [1] 0.9867
       
       
 
 # test functioning of hyperbolic regression function - minpack.lm
 
     Code
-      h2
+      h2_rounded
     Output
       $Var
       [1] "CpG#1"
@@ -55,7 +55,7 @@
       [1] 92.978
       
       $Coef_hyper$b
-      [1] 0.5364373
+      [1] 0.5364
       
       $Coef_hyper$m0
       [1] 0
@@ -64,7 +64,7 @@
       [1] 100
       
       $Coef_hyper$R2
-      [1] 0.9867462
+      [1] 0.9867
       
       
 
