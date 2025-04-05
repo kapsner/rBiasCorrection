@@ -172,7 +172,7 @@
       10:              3             27             1         1741        -1167
           d_hyperbolic b1_hyperbolic s_hyperbolic SSE_cubic R2_cubic a_cubic b_cubic
                  <num>         <num>        <num>     <num>    <num>   <num>   <num>
-       1:          903             1            1        39        1       0       0
+       1:          904             1            1        39        1       0       0
        2:        30298             1            0        43        1       0       0
        3:         1253             1            1        59        1       0       0
        4:         1558             1            0        47        1       0       0

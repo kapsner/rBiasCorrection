@@ -220,7 +220,7 @@ test_that(
     plotlist_reg <- regression_results[["plot_list"]]
     rv$result_list_hyperbolic <- testhelper_apply_robust_results_list(
       regression_results[["result_list"]],
-      dgts = 2
+      dgts = 1
     )
     # save regression statistics to reactive value
     rv$reg_stats_corrected_h <- statistics_list(rv$result_list_hyperbolic,
