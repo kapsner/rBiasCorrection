@@ -18,6 +18,8 @@
 
 #### Bug fixes
 
+-   removed another aes_string
+    ([fb586dc](https://github.com/kapsner/rBiasCorrection/tree/fb586dc8215100107d578d2cd75f11e1a626ff01))
 -   fixed further deprecation warnings from ggplot2
     ([18a12c9](https://github.com/kapsner/rBiasCorrection/tree/18a12c98d6d9a36a06e8b2996ac6c2a77f82350a))
 -   adding importfrom ggplot2 .data to fix rcmdcheck error
@@ -52,6 +54,10 @@
 
 #### Tests
 
+-   again trying to ensure more robustness
+    ([0740c97](https://github.com/kapsner/rBiasCorrection/tree/0740c9726a58a0cb261cf9b80772515113af0f21))
+-   further rounding results for more robustness in snapshot-tests
+    ([03956e0](https://github.com/kapsner/rBiasCorrection/tree/03956e056d193eef7cd88b647814aaa714a3c129))
 -   further rounding results_list to ensure more robustness of snapshot
     tests
     ([b23a8c5](https://github.com/kapsner/rBiasCorrection/tree/b23a8c58a192e9e2003cd3c46f476bb8948d0d7c))
@@ -82,6 +88,8 @@
 
 #### Other changes
 
+-   removed parallel-flag from test
+    ([70ff6f5](https://github.com/kapsner/rBiasCorrection/tree/70ff6f549b04d8d39cc66abc58adc920ed4df743))
 -   updated news.md and description
     ([384d343](https://github.com/kapsner/rBiasCorrection/tree/384d343b52eb02adc2c2eddf0504e37e1ab3d8d4))
 -   automated gen of readme
@@ -92,7 +100,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...18a12c9`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...18a12c9)
+[`v0.3.4...fb586dc`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...fb586dc)
 
 ## v0.3.4 (2022-06-20)
 
