@@ -7,6 +7,9 @@ test_that(
   desc = "correct functioning app utils",
   code = {
 
+    local_edition(3)
+    local_reproducible_output(rstudio = TRUE)
+
     plotdir <- paste0(prefix, "/plotdir/")
     csvdir <- paste0(prefix, "/csvdir/")
 

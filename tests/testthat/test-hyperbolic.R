@@ -16,19 +16,17 @@ test_that(
   code = {
 
     local_edition(3)
-    #"skip_on_cran()
+    local_reproducible_output(rstudio = TRUE)
 
     h1 <- hyperbolic_regression(df_agg = df_agg,
                                 vec = colnames(cal_type_1)[2],
                                 logfilename,
                                 minmax = TRUE,
                                 seed = 1234)
-    expect_snapshot_value(
+    expect_snapshot(
       x = h1,
-      style = "serialize",
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))
@@ -40,7 +38,7 @@ test_that(
   code = {
 
     local_edition(3)
-    #"skip_on_cran()
+    local_reproducible_output(rstudio = TRUE)
 
     options(rBiasCorrection.nls_implementation = "LM")
     h2 <- hyperbolic_regression(df_agg = df_agg,
@@ -48,13 +46,12 @@ test_that(
                                 logfilename,
                                 minmax = TRUE,
                                 seed = 1234)
-    expect_snapshot_value(
+    expect_snapshot(
       x = h2,
-      style = "serialize",
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
+    # reset
     options(rBiasCorrection.nls_implementation = "GN.paper")
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))

@@ -16,6 +16,7 @@ test_that(
   code = {
 
     local_edition(3)
+    local_reproducible_output(rstudio = TRUE)
 
     suppressWarnings(future::plan("multisession"))
 
@@ -107,20 +108,16 @@ test_that(
     rv$reg_stats <- statistics_list(rv$result_list, minmax = rv$minmax)
 
     # some tests
-    expect_snapshot_value(
+    expect_snapshot(
       x = rv$result_list,
-      style = "serialize",
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
-    expect_snapshot_value(
-      x = table_prep(rv$reg_stats),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$reg_stats),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
     expect_equal(
@@ -153,43 +150,33 @@ test_that(
       colnames(rv$fileimport_calibration)
 
     # some tests
-    expect_snapshot_value(
-      x = table_prep(rv$final_results),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$final_results),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
-    expect_snapshot_value(
-      x = table_prep(rv$substitutions),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$substitutions),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
-    expect_snapshot_value(
-      x = table_prep(solved_eq2[["results"]]),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(solved_eq2[["results"]]),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
-    expect_snapshot_value(
-      x = table_prep(solved_eq2[["substitutions"]]),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(solved_eq2[["substitutions"]]),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
-    expect_snapshot_value(
-      x = table_prep(rv$fileimport_cal_corrected),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$fileimport_cal_corrected),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
     # hyperbolic correction
@@ -212,20 +199,16 @@ test_that(
     )
     rv$substitutions_corrected_h <- solved_eq_h[["substitutions"]]
 
-    expect_snapshot_value(
-      x = table_prep(rv$fileimport_cal_corrected_h),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$fileimport_cal_corrected_h),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
-    expect_snapshot_value(
-      x = table_prep(rv$substitutions_corrected_h),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$substitutions_corrected_h),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
     # calculate new calibration curves from corrected calibration data
@@ -244,20 +227,16 @@ test_that(
     rv$reg_stats_corrected_h <- statistics_list(rv$result_list_hyperbolic,
                                                 minmax = rv$minmax)
 
-    expect_snapshot_value(
-      x = rv$result_list_hyperbolic,
-      style = "serialize",
+    expect_snapshot(
+      x = rv$result_list_hyperbolic,,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
-    expect_snapshot_value(
-      x = table_prep(rv$reg_stats_corrected_h),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$reg_stats_corrected_h),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
     # cubic correction
@@ -280,20 +259,16 @@ test_that(
     )
     rv$substitutions_corrected_c <- solved_eq_c[["substitutions"]]
 
-    expect_snapshot_value(
-      x = table_prep(rv$fileimport_cal_corrected_c),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$fileimport_cal_corrected_c),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
-    expect_snapshot_value(
-      x = table_prep(rv$substitutions_corrected_c),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$substitutions_corrected_c),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
     # calculate new calibration curves from corrected calibration data
@@ -317,20 +292,16 @@ test_that(
     #" expect_known_hash(plotlist_reg, "20fa85b532")
     # oder c2e96f84fc, 0c3c5db52b
     expect_type(rv$result_list_cubic, "list")
-    expect_snapshot_value(
-      x = rv$result_list_cubic,
-      style = "serialize",
+    expect_snapshot(
+      x = rv$result_list_cubic,,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
-    expect_snapshot_value(
-      x = table_prep(rv$reg_stats_corrected_c),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$reg_stats_corrected_c),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))

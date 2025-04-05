@@ -17,6 +17,8 @@ test_that(
   code = {
 
     local_edition(3)
+    local_reproducible_output(rstudio = TRUE)
+
     suppressWarnings(future::plan("multisession"))
 
     #"skip_on_cran()
@@ -164,26 +166,20 @@ test_that(
     )
 
     # some tests
-    expect_snapshot_value(
+    expect_snapshot(
       x = table_prep(rv$final_results),
-      style = "json2",
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
-    expect_snapshot_value(
-      x = table_prep(rv$substitutions),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$substitutions),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
-    expect_snapshot_value(
-      x = table_prep(rv$fileimport_cal_corrected),
-      style = "json2",
+    expect_snapshot(
+      x = table_prep(rv$fileimport_cal_corrected),,
       cran = FALSE,
-      tolerance = 10e-3,
-      ignore_function_env = TRUE
+      error = FALSE
     )
 
     expect_true(file.remove(paste0(prefix, "/log.txt")))

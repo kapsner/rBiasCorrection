@@ -15,7 +15,8 @@ test_that(
   desc = "plotting_utility",
   code = {
 
-    #"skip_on_cran()
+    local_edition(3)
+    local_reproducible_output(rstudio = TRUE)
 
     rv$minmax <- FALSE
     rv$sample_locus_name <- "Test"
@@ -92,7 +93,8 @@ test_that(
   desc = "createbarerrorplots",
   code = {
 
-    #"skip_on_cran()
+    local_edition(3)
+    local_reproducible_output(rstudio = TRUE)
 
     rv$minmax <- FALSE
     rv$sample_locus_name <- "Test"
@@ -210,7 +212,8 @@ test_that(
   desc = "create_exampleplot",
   code = {
 
-    #"skip_on_cran()
+    local_edition(3)
+    local_reproducible_output(rstudio = TRUE)
 
     rv$minmax <- FALSE
     rv$sample_locus_name <- "Test"

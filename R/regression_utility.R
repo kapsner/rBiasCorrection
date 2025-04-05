@@ -236,9 +236,10 @@ regression_type1 <- function(datatable,
         )
 
         p <- ggplot2::ggplot(data = gdat,
-                             ggplot2::aes_string(
-                               x = "true_methylation",
-                               y = "CpG")
+                             ggplot2::aes(
+                               x = .data$true_methylation,
+                               y = .data$CpG
+                             )
         ) +
           ggplot2::geom_point() +
           ggplot2::ylab(custom_ylab) +
@@ -262,9 +263,9 @@ regression_type1 <- function(datatable,
           if ("ymin" %in% colnames(gdat) &&
               "ymax" %in% colnames(gdat)) {
             p <- p + ggplot2::geom_pointrange(
-              ggplot2::aes_string(
-                ymin = "ymin",
-                ymax = "ymax"
+              ggplot2::aes(
+                ymin = .data$ymin,
+                ymax = .data$ymax
               ),
               fatten = 1
             )
