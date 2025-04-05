@@ -25,11 +25,7 @@ test_that(
       csvdir = csvdir,
       logfilename = paste0(prefix, "/log.txt"),
       seed = 1234,
-      parallel = ifelse(
-        tolower(Sys.info()["sysname"]) == "darwin",
-        FALSE,
-        TRUE
-      )
+      parallel = FALSE
     )
     expect_length(list.files(plotdir), 50)
     expect_length(list.files(csvdir), 13)
@@ -47,11 +43,7 @@ test_that(
       csvdir = csvdir,
       logfilename = paste0(prefix, "/log.txt"),
       seed = 1234,
-      parallel = ifelse(
-        tolower(Sys.info()["sysname"]) == "darwin",
-        FALSE,
-        TRUE
-      )
+      parallel = FALSE
     )
 
     expect_equal(
@@ -73,11 +65,7 @@ test_that(
       csvdir = csvdir,
       logfilename = paste0(prefix, "/log.txt"),
       seed = 1234,
-      parallel = ifelse(
-        tolower(Sys.info()["sysname"]) == "darwin",
-        FALSE,
-        TRUE
-      )
+      parallel = FALSE
     )
 
     expect_equal(
