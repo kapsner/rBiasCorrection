@@ -1,5 +1,4 @@
 # nolint start
-
 packagename <- "rBiasCorrection"
 
 # remove existing description object

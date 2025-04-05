@@ -48,6 +48,8 @@
 
 #### Tests
 
+-   making snapshot tests more robust by rounding to 2 digits
+    ([30b87e5](https://github.com/kapsner/rBiasCorrection/tree/30b87e525095943bb2d0917541eb32467193c694))
 -   added snapshots again
     ([d00ec13](https://github.com/kapsner/rBiasCorrection/tree/d00ec13d6ab0d3ba83505d2050bfa3faaf75eaf0))
 -   enhanced unit tests
@@ -57,6 +59,8 @@
 
 #### CI
 
+-   updated gha
+    ([fe0d16a](https://github.com/kapsner/rBiasCorrection/tree/fe0d16a7e6bcee01c65d7fc4ee8c0038f39996d8))
 -   updated gha
     ([1e2a366](https://github.com/kapsner/rBiasCorrection/tree/1e2a366a2ec564ebe92303656bd501ad19ff550d))
 -   updated lint-stage
@@ -79,7 +83,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...99b3730`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...99b3730)
+[`v0.3.4...fe0d16a`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...fe0d16a)
 
 ## v0.3.4 (2022-06-20)
 
