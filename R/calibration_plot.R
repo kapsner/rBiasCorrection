@@ -65,7 +65,7 @@ calibration_plot <- function(plotlist,
           y = .data[["y"]],
           color = "hyperbolic"
         ),
-        size = 1.08
+        linewidth = 1.08
       ) +
       ggplot2::geom_line(
         data = cubic_dat,
@@ -74,7 +74,7 @@ calibration_plot <- function(plotlist,
           y = .data[["y"]],
           color = "cubic"
         ),
-        size = 1.08
+        linewidth = 1.08
       )
       # ggplot2::stat_function(
       #   fun = hyperbolic_eq,
@@ -113,7 +113,7 @@ calibration_plot <- function(plotlist,
         mapping = ggplot2::aes(
           color = "hyperbolic"
         ),
-        size = 1.08
+        linewidth = 1.08
       ) +
       ggplot2::geom_function(
         fun = cubic_eq_minmax,
@@ -126,7 +126,7 @@ calibration_plot <- function(plotlist,
         mapping = ggplot2::aes(
           color = "cubic"
         ),
-        size = 1.08
+        linewidth = 1.08
       )
   }
 
@@ -138,7 +138,7 @@ calibration_plot <- function(plotlist,
         color = "unbiased"
       ),
       linetype = "dashed",
-      size = 1.08
+      linewidth = 1.08
     ) +
     ggplot2::labs(
       color = ggplot2::element_blank()

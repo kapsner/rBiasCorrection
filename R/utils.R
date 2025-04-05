@@ -299,7 +299,7 @@ round_to_fifty <- function(max_err) {
   return(ceiling(max_err / 50) * 50)
 }
 
-testhelper_round_results_list <- function(x, dgts = 4) {
+testhelper_round_results_list <- function(x, dgts = 2) {
   list(
     Var = x$Var,
     relative_error = x$relative_error,

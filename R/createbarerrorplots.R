@@ -277,37 +277,41 @@ createbarerrorplots <- function(statstable_pre,
           }
 
 
-          outplot <- ggplot2::ggplot(dt, ggplot2::aes_string(
-            x = "regressiontype",
-            y = "value",
-            fill = "regressiontype")) +
-            #% scale_fill_manual(
-            #%   values = c("Cubic Regression" = "indianred1",
-            #%              "Hyperbolic Regression" = "mediumspringgreen")) +
-            ggplot2::geom_col() +
-            ggplot2::geom_text(
-              ggplot2::aes_string(
-                label = "value",
-                y = "value"),
-              vjust = -1
-            ) +
-            ggplot2::ylab("% average relative error") +
-            ggplot2::labs(
-              title = paste0("Quantification Error: ", locus),
-              subtitle = paste("CpG:", vec_cal[i]),
-              fill = ggplot2::element_blank()
-            ) +
-            ggplot2::ylim(0, ylim_max) +
-            ggplot2::scale_fill_manual(
-              values = values
-            ) +
-            ggplot2::theme(
-              axis.title.x = ggplot2::element_blank(),
-              legend.position = "none",
-              plot.title = ggplot2::element_text(hjust = 0.5),
-              plot.subtitle = ggplot2::element_text(hjust = 0.5),
-              text = ggplot2::element_text(size = plot_textsize)
-            ) #,
+          outplot <- ggplot2::ggplot(
+            dt,
+            ggplot2::aes(
+              x = .data$regressiontype,
+              y = .data$value,
+              fill = .data$regressiontype
+            )
+          ) +
+          #% scale_fill_manual(
+          #%   values = c("Cubic Regression" = "indianred1",
+          #%              "Hyperbolic Regression" = "mediumspringgreen")) +
+          ggplot2::geom_col() +
+          ggplot2::geom_text(
+            ggplot2::aes(
+              label = .data$value,
+              y = .data$value),
+            vjust = -1
+          ) +
+          ggplot2::ylab("% average relative error") +
+          ggplot2::labs(
+            title = paste0("Quantification Error: ", locus),
+            subtitle = paste("CpG:", vec_cal[i]),
+            fill = ggplot2::element_blank()
+          ) +
+          ggplot2::ylim(0, ylim_max) +
+          ggplot2::scale_fill_manual(
+            values = values
+          ) +
+          ggplot2::theme(
+            axis.title.x = ggplot2::element_blank(),
+            legend.position = "none",
+            plot.title = ggplot2::element_text(hjust = 0.5),
+            plot.subtitle = ggplot2::element_text(hjust = 0.5),
+            text = ggplot2::element_text(size = plot_textsize)
+          ) #,
           #% axis.ticks.x = element_blank(),
           #% axis.text.x = element_blank())
           #% print whole plot in return, otherwise it will fail
