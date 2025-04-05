@@ -28,6 +28,8 @@
 #' @param mode A character string. Default: NULL. Used to indicate "corrected"
 #'   calibration data.
 #'
+#' @importFrom ggplot2 .data
+#'
 #' @return The function performs the regression calculations and returns
 #'   the results in a list.
 #'
