@@ -90,9 +90,9 @@ create_exampleplot <- function(data,
       parse = FALSE
     ) +
     ggplot2::geom_pointrange(
-      ggplot2::aes_string(
-        ymin = "ymin",
-        ymax = "ymax"
+      ggplot2::aes(
+        ymin = .data$ymin,
+        ymax = .data$ymax
       ),
       fatten = 1
     )

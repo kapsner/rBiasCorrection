@@ -310,10 +310,11 @@ testhelper_round_results_list <- function(x, dgts = 3) {
   )
 }
 
-testhelper_apply_robust_results_list <- function(res_list) {
+testhelper_apply_robust_results_list <- function(res_list, dgts = 3) {
   sapply(
     X = res_list,
     FUN = testhelper_round_results_list,
+    dgts = dgts,
     simplify = FALSE,
     USE.NAMES = TRUE
   )
