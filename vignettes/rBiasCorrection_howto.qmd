@@ -179,13 +179,11 @@ knitr::kable(reg_stats[, 11:16])
 
 The calibration plots show two calibration curves for each CpG site: the hyperbolic and the cubic polynomial regression curve.
 
-```{r out.width='80%'}
-knitr::include_graphics(paste0(plotdir, "CDH1_CpG1.png"))
-```
+![](img/CDH1_CpG1_corrected_c.png){width=80%}
 
 **Corrected calibration plots and error plots:**  
 
 Furthermore, corrected calibration plots and error plots are drawn. The corrected calibration plots show the theoretical regression curve after bias correction. There is one plot for each regression method and CpG site. Additionally, error plots show the efficiency of the bias correction by presenting the relative errors before and after correction.  
 
-![](`r tempdir()`/png/CDH1_CpG1_corrected_c.png){width=40%} ![](`r tempdir()`/png/CDH1_CpG1_corrected_h.png){width=40%}
-![](`r tempdir()`/png/CDH1_error_CpG1_corrected_c.png){width=40%} ![](`r tempdir()`/png/CDH1_error_CpG1_corrected_h.png){width=40%}
+![](img/CDH1_CpG1_corrected_c.png){width=40%} ![](img/CDH1_CpG1_corrected_h.png){width=40%}
+![](img/CDH1_error_CpG1_corrected_c.png){width=40%} ![](img/CDH1_error_CpG1_corrected_h.png){width=40%}
