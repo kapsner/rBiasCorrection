@@ -37,7 +37,7 @@ VignetteBuilder:
     quarto
 Config/testthat/edition: 3
 Config/testthat/parallel: false
-Date/Publication: 2025-04-05 11:53:34.064983 UTC
+Date/Publication: 2025-04-05 13:13:03.23085 UTC
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

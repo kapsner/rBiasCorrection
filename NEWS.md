@@ -4,6 +4,13 @@
 
 ## Unreleased (2025-04-05)
 
+#### Other changes
+
+-   added images to vignette
+    ([a49a383](https://github.com/kapsner/rBiasCorrection/tree/a49a3832d4f3861f41cd995b33693291d503bafd))
+
+## v0.3.5 (2025-04-05)
+
 #### New features
 
 -   migrating to quarto vignette engine
@@ -18,6 +25,8 @@
 
 #### Bug fixes
 
+-   further rounding of unit tests
+    ([047bde8](https://github.com/kapsner/rBiasCorrection/tree/047bde837112df32d144d50eb7577380f93aff33))
 -   removed another aes_string
     ([fb586dc](https://github.com/kapsner/rBiasCorrection/tree/fb586dc8215100107d578d2cd75f11e1a626ff01))
 -   fixed further deprecation warnings from ggplot2
@@ -88,6 +97,8 @@
 
 #### Other changes
 
+-   udpated news.md and description
+    ([f7ed7c9](https://github.com/kapsner/rBiasCorrection/tree/f7ed7c993b2c099b03cb2958d4b83ea7d8541ff8))
 -   removed parallel-flag from test
     ([70ff6f5](https://github.com/kapsner/rBiasCorrection/tree/70ff6f549b04d8d39cc66abc58adc920ed4df743))
 -   updated news.md and description
@@ -100,7 +111,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...fb586dc`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...fb586dc)
+[`v0.3.4...v0.3.5`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...v0.3.5)
 
 ## v0.3.4 (2022-06-20)
 
