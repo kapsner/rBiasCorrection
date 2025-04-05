@@ -70,9 +70,9 @@ create_exampleplot <- function(data,
 
   # create base plot
   p <- ggplot2::ggplot(data = data,
-                       ggplot2::aes_string(
-                         x = "true_methylation",
-                         y = "CpG")
+                       ggplot2::aes(
+                         x = .data$true_methylation,
+                         y = .data$CpG)
   ) +
     ggplot2::geom_point() +
     ggplot2::ylab("methylation (%)\napparent after quantification") +

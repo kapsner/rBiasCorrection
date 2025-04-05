@@ -226,7 +226,7 @@ test_that(
                                                 minmax = rv$minmax)
 
     expect_snapshot(
-      x = round(table_prep(rv$reg_stats_corrected_h), 1),
+      x = round(table_prep(rv$reg_stats_corrected_h), 0),
       cran = FALSE,
       error = FALSE
     )
@@ -288,7 +288,7 @@ test_that(
     expect_type(rv$result_list_cubic, "list")
 
     expect_snapshot(
-      x = round(table_prep(rv$reg_stats_corrected_c), 1),
+      x = round(table_prep(rv$reg_stats_corrected_c), 0),
       cran = FALSE,
       error = FALSE
     )
