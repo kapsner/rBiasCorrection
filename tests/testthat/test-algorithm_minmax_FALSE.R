@@ -93,7 +93,9 @@ test_that(
     options(rBiasCorrection.nls_implementation = "GN.paper")
 
     plotlist_reg <- regression_results[["plot_list"]]
-    rv$result_list <- regression_results[["result_list"]]
+    rv$result_list <- testhelper_apply_robust_results_list(
+      regression_results[["result_list"]]
+    )
 
     regression_results2 <- regression_type1(rv$fileimport_calibration,
                                             rv$vec_cal,
@@ -216,7 +218,9 @@ test_that(
       seed = rv$seed
     )
     plotlist_reg <- regression_results[["plot_list"]]
-    rv$result_list_hyperbolic <- regression_results[["result_list"]]
+    rv$result_list_hyperbolic <- testhelper_apply_robust_results_list(
+      regression_results[["result_list"]]
+    )
     # save regression statistics to reactive value
     rv$reg_stats_corrected_h <- statistics_list(rv$result_list_hyperbolic,
                                                 minmax = rv$minmax)
@@ -270,7 +274,9 @@ test_that(
       seed = rv$seed
     )
     plotlist_reg <- regression_results[["plot_list"]]
-    rv$result_list_cubic <- regression_results[["result_list"]]
+    rv$result_list_cubic <- testhelper_apply_robust_results_list(
+      regression_results[["result_list"]]
+    )
     # save regression statistics to reactive value
     rv$reg_stats_corrected_c <- statistics_list(rv$result_list_cubic,
                                                 minmax = rv$minmax)

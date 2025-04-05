@@ -298,3 +298,24 @@ handle_text_input <- function(textinput) {
 round_to_fifty <- function(max_err) {
   return(ceiling(max_err / 50) * 50)
 }
+
+testhelper_round_results_list <- function(x, dgts = 4) {
+  list(
+    Var = x$Var,
+    relative_error = x$relative_error,
+    SSE_hyper = x$SSE_hyper,
+    Coef_hyper = lapply(x$Coef_hyper, round, digits = dgts),
+    SSE_cubic = x$SSE_cubic,
+    Coef_cubic = lapply(x$Coef_cubic, round, digits = dgts)
+  )
+}
+
+testhelper_apply_robust_results_list <- function(res_list) {
+  sapply(
+    X = res_list,
+    FUN = testhelper_round_results_list,
+    simplify = FALSE,
+    USE.NAMES = TRUE
+  )
+}
+

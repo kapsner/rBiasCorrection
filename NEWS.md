@@ -75,6 +75,8 @@
 
 #### Other changes
 
+-   updated news.md and description
+    ([384d343](https://github.com/kapsner/rBiasCorrection/tree/384d343b52eb02adc2c2eddf0504e37e1ab3d8d4))
 -   automated gen of readme
     ([01b1dac](https://github.com/kapsner/rBiasCorrection/tree/01b1dac2517bb118f32b31bd8fd55c9696a06f0c))
 -   fixed cran errors url
@@ -83,7 +85,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...fe0d16a`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...fe0d16a)
+[`v0.3.4...384d343`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...384d343)
 
 ## v0.3.4 (2022-06-20)
 
