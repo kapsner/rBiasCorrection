@@ -18,16 +18,16 @@
 # implementation of cubic equation
 cubic_eq <- function(x, a, b, c, d) {
   return(
-    (a * I(x^3) + b * I(x^2) + c * x + d)
+    (a * x^3 + b * x^2 + c * x + d)
   )
 }
 
 cubic_eq_minmax <- function(x, a, b, y0, y1, m0, m1) {
   return(
-    (a * I((x - m0)^3) +
-       b * I((x - m0)^2) +
+    (a * (x - m0)^3 +
+       b * (x - m0)^2 +
        (x - m0) * (((y1 - y0) /
-                      (m1 - m0)) - a * I((m1 - m0)^2) - b * (m1 - m0))
+                      (m1 - m0)) - a * (m1 - m0)^2 - b * (m1 - m0))
      + y0)
   )
 }

@@ -211,7 +211,7 @@ rsq <- function(true, fitted) {
 
 
 sdm <- function(vector) {
-  I((vector - mean(vector))^2)
+  return((vector - mean(vector))^2)
 }
 
 sse_tss <- function(datatable, fitted_values) {
@@ -222,7 +222,7 @@ sse_tss <- function(datatable, fitted_values) {
 
   # sum of squares between fitted and measured values
   dat[, ("CpG_fitted_diff") := get("CpG") - get("fitted")]
-  dat[, ("squared_error") := I((get("CpG_fitted_diff"))^2)]
+  dat[, ("squared_error") := get("CpG_fitted_diff")^2]
 
   # sum of squared errors = residual sum of squares
   sse <- as.numeric(dat[, sum(get("squared_error"), na.rm = TRUE)])

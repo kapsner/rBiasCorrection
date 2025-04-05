@@ -2,7 +2,7 @@
 
 # rBiasCorrection NEWS
 
-## Unreleased (2024-05-24)
+## Unreleased (2025-04-05)
 
 #### New features
 
@@ -16,6 +16,8 @@
 
 #### Bug fixes
 
+-   removing snapshot-value tests due to cran issues
+    ([94084af](https://github.com/kapsner/rBiasCorrection/tree/94084afc0d189326cd8a408d767be8f08833be6e))
 -   added seed before call to minpack.lm
     ([a7a9319](https://github.com/kapsner/rBiasCorrection/tree/a7a93193e08e6948c11e047d9342135443dfbf40))
 -   fixed implementation of nls_solver
@@ -65,7 +67,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...01b1dac`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...01b1dac)
+[`v0.3.4...94084af`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...94084af)
 
 ## v0.3.4 (2022-06-20)
 

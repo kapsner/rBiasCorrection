@@ -89,7 +89,7 @@ hyperbolic_regression <- function(df_agg,
     b1 <- 1 + (100 / d)
 
     # parameter 3
-    s <- (1 / abs(d)) * sqrt(I(a - d)^2 + I(b)^2 + 1)
+    s <- (1 / abs(d)) * sqrt((a - d)^2 + (b)^2 + 1)
 
     fitted_values <- hyperbolic_eq(
       x = true_levels,

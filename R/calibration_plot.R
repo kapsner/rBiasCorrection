@@ -38,48 +38,84 @@ calibration_plot <- function(plotlist,
                              minmax) {
 
   if (isFALSE(minmax)) {
+    hyperbol_dat <- data.table::data.table(
+      x = 0:100,
+      y = hyperbolic_eq(
+        x = 0:100,
+        a = coef_hyper$a,
+        b = coef_hyper$b,
+        d = coef_hyper$d
+      )
+    )
+    cubic_dat <- data.table::data.table(
+      x = 0:100,
+      y = cubic_eq(
+        x = 0:100,
+        a = coef_cubic$a,
+        b = coef_cubic$b,
+        c = coef_cubic$c,
+        d = coef_cubic$d
+      )
+    )
     p <- plotlist +
-      ggplot2::stat_function(
-        fun = hyperbolic_eq,
-        args = list(a = coef_hyper$a,
-                    b = coef_hyper$b,
-                    d = coef_hyper$d),
-        geom = "line",
-        ggplot2::aes(
+      ggplot2::geom_line(
+        data = hyperbol_dat,
+        mapping = ggplot2::aes(
+          x = .data[["x"]],
+          y = .data[["y"]],
           color = "hyperbolic"
         ),
         size = 1.08
       ) +
-      ggplot2::stat_function(
-        fun = cubic_eq,
-        args = list(a = coef_cubic$a,
-                    b = coef_cubic$b,
-                    c = coef_cubic$c,
-                    d = coef_cubic$d),
-        geom = "line",
-        ggplot2::aes(
+      ggplot2::geom_line(
+        data = cubic_dat,
+        mapping = ggplot2::aes(
+          x = .data[["x"]],
+          y = .data[["y"]],
           color = "cubic"
         ),
         size = 1.08
       )
+      # ggplot2::stat_function(
+      #   fun = hyperbolic_eq,
+      #   args = list(
+      #     a = coef_hyper$a,
+      #     b = coef_hyper$b,
+      #     d = coef_hyper$d
+      #   ),
+      #   mapping = ggplot2::aes(
+      #     color = "hyperbolic"
+      #   ),
+      #   size = 1.08
+      # ) +
+      # ggplot2::stat_function(
+      #   fun = cubic_eq,
+      #   args = list(a = coef_cubic$a,
+      #               b = coef_cubic$b,
+      #               c = coef_cubic$c,
+      #               d = coef_cubic$d),
+      #   mapping = ggplot2::aes(
+      #     color = "cubic"
+      #   ),
+      #   size = 1.08
+      # )
 
   } else if (isTRUE(minmax)) {
 
     p <- plotlist +
-      ggplot2::stat_function(
+      ggplot2::geom_function(
         fun = hyperbolic_eq_minmax,
         args = list(b = coef_hyper$b,
                     y0 = coef_hyper$y0,
                     y1 = coef_hyper$y1,
                     m0 = coef_hyper$m0,
                     m1 = coef_hyper$m1),
-        geom = "line",
-        ggplot2::aes(
+        mapping = ggplot2::aes(
           color = "hyperbolic"
         ),
         size = 1.08
       ) +
-      ggplot2::stat_function(
+      ggplot2::geom_function(
         fun = cubic_eq_minmax,
         args = list(a = coef_cubic$a,
                     b = coef_cubic$b,
@@ -87,8 +123,7 @@ calibration_plot <- function(plotlist,
                     y1 = coef_cubic$y1,
                     m0 = coef_cubic$m0,
                     m1 = coef_cubic$m1),
-        geom = "line",
-        ggplot2::aes(
+        mapping = ggplot2::aes(
           color = "cubic"
         ),
         size = 1.08
@@ -103,8 +138,7 @@ calibration_plot <- function(plotlist,
         color = "unbiased"
       ),
       linetype = "dashed",
-      size = 1.08,
-      show.legend = FALSE
+      size = 1.08
     ) +
     ggplot2::labs(
       color = ggplot2::element_blank()

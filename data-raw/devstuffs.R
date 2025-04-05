@@ -47,7 +47,7 @@ my_desc$write(file = "DESCRIPTION")
 #usethis::use_gpl3_license(name="Lorenz Kapsner")
 
 # Depends
-usethis::use_package("R", min_version = "2.10", type="Depends")
+usethis::use_package("R", min_version = "3.6", type = "Depends")
 
 # Imports
 # https://cran.r-project.org/web/packages/data.table/vignettes/datatable-importing.html
