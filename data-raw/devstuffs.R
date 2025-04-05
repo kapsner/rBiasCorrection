@@ -34,14 +34,19 @@ my_desc$set("BugReports",
             "https://github.com/kapsner/rBiasCorrection/issues")
 
 # Vignette Builder
-my_desc$set("VignetteBuilder" = "knitr")
+my_desc$set("VignetteBuilder" = "quarto")
 
+# Testthat stuff
 my_desc$set("Config/testthat/parallel" = "false")
-
+my_desc$set("Config/testthat/edition" = "3")
+# Roxygen
+my_desc$set("Roxygen" = "list(markdown = TRUE)")
+# load data
 my_desc$set("LazyData" = "true")
 
 # License
-my_desc$set("License", "GPL-3")
+usethis::use_gpl3_license()
+
 # Save everyting
 my_desc$write(file = "DESCRIPTION")
 
@@ -67,8 +72,8 @@ usethis::use_package("minpack.lm", type = "Imports")
 # Suggests
 usethis::use_package("testthat", type = "Suggests", min_version = "3.0.1")
 usethis::use_package("lintr", type = "Suggests")
+usethis::use_package("quarto", type = "Suggests")
 usethis::use_package("knitr", type = "Suggests")
-usethis::use_package("rmarkdown", type = "Suggests")
 usethis::use_package("microbenchmark", type = "Suggests")
 usethis::use_package("ggpubr", type = "Suggests")
 

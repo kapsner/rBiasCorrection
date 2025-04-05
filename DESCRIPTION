@@ -6,13 +6,17 @@ Authors@R: c(
            comment = c(ORCID = "0000-0003-1866-860X")),
     person("Evgeny A.", "Moskalev", role = "aut")
   )
-Description: Implementation of the algorithms (with minor modifications)
-    to correct bias in quantitative DNA methylation analyses as described
-    by Moskalev et al. (2011) <doi:10.1093/nar/gkr213>. Publication:
-    Kapsner et al. (2021) <doi:10.1002/ijc.33681>.
-License: GPL-3
+Description: Implementation of the algorithms (with minor modifications) to correct bias in quantitative DNA methylation analyses as described by Moskalev et al. (2011) <doi:10.1093/nar/gkr213>. Publication: Kapsner et al. (2021) <doi:10.1002/ijc.33681>.
+License: {{ License }}
 URL: https://github.com/kapsner/rBiasCorrection
 BugReports: https://github.com/kapsner/rBiasCorrection/issues
+Encoding: UTF-8
+Date/Publication: 2025-04-05 08:58:27.321391 UTC
+VignetteBuilder: quarto
+Config/testthat/parallel: false
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+LazyData: true
 Depends: 
     R (>= 3.6)
 Imports: 
@@ -31,12 +35,6 @@ Suggests:
     knitr,
     lintr,
     microbenchmark,
-    rmarkdown,
+    quarto,
     testthat (>= 3.0.1)
-VignetteBuilder: 
-    knitr
-Config/testthat/parallel: false
-Date/Publication: 2025-04-05 08:45:44.236982 UTC
-Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.3.2

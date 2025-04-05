@@ -1,23 +1,17 @@
 ---
 title: "rBiasCorrection"
 date: "`r Sys.Date()`"
-output:
-  rmarkdown::html_vignette:
-    keep_md: true
 vignette: >
   %\VignetteIndexEntry{rBiasCorrection_howto}
   %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
 editor_options: 
   chunk_output_type: console
+execute:
+  eval: true
+  collapse: true
+  comment: "#>"
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 ```{r setup}
 library(rBiasCorrection)

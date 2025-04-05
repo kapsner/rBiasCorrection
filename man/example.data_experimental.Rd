@@ -6,7 +6,7 @@
 \title{example.data_experimental}
 \description{
 A list containing the experimental data ($dat) and the
-  colnames ($vec_cal) needed by the algorithms to perform the bias
-  correction.
+colnames ($vec_cal) needed by the algorithms to perform the bias
+correction.
 }
 \keyword{data}

@@ -18,8 +18,8 @@ data or the calibration data.}
 \item{description}{A character string, indicating if \code{datatable}
 contains either \emph{"calibration"} data or \emph{"experimental"} data.}
 
-\item{type}{A single integer. Type of data to be corrected: either `1L` (one
-locus in many samples, e.g. pyrosequencing data) or `2L` (many loci in one
+\item{type}{A single integer. Type of data to be corrected: either \code{1L} (one
+locus in many samples, e.g. pyrosequencing data) or \code{2L} (many loci in one
 sample, e.g. next-generation sequencing data or microarray data).}
 
 \item{logfilename}{A character string. Path to a file to save the log
@@ -27,12 +27,12 @@ messages (default = paste0(tempdir(), "/log.txt")).}
 }
 \value{
 If a valid file is provided, the function returns a cleaned
-  data.table, suited for BiasCorrection.
+data.table, suited for BiasCorrection.
 }
 \description{
 Internal function, that checks the formatting of imported
-  files and prepares them to be applicable for the following pcr-bias
-  correction steps.
+files and prepares them to be applicable for the following pcr-bias
+correction steps.
 }
 \examples{
 logfilename <- paste0(tempdir(), "/log.txt")

@@ -35,13 +35,13 @@ of fit'-metrics.}
 }
 \value{
 The function returns a data.table with 4 columns, the last column
-  being named 'better_model', which indicates in a binary manner,
-  if the hyperbolic model (better_model = 0) or the cubic model
-  (better_model = 1) result in a 'better' `SSE` or `RelError` respectively.
+being named 'better_model', which indicates in a binary manner,
+if the hyperbolic model (better_model = 0) or the cubic model
+(better_model = 1) result in a 'better' \code{SSE} or \code{RelError} respectively.
 }
 \description{
 Internal function to select the better model between
-  hyperbolic regression and cubic regression.
+hyperbolic regression and cubic regression.
 }
 \examples{
 \donttest{

@@ -35,8 +35,8 @@ data or microarray data):
 Path to the folder that contains at least 4 calibration files (one file
 per calibration step). Please refer to the FAQ for more detailed
 information on the specific file requirements (\url{
-https://raw.githubusercontent.com/kapsner/PCRBiasCorrection/master/FAQ.md
-}).}
+  https://raw.githubusercontent.com/kapsner/PCRBiasCorrection/master/FAQ.md
+  }).}
 
 \item{samplelocusname}{A character string. In type 1 data: locus name -
 name of the gene locus under investigation. In type 2 data: sample name -
@@ -66,8 +66,8 @@ the calibration data with both the hyperbolic regression and the cubic
 regression and using them again as input data to calculate the 'goodness
 of fit'-metrics.}
 
-\item{type}{A single integer. Type of data to be corrected: either `1L` (one
-locus in many samples, e.g. pyrosequencing data) or `2L` (many loci in one
+\item{type}{A single integer. Type of data to be corrected: either \code{1L} (one
+locus in many samples, e.g. pyrosequencing data) or \code{2L} (many loci in one
 sample, e.g. next-generation sequencing data or microarray data).}
 
 \item{csvdir}{A character string. Directory to store the resulting tables.
@@ -97,25 +97,25 @@ hyperbolic regression equation and the cubic regression equation.
 Important for reproducibility (default: 1234).}
 
 \item{parallel}{A boolean. If TRUE (the default value), initializing
-`future::plan("multicore")` (on unix systems) or
-`future::plan("multisession")` (on non-unix systems) before running the
+\code{future::plan("multicore")} (on unix systems) or
+\code{future::plan("multisession")} (on non-unix systems) before running the
 code.}
 }
 \value{
-This function is a wrapper around all of `rBiasCorrection`'s
-  included functions. When executing it, it performs the whole workflow of
-  bias correction and writes resulting csv-files and plots, as well as a
-  log file to the local file system (the respective directories can be
-  specified with the function arguments). The return-value is TRUE, if the
-  correction of PCR measurement biases succeeds. If the correction fails,
-  an error message is returned.
+This function is a wrapper around all of \code{rBiasCorrection}'s
+included functions. When executing it, it performs the whole workflow of
+bias correction and writes resulting csv-files and plots, as well as a
+log file to the local file system (the respective directories can be
+specified with the function arguments). The return-value is TRUE, if the
+correction of PCR measurement biases succeeds. If the correction fails,
+an error message is returned.
 }
 \description{
 This function implements the algorithms described by
-  Moskalev et. al in their article 'Correction of PCR-bias in quantitative
-  DNA methylation studies by means of cubic polynomial regression',
-  published 2011 in Nucleic acids research, Oxford University Press
-  (\doi{10.1093/nar/gkr213}).
+Moskalev et. al in their article 'Correction of PCR-bias in quantitative
+DNA methylation studies by means of cubic polynomial regression',
+published 2011 in Nucleic acids research, Oxford University Press
+(\doi{10.1093/nar/gkr213}).
 }
 \examples{
 \donttest{

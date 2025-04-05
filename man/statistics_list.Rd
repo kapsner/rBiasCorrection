@@ -15,13 +15,13 @@ BiasCorrection (default: FALSE). If TRUE, equations are used that include
 the respective minima and maxima of the provided data.}
 }
 \value{
-The function takes the `resultslist` and converts it to a
-  statistics list, which is basically a `data.table` with the results
-  of the hyperbolic and the cubic regression.
+The function takes the \code{resultslist} and converts it to a
+statistics list, which is basically a \code{data.table} with the results
+of the hyperbolic and the cubic regression.
 }
 \description{
 Internal function that converts the results_list (output of
-  \code{regression_utility()}) into a data.table object.
+\code{regression_utility()}) into a data.table object.
 }
 \examples{
 # define list object to save all data

@@ -8,12 +8,12 @@ substitutions_create()
 }
 \value{
 This function takes no argument and initializes an empty
-  `data.table` to hold the substituted values, if substitutions occur during
-  BiasCorrection.
+\code{data.table} to hold the substituted values, if substitutions occur during
+BiasCorrection.
 }
 \description{
 Internal function to initialize a data.table object
-  to store the substitutions.
+to store the substitutions.
 }
 \examples{
 substitutions <- substitutions_create()

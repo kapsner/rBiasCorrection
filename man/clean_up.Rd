@@ -15,8 +15,8 @@ where resulting tables are saved.}
 }
 \value{
 This function silently cleans up the current session and removes
-  both, the `plotdir`- and the `csvdir`-folders. It furthermore resets
-  the `future`-backend to plan = "sequential".
+both, the \code{plotdir}- and the \code{csvdir}-folders. It furthermore resets
+the \code{future}-backend to plan = "sequential".
 }
 \description{
 Internal function to clean up directories.

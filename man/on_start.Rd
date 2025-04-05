@@ -17,19 +17,19 @@ where resulting tables are saved.}
 messages (default = paste0(tempdir(), "/log.txt")).}
 
 \item{parallel}{A boolean. If TRUE (the default value), initializing
-`future::plan("multicore")` (on unix systems) or
-`future::plan("multisession")` (on non-unix systems) before running the
+\code{future::plan("multicore")} (on unix systems) or
+\code{future::plan("multisession")} (on non-unix systems) before running the
 code.}
 }
 \value{
-This function silently creates the directories`plotdir` and `csvdir`
-  on the local filesystem and initializes the logfile, specified with
-  `logfilename`. Furthermore, if `parallel = TRUE`, the `future`-backend is
-  initialized.
+This function silently creates the directories\code{plotdir} and \code{csvdir}
+on the local filesystem and initializes the logfile, specified with
+\code{logfilename}. Furthermore, if \code{parallel = TRUE}, the \code{future}-backend is
+initialized.
 }
 \description{
 Internal function, that initializes plotdir,
-  csvdir and logfilename.
+csvdir and logfilename.
 }
 \examples{
 \donttest{ # runtime > 5 sec.

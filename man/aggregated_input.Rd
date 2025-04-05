@@ -18,21 +18,21 @@ data or the calibration data.}
 \item{description}{A character string, indicating if \code{datatable}
 contains either \emph{"calibration"} data or \emph{"experimental"} data.}
 
-\item{vec_cal}{The vector containing the CpG columns (output of `clean_dt`
+\item{vec_cal}{The vector containing the CpG columns (output of \code{clean_dt}
 with description = "calibration").}
 
-\item{type}{A single integer. Type of data to be corrected: either `1L` (one
-locus in many samples, e.g. pyrosequencing data) or `2L` (many loci in one
+\item{type}{A single integer. Type of data to be corrected: either \code{1L} (one
+locus in many samples, e.g. pyrosequencing data) or \code{2L} (many loci in one
 sample, e.g. next-generation sequencing data or microarray data).}
 }
 \value{
 A data.table in the long format with aggregated means for each CpG
-  site of each sample and the corresponding standard deviation.
+site of each sample and the corresponding standard deviation.
 }
 \description{
 Internal function to present aggregated input data on which
-  calculations are performed. This function does only have an effect, if
-  repeated measurements are used for calibration a/o experimental data.
+calculations are performed. This function does only have an effect, if
+repeated measurements are used for calibration a/o experimental data.
 }
 \examples{
 experimental <- rBiasCorrection::example.data_experimental

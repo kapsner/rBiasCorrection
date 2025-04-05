@@ -30,8 +30,8 @@ the corrected calibration data.}
 \item{rv}{A list object. A list that contains additional objects needed
 for the algorithms.}
 
-\item{type}{A single integer. Type of data to be corrected: either `1L` (one
-locus in many samples, e.g. pyrosequencing data) or `2L` (many loci in one
+\item{type}{A single integer. Type of data to be corrected: either \code{1L} (one
+locus in many samples, e.g. pyrosequencing data) or \code{2L} (many loci in one
 sample, e.g. next-generation sequencing data or microarray data).}
 
 \item{locus_id}{A character string. Default: NULL. ID of the respective
@@ -57,8 +57,8 @@ resulting plots (default: 16).}
 }
 \value{
 This function creates error bar-plots to visualize the relative
-  error before and after bias correction and writes these plots to the
-  local filesystem.
+error before and after bias correction and writes these plots to the
+local filesystem.
 }
 \description{
 Internal function to create relative-error bar plots.

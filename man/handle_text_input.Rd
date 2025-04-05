@@ -12,11 +12,11 @@ predefined regular expressions on.}
 }
 \value{
 This function returns a cleaned up character string, limited to a
-  maximum of 15 chars.
+maximum of 15 chars.
 }
 \description{
 Internal function to remove punctuation and unneeded stuff
-  from user inputs with regular expressions.
+from user inputs with regular expressions.
 }
 \examples{
 textinput <- "This is a dirty! text."

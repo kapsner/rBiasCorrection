@@ -6,7 +6,7 @@
 \title{example._plot_coef_h}
 \description{
 A list containing exemplary coefficients
-  of the hyperbolic regression equation for CpG site 1
-  to create an example plot.
+of the hyperbolic regression equation for CpG site 1
+to create an example plot.
 }
 \keyword{data}

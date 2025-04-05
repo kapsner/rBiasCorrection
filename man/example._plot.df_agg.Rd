@@ -6,7 +6,7 @@
 \title{example._plot.df_agg}
 \description{
 A data.table containing the aggregated
-  calibration data for CpG site 1
-  to create an example plot.
+calibration data for CpG site 1
+to create an example plot.
 }
 \keyword{data}

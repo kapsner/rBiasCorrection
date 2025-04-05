@@ -1,23 +1,19 @@
 ---
 title: "rBiasCorrection: Benchmarking"
 date: "`r Sys.Date()`"
-output:
-  rmarkdown::html_vignette:
-    keep_md: true
 vignette: >
-  %\VignetteIndexEntry{rBiasCorrection: Benchmarking}
+  %\VignetteIndexEntry{rBiasCorrection_enchmarking}
   %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
 editor_options: 
   chunk_output_type: console
+execute:
+  eval: false
+  collapse: true
+  comment: "#>"
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  eval = FALSE
-)
 plotdir <- paste0(tempdir(), "/png/")
 csvdir <- paste0(tempdir(), "/csv/")
 dir.create(plotdir)

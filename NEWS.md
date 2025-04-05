@@ -16,6 +16,8 @@
 
 #### Bug fixes
 
+-   added lazydata:true to description
+    ([ce12868](https://github.com/kapsner/rBiasCorrection/tree/ce12868790cb87436ef8ab805c671fd452657e8a))
 -   fixed example data
     ([b5dc1f5](https://github.com/kapsner/rBiasCorrection/tree/b5dc1f567fd92f863d7050154c59cb7b464dd314))
 -   fix issue with deprecated aes_string from ggplot2
@@ -73,7 +75,7 @@
     ([3674986](https://github.com/kapsner/rBiasCorrection/tree/3674986988fb2d24976a7a90fdb96f10b65f3d63))
 
 Full set of changes:
-[`v0.3.4...b5dc1f5`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...b5dc1f5)
+[`v0.3.4...ce12868`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.4...ce12868)
 
 ## v0.3.4 (2022-06-20)
 

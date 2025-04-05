@@ -24,8 +24,8 @@ of the samples to correct (columns 1) and a binary variable
 the hyperbolic regression parameters (better_model = 0) or with the
 cubic regression parameters (better_model = 1).}
 
-\item{type}{A single integer. Type of data to be corrected: either `1L` (one
-locus in many samples, e.g. pyrosequencing data) or `2L` (many loci in one
+\item{type}{A single integer. Type of data to be corrected: either \code{1L} (one
+locus in many samples, e.g. pyrosequencing data) or \code{2L} (many loci in one
 sample, e.g. next-generation sequencing data or microarray data).}
 
 \item{rv}{A list object. A list that contains additional objects needed
@@ -43,8 +43,8 @@ the respective minima and maxima of the provided data.}
 }
 \value{
 This function solves the equations of the hyperbolic and the
-  cubic regression and returns the respectively interpolated values of the
-  provided `datatable`.
+cubic regression and returns the respectively interpolated values of the
+provided \code{datatable}.
 }
 \description{
 Internal function to solve the hyperbolic and cubic regression.

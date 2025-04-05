@@ -38,7 +38,7 @@ store the resulting example plot.}
 }
 \value{
 The function creates an example plot and stores
-  on the local filesystem.
+on the local filesystem.
 }
 \description{
 Internal function to create an example plot.

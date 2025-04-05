@@ -44,7 +44,7 @@ Important for reproducibility (default: 1234).}
 }
 \value{
 The function performs the regression calculations and returns
-  the results in a list.
+the results in a list.
 }
 \description{
 Internal function to carry out the regression calculations.

@@ -28,5 +28,5 @@ The function returns a list containing calibration plots.
 }
 \description{
 Internal function to carry out the plotting of the
-  calibrations curves.
+calibrations curves.
 }
