@@ -7,6 +7,8 @@ vignette: >
   %\VignetteEngine{quarto::html}
 editor_options: 
   chunk_output_type: console
+html-math-method: 
+  method: mathjax
 execute:
   eval: true
   collapse: true
