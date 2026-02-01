@@ -7,7 +7,12 @@
 #### Other changes
 
 -   replaced future with parallelly for available-cores checking
-    ([57b9ffa](https://github.com/kapsner/rBiasCorrection/tree/57b9ffaa0a0f236f43fd169b7274c21041e5112c))
+    ([29efb59](https://github.com/kapsner/rBiasCorrection/tree/29efb59cedc0248f2cd9edeb3410c5871a96698d))
+-   replaced future with parallelly for available-cores checking
+    ([8e5b524](https://github.com/kapsner/rBiasCorrection/tree/8e5b524ca6b1d930bfa37ef2cbb392ee634df7a6))
+
+Full set of changes:
+[`v0.3.5...2210571`](https://github.com/kapsner/rBiasCorrection/compare/v0.3.5...2210571)
 
 ## v0.3.5 (2025-04-05)
 
