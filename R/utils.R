@@ -65,7 +65,7 @@ on_start <- function(plotdir,
     options("ggpubr.exists" = TRUE)
   }
 
-  if (isTRUE(parallel) && future::availableCores() > 1) {
+  if (isTRUE(parallel) && parallelly::availableCores() > 1) {
 
     if (.Platform$OS.type == "unix") {
       write_log(
@@ -319,4 +319,3 @@ testhelper_apply_robust_results_list <- function(res_list, dgts = 3) {
     USE.NAMES = TRUE
   )
 }
-

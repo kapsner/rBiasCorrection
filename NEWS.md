@@ -2,12 +2,12 @@
 
 # rBiasCorrection NEWS
 
-## Unreleased (2025-04-05)
+## Unreleased (2026-02-01)
 
 #### Other changes
 
--   added images to vignette
-    ([a49a383](https://github.com/kapsner/rBiasCorrection/tree/a49a3832d4f3861f41cd995b33693291d503bafd))
+-   replaced future with parallelly for available-cores checking
+    ([57b9ffa](https://github.com/kapsner/rBiasCorrection/tree/57b9ffaa0a0f236f43fd169b7274c21041e5112c))
 
 ## v0.3.5 (2025-04-05)
 
@@ -97,6 +97,10 @@
 
 #### Other changes
 
+-   updated copyright statement
+    ([ab9b869](https://github.com/kapsner/rBiasCorrection/tree/ab9b86909c4449b2e4024305847b1d4a7bc3cfa0))
+-   added images to vignette
+    ([a49a383](https://github.com/kapsner/rBiasCorrection/tree/a49a3832d4f3861f41cd995b33693291d503bafd))
 -   udpated news.md and description
     ([f7ed7c9](https://github.com/kapsner/rBiasCorrection/tree/f7ed7c993b2c099b03cb2958d4b83ea7d8541ff8))
 -   removed parallel-flag from test

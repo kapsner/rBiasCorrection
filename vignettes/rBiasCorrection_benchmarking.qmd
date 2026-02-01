@@ -47,7 +47,7 @@ calibration <- paste0(tempdir(), "/calibration_data.csv")
 # Available Cores
 
 ```{r warning=FALSE}
-future::availableCores()
+parallelly::availableCores()
 ```
 
 # Benchmarking
