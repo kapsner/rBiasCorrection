@@ -1,5 +1,4 @@
 #' @import data.table
-#' @importFrom magrittr "%>%"
 NULL
 
 rBiasCorrection_default_options <- list( # nolint

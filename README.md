@@ -17,9 +17,8 @@ status](https://github.com/kapsner/rBiasCorrection/workflows/R%20CMD%20Check%20v
 status](https://github.com/kapsner/rBiasCorrection/workflows/lint/badge.svg)](https://github.com/kapsner/rBiasCorrection/actions)
 [![R build
 status](https://github.com/kapsner/rBiasCorrection/workflows/test-coverage/badge.svg)](https://github.com/kapsner/rBiasCorrection/actions)
-[![](https://codecov.io/gh/https://github.com/kapsner/rBiasCorrection/branch/master/graph/badge.svg)](https://codecov.io/gh/https://github.com/kapsner/rBiasCorrection)
+[![](https://codecov.io/gh/https://github.com/kapsner/rBiasCorrection/branch/master/graph/badge.svg)](https://app.codecov.io/gh/https://github.com/kapsner/rBiasCorrection)
 [![](https://img.shields.io/badge/doi-10.1002/ijc.33681-yellow.svg)](https://doi.org/10.1002/ijc.33681)
-
 <!-- badges: end -->
 
 `rBiasCorrection` is published in *‘BiasCorrector: fast and accurate

@@ -41,3 +41,5 @@ inst/doc
 !/tests/testthat/_snaps/*.md
 !/NEWS.md
 !/README.qmd
+!.pre-commit-config.yaml
+.pre-commit-config.yaml

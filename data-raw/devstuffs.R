@@ -15,7 +15,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.3.5")
+my_desc$set_version("0.3.5.9001")
 # The title of your package
 my_desc$set(Title = "Correct Bias in DNA Methylation Analyses")
 # The description of your package
@@ -53,18 +53,18 @@ my_desc$write(file = "DESCRIPTION")
 #usethis::use_gpl3_license(name="Lorenz Kapsner")
 
 # Depends
-usethis::use_package("R", min_version = "3.6", type = "Depends")
+usethis::use_package("R", min_version = "4.1.0", type = "Depends")
 
 # Imports
 # https://cran.r-project.org/web/packages/data.table/vignettes/datatable-importing.html
 usethis::use_package("data.table", type="Imports")
 usethis::use_package("ggplot2", type="Imports")
-usethis::use_package("magrittr", type="Imports")
 usethis::use_package("polynom", type="Imports")
 usethis::use_package("nls2", type="Imports")
 usethis::use_package("stats", type="Imports")
 usethis::use_package("future.apply", type="Imports")
 usethis::use_package("future", type = "Imports")
+usethis::use_package("parallelly", type = "Imports")
 usethis::use_package("utils", type = "Imports")
 usethis::use_package("minpack.lm", type = "Imports")
 
@@ -125,6 +125,7 @@ usethis::use_git_ignore("/.vscode")
 usethis::use_git_ignore("!/.lintr")
 usethis::use_git_ignore("!/.github/")
 usethis::use_git_ignore("!/tic.R")
+usethis::use_git_ignore("!.pre-commit-config.yaml")
 
 usethis::use_build_ignore("csvdir")
 usethis::use_build_ignore("plotdir")
@@ -144,6 +145,7 @@ usethis::use_build_ignore(".github")
 usethis::use_build_ignore("README.md")
 usethis::use_build_ignore("README.qmd")
 usethis::use_build_ignore("NEWS.md")
+usethis::use_build_ignore(".pre-commit-config.yaml")
 
 
 # experimental = "../19_PCR-bias/data/example_data/type1/example_data_type1_experimentaldata.csv"
