@@ -98,7 +98,7 @@ least squares (nls) algorithm with `rBiasCorrection`. The default method
 (used in the publication) is to fit nls with the Gauss-Newton algorithm
 and define for each parameter that should be optimized a random grid
 between -1000 and 1000 for initializing the starting estimates
-(`options(rBiasCorrection.nls_implementation = "GN.paper")`.  
+(`options(rBiasCorrection.nls_implementation = "GN.paper")`).  
 For making a better guess on the starting estimates when fitting nls
 with the Gauss-Newton algorithm
 (`options(rBiasCorrection.nls_implementation = "GN.guess")`), the
@@ -190,4 +190,4 @@ doi:[10.1002/ijc.33681](https://onlinelibrary.wiley.com/doi/10.1002/ijc.33681).
 
 ## More Infos
 
-- Original work by Moskalev et al.: https://doi.org/10.1093/nar/gkr213
+- Original work by Moskalev et al.: [Correction of PCR-bias in quantitative DNA methylation studies by means of cubic polynomial regression](https://doi.org/10.1093/nar/gkr213)
