@@ -98,18 +98,18 @@ least squares (nls) algorithm with `rBiasCorrection`. The default method
 (used in the publication) is to fit nls with the Gauss-Newton algorithm
 and define for each parameter that should be optimized a random grid
 between -1000 and 1000 for initializing the starting estimates
-(`options(rBiasCorrection.nls_implementation = "GN.paper")`).  
-For making a better guess on the starting estimates when fitting nls
-with the Gauss-Newton algorithm
+(`options(rBiasCorrection.nls_implementation = "GN.paper")`). For making
+a better guess on the starting estimates when fitting nls with the
+Gauss-Newton algorithm
 (`options(rBiasCorrection.nls_implementation = "GN.guess")`), the
 estimates of a linear model (for both hyperbolic corrections) and of a
 cubic model (for the cubic correction with defined minimum- and maximum
 values (`minmax = TRUE`)) are computed for initializing the nls (see
-details below).  
-The third option is to fit nls with the Levenberg-Marquardt algorithm
-(using the implementation from the `minpack.lm` R package). In this
-case, the start estimates of the nls model are also guessed using either
-a linear or a cubic model (as previously described).
+details below). The third option is to fit nls with the
+Levenberg-Marquardt algorithm (using the implementation from the
+`minpack.lm` R package). In this case, the start estimates of the nls
+model are also guessed using either a linear or a cubic model (as
+previously described).
 
 ### `GN.paper`
 
@@ -190,4 +190,6 @@ doi:[10.1002/ijc.33681](https://onlinelibrary.wiley.com/doi/10.1002/ijc.33681).
 
 ## More Infos
 
-- Original work by Moskalev et al.: [Correction of PCR-bias in quantitative DNA methylation studies by means of cubic polynomial regression](https://doi.org/10.1093/nar/gkr213)
+- Original work by Moskalev et al.: [Correction of PCR-bias in
+  quantitative DNA methylation studies by means of cubic polynomial
+  regression](https://doi.org/10.1093/nar/gkr213)
