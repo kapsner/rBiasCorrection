@@ -299,7 +299,7 @@ createbarerrorplots <- function(statstable_pre,
           ggplot2::labs(
             title = paste0("Quantification Error: ", locus),
             subtitle = paste("CpG:", vec_cal[i]),
-            fill = ggplot2::element_blank()
+            fill = NULL
           ) +
           ggplot2::ylim(0, ylim_max) +
           ggplot2::scale_fill_manual(

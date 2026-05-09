@@ -141,7 +141,7 @@ calibration_plot <- function(plotlist,
       linewidth = 1.08
     ) +
     ggplot2::labs(
-      color = ggplot2::element_blank()
+      color = NULL
     ) +
     ggplot2::scale_color_manual(
       values = c("#E64B35FF",
