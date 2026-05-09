@@ -178,6 +178,12 @@ plotting_utility <- function(data,
         )
 
         # store plots to local temporary file
+        # Security check: ensure filename is within plotdir
+        if (!startsWith(normalizePath(filename, mustWork = FALSE),
+                        normalizePath(plotdir, mustWork = FALSE))) {
+          stop("Security risk: Plot filename is outside of `plotdir`.")
+        }
+
         create_plots(plotlist = plotlist_reg[[f]],
                      f = f,
                      vec_cal = vec_cal,

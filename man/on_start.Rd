@@ -14,7 +14,7 @@ where plots are saved.}
 where resulting tables are saved.}
 
 \item{logfilename}{A character string. Path to a file to save the log
-messages (default = paste0(tempdir(), "/log.txt")).}
+messages (default = file.path(tempdir(), "log.txt")).}
 
 \item{parallel}{A boolean. If TRUE (the default value), initializing
 \code{future::plan("multicore")} (on unix systems) or

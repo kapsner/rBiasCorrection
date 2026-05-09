@@ -2,7 +2,7 @@ prefix <- tempdir()
 #" prefix <- "tests/testthat/"
 
 # the writeLog-function needs the logfilename
-logfilename <- paste0(prefix, "/log.txt")
+logfilename <- file.path(prefix, "log.txt")
 
 
 library(data.table)

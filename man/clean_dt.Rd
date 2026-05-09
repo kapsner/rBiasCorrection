@@ -23,7 +23,7 @@ locus in many samples, e.g. pyrosequencing data) or \code{2L} (many loci in one
 sample, e.g. next-generation sequencing data or microarray data).}
 
 \item{logfilename}{A character string. Path to a file to save the log
-messages (default = paste0(tempdir(), "/log.txt")).}
+messages (default = file.path(tempdir(), "log.txt")).}
 }
 \value{
 If a valid file is provided, the function returns a cleaned

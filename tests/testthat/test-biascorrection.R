@@ -10,8 +10,8 @@ test_that(
     local_edition(3)
     local_reproducible_output(rstudio = TRUE)
 
-    plotdir <- paste0(prefix, "/plotdir/")
-    csvdir <- paste0(prefix, "/csvdir/")
+    plotdir <- file.path(prefix, "plotdir/")
+    csvdir <- file.path(prefix, "csvdir/")
 
     b1 <- biascorrection(
       experimental = "./testdata/exp_type_1.csv",

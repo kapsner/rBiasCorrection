@@ -23,7 +23,7 @@ table <- data.table::data.table(
   b = stats::runif(1000)
 )
 
-write_csv(table, paste0(tempdir(), "/example.csv"))
+write_csv(table, file.path(tempdir(), "example.csv"))
 
 }
 \seealso{

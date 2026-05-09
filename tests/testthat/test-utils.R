@@ -10,12 +10,12 @@ test_that(
     local_edition(3)
     local_reproducible_output(rstudio = TRUE)
 
-    plotdir <- paste0(prefix, "/plotdir/")
-    csvdir <- paste0(prefix, "/csvdir/")
+    plotdir <- file.path(prefix, "plotdir/")
+    csvdir <- file.path(prefix, "csvdir/")
 
     vitual_onstart <- on_start(plotdir = plotdir,
                                csvdir = csvdir,
-                               logfilename = paste0(prefix, "/log.txt"),
+                               logfilename = file.path(prefix, "log.txt"),
                                parallel = FALSE)
     expect_type(vitual_onstart, type = "list")
 
@@ -23,5 +23,5 @@ test_that(
     # cleanup
     expect_silent(clean_up(plotdir = plotdir,
                            csvdir = csvdir))
-    expect_true(file.remove(paste0(prefix, "/log.txt")))
+    expect_true(file.remove(file.path(prefix, "log.txt")))
   })

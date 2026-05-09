@@ -50,15 +50,37 @@ on_start <- function(plotdir,
                      logfilename,
                      parallel) {
 
+  # Security check: validate paths
+  if (!.is_path_safe(plotdir)) {
+    stop("Security risk: `plotdir=", plotdir,
+         "` is outside of allowed paths ",
+         "(tempdir or current workdir).")
+  }
+  if (!.is_path_safe(csvdir)) {
+    stop("Security risk: `csvdir=", csvdir,
+         "` is outside of allowed paths ",
+         "(tempdir or current workdir).")
+  }
+  if (!.is_path_safe(logfilename)) {
+    stop("Security risk: `logfilename=", logfilename,
+         "` is outside of allowed paths ",
+         "(tempdir or current workdir).")
+  }
+
   if (dir.exists(plotdir)) {
     clean_up(plotdir, csvdir)
   }
 
   # create directories
-  dir.create(plotdir)
-  dir.create(csvdir)
+  dir.create(plotdir, showWarnings = FALSE, recursive = TRUE)
+  dir.create(csvdir, showWarnings = FALSE, recursive = TRUE)
 
   # initialize logfile here
+  # Ensure it's a safe file and not a directory
+  if (dir.exists(logfilename)) {
+    stop("Security risk: `logfilename=", logfilename,
+         "` points to an existing directory.")
+  }
   suppressMessages(suppressWarnings(file.create(logfilename)))
 
   if ("ggpubr" %in% utils::installed.packages()[, "Package"]) {
@@ -99,8 +121,8 @@ on_start <- function(plotdir,
 #'   the `future`-backend to plan = "sequential".
 #'
 #' @examples
-#' plotdir <- paste0(tempdir(), "/plots/")
-#' csvdir <- paste0(tempdir(), "/csv/")
+#' plotdir <- file.path(tempdir(), "plots/")
+#' csvdir <- file.path(tempdir(), "csv/")
 #'
 #' clean_up(plotdir, csvdir)
 #'
@@ -113,11 +135,17 @@ clean_up <- function(plotdir,
   # activate sequential future
   suppressWarnings(future::plan("sequential"))
 
-  # on session end, remove plots and and all other files from tempdir
-  do.call(file.remove, list(list.files(plotdir, full.names = TRUE)))
-  unlink(plotdir, recursive = TRUE)
-  do.call(file.remove, list(list.files(csvdir, full.names = TRUE)))
-  unlink(csvdir, recursive = TRUE)
+  # Security check: only delete if paths are safe
+  if (.is_path_safe(plotdir)) {
+    # on session end, remove plots and and all other files from tempdir
+    do.call(file.remove, list(list.files(plotdir, full.names = TRUE)))
+    unlink(plotdir, recursive = TRUE)
+  }
+
+  if (.is_path_safe(csvdir)) {
+    do.call(file.remove, list(list.files(csvdir, full.names = TRUE)))
+    unlink(csvdir, recursive = TRUE)
+  }
 }
 
 
@@ -142,6 +170,13 @@ clean_up <- function(plotdir,
 #'
 # write log messages
 write_log <- function(message, logfilename) {
+  # Security check: validate path
+  if (!.is_path_safe(logfilename)) {
+    stop("Security risk: `logfilename=`", logfilename,
+         " is outside of allowed paths ",
+         "(tempdir or current workdir).")
+  }
+
   message(paste0("[", get_timestamp(), "]: ", message))
   message_out <- paste0("===========================================  \n",
                         "[Timestamp: ", get_timestamp(), "]  \n  \n",
@@ -165,7 +200,7 @@ write_log <- function(message, logfilename) {
 #'   b = stats::runif(1000)
 #' )
 #'
-#' write_csv(table, paste0(tempdir(), "/example.csv"))
+#' write_csv(table, file.path(tempdir(), "example.csv"))
 #'
 #' @seealso \link[data.table]{fwrite}
 #'
@@ -173,6 +208,17 @@ write_log <- function(message, logfilename) {
 #'
 # write csv files
 write_csv <- function(table, filename) {
+  # Security check: validate path
+  if (!.is_path_safe(filename)) {
+    stop(
+      paste0(
+        "Security risk: `filename=",
+        filename,
+        "` is outside of allowed paths ",
+        "(tempdir or current workdir)."
+    ))
+  }
+
   return(data.table::fwrite(x = table,
                             file = filename,
                             row.names = FALSE,
@@ -199,7 +245,7 @@ write_csv <- function(table, filename) {
 get_timestamp <- function() {
   return(
     paste(gsub("\\-", "", substr(Sys.time(), 1, 10)),
-          gsub("\\:", "", substr(Sys.time(), 12, 20)),
+          gsub("\\:", "", substr(Sys.time(), 12, 19)),
           sep = "_"))
 }
 
@@ -318,4 +364,51 @@ testhelper_apply_robust_results_list <- function(res_list, dgts = 3) {
     simplify = FALSE,
     USE.NAMES = TRUE
   )
+}
+
+.is_path_safe <- function(path) {
+  if (is.null(path) || length(path) == 0 || path == "") {
+    return(FALSE)
+  }
+
+  # Normalize path (handling non-existent paths gracefully)
+  abs_path <- tryCatch({
+    normalizePath(path, mustWork = FALSE)
+  }, error = function(e) return(NULL))
+
+  if (is.null(abs_path)) {
+    return(FALSE)
+  }
+
+  # Root check
+  if (abs_path == "/" || grepl("^[A-Z]:\\\\$", abs_path)) {
+    return(FALSE)
+  }
+
+  temp_dir <- normalizePath(tempdir(), mustWork = FALSE)
+  work_dir <- normalizePath(getwd(), mustWork = FALSE)
+
+  # Check if it IS the directory (before adding trailing slash)
+  if (abs_path == temp_dir || abs_path == work_dir) {
+    return(TRUE)
+  }
+
+  # Ensure trailing slash for prefix matching
+  if (!grepl("/$|\\\\$", temp_dir)) {
+    temp_dir <- paste0(temp_dir, .Platform$file.sep)
+  }
+  if (!grepl("/$|\\\\$", work_dir)) {
+    work_dir <- paste0(work_dir, .Platform$file.sep)
+  }
+
+  in_temp <- startsWith(abs_path, substring(temp_dir, 1, 4))
+  in_work <- startsWith(abs_path, work_dir)
+
+  # Extra check: if normalized path still contains "..", it is unsafe
+  # because it means it couldn't be fully resolved and might be escaping.
+  if (grepl("\\.\\.", abs_path)) {
+    return(FALSE)
+  }
+
+  return(in_temp || in_work)
 }

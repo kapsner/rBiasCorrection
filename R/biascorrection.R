@@ -64,15 +64,15 @@
 #'   locus in many samples, e.g. pyrosequencing data) or `2L` (many loci in one
 #'   sample, e.g. next-generation sequencing data or microarray data).
 #' @param csvdir A character string. Directory to store the resulting tables.
-#'   (default = paste0(tempdir(), "/plotdir/")). CAUTION: This directory will
+#'   (default = file.path(tempdir(), "plotdir/")). CAUTION: This directory will
 #'   be newly created on every call of the function - any preexisting files will
 #'   be deleted without a warning.
 #' @param plotdir A character string. Directory to store the resulting plots
-#'   (default = paste0(tempdir(), "/plotdir/")). CAUTION: This directory will
+#'   (default = file.path(tempdir(), "plotdir/")). CAUTION: This directory will
 #'   be newly created on every call of the function - any preexisting files will
 #'   be deleted without a warning.
 #' @param logfilename A character string. Path to a file to save the log
-#'   messages (default = paste0(tempdir(), "/log.txt")).
+#'   messages (default = file.path(tempdir(), "log.txt")).
 #' @param seed A integer value. The seed used when solving the unknowns in the
 #'   hyperbolic regression equation and the cubic regression equation.
 #'   Important for reproducibility (default: 1234).
@@ -95,14 +95,14 @@
 #' \donttest{
 #' data.table::fwrite(
 #'   rBiasCorrection::example.data_experimental$dat,
-#'   paste0(tempdir(), "/experimental_data.csv")
+#'   file.path(tempdir(), "experimental_data.csv")
 #' )
 #' data.table::fwrite(
 #'   rBiasCorrection::example.data_calibration$dat,
-#'   paste0(tempdir(), "/calibration_data.csv")
+#'   file.path(tempdir(), "calibration_data.csv")
 #' )
-#' experimental <- paste0(tempdir(), "/experimental_data.csv")
-#' calibration <- paste0(tempdir(), "/calibration_data.csv")
+#' experimental <- file.path(tempdir(), "experimental_data.csv")
+#' calibration <- file.path(tempdir(), "calibration_data.csv")
 #'
 #' results <- biascorrection(
 #'   experimental = experimental,
@@ -121,9 +121,9 @@ biascorrection <- function(experimental,
                            correct_method = c("best", "hyperbolic", "cubic"),
                            selection_method = c("SSE", "RelError"),
                            type = 1L,
-                           csvdir = paste0(tempdir(), "/csvdir/"),
-                           plotdir = paste0(tempdir(), "/plotdir/"),
-                           logfilename = paste0(tempdir(), "/log.txt"),
+                           csvdir = file.path(tempdir(), "csvdir/"),
+                           plotdir = file.path(tempdir(), "plotdir/"),
+                           logfilename = file.path(tempdir(), "log.txt"),
                            plot_height = 5,
                            plot_width = 7.5,
                            plot_textsize = 16,

@@ -22,8 +22,8 @@ the \code{future}-backend to plan = "sequential".
 Internal function to clean up directories.
 }
 \examples{
-plotdir <- paste0(tempdir(), "/plots/")
-csvdir <- paste0(tempdir(), "/csv/")
+plotdir <- file.path(tempdir(), "plots/")
+csvdir <- file.path(tempdir(), "csv/")
 
 clean_up(plotdir, csvdir)
 

@@ -41,7 +41,7 @@ locus (only used in type 2 correction).}
 where plots are saved.}
 
 \item{logfilename}{A character string. Path to a file to save the log
-messages (default = paste0(tempdir(), "/log.txt")).}
+messages (default = file.path(tempdir(), "log.txt")).}
 
 \item{mode}{A character string. Default: NULL. Used to indicate "corrected"
 calibration data.}

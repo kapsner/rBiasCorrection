@@ -2,7 +2,7 @@ prefix <- tempdir()
 # prefix <- "tests/testthat/" # nolint
 
 # the writeLog-function needs the logfilename
-logfilename <- paste0(prefix, "/log.txt")
+logfilename <- file.path(prefix, "log.txt")
 
 
 library(data.table)
@@ -43,5 +43,5 @@ test_that(
       error = FALSE
     )
 
-    expect_true(file.remove(paste0(prefix, "/log.txt")))
+    expect_true(file.remove(file.path(prefix, "log.txt")))
   })

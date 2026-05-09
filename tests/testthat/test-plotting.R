@@ -2,7 +2,7 @@ prefix <- tempdir()
 # prefix <- "tests/testthat/" # nolint
 
 # the writeLog-function needs the logfilename
-logfilename <- paste0(prefix, "/log.txt")
+logfilename <- file.path(prefix, "log.txt")
 
 # initialize our list for reactive values
 rv <- list()
@@ -25,12 +25,12 @@ test_that(
     options(rBiasCorrection.nls_implementation = "LM")
 
     # create plotdir
-    plotdir <- paste0(prefix, "/plotdir/")
-    csvdir <- paste0(prefix, "/csvdir/")
+    plotdir <- file.path(prefix, "plotdir/")
+    csvdir <- file.path(prefix, "csvdir/")
 
     on_start(plotdir = plotdir,
              csvdir = csvdir,
-             logfilename = paste0(prefix, "/log.txt"),
+             logfilename = file.path(prefix, "log.txt"),
              parallel = FALSE)
 
     # experimental data
