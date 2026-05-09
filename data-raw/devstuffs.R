@@ -15,7 +15,7 @@ my_desc$set_authors(c(
 # Remove some author fields
 my_desc$del("Maintainer")
 # Set the version
-my_desc$set_version("0.3.6.9001")
+my_desc$set_version("0.3.6.9002")
 # The title of your package
 my_desc$set(Title = "Correct Bias in DNA Methylation Analyses")
 # The description of your package
@@ -202,8 +202,8 @@ quarto::quarto_render(input = "README.qmd")
 # create NEWS.md using the python-package "auto-changelog" (must be installed)
 # https://www.conventionalcommits.org/en/v1.0.0/
 # build|ci|docs|feat|fix|perf|refactor|test
-an <- autonewsmd::autonewsmd$new(repo_name = packagename)
-an$generate()
-an$write(force = TRUE)
+#an <- autonewsmd::autonewsmd$new(repo_name = packagename)
+#an$generate()
+#an$write(force = TRUE)
 
 # nolint end

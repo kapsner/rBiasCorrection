@@ -1,6 +1,6 @@
 Package: rBiasCorrection
 Title: Correct Bias in DNA Methylation Analyses
-Version: 0.3.6.9001
+Version: 0.3.6.9002
 Authors@R: c(
     person("Lorenz A.", "Kapsner", , "lorenz.kapsner@gmail.com", role = c("cre", "aut", "cph"),
            comment = c(ORCID = "0000-0003-1866-860X")),
@@ -37,8 +37,7 @@ VignetteBuilder:
     quarto
 Config/testthat/edition: 3
 Config/testthat/parallel: false
-Date/Publication: 2026-03-07 08:49:51.103902 UTC
+Date/Publication: 2026-05-09 08:54:34.808452 UTC
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
